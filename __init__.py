@@ -1,3 +1,3 @@
-# -*- coding: utf-8 -*-
+import main
 
-import controllers
+# vim:expandtab:tabstop=4:softtabstop=4:shiftwidth=4:
