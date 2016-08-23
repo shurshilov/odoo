@@ -15,10 +15,7 @@ openerp.mail_extension = function (session) {
             };
 
            function getResults (result) {
-                console.log(result); // to see which data come from server
-                zopa = result;
-                $("oe_mail_action_author").attr("id","4");
-                            var action = {
+                var action = {
                 type:'ir.actions.act_window',
                 view_type: 'form',
                 view_mode: 'form',
