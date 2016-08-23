@@ -12,5 +12,5 @@ Attachment files are opened in browser
 ir.attachment files from mail modul are opened in browser'
     """,
     'website': 'https://github.com/shurshilov',
-    'data': [    ],
+    'data': [ 'views/mail.xml',  ],
 }

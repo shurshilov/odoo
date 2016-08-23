@@ -9,16 +9,30 @@
                 <script type="text/javascript" src="/mail_extension/static/src/js/suggestions.js"></script>
             </xpath>
         </template>
+        
+        
+        <record model="ir.ui.view" id="partner_form_view_my">
+            <field name="name">mypartner</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <group position="inside">
+                    <field name="manager_id"/>
+                </group>
+            </field>
+        </record>
+        
+        
          <record model="ir.ui.view" id="upload_form_view_my">
             <field name="name">mypartner</field>
             <field name="model">my_mypartner</field>
             <field name="arch" type="xml">
-			<form string="Division Form">
-                       <sheet>
-						<field name="name" />
-             		<field name="author_id"   />
-                    </sheet>
-        </form>
+                <form string="Division Form">
+                           <sheet>
+                                <field name="name" />
+                                <field name="author_id"   />
+                            </sheet>
+                </form>
             </field>
         </record>
 		
