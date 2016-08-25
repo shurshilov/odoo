@@ -10,7 +10,7 @@
             </xpath>
         </template>
         
-        
+        <!--
         <record model="ir.ui.view" id="partner_form_view_my">
             <field name="name">mypartner</field>
             <field name="model">res.partner</field>
@@ -21,7 +21,7 @@
                 </group>
             </field>
         </record>
-        
+        -->
         
          <record model="ir.ui.view" id="upload_form_view_my">
             <field name="name">mypartner</field>
