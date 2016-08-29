@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template>
+
+    <t t-name="mail.compose_message.add_attachment"> 
+            <div class="oe_add" t-if="!widget.get('effective_readonly')">               
+                <button class="oe_attach"><span class="oe_e oe_attach_link">'</span></button> 
+                <span class='oe_attach_label oe_attach_link'>Attach a File</span>
+                <t t-call="HiddenInputFile">
+                    <t t-set="fileupload_id" t-value="widget.fileupload_id"/>
+                    <t t-set="fileupload_action" t-translation="off">/web/binary/upload_attachment</t>
+                     <input type="hidden" name="model" value="mail.compose.message"/>
+                    <input type="hidden" name="id" value="0"/>
+                    <input type="hidden" name="session_id" t-att-value="widget.session.session_id" t-if="widget.session.override_session"/>
+                </t> 
+                
+           
+                <form action="/web/url/upload_attachment" name="form_url_upload" t-att-target="widget.fileupload_id" class="oe_attach_link">
+                    <button class="oe_attach"  ><span class="oe_e"> > </span></button>
+                    <span class="oe_attach_label" >Attach URL: </span>
+                    <input type="text" id="url" name="url" class="ui-autocomplete-input"/>
+                  <!--  <span class="oe_attach_label" >URL name:</span> -->
+                    <input type="hidden" id="url_name" name="urlname" class="ui-autocomplete-input"/>
+                    <input type="hidden" name="model" value="mail.compose.message"/> 
+                    <input type="hidden" name="callback"  t-att-value="widget.fileupload_id2"/>
+                    <input type="hidden" name="id"  value="0"/>
+                </form>
+                   
+         </div> 
+    </t>
+
+
+</template>

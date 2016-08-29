@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<template>
+<t t-name="FieldBinaryFileUploader">
+    <div t-att-style="widget.node.attrs.style" t-attf-class="oe_fileupload #{widget.node.attrs.class ? widget.node.attrs.class :''}">
+        <div class="oe_placeholder_files"/>
+        <div class="oe_add" t-if="!widget.get('effective_readonly')">
+
+               
+            <button class="oe_attach"><span class="oe_e">'</span></button> 
+            <span class='oe_attach_label'><t t-esc="widget.string"/></span>
+   
+            <t t-call="HiddenInputFile">
+                <t t-set="fileupload_id" t-value="widget.fileupload_id"/>
+                <t t-set="fileupload_action" t-translation="off">/web/binary/upload_attachment</t>
+                <input type="hidden" name="model" t-att-value="widget.view.model"/>
+                <input type="hidden" name="id" value="0"/>
+                <input type="hidden" name="session_id" t-att-value="widget.session.session_id" t-if="widget.session.override_session"/>
+            </t>
+                    <div colspan="3">
+                        <!-- uploader of url -->
+
+                        <form action="/web/url/upload_attachment" name="form_url_upload" t-att-target="widget.fileupload_id">
+                        <button class="oe_attach"  ><span class="oe_e"> > </span></button>
+                            <span class="oe_attach_label" >Attach URL: </span>
+                            <input type="text" id="url" name="url" class="ui-autocomplete-input"/>
+                           <!--  <span class="oe_attach_label" >URL name:</span> -->
+                            <input type="hidden" id="url_name" name="urlname" class="ui-autocomplete-input"/>
+                            <input type="hidden" name="model" t-att-value="widget.view.model"/>
+                            <input type="hidden" name="callback"  t-att-value="widget.fileupload_id2"/>
+                            <input type="hidden" name="id"  value="0"/>
+                         <!--   <input type="submit" value="Submit"/>-->
+                        </form>
+                    </div>
+        </div>
+    </div>
+</t>
+</template>
+<!-- version inherit
+<template>
+    <t t-name="MyMany"  t-extend="FieldBinaryFileUploader">
+            <t t-jquery="button" t-operation="prepend">
+                <button class="oe_attach"  ><span class="oe_e oe_attach_link"> > </span></button> 
+                <span class='oe_attach_label' >URL</span>
+            </t>
+    </t>
+</template>
+-->
+<!--  DATA
+<openerp>
+    <data>
+        <template id="report_header_custom" inherit_id="web.FieldBinaryFileUploader">
+            <xpath expr="//span[@class='oe_attach_label']" position="after">
+                <button class="oe_attach"  ><span class="oe_e oe_attach_link"> > </span></button> 
+                <span class='oe_attach_label' >URL</span>
+            </xpath>
+        </template>
+    </data>
+</openerp> -->
