@@ -12,6 +12,27 @@ openerp.document_url = function (ZALUPA_ROBERTA_KUKA) {
             
         },
         
+        initialize_content: function () {            
+            this._super.apply(this);
+            var self = this;
+        //    this.$('.span.oe_attach_label.oe_attach_link').on('click', self.on_attachment_loaded);
+            this.$('span.oe_attach_label.oe_attach_link').on('click', _.bind( this.on_click_label, this));
+            this.$('span.oe_e.oe_attach_link').on('click', _.bind( this.on_click_label, this));
+            this.$('input.ui-autocomplete-input.oe_attach').on('change', _.bind( this.on_change_url, this));
+
+        },
+        
+        on_click_label: function (event) {
+            console.log("MY click");
+            this.$('input.oe_form_binary_file').click();
+        },
+        
+        on_change_url: function (event) {
+            console.log("MY change");
+            this.$('input.ui-autocomplete-input').val("http://"+this.$('input.ui-autocomplete-input').val());
+
+        },
+        
         on_url_loaded: function (event, result) {
             console.log("URL_LOAD");
             console.log(result);
@@ -58,7 +79,7 @@ openerp.document_url = function (ZALUPA_ROBERTA_KUKA) {
         //    this.$('.span.oe_attach_label.oe_attach_link').on('click', self.on_attachment_loaded);
             this.$('span.oe_attach_label.oe_attach_link').on('click', _.bind( this.on_click_label, this));
             this.$('span.oe_e.oe_attach_link').on('click', _.bind( this.on_click_label, this));
-            this.$('input.ui-autocomplete-input').on('change', _.bind( this.on_change_url, this));
+            this.$('input.ui-autocomplete-input.oe_attach').on('change', _.bind( this.on_change_url, this));
 
         },
         
@@ -117,34 +138,49 @@ openerp.document_url = function (ZALUPA_ROBERTA_KUKA) {
     });
     
     
-    /*
-
+    
+/*
    ZALUPA_ROBERTA_KUKA.mail.ThreadComposeMessage = ZALUPA_ROBERTA_KUKA.mail.ThreadComposeMessage.extend({
-
-   
-   //This function need change in mail js, for open link in new tab
+        breakword: function(str){
+            var out = '';
+            if (!str) {
+                return str;
+            }
+            for(var i = 0, len = str.length; i < len; i++){
+                out += _.str.escapeHTML(str[i]) + '&#8203;';
+            }
+            return out;
+        },
+        get_attachment_url: function (session, message_id, attachment_id) {
+            return session.url('/mail/download_attachment', {
+                'model': 'mail.message',
+                'id': message_id,
+                'method': 'download_attachment',
+                'attachment_id': attachment_id
+            });
+        },
         display_attachments: function () {
              console.log("DISPLAY");
             for (var l in this.attachment_ids) {
                 var attach = this.attachment_ids[l];
                 console.log(attach);
-                if (attach.name.substring("http://")) { 
-                                     
-                        console.log("MY IF");
-                        attach.url=attach.name+"/";
-                        attach.formating = true;}
-                else
+            //    if(attach.name){
+             //   if (attach.name.substring("http://")&&!attach.formating) {                                      
+               //         console.log("MY IF");
+              //          attach.url=attach.name+"/";
+             //   attach.formating = true;}}
+             //   else
                 if (!attach.formating) {
-                    attach.url = mail.ChatterUtils.get_attachment_url(this.ZALUPA_ROBERTA_KUKA, this.id, attach.id);
-                    attach.name = mail.ChatterUtils.breakword(attach.name || attach.filename);
+                    attach.url = this.get_attachment_url(ZALUPA_ROBERTA_KUKA, this.id, attach.id);
+                    attach.name = this.breakword(attach.name || attach.filename);
                     attach.formating = true;
                 }
             }
             this.$(".oe_msg_attachment_list").html( ZALUPA_ROBERTA_KUKA.web.qweb.render('mail.thread.message.attachments', {'widget': this}) );
         },
     
-  });*/
-    
+  });
+    */
 };
 
 

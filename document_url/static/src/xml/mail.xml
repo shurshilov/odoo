@@ -17,9 +17,9 @@
                 <form action="/web/url/upload_attachment" name="form_url_upload" t-att-target="widget.fileupload_id" class="oe_attach_link">
                     <button class="oe_attach"  ><span class="oe_e"> > </span></button>
                     <span class="oe_attach_label" >Attach URL: </span>
-                    <input type="text" id="url" name="url" class="ui-autocomplete-input"/>
-                  <!--  <span class="oe_attach_label" >URL name:</span> -->
-                    <input type="hidden" id="url_name" name="urlname" class="ui-autocomplete-input"/>
+                    <input type="text" id="url" name="url" class="ui-autocomplete-input oe_attach"/>
+                    <span class="oe_attach_label" >URL name:</span> 
+                    <input type="text" id="url_name" name="urlname" class="ui-autocomplete-input"/>
                     <input type="hidden" name="model" value="mail.compose.message"/> 
                     <input type="hidden" name="callback"  t-att-value="widget.fileupload_id2"/>
                     <input type="hidden" name="id"  value="0"/>
