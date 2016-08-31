@@ -1,21 +1,17 @@
 # -*- coding: utf-8 -*-
 
 {
-    'name': 'URL attachment',
+    'name': 'Mail URL attachment',
 	'version': '0.1',
-	'depends': ['mail'],
+    'depends': ['web', 'mail'],
     'author': 'Shurshilov Artem',
-    'category': 'Mail extension',
+    'category': 'Mail extension odoo v.8',
     'description': """
 Add links to message
 ==================================================================
     """,
-    'depends': ['web',  ],
     'website': 'https://github.com/shurshilov',
-    'data': [ 'wizard/document_url_view.xml',            
- #             'static/src/xml/url.xml',
-    ],
-   
+    'data': [ 'wizard/mail_url_view.xml', ],   
     'qweb': [ 'static/src/xml/url.xml',
               'static/src/xml/mail.xml',
     ],
