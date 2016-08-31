@@ -1,5 +1,5 @@
-# mail_extension
-Attachment of mail chat open in browser (modul for Odoo version 8)
+# mail_extension URL
+Add links to message (modul for Odoo version 8)
 
 ########################################
 #SCREENSHOTS WORK OF MAIL EXTENSION#
