@@ -111,12 +111,50 @@ openerp.mail_url = function (ZALUPA_ROBERTA_KUKA) {
        
         },
         
+        /* edit the file on the server and reload display
+         */
+        on_attachment_edit_url: function (event) {
+            var self = this;
+            event.stopPropagation();
+            var attachment_id=$(event.target).data("id");
+
+            var action = {
+                    type: 'ir.actions.act_window',
+                    res_model: 'ir.attachment',
+                    res_id: attachment_id,
+                    view_mode: 'form',
+                    view_type: 'form',
+                    views: [[false, 'form']],
+                    target: 'new',
+                    nodestroy: true,
+                    flags : {
+                    action_buttons : true,
+                 //   headless: true,
+                    },
+                };
+                
+            function getResults (result) {
+                console.log("in action");
+                    console.log(result);
+            }
+            
+                self.do_action(action, {
+                    'on_close': function(result){ self.ds_attachment = new ZALUPA_ROBERTA_KUKA.web.DataSetSearch(self, 'ir.attachment'); self.display_attachments(); console.log("WORK"); },
+
+                }).done(getResults);
+                
+                
+                self.display_attachments();
+        },
+        
         bind_events: function () {            
             this._super.apply(this);
             var self = this;
             this.$('span.oe_attach_label.oe_attach_link').on('click', _.bind( this.on_click_label, this));
             this.$('span.oe_e.oe_attach_link').on('click', _.bind( this.on_click_label, this));
             this.$('input.ui-autocomplete-input.oe_attach').on('change', _.bind( this.on_change_url, this));
+                        // event: delete child attachments off the oe_msg_attachment_list box
+            this.$(".oe_msg_attachment_list").on('click', '.oe_edit_url', this.on_attachment_edit_url);
 
         },
         
