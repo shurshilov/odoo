@@ -60,7 +60,8 @@ openerp.mail_url = function (ZALUPA_ROBERTA_KUKA) {
             var self = this;
            // this.$('span.oe_attach_label.oe_attach_link').on('click', _.bind( this.on_click_label, this));
             this.$('button.oe_attach.oe_attach_link').on('click', _.bind( this.on_click_label, this));
-            this.$('input.ui-autocomplete-input.oe_attach').on('change', _.bind( this.on_change_url, this));
+        //    this.$('input.ui-autocomplete-input.oe_attach').on('change', _.bind( this.on_change_url, this));
+        //    this.$('#file_name').on('change', _.bind( this.on_change_filename, this));
         //    this.$('a.oe_right.oe_edit_url.oe_e').on('click', _.bind( this.on_attachment_edit, this));
 
         },
@@ -73,13 +74,17 @@ openerp.mail_url = function (ZALUPA_ROBERTA_KUKA) {
             render.on('click', '.oe_edit_url', _.bind(self.on_attachment_edit, self));
             self.$('.oe_placeholder_files, .oe_attachments').replaceWith( render );
 
+            //autoclear input field on url loaded 
+            var $input = this.$('input.ui-autocomplete-input');
+            $input.val('');
+            
             // reinit input type file
             var $input = self.$('input.oe_form_binary_file');
             $input.after($input.clone(true)).remove();
             self.$(".oe_fileupload").show();
 
-        });
-    },
+            });
+        },
         
         on_attachment_edit: function (event) {
             var self = this;
@@ -109,23 +114,15 @@ openerp.mail_url = function (ZALUPA_ROBERTA_KUKA) {
                 self.do_action(action, {
                     'on_close': function(result){ self.ds_attachment = new ZALUPA_ROBERTA_KUKA.web.DataSetSearch(self, 'ir.attachment'); console.log("WORK"); },
 
-                }).done(getResults);
-                
-                
+                }).done(getResults);               
                
-    },
+        },
         
         on_click_label: function (event) {
             console.log("MY click");
             this.$('input.oe_form_binary_file').click();
         },
-        
-        on_change_url: function (event) {
-            console.log("MY change");
-            this.$('input.ui-autocomplete-input.oe_attach').val(this.$('input.ui-autocomplete-input').val());
-
-        },
-        
+  
         on_url_loaded: function (event, result) {
          //   console.log("URL_LOAD");
           //  console.log(result);
@@ -153,8 +150,7 @@ openerp.mail_url = function (ZALUPA_ROBERTA_KUKA) {
     });
 
 
-    ZALUPA_ROBERTA_KUKA.mail.ThreadComposeMessage.include({   
-    
+    ZALUPA_ROBERTA_KUKA.mail.ThreadComposeMessage.include({       
   
         start: function () {
             this._super.apply(this, arguments);         
@@ -163,8 +159,7 @@ openerp.mail_url = function (ZALUPA_ROBERTA_KUKA) {
        
         },
         
-        /* edit the file on the server and reload display
-         */
+        // edit the file on the server and reload display         
         on_attachment_edit_url: function (event) {
             var self = this;
             event.stopPropagation();
@@ -207,7 +202,7 @@ openerp.mail_url = function (ZALUPA_ROBERTA_KUKA) {
             this.$('span.oe_e.oe_attach_link').on('click', _.bind( this.on_click_label, this));
             this.$('span.oe_attach_link').on('click', _.bind( this.on_click_label, this));
             
-            this.$('input.ui-autocomplete-input.oe_attach').on('change', _.bind( this.on_change_url, this));
+            //this.$('input.ui-autocomplete-input.oe_attach').on('change', _.bind( this.on_change_url, this));
             
             // event: EDIT child attachments off the oe_msg_attachment_list box
             this.$(".oe_msg_attachment_list").on('click', '.oe_edit_url', this.on_attachment_edit_url);
@@ -227,7 +222,7 @@ openerp.mail_url = function (ZALUPA_ROBERTA_KUKA) {
         
         on_url_loaded: function (event, result) {
 
-             this.attachment_ids.push({
+            this.attachment_ids.push({
                     'id': 0,
                     'name': result.name,
                     'filename': "link",
@@ -252,15 +247,25 @@ openerp.mail_url = function (ZALUPA_ROBERTA_KUKA) {
                         };
                     }
                 }
-            }
-            
+            }            
             
             this.display_attachments();
+            
+            //autoclear input field on url loaded 
             var $input = this.$('input.ui-autocomplete-input');
             $input.val('');
+            
             this.$(".oe_attachment_file").show();
-            console.log("URL LOAD IN MAIL DONE");
+            //console.log("URL LOAD IN MAIL DONE");
         },
+        
+        // ADD autoclear input field on file loaded      
+        on_attachment_loaded: function (event, result) {
+            this._super(event, result);
+            var $input = this.$('input.ui-autocomplete-input');
+            $input.val('');       
+        },
+        
     });
 
 };

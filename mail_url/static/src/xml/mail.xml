@@ -12,15 +12,14 @@
                     <t t-set="fileupload_action" t-translation="off">/web/mybinary/upload_attachment</t>                    
                     <input type="hidden" name="model" value="mail.compose.message"/>
                     <input type="hidden" name="id" value="0"/>
-                    <input type="hidden" name="session_id" t-att-value="widget.session.session_id" t-if="widget.session.override_session"/>
-                    
+                    <input type="hidden" name="session_id" t-att-value="widget.session.session_id" t-if="widget.session.override_session"/>                    
                     <input type="text" id="file_name" name="filename1" class="ui-autocomplete-input" />
                 </t> 
                 
            
                 <form action="/web/url/upload_attachment" name="form_url_upload" t-att-target="widget.fileupload_id" class="oe_attach_link">
                     <button>
-                    <span >Attach URL </span>
+                    <span >Attach URL  </span>
                     </button>
                     <span class="oe_attach_label" ><span class="oe_e"> > </span>URL: </span>
                     <input type="text" id="url" name="url" class="ui-autocomplete-input oe_attach"/>

@@ -1,6 +1,11 @@
 .oe_attach_link{
 
 }
+.oe_hidden_input_file_my {
+    position: absolute;
+    top: -24px;
+    left: 165px;
+}
 .openerp .oe_mail .oe_attachment .oe_edit_url{
     display: none;
 }
