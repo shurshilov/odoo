@@ -4,6 +4,7 @@ import werkzeug
 import functools
 import simplejson
 import openerp
+import base64
 from openerp.addons.auth_signup.res_users import SignupError
 from openerp.addons.web.controllers.main import ensure_db
 from openerp import http
@@ -42,7 +43,7 @@ def serialize_exception(f):
 class Url(http.Controller):
     @http.route('/web/url/upload_attachment', type='http', auth="user")
     @serialize_exception
-    def upload_attachment(self, url, urlname, model, id, callback):
+    def upload_attachment_url(self, url, urlname, model, id, callback):
         Model = request.session.model('ir.attachment')
         out = """<script language="javascript" type="text/javascript">
                     var win = window.top.window;
@@ -57,7 +58,6 @@ class Url(http.Controller):
                     'name': urlname,
                     'type': 'url',
                     'url': my_url.geturl(),
-                    'filename': "link",
                     'res_id':  int(id),
                     'res_model': model,
             }, request.context)
@@ -71,3 +71,30 @@ class Url(http.Controller):
             args = {'error': "Something horrible happened"}
             _logger.exception("Fail to upload attachment %s" % urlname)
         return out % (simplejson.dumps(callback), simplejson.dumps(args))
+
+    @http.route('/web/mybinary/upload_attachment', type='http', auth="user")
+    @serialize_exception
+    def upload_attachment_file(self, callback, model, id, ufile, filename1):
+        Model = request.session.model('ir.attachment')
+        out = """<script language="javascript" type="text/javascript">
+                    var win = window.top.window;
+                    win.jQuery(win).trigger(%s, %s);
+                </script>"""
+        try:
+            attachment_id = Model.create({
+                'name': filename1,
+                'datas': base64.encodestring(ufile.read()),
+                'datas_fname': ufile.filename,
+                'res_model': model,
+                'res_id': int(id)
+            }, request.context)
+            args = {
+                'filename': ufile.filename,
+                'id':  attachment_id,
+                'name': filename1,
+            }
+        except Exception:
+            args = {'error': "Something horrible happened"}
+            _logger.exception("Fail to upload attachment %s" % ufile.filename)
+        return out % (simplejson.dumps(callback), simplejson.dumps(args))
+

@@ -38,6 +38,7 @@ openerp.mail_url = function (ZALUPA_ROBERTA_KUKA) {
                 }
             }
             this.$(".oe_msg_attachment_list").html( ZALUPA_ROBERTA_KUKA.web.qweb.render('mail.thread.message.attachments', {'widget': this}) );
+            console.log("DISPLAY DONE.");
         },
     
     });
@@ -57,11 +58,62 @@ openerp.mail_url = function (ZALUPA_ROBERTA_KUKA) {
         initialize_content: function () {            
             this._super.apply(this);
             var self = this;
-            this.$('span.oe_attach_label.oe_attach_link').on('click', _.bind( this.on_click_label, this));
-            this.$('span.oe_e.oe_attach_link').on('click', _.bind( this.on_click_label, this));
+           // this.$('span.oe_attach_label.oe_attach_link').on('click', _.bind( this.on_click_label, this));
+            this.$('button.oe_attach.oe_attach_link').on('click', _.bind( this.on_click_label, this));
             this.$('input.ui-autocomplete-input.oe_attach').on('change', _.bind( this.on_change_url, this));
+        //    this.$('a.oe_right.oe_edit_url.oe_e').on('click', _.bind( this.on_attachment_edit, this));
 
         },
+        
+        render_value: function () {
+        var self = this;
+        this.read_name_values().then(function (ids) {
+            var render = $(ZALUPA_ROBERTA_KUKA.web.qweb.render('FieldBinaryFileUploader.files', {'widget': self, 'values': ids}));
+            render.on('click', '.oe_delete', _.bind(self.on_file_delete, self));
+            render.on('click', '.oe_edit_url', _.bind(self.on_attachment_edit, self));
+            self.$('.oe_placeholder_files, .oe_attachments').replaceWith( render );
+
+            // reinit input type file
+            var $input = self.$('input.oe_form_binary_file');
+            $input.after($input.clone(true)).remove();
+            self.$(".oe_fileupload").show();
+
+        });
+    },
+        
+        on_attachment_edit: function (event) {
+            var self = this;
+            event.stopPropagation();
+            var attachment_id=$(event.target).data("id");
+
+            var action = {
+                    type: 'ir.actions.act_window',
+                    res_model: 'ir.attachment',
+                    res_id: attachment_id,
+                    view_mode: 'form',
+                    view_type: 'form',
+                    views: [[false, 'form']],
+                    target: 'new',
+                    nodestroy: true,
+                    flags : {
+                    action_buttons : true,
+                 //   headless: true,
+                    },
+                };
+                
+            function getResults (result) {
+                console.log("in action");
+                    console.log(result);
+            }
+            
+                self.do_action(action, {
+                    'on_close': function(result){ self.ds_attachment = new ZALUPA_ROBERTA_KUKA.web.DataSetSearch(self, 'ir.attachment'); console.log("WORK"); },
+
+                }).done(getResults);
+                
+                
+               
+    },
         
         on_click_label: function (event) {
             console.log("MY click");
@@ -150,10 +202,14 @@ openerp.mail_url = function (ZALUPA_ROBERTA_KUKA) {
         bind_events: function () {            
             this._super.apply(this);
             var self = this;
+            // Click button or icon or label --> click file_input
             this.$('span.oe_attach_label.oe_attach_link').on('click', _.bind( this.on_click_label, this));
             this.$('span.oe_e.oe_attach_link').on('click', _.bind( this.on_click_label, this));
+            this.$('span.oe_attach_link').on('click', _.bind( this.on_click_label, this));
+            
             this.$('input.ui-autocomplete-input.oe_attach').on('change', _.bind( this.on_change_url, this));
-                        // event: delete child attachments off the oe_msg_attachment_list box
+            
+            // event: EDIT child attachments off the oe_msg_attachment_list box
             this.$(".oe_msg_attachment_list").on('click', '.oe_edit_url', this.on_attachment_edit_url);
 
         },
@@ -165,7 +221,7 @@ openerp.mail_url = function (ZALUPA_ROBERTA_KUKA) {
         
         on_change_url: function (event) {
             //console.log("MY change mail.js");
-            this.$('input.ui-autocomplete-input.oe_attach').val(this.$('input.ui-autocomplete-input').val());
+           // this.$('input.ui-autocomplete-input.oe_attach').val(this.$('input.ui-autocomplete-input').val());
 
         },       
         
@@ -178,7 +234,7 @@ openerp.mail_url = function (ZALUPA_ROBERTA_KUKA) {
                     'url': result.url,
                     'upload': true
                 });
-            //console.log("URL LOAD IN COMPOSE");
+            
             //console.log(result);
             if (result.error || !result.id ) {
                 this.do_warn( ZALUPA_ROBERTA_KUKA.web.qweb.render('mail.error_upload'), result.error);
@@ -203,6 +259,7 @@ openerp.mail_url = function (ZALUPA_ROBERTA_KUKA) {
             var $input = this.$('input.ui-autocomplete-input');
             $input.val('');
             this.$(".oe_attachment_file").show();
+            console.log("URL LOAD IN MAIL DONE");
         },
     });
 
