@@ -75,8 +75,8 @@ openerp.mail_url = function (ZALUPA_ROBERTA_KUKA) {
             self.$('.oe_placeholder_files, .oe_attachments').replaceWith( render );
 
             //autoclear input field on url loaded 
-            var $input = this.$('input.ui-autocomplete-input');
-            $input.val('');
+            var $input_clear = self.$('input.ui-autocomplete-input');
+            $input_clear.val('');
             
             // reinit input type file
             var $input = self.$('input.oe_form_binary_file');
