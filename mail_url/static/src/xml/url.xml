@@ -7,9 +7,9 @@
         <div class="oe_add" t-if="!widget.get('effective_readonly')">
 
                 <button>
-                        <span class="oe_attach_link">Attach FILE </span>                   
+                        <span class="oe_attach oe_attach_link">Attach FILE </span>                   
                 </button>
-                                    <span class="oe_attach_label oe_attach_link" ><span class="oe_e oe_attach_link"> ' </span>name: </span> 
+                                    <span class="oe_attach_label oe_attach_link" ><span class="oe_e oe_attach_link"> ' </span>Name: </span> 
 
                     <t t-call="HiddenInputFile" >
                         <t t-set="fileupload_id" t-value="widget.fileupload_id"/>
@@ -17,7 +17,7 @@
                         <input type="hidden" name="model" t-att-value="widget.view.model"/>
                         <input type="hidden" name="id" value="0"/>
                         <input type="hidden" name="session_id" t-att-value="widget.session.session_id" t-if="widget.session.override_session"/>
-                        <input type="text" id="file_name" name="filename1" class="ui-autocomplete-input oe_hidden_input_file_my" />
+                        <input type="text" id="file_name" name="filename1" class="ui-autocomplete-input oe_hidden_input_file_my" placeholder="default=filename"/>
                     </t>
 
 
@@ -28,10 +28,10 @@
                         <button>
                             <span class="oe_attach_link">Attach URL </span>                   
                         </button>
-                        <span class="oe_attach_label" ><span class="oe_e"> > </span>URL: </span>
-                            <input type="text" id="url" name="url" class="ui-autocomplete-input oe_attach"/>
-                            <span class="oe_attach_label" >URL name:</span> 
-                            <input type="text" id="url_name" name="urlname" class="ui-autocomplete-input"/>
+                            <span class="oe_attach_label" ><span class="oe_e"> > </span>Name:</span> 
+                            <input type="text" id="url_name" name="urlname" class="ui-autocomplete-input" placeholder="eg. file download link"/>
+                            <span class="oe_attach_label" >URL: </span>
+                            <input type="text" id="url" name="url" class="ui-autocomplete-input oe_attach" placeholder="eg. www.example.com"/>
                             <input type="hidden" name="model" t-att-value="widget.view.model"/>
                             <input type="hidden" name="callback"  t-att-value="widget.fileupload_id2"/>
                             <input type="hidden" name="id"  value="0"/>
