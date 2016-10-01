@@ -3,33 +3,46 @@
 
     <t t-name="mail.compose_message.add_attachment"> 
             <div class="oe_add" t-if="!widget.get('effective_readonly')">
-                <button>
-                    <span class="oe_attach_link">Attach FILE </span>                   
-                </button>
-                <span class="oe_attach_label oe_attach_link" ><span class="oe_e oe_attach_link"> ' </span>Name: </span>                    
-                <t t-call="HiddenInputFile">
-                    <t t-set="fileupload_id" t-value="widget.fileupload_id"/>
-                    <t t-set="fileupload_action" t-translation="off">/web/mybinary/upload_attachment</t>                    
-                    <input type="hidden" name="model" value="mail.compose.message"/>
-                    <input type="hidden" name="id" value="0"/>
-                    <input type="hidden" name="session_id" t-att-value="widget.session.session_id" t-if="widget.session.override_session"/>                    
-                    <input type="text" id="file_name" name="filename1" class="ui-autocomplete-input" placeholder="default=filename"/>
-                </t> 
-                
-           
-                <form action="/web/url/upload_attachment" name="form_url_upload" t-att-target="widget.fileupload_id" class="oe_attach_link">
-                    <button>
-                    <span >Attach URL  </span>
-                    </button>
-                    <span class="oe_attach_label" ><span class="oe_e"> > </span>Name: </span> 
-                    <input type="text" id="url_name" name="urlname" class="ui-autocomplete-input" placeholder="eg. file download link"/>
-                    <span class="oe_attach_label" >URL: </span>
-                    <input type="text" id="url" name="url" class="ui-autocomplete-input oe_attach" placeholder="eg. www.example.com"/>
-                    <input type="hidden" name="model" value="mail.compose.message"/> 
-                    <input type="hidden" name="callback"  t-att-value="widget.fileupload_id2"/>
-                    <input type="hidden" name="id"  value="0"/>
-                </form>
-                   
+                <div class="oe_hidden_input_file ">
+                    <table>
+                        <tr>
+                            <td>
+                                <button>
+                                    <span class="oe_attach_link">Attach FILE </span>                   
+                                </button>
+                                <span class="oe_attach_label oe_attach_link" ><span class="oe_e oe_attach_link"> ' </span>Name: </span>
+                                <form class="oe_form_binary_form" enctype="multipart/form-data" method="post" action="/web/mybinary/upload_attachment" t-att-target="widget.fileupload_id">
+                                    <input type="hidden" name="model" value="mail.compose.message"/>
+                                    <input type="hidden" name="id" value="0"/>
+                                    <input type="hidden" name="session_id" t-att-value="widget.session.session_id" t-if="widget.session.override_session"/>                    
+                                    <input type="text" id="file_name" name="filename1" class="ui-autocomplete-input" placeholder="Filename by default"/>
+                                    <input type="hidden" name="callback"  t-att-value="widget.fileupload_id"/>
+                                    <input type="file" class="oe_form_binary_file" name="ufile" t-if="widget.widget!='image'" style="margin-left:320px"/>
+                                    <input type="file" class="oe_form_binary_file" name="ufile" accept="image/*" t-if="widget.widget=='image'"/>
+                                </form>
+                                <iframe t-att-id="widget.fileupload_id" t-att-name="widget.fileupload_id" style="display: none"/>   
+                            </td>
+                        </tr>
+                    
+                       <tr>
+                           <td>
+                                <form action="/web/url/upload_attachment" name="form_url_upload" 
+                                t-att-target="widget.fileupload_id" class="oe_attach_link">
+                                    <button >
+                                    <span >Attach URL  </span>
+                                    </button>
+                                    <span class="oe_attach_label" ><span class="oe_e"> > </span>Name: </span> 
+                                    <input type="text" id="url_name" name="urlname" class="ui-autocomplete-input" placeholder="eg. file download link"/>
+                                    <span class="oe_attach_label" >URL: </span>
+                                    <input type="text" id="url" name="url" class="ui-autocomplete-input oe_attach" placeholder="eg. www.example.com"/>
+                                    <input type="hidden" name="model" value="mail.compose.message"/> 
+                                    <input type="hidden" name="callback"  t-att-value="widget.fileupload_id2"/>
+                                    <input type="hidden" name="id"  value="0"/>
+                                </form>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
          </div> 
     </t>
     
