@@ -60,6 +60,9 @@ openerp.mail_url = function (ZALUPA_ROBERTA_KUKA) {
             var self = this;
            // this.$('span.oe_attach_label.oe_attach_link').on('click', _.bind( this.on_click_label, this));
             this.$('span.oe_attach.oe_attach_link').on('click', _.bind( this.on_click_label, this));
+            this.$('span.oe_attach_label.oe_attach_link').on('click', _.bind( this.on_click_label, this));
+            this.$('span.oe_e.oe_attach_link').on('click', _.bind( this.on_click_label, this));
+            this.$('span.oe_attach_link').on('click', _.bind( this.on_click_label, this));
         //    this.$('input.ui-autocomplete-input.oe_attach').on('change', _.bind( this.on_change_url, this));
         //    this.$('#file_name').on('change', _.bind( this.on_change_filename, this));
         //    this.$('a.oe_right.oe_edit_url.oe_e').on('click', _.bind( this.on_attachment_edit, this));
