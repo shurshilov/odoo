@@ -81,8 +81,12 @@ class Url(http.Controller):
                     win.jQuery(win).trigger(%s, %s);
                 </script>"""
         try:
+            if not filename1:
+                filename = ufile.filename
+            else:
+                filename = filename1
             attachment_id = Model.create({
-                'name': filename1,
+                'name': filename,
                 'datas': base64.encodestring(ufile.read()),
                 'datas_fname': ufile.filename,
                 'res_model': model,
@@ -91,7 +95,7 @@ class Url(http.Controller):
             args = {
                 'filename': ufile.filename,
                 'id':  attachment_id,
-                'name': filename1,
+                'name': filename,
             }
         except Exception:
             args = {'error': "Something horrible happened"}
