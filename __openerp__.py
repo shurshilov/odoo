@@ -32,6 +32,12 @@ This is extension for module mail
     'price': 9.99,
     'currency': 'EUR',
     # always loaded
+    'images':[
+    	    'static/description/3.png',
+	    'static/description/4.png',
+	    'static/description/1.png',
+	    'static/description/2.png',
+    ],
     'data': [ 'wizard/mail_url_view.xml', ],   
     'qweb': [ 'static/src/xml/url.xml',
               'static/src/xml/mail.xml',
