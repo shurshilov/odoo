@@ -29,8 +29,8 @@ This is extension for module mail
     # any module necessary for this one to work correctly
     'depends': ['web', 'mail'],    
     "license": "LGPL-3",
-    'price': 9.99,
-    'currency': 'EUR',
+#    'price': 9.99,
+#    'currency': 'EUR',
     # always loaded
     'images':[
     	    'static/description/3.png',
