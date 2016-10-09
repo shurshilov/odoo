@@ -36,4 +36,9 @@ This is extension for module mail
     'qweb': [ 'static/src/xml/url.xml',
               'static/src/xml/mail.xml',
     ],
+    'installable': True,
+    'application': False,
+    # If it's True, the modules will be auto-installed when all dependencies
+    # are installed
+    'auto_install': False,
 }
