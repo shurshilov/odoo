@@ -150,6 +150,27 @@ openerp.mail_url = function (ZALUPA_ROBERTA_KUKA) {
             
             this.render_value();
         },
+        
+        read_name_values : function () {
+        var self = this;
+        // don't reset know values
+        var ids = this.get('value');
+        var _value = _.filter(ids, function (id) { return typeof self.data[id] == 'undefined'; } );
+        // send request for get_name
+        if (_value.length) {
+            return this.ds_file.call('read', [_value, ['id', 'name', 'datas_fname','url','type']]).then(function (datas) {
+                _.each(datas, function (data) {
+                    data.no_unlink = true;
+                    if (data.type != 'url')                        
+                    data.url = self.session.url('/web/binary/saveas', {model: 'ir.attachment', field: 'datas', filename_field: 'datas_fname', id: data.id});
+                    self.data[data.id] = data;
+                });
+                return ids;
+            });
+        } else {
+            return $.when(ids);
+        }
+    },
 
     });
 
@@ -205,9 +226,7 @@ openerp.mail_url = function (ZALUPA_ROBERTA_KUKA) {
             this.$('span.oe_attach_label.oe_attach_link').on('click', _.bind( this.on_click_label, this));
             this.$('span.oe_e.oe_attach_link').on('click', _.bind( this.on_click_label, this));
             this.$('span.oe_attach_link').on('click', _.bind( this.on_click_label, this));
-            
-            //this.$('input.ui-autocomplete-input.oe_attach').on('change', _.bind( this.on_change_url, this));
-            
+ 
             // event: EDIT child attachments off the oe_msg_attachment_list box
             this.$(".oe_msg_attachment_list").on('click', '.oe_edit_url', this.on_attachment_edit_url);
 
