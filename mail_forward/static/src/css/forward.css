@@ -1,8 +1,0 @@
-i.o_thread_message_forward  {
-            cursor: pointer;
-            opacity: 0;
-}
-i.o_thread_message_forward: hover  {
-            cursor: pointer;
-            opacity: 1;
-}
