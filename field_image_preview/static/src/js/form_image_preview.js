@@ -1,5 +1,5 @@
 
-odoo.define('form_image_preview.image_widget_extend', function (require) {
+odoo.define('field_image_preview.image_widget_extend', function (require) {
 "use strict";
 
 
@@ -32,8 +32,7 @@ imageWidget.include({
         } else {
             url = this.placeholder;
         }
-       //var record_id = this.getParent().get_fields_values()['id'];
-       //var current_model = this.getParent().model;
+
        var $img = $(QWeb.render("FieldBinaryImage-img", { widget: this, url: url }));
        
        var imgSrc;
@@ -47,7 +46,7 @@ imageWidget.include({
             if (field == "image_medium" ||
                 field == "image_small")
                 field = "image";
-            
+
             imgSrc = session.url('/web/image', {
                                         model: this.view.dataset.model,
                                         id: id,
@@ -86,7 +85,7 @@ imageWidget.include({
         });
         
         this.$el.find('#outer').remove();
-        this.$el.find('.in').remove();
+        //this.$el.find('.in').remove();
         this.$el.find('> img').remove();
         this.$el.prepend($img);
         $img.load(function() {
