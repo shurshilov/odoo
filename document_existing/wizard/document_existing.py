@@ -1,13 +1,36 @@
 # -*- coding: utf-8 -*-
-
 from openerp.osv import fields, orm
+from openerp import api
 
 class AddExistingWizard(orm.TransientModel):
     _name = 'ir.attachment.add_existing_documents'
 
+    def get_current_model(self):
+        #return self.env.context.get('current_model')
+        return self.env.context.get('active_model', False)
+
     _columns = {
         'documents_existing': fields.many2one('ir.attachment', 'name', required=True,domain="[('res_model', '!=' ,False)]" ), # ,domain=[]
+        'res_model': fields.char('Resource Model', help="The database object this attachment will be attached to",default=get_current_model),
+        'type': fields.selection( [ ('url','URL'), ('binary','Binary'), ],
+                'Type', help="Binary File or URL", default="binary"),
     }
+
+    @api.onchange('res_model')
+    def get_domain_res_model(self):
+        return {
+            'domain':{
+                'documents_existing':[('res_model', '=' ,self.res_model),('type', '=' ,self.type)]
+            },
+        }
+
+    @api.onchange('type')
+    def get_domain_type(self):
+        return {
+            'domain':{
+                'documents_existing':[('type', '=' ,self.type),('res_model', '=' ,self.res_model)]
+            },
+        }
 
     def action_add_existing_document(self, cr, uid, ids, context=None):
         """Adds the URL with the given name as an ir.attachment record."""

@@ -22,8 +22,18 @@
             <field name="model">ir.attachment.add_existing_documents</field>
             <field name="arch" type="xml">
                 <form string="Add existing documents" version="8.0">
+                    <h1>
+                    <label string="Filters "/>
+                    </h1>
                     <group>
-                        <field name="documents_existing" string="Documents existing" default_order='create_date'/>
+                        <field name="res_model" string="Res model"/>
+                        <field name="type" string="Type"/>
+                    </group>
+                    <h1>
+                    <label string="Choose document "/>
+                    </h1>
+                    <group>
+                        <field name="documents_existing" string="Documents existing" default_order='create_date' select="True"/>                  
                     </group>
                     <footer>
                         <button name="action_add_existing_document" string="Add" class="oe_highlight" type="object" />
