@@ -14,8 +14,8 @@
                z-index: 999;
                width: 860px;
                height: auto;
-               top: 0px;
-               left: -13%;
+               /*top: 0px;
+               left: -13%;*/
                background: rgba(120, 120, 120, 0.3);
         }
 /* Бордюр изображения */

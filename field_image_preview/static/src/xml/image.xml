@@ -3,7 +3,6 @@
 
     <t t-name="FieldBinaryImage-img">
 	
-
 			<img 
 			t-att-src='url'
 			t-att-border="widget.readonly ? 0 : 1"
@@ -19,6 +18,27 @@
 	</div>
 
     </t>
+
+    <t t-name="FieldBinaryImage">
+    <div class="o_field_image">
+        <t t-if="widget.mode !== 'readonly'">
+            <div class="o_form_image_controls">
+                <span class="fa fa-pencil fa-lg pull-left o_select_file_button" title="Edit"/>
+                <span class="fa fa-trash-o fa-lg pull-right o_clear_file_button" title="Clear"/>
+
+                <span class="o_form_binary_progress">Uploading...</span>
+                <t t-call="HiddenInputFile">
+                    <t t-set="image_only" t-value="true"/>
+                    <t t-set="fileupload_id" t-value="widget.fileupload_id"/>
+                </t>
+            </div>
+        </t>
+    </div>
+    	<div id="outer">
+  		<a href="#" class="open-block-close" title="close">x</a>
+	</div>
+
+</t>
 
 
 
