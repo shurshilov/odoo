@@ -30,12 +30,12 @@ imageWidget.include({
             }
         }
         var $img = $('<img>').attr('src', url);
-        //var $img = $(QWeb.render("FieldBinaryImage-img", { widget: this, url: url }));
         $img.css({
             width: this.nodeOptions.size ? this.nodeOptions.size[0] : attrs.img_width || attrs.width,
             height: this.nodeOptions.size ? this.nodeOptions.size[1] : attrs.img_height || attrs.height,
         });
 
+        //Odoo save 3 variant of image, just image is original also have medium and small
         var imgSrc = this.placeholder;
         if (this.value) {
             if (!utils.is_bin_size(this.value)) {
@@ -60,19 +60,24 @@ imageWidget.include({
             }
         }
         
-                //!!!!!!!!!!!!!!
+        //Click code, open in new popup in ORIGINAL size, minimum size popup 500x500 in css
         $($img).click(function(e) {
-//           if(self.view.get("actual_mode") == "view") {
-       //         var $button = $(".oe_form_button_edit");
-        //        $button.openerpBounce();
-         //       e.stopPropagation();
-        //    }
-
+/*           if(self.view.get("actual_mode") == "view") {
+                var $button = $(".oe_form_button_edit");
+                $button.openerpBounce();
+                e.stopPropagation();
+            }
+*/
             // set attr SRC image, in our hidden div
             //console.log("bla 2");
-            //$('#inner').attr({src: imgSrc});
-            console.log($('#inner'));            
-            $('#outer').prepend('<img id="inner" src="'+imgSrc+'" />');            
+            var a = $('#outer').find('img')[0]
+            if (a) a.remove();
+            $('#outer').prepend('<img id="inner" src="'+imgSrc+'" />');
+            //change css of parent because class oe_avatar 90x90 size maximum
+            $('#outer').find('img').parent().css=({
+            	width:'100%',
+            	height:'100%',            
+        	});         
             $('#outer').fadeIn('slow');
     
             $('#outer').click(function(e)
@@ -97,8 +102,7 @@ imageWidget.include({
             
             
         //!!!!!!!!!!!
-        this.$('#outer').remove();
-        //!!!!!!!!!
+        //this.$('#outer').remove();
         this.$('> img').remove();
        // this.$('#inner').remove();
         this.$el.prepend($img);
