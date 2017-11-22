@@ -12,6 +12,7 @@
     'website': 'https://vk.com/id20132180',
     'author': 'Shurshilov Artem',
     'license': 'LGPL-3',
+    "price": 29.00,
     'application': False,
     "auto_install": False,
     'installable': True,
