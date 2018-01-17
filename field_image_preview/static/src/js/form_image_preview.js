@@ -9,6 +9,8 @@ odoo.define('field_image_preview.image_widget_extend', function (require) {
     var session = require('web.session');
     var utils = require('web.utils');
     var QWeb = core.qweb;
+    // check bug 17.01.18
+    var field_utils = require('web.field_utils');
 
 imageWidget.include({
 
@@ -54,7 +56,9 @@ imageWidget.include({
                     id: JSON.stringify(this.res_id),
                     field: field,
                     // unique forces a reload of the image when the record has been updated
-                    unique: (this.recordData.__last_update || '').replace(/[^0-9]/g, ''),
+                   // unique: (this.recordData.__last_update || '').replace(/[^0-9]/g, ''),
+		   // check bug 17.01.18
+	              unique: field_utils.format.datetime(this.recordData.__last_update).replace(/[^0-9]/g, ''),
                 });
                 console.log(imgSrc);
             }
