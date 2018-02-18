@@ -79,6 +79,8 @@ openerp.calendar_sum = function(instance) {
                     element.find('.fc-event-title').html(event.title + event.attendee_avatars);
                     //MY
                     var model = new instance.web.Model(self.model);
+                    if !(self.fields_view.arch.attrs.sum)
+                        return
                     var field = self.fields_view.arch.attrs.sum
                     console.log("hello world, I am working");
                     console.log(self.model);
