@@ -84,25 +84,32 @@ openerp.calendar_sum = function(instance) {
                         return
                     var field = self.fields_view.arch.attrs.sum
                     //console.log("hello world, I am working");
-                    //console.log(self.model);
+                    //console.log(view.name);
                     model.call("read", [event.id,[field]], {context: new instance.web.CompoundContext()}).then(function(result) 
                       {
-                        console.log("READ");
-                        console.log(result);
+                        //console.log("READ");
+                        console.log(view);
                         var current_title = self.$el.find('.fc-header-title')[0].innerHTML
                         var end_title = current_title
                         if (current_title.search('Summary by field') >=0){
-                            
-                            var str = current_title.split(': ')[1]
-                            str = str.substring(0, str.length - 7)
-                            var newresult = parseInt(str, 10) + parseInt(result[field], 10);
+                            var newresult =0
+                            if (self.fields_view.arch.attrs['view_title']!=view.title)
+                                newresult = parseInt(result[field], 10)
+                            else{
+                                var str = current_title.split(': ')[1]
+                                str = str.substring(0, str.length - 7)
+                                newresult = parseInt(str, 10) + parseInt(result[field], 10);
+                            }
+
 
                             end_title =  '<h2>'+view.title+'</h2><span>Summary by field '+self.fields_view.arch.attrs.sum+": "+newresult+'</span>' 
                         }
                         else{
+                            
                             end_title = current_title +'<span>Summary by field '+self.fields_view.arch.attrs.sum+": "+result[field]+'</span>'    
                         }
-                        
+                        self.fields_view.arch.attrs['view_title'] = view.title
+                        //console.log(self.fields_view.arch.attrs['view_mode']);
                         self.$el.find('.fc-header-title').html(end_title);
                       });
                     var data = self.get_event_data(event);
