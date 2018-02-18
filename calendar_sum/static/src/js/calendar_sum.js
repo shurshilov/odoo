@@ -79,11 +79,12 @@ openerp.calendar_sum = function(instance) {
                     element.find('.fc-event-title').html(event.title + event.attendee_avatars);
                     //MY
                     var model = new instance.web.Model(self.model);
-                    if !(self.fields_view.arch.attrs.sum)
+                    //console.log(self.fields_view.arch.attrs.sum)
+                    if (!self.fields_view.arch.attrs.sum)
                         return
                     var field = self.fields_view.arch.attrs.sum
-                    console.log("hello world, I am working");
-                    console.log(self.model);
+                    //console.log("hello world, I am working");
+                    //console.log(self.model);
                     model.call("read", [event.id,[field]], {context: new instance.web.CompoundContext()}).then(function(result) 
                       {
                         console.log("READ");
@@ -105,7 +106,7 @@ openerp.calendar_sum = function(instance) {
                         self.$el.find('.fc-header-title').html(end_title);
                       });
                     var data = self.get_event_data(event);
-                    console.log(self.fields_view.arch.attrs)
+                    //console.log(self.fields_view.arch.attrs)
                 },
                 eventAfterRender: function (event, element, view) {
                     if ((view.name !== 'month') && (((event.end-event.start)/60000)<=30)) {
