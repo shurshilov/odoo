@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 {
-    "name": "Skype field in partner form",
-    "version": "1.0.1",
-    "author": "Ivan Yelizariev, Artem Shurshilov",
+    "name": "Skype field in partner form odoo 11",
+    "version": "1.0.0",
+    "author": "Artem Shurshilov",
     'license': 'LGPL-3',
     "category": "Tools",
     "website": "https://vk.com/id20132180",
