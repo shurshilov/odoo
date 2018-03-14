@@ -21,10 +21,5 @@
     "qweb": [
         'static/src/xml/base.xml',
     ],
-    'images':[
-            'static/description/stock_open2.png',
-            'static/description/stock_open.png',
-            'static/description/stock_cursor.png',
-    ],
     'installable': True
 }
