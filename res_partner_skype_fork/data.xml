@@ -3,7 +3,7 @@
     <data>
         <template id="assets_backend" name="skype assets" inherit_id="web.assets_backend">
             <xpath expr="." position="inside">
-                <script type="text/javascript" src="/res_partner_skype/static/src/js/skype.js"></script>
+                <script type="text/javascript" src="/res_partner_skype_fork/static/src/js/skype.js"></script>
             </xpath>
         </template>
     </data>

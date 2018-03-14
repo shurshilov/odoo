@@ -9,13 +9,22 @@
     'price': 9.00,
     'currency': 'EUR',
     "depends": ['web'],
-    "images": ['images/partner.png'],
+    "images": [
+    'images/module.png',
+    'images/field.png'
+    'images/skype.png'
+    ],
     "data": [
         'views.xml',
         'data.xml',
     ],
     "qweb": [
         'static/src/xml/base.xml',
+    ],
+    'images':[
+            'static/description/stock_open2.png',
+            'static/description/stock_open.png',
+            'static/description/stock_cursor.png',
     ],
     'installable': True
 }
