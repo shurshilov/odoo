@@ -10,9 +10,9 @@
     'currency': 'EUR',
     "depends": ['web'],
     "images": [
-    'images/module.png',
-    'images/field.png'
-    'images/skype.png'
+	    'static/description/module.png',
+	    'static/description/field.png'
+	    'static/description/skype.png'
     ],
     "data": [
         'views.xml',
