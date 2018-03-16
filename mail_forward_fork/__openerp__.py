@@ -10,6 +10,7 @@
     "website": "https://vk.com/id20132180",
     "license": "LGPL-3",
     'price': 30.00,
+    'currency': 'EUR',
     "depends": [
         "mail_base",
     ],
