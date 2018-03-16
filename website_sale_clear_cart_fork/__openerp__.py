@@ -2,7 +2,7 @@
 {
     'name': 'Clear cart button',
     'version': '1.0.0',
-    'author': 'Artem Shurshilov',
+    'author': 'Shurshilov Artem',
     'license': 'LGPL-3',
     'category': 'eCommerce',
     'website': 'https://vk.com/id20132180',
