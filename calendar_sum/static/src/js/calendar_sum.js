@@ -46,10 +46,10 @@ openerp.calendar_sum = function(instance) {
    instance.web_calendar.CalendarView.include({
 
             get_fc_init_options: function () {
-/*                            var self = this;
+                            var self = this;/*
             this._super.apply(this, arguments);*/
             //Documentation here : http://arshaw.com/fullcalendar/docs/
-            var self = this;
+
             return  $.extend({}, get_fc_defaultOptions(), {
                 
                 defaultView: (this.mode == "month")?"month":
@@ -68,6 +68,7 @@ openerp.calendar_sum = function(instance) {
                 // callbacks
 
                 eventDrop: function (event, _day_delta, _minute_delta, _all_day, _revertFunc) {
+
                     var data = self.get_event_data(event);
                     self.proxy('update_record')(event._id, data); // we don't revert the event, but update it.
                 },
@@ -79,36 +80,44 @@ openerp.calendar_sum = function(instance) {
                     element.find('.fc-event-title').html(event.title + event.attendee_avatars);
                     //MY
                     var model = new instance.web.Model(self.model);
-                    //console.log(self.fields_view.arch.attrs.sum)
+                    console.log("hello world, I am working");
+                    console.log(self.$el.find('.fc-button-next'));
                     if (!self.fields_view.arch.attrs.sum)
-                        return
-                    var field = self.fields_view.arch.attrs.sum
+                        return;
+                    mytitle = '<span> ';
+                    if (self.fields_view.arch.attrs.sum_string)
+                        mytitle= '<span>' +self.fields_view.arch.attrs.sum_string+' ';
+
+                    var field = self.fields_view.arch.attrs.sum;
+                    self.$el.find('.fc-button-next').onclick = function() {
+                    console.log("!!!!!!!");
+                    };
                     //console.log("hello world, I am working");
                     //console.log(view.name);
                     model.call("read", [event.id,[field]], {context: new instance.web.CompoundContext()}).then(function(result) 
                       {
                         //console.log("READ");
                         console.log(view);
-                        var current_title = self.$el.find('.fc-header-title')[0].innerHTML
-                        var end_title = current_title
-                        if (current_title.search('Summary by field') >=0){
-                            var newresult =0
+                        var current_title = self.$el.find('.fc-header-title')[0].innerHTML;
+                        var end_title = current_title;
+                        if (current_title.search(mytitle) >=0){
+                            var newresult = self.$calendar.newresult;
                             if (self.fields_view.arch.attrs['view_title']!=view.title)
-                                newresult = parseInt(result[field], 10)
+                                newresult = parseFloat(result[field], 10);
                             else{
-                                var str = current_title.split(': ')[1]
-                                str = str.substring(0, str.length - 7)
-                                newresult = parseInt(str, 10) + parseInt(result[field], 10);
+                                var str = current_title.split(': ')[1];
+                                str = str.substring(0, str.length - 7);
+                                newresult = parseFloat(str, 10) + parseFloat(result[field], 10);
                             }
 
 
-                            end_title =  '<h2>'+view.title+'</h2><span>Summary by field '+self.fields_view.arch.attrs.sum+": "+newresult+'</span>' 
+                            end_title =  '<h2>'+view.title+'</h2>'+mytitle+": "+newresult+'</span>';
                         }
                         else{
                             
-                            end_title = current_title +'<span>Summary by field '+self.fields_view.arch.attrs.sum+": "+result[field]+'</span>'    
+                            end_title = current_title +mytitle+": "+result[field]+'</span>';
                         }
-                        self.fields_view.arch.attrs['view_title'] = view.title
+                        self.fields_view.arch.attrs['view_title'] = view.title;
                         //console.log(self.fields_view.arch.attrs['view_mode']);
                         self.$el.find('.fc-header-title').html(end_title);
                       });
@@ -125,6 +134,7 @@ openerp.calendar_sum = function(instance) {
                 },
                 eventClick: function (event) { self.open_event(event._id,event.title); },
                 select: function (start_date, end_date, all_day, _js_event, _view) {
+                    //console.log("123");
                     var data_template = self.get_event_data({
                         start: start_date,
                         end: end_date,
