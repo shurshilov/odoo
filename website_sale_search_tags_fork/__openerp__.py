@@ -17,7 +17,7 @@
         'static/description/product_tags.png',
         'static/description/web_search_tags.png',
     ],
-    'depends': ['website_sale', 'product_tags'],
+    'depends': ['website_sale', 'product_tags_fork'],
     'auto_install': False,
     'installable': True,
 }
