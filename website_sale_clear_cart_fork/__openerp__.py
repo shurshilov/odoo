@@ -13,8 +13,8 @@
         'website_sale_clear_cart_views.xml',
     ],
     'images': [
-        'static/description/icon.png',
         'static/description/cart.png',
+        'static/description/icon.png',
         'static/description/cart-empty.png',
      ],
     'installable': True,
