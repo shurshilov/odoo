@@ -22,7 +22,7 @@
 #
 
 {
-    "name": "Product Tags",
+    "name": "Product Tags v. 11",
     "version": "1.0",
     'license': 'GPL-3',
     "author": "Shurshilov Artem",
