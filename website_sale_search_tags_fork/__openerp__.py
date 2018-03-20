@@ -2,10 +2,10 @@
 # Copyright 2017 IT Projects LLC.
 # Copyright 2017-2018 Artem Shurshilov
 {
-    'name': "Website Search Product Tags",
+    'name': "Website Search Product Tags Fork",
     'summary': """Search website products by tags""",
     'category': 'eCommerce',
-    'version': '1.0.0',
+    'version': '1.0.1',
     'application': False,
     'author': 'Shurshilov Artem,IT-Projects LLC',
     'license': 'GPL-3',

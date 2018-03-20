@@ -24,6 +24,7 @@
 {
     "name": "Product Tags",
     "version": "1.0",
+    'license': 'GPL-3',
     "author": "Shurshilov Artem",
     "website": "https://vk.com/id20132180",
     "category": "Sales Management",
