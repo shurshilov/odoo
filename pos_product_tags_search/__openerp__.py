@@ -22,10 +22,9 @@
 #    'currency': 'EUR',
     # always loaded
     'images':[
-    	    'static/description/icon.png',
+            'static/description/search_artem.png',
 	        'static/description/product.png',
 	        'static/description/search_new.png',
-            'static/description/search_artem.png',
     ],
     'data': [ 'views/pos_product_tags_search.xml', ],   
     #'qweb': [ 'static/src/xml/image.xml', ],
