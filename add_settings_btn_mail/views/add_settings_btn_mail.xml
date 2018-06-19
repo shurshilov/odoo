@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+<template id="assets_editor" inherit_id="web.assets_backend" name="add_settings_btn_mail">
+    <xpath expr="." position="inside">
+	    <link rel="stylesheet" href="/add_settings_btn_mail/static/src/css/lightbox.css" />
+        <script type="text/javascript" src="/add_settings_btn_mail/static/src/js/add_settings_btn_mail.js"></script>
+	   </xpath>
+</template>
+
+</data>
+</openerp>
