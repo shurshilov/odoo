@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <template>
-    <t t-name="mail.Followers">
+<!--     <t t-name="mail.Followers">
         <div class="o_followers">
             <div class="o_followers_title_box">
                 <button class="btn btn-sm btn-link dropdown-toggle"
@@ -10,7 +10,6 @@
                 </button>
                 <ul class="dropdown-menu o_followers_list" role="menu"></ul>
             <span class="btn btn-sm btn-link o_setting">Settings</span>
-            <!-- <input type="checkbox" class="o_filter_checkbox"/> -->
             </div>
             <div class="o_followers_actions">
                 <div class="btn-group btn-group-sm o_subtypes_list">
@@ -27,7 +26,7 @@
                 </div>
             </div>
         </div>
-    </t>
+    </t> -->
 
     <t t-name="mail.Chatter.Buttons">
         <button t-if="new_message_btn" type="button" class="btn btn-sm btn-link o_chatter_button_new_message" title="Send a message">

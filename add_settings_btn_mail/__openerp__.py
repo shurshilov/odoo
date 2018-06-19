@@ -2,22 +2,23 @@
 # Copyright (C) 2018 Artem Shurshilov <shurshilov.a@yandex.ru>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 {
-    'name': 'Widget add settings button mail followers',
-    'summary': """Adds functional preview (open/popup) to mail followers comments """,
+    'name': 'Hide notification chatter',
+    'summary': """Widget add hide notification checkbox in chatter""",
     'description': """
-This is extension for <field widget="image"> widget image
+Widget add hide notification checkbox in chatter
 ==============================================
-* STOCK and CONTACT example:
-    * open image on click in original size in popup
-    * close on close button
-    * close on click on/out image
+    * Save hide status in database
+    * Control hide notification for every record
+    * Аast work
+    * Кemembering the previous press
+    * Рides technical comments
 
 """,
     'author': 'Shurshilov Artem',
     "website": "https://vk.com/id20132180",
     
     # Categories can be used to filter modules in modules listing
-    'category': "Tools",
+    'category': "Tools, mail",
 	   'version': '1.0',
     # any module necessary for this one to work correctly
     'depends': ['base','mail','hr'],    
@@ -26,8 +27,8 @@ This is extension for <field widget="image"> widget image
 #    'currency': 'EUR',
     # always loaded
     'images':[
+            'static/description/stock_open.png',
     	    'static/description/stock_open2.png',
-	        'static/description/stock_open.png',
 	        'static/description/stock_cursor.png',
     ],
     'data': [ 'views/add_settings_btn_mail.xml', ],   
