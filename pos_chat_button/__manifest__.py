@@ -37,7 +37,7 @@
     'images': [
     'static/description/Odoo POS.png',
     'static/description/Odoo POS1.png',
-    'static/description/Odoo POS2.png'
+    'static/description/Odoo POS2.png',
     ],
     'installable': True,
     'auto_install': False,
