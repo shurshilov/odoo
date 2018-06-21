@@ -34,7 +34,11 @@
     'depends': ['base', 'point_of_sale'],
     'data': ['views/pos_chat.xml'],
     'qweb': ['static/src/xml/pos_msg.xml'],
-    'images': ['static/description/banner.jpg'],
+    'images': [
+    'static/description/Odoo POS.png',
+    'static/description/Odoo POS1.png',
+    'static/description/Odoo POS2.png'
+    ],
     'installable': True,
     'auto_install': False,
 }
