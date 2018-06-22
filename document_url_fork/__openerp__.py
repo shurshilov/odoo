@@ -35,9 +35,9 @@ Module that allows to attach an URL as a document.
         'document',
     ],
     'images':[
-            'static/description/stock_open2.png',
-            'static/description/stock_open.png',
-            'static/description/stock_cursor.png',
+            'static/description/docurl1.png',
+            'static/description/docurl2.png',
+            'static/description/docurl3.png',
     ],
     'data': [
         'view/document_url_view.xml',
