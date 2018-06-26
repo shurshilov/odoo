@@ -39,25 +39,27 @@ odoo.define('add_settings_btn_mail.mail_settings_widget_extend', function (requi
             //console.log("update");
             if (this.record.res_id !== record.res_id) {
                 //this._closeComposer(true);
-                this.fields.thread.res_id = record.res_id;
-                rpc.query({
-                            model: this.fields.thread.model,
-                            method: 'read',
-                            args: [[this.fields.thread.res_id], ['hide_notification']],
+                if (this.fields.thread){
+                    this.fields.thread.res_id = record.res_id;
+                    rpc.query({
+                                model: this.fields.thread.model,
+                                method: 'read',
+                                args: [[this.fields.thread.res_id], ['hide_notification']],
 
-                        }).then(function(result){
+                            }).then(function(result){
 
-                            if (result[0].hide_notification){
-                                self.$('.o_filter_checkbox').prop( "checked", true );
-                                _.extend(self.fields.thread.thread.options, {filter: 'yes',});
-                            }
-                            else{
-                                self.$('.o_filter_checkbox').prop( "checked", false );                        
-                                _.extend(self.fields.thread.thread.options, {filter: 'no',});
-                            }                           
+                                if (result[0].hide_notification){
+                                    self.$('.o_filter_checkbox').prop( "checked", true );
+                                    _.extend(self.fields.thread.thread.options, {filter: 'yes',});
+                                }
+                                else{
+                                    self.$('.o_filter_checkbox').prop( "checked", false );                        
+                                    _.extend(self.fields.thread.thread.options, {filter: 'no',});
+                                }                           
 
-                           self.update(record);
-                        });
+                               self.update(record);
+                            });
+                }
             }
             this._super.apply(this, arguments);
         },
@@ -65,7 +67,8 @@ odoo.define('add_settings_btn_mail.mail_settings_widget_extend', function (requi
         start: function () {
             var res = this._super.apply(this, arguments);
             var self = this;
-            rpc.query({
+            if (this.fields.thread)
+                rpc.query({
                         model: this.fields.thread.model,
                         method: 'read',
                         args: [[this.fields.thread.res_id], ['hide_notification']],
