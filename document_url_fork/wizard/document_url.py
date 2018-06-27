@@ -25,7 +25,6 @@ try:
     from urllib.parse import urlparse
 except:
     from urlparse import urlparse
-import unoconv
 
 
 class AddUrlWizard(models.TransientModel):
