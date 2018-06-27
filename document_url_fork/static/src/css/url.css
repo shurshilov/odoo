@@ -1,0 +1,13 @@
+﻿.oe_sidebar_add_url  {
+  right: -24px;
+  position: relative;
+        }
+.oe_sidebar_add_url  {
+  right: -24px;
+  position: relative;
+        }
+.dropdown-menu > li:hover, .dropdown-menu > li:focus {
+    text-decoration: none;
+    color: #333333;
+    background-color: #f9f9f9;
+}
