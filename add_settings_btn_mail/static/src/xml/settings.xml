@@ -29,9 +29,10 @@
     </t> -->
     <t t-extend="mail.Chatter.Buttons">
         <t t-jquery="button[title='Send a message']" t-operation="after">
-            <label class="btn btn-sm btn-link o_filter_checkbox_label"  title="Hide notification">Hide notification
-            <input type="checkbox" class="btn btn-sm btn-link o_filter_checkbox"/>            
-            </label>
+            <button class="btn btn-sm btn-link o_filter_checkbox_label"  title="Hide notification">Hide notification
+            <input type="checkbox" class="btn btn-sm btn-link o_filter_checkbox"/>
+            </button>            
+            
         </t>
     </t>
 
