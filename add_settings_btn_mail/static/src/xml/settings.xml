@@ -27,8 +27,15 @@
             </div>
         </div>
     </t> -->
+    <t t-extend="mail.Chatter.Buttons">
+        <t t-jquery="button[title='Send a message']" t-operation="after">
+            <label class="btn btn-sm btn-link o_filter_checkbox_label"  title="Hide notification">Hide notification
+            <input type="checkbox" class="btn btn-sm btn-link o_filter_checkbox"/>            
+            </label>
+        </t>
+    </t>
 
-    <t t-name="mail.Chatter.Buttons">
+<!--     <t t-name="mail.Chatter.Buttons">
         <button t-if="new_message_btn" type="button" class="btn btn-sm btn-link o_chatter_button_new_message" title="Send a message">
             Send message
         </button>
@@ -41,5 +48,5 @@
         <label class="btn btn-sm btn-link o_filter_checkbox_label">Hide notification
         <input type="checkbox" class="btn btn-sm btn-link o_filter_checkbox"/>            
         </label>
-    </t>
+    </t> -->
  </template>
