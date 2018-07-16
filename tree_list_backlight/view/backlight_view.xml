@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="assets_backend" name="tree_list_backlight" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/tree_list_backlight/static/src/js/backlight.js"></script>
+            </xpath>
+        </template>
+
+        <record model='ir.actions.act_window' id='action_backlight_settings'>
+            <field name='name'>Set models to work</field>
+            <field name='res_model'>backlight.settings</field>
+            <field name='type'>ir.actions.act_window</field>
+            <!-- <field name='target'>new</field> -->
+            <field name='target'>inline</field>
+            <field name='view_type'>form</field>
+            <field name='view_mode'>form</field>
+        </record>
+
+        <record model="ir.ui.view" id="view_backlight_settings">
+            <field name="name">backlight.settings</field>
+            <field name="model">backlight.settings</field>
+            <field name="arch" type="xml">
+                <form string="Set models to work">
+                    <group>
+                        <field name="models_ids"/>
+                    </group>
+                    <footer>
+                        <button name="set_params" string="Set to system params" class="oe_highlight" type="object" />
+                        or
+                        <button special="cancel" string="Cancel" class="oe_link" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <menuitem id="menu_backlight" name="Backlight" parent="base.menu_administration" sequence="3"/>
+        <menuitem id="menu_backlight_wizard" name="Backlight" parent="menu_backlight" 
+        	sequence="0" 
+        	action="action_backlight_settings"
+        	web_icon="test_exceptions,static/description/icon.png"/>
+    </data>
+</odoo>
