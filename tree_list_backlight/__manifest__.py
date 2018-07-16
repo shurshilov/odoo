@@ -23,6 +23,7 @@
     'name': 'Tree list view backlight',
     'version': '10.0.1.0.0',
     'category': 'Tools',
+    'summary': """Backlight row in tree view""",
     'description': """
         Widget that get backlight row, when this check on ckeckbox, see screenshot in description
     """,
@@ -43,4 +44,6 @@
     'qweb': [
     ],
     "installable": True,
+    'application': False,
+    'auto_install': False,
 }
