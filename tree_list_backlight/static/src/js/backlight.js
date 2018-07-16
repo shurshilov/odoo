@@ -19,7 +19,7 @@ odoo.define('tree_list_backlight.tree_list_backlight', function (require) {
         self.flagStart = true;
         new Model('ir.config_parameter').call("get_param",["backlight"], {context: new data.CompoundContext()})
                 .then(function (result) {
-                    if (result.indexOf(self.dataset.model) == -1)
+                    if (result && result.indexOf(self.dataset.model) == -1)
                         self.flagStart = false;
                 
                     if (self.flagStart){
