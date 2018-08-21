@@ -7,6 +7,7 @@
 
     'description': """
         Very easy and beauty popup window
+        from python and js javascript
     """,
 
     'author': "Shurshilov Artem, Savetime Tehnology",
