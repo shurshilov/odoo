@@ -1,0 +1,141 @@
+
+/* Modal Content */
+.modal_content {
+    left: 50%;
+    margin-left: -200px;
+    width: 400px;
+    position: absolute;
+    background-color: #fefefe;
+    padding: 0;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    animation-name: animatetop;
+    animation-duration: 0.4s;
+    z-index: 999;
+}
+/* Modal Body */
+.modal_body {
+    padding: 12px 16px;
+    text-align: center;
+}
+
+/* Modal Footer */
+.modal_footer {
+    padding: 2px 16px;
+    background-color: white;
+    color: white;
+    padding: 20px;
+}
+.beauty-popup-but{
+    margin-bottom: 4px;
+    padding: 8px 12px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-family: inherit;
+    text-transform: uppercase;
+    color: #fff;
+}
+
+/* Add Animation */
+@keyframes animatetop {
+    from {top: -300px; opacity: 0}
+    to {top: 0; opacity: 1}
+}
+
+/* Modal check circle*/
+.scaledown{
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+}
+.beauty-popup-text{
+    padding-top: 30px;
+}
+/*
+SUCCESS
+*/
+.beauty-popup-success{
+    position: relative;
+    top: 55px;
+    left: 50%;
+    width: 120px;
+    height: 110px;
+    background: #4AD890;
+    color: white;
+    font-size: 7.8rem;
+    border-radius: 50%;
+    transition: transform 0.2s 0.25s cubic-bezier(.31,.25,.50,1.50), opacity 0.1s 0.25s ease-in-out;
+}
+.beauty-popup-but-success{
+    position: relative;
+    background: #4AD890;
+    top: 0;
+    width: 20%;
+    margin-left: 40%;
+    margin-right: 40%;
+}
+.beauty-popup-but-success:focus,
+.beauty-popup-but-success:hover {
+    color: white;
+    background-color: #4AD890;
+    border-color: #4AD890;
+}
+/*
+ERROR
+*/
+.beauty-popup-error{
+    position: relative;
+    top: 55px;
+    left: 50%;
+    width: 120px;
+    height: 110px;
+    background: #EF5289;
+    color: white;
+    font-size: 7.8rem;
+    border-radius: 50%;
+    transition: transform 0.2s 0.25s cubic-bezier(.31,.25,.50,1.50), opacity 0.1s 0.25s ease-in-out;
+}
+.beauty-popup-but-error{
+    position: relative;
+    background: #EF5289;
+    border-color: #EF5289;
+    top: 0;
+    width: 20%;
+    margin-left: 40%;
+    margin-right: 40%;
+}
+.beauty-popup-but-error:focus,
+.beauty-popup-but-error:hover {
+    color: white;
+    background-color: #EF5289;
+    border-color: #EF5289;
+}
+/*
+INFO
+*/
+.beauty-popup-info{
+    position: relative;
+    top: 55px;
+    left: 50%;
+    width: 120px;
+    height: 110px;
+    background: #4FA0D0;
+    color: white;
+    font-size: 7.8rem;
+    border-radius: 50%;
+    transition: transform 0.2s 0.25s cubic-bezier(.31,.25,.50,1.50), opacity 0.1s 0.25s ease-in-out;
+}
+.beauty-popup-but-info{
+    position: relative;
+    background: #4FA0D0;
+    border-color: #4FA0D0;
+    top: 0;
+    width: 20%;
+    margin-left: 40%;
+    margin-right: 40%;
+}
+.beauty-popup-but-info:focus,
+.beauty-popup-but-info:hover {
+    color: white;
+    background-color: #4FA0D0;
+    border-color: #4FA0D0;
+}

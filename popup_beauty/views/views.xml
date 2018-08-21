@@ -1,0 +1,13 @@
+<odoo>
+    <template id="assets_backend" name="popup_beauty_assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet" href="/popup_beauty/static/src/css/popup_beauty.css"/>
+                <script type="text/javascript" src="/popup_beauty/static/src/js/popup_beauty.js"/>
+            </xpath>
+    </template>
+
+    <record id="action_popup_beauty" model="ir.actions.client">
+            <field name="name">Beauty popup window</field>
+            <field name="tag">popup_beauty.new</field>
+    </record>
+</odoo>

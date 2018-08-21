@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="BeautyPopup">
+                <div class="modal_content">
+
+                    <div class="modal_body">
+                        <t t-if="type == 'success'">
+                            <div class="beauty-popup-success scaledown">&#10003;</div>
+                        </t>
+                        <t t-if="type == 'error'">
+                            <div class="beauty-popup-error scaledown">&#10007;</div>
+                        </t>
+                        <t t-if="type == 'info'">
+                            <div class="beauty-popup-info scaledown">&#9432;</div>
+                        </t>
+                        <div class="beauty-popup-text">
+                            <t t-esc="body"/>
+                        </div>
+                    </div>
+
+                    <div class="modal_footer">
+                        <t t-if="type == 'success'">
+                            <button class='btn beauty-popup-but beauty-popup-but-success'><t t-esc="button"/></button>
+                        </t>
+                        <t t-if="type == 'error'">
+                            <button class='btn beauty-popup-but beauty-popup-but-error'><t t-esc="button"/></button>
+                        </t>
+                        <t t-if="type == 'info'">
+                            <button class='btn beauty-popup-but beauty-popup-but-info'><t t-esc="button"/></button>
+                        </t>
+                    </div>
+                </div>
+    </t>
+</templates>
