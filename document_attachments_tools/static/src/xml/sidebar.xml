@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--     
+    Copyright (C) 2018 Eyekraft, Artem Shurshilov
+-->
+<templates>
+    <t t-extend="Sidebar">
+        <t t-jquery="a:has(.o_sidebar_delete_attachment)" t-operation="append">
+            <span t-if="section.name == 'files' and !item.callback and item.url"
+                class="fa fa-edit o_sidebar_edit_attachment"
+                t-att-data-id="item.id" title="Rename this attachment" />
+        </t>
+    </t>
+</templates>

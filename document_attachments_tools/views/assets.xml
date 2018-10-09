@@ -1,0 +1,8 @@
+<odoo>
+    <template id="assets_backend" name="document_attachments_tools_assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet" href="/document_attachments_tools/static/src/css/sidebar.css"/>
+                <script type="text/javascript" src="/document_attachments_tools/static/src/js/sidebar.js"/>
+            </xpath>
+    </template>
+</odoo>
