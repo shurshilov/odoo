@@ -32,7 +32,7 @@ This is extension for <field widget="image"> widget image
     ],
     'data': [ 'views/form_image_preview_templates.xml', ],   
     'qweb': [ 'static/src/xml/image.xml', ],
-    'installable': True,
+    'installable': False,
     'application': False,
     # If it's True, the modules will be auto-installed when all dependencies
     # are installed

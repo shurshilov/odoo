@@ -17,5 +17,5 @@
         'static/description/icon.png',
         'static/description/cart-empty.png',
      ],
-    'installable': True,
+    'installable': False,
 }

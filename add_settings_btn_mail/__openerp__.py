@@ -33,7 +33,7 @@ Widget add hide notification checkbox in chatter
     ],
     'data': [ 'views/add_settings_btn_mail.xml', ],   
     'qweb': [ 'static/src/xml/settings.xml', ],
-    'installable': True,
+    'installable': False,
     'application': False,
     # If it's True, the modules will be auto-installed when all dependencies
     # are installed

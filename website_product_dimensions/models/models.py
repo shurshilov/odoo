@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 # Copyright 2018 Artem Shurshilov
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
-from odoo import models, fields, api, _
+from odoo import models, fields, api
 
 
 class Product(models.Model):
+    _name = 'product.template'
     _inherit = 'product.template'
 
 
@@ -13,16 +14,16 @@ class Product(models.Model):
     width = fields.Float(string='Width',)
     height = fields.Float(string='Height',)
     volume_auto = fields.Float(string='Volume', compute='_compute_volume_auto',)
-    dimensions_uom_id = fields.Many2one(
-        'product.uom',
+    uom_id = fields.Many2one(
+        'uom.uom',
         'Dimension(UOM)',
-        domain=lambda self: [('category_id', '=', self.env.ref('product.uom_categ_length').id)],
+        #domain=lambda self: [('category_id', '=', self.env.ref('product.uom_categ_length').id)],
         help="Default Unit of Measure used for dimension."
     )
     weight_uom_id = fields.Many2one(
-        'product.uom',
+        'uom.uom',
         'Weight(UOM)',
-        domain=lambda self: [('category_id', '=', self.env.ref('product.product_uom_categ_kgm').id)],
+        #domain=lambda self: [('category_id', '=', self.env.ref('product.product_uom_categ_kgm').id)],
         help="Default Unit of Measure used for weight."
     )
 

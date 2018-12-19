@@ -9,8 +9,8 @@
     'support': "shurshilov.a@yandex.ru",
     'website': "https://vk.com/id20132180",
     "license": "LGPL-3",
-    'category': 'eCommerce, Website',
-    'version': '11.0.0.0',  # odoo.x.y.z; z - bags, y - feautures, x - model or view big changes
+    'category': 'Website',
+    'version': '12.0.0.0',  # odoo.x.y.z; z - bags, y - feautures, x - model or view big changes
     'images': [
         'static/description/screen.png',
         'static/description/screen1.png',
