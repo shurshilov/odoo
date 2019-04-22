@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Copyright 2019 Artem Shurshilov
+License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).-->
+<odoo>
+    <data>
+        <!-- For 11,12 version ODOO -->
+        <record id="account_invoice_copy_action_btn_copy" model="ir.actions.server">
+            <field name="name">Copy</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="account.model_account_invoice" />
+            <field name="binding_model_id" ref="account.model_account_invoice" />
+            <field name="state">code</field>
+            <field name="code">
+                action = env['account.invoice.wizard.copy'].copy_invoice(records)
+            </field>
+        </record>
+
+        <!-- For 10,9,8 version ODOO
+         <record id="account_invoice_copy_action_btn_copy" model="ir.actions.server">
+            <field name="name">Copy</field>
+            <field name="model_id" ref="model_account_invoice"/>
+            <field name="state">code</field>
+            <field name="condition">True</field>
+            <field name="code">
+                if context.get('active_model') == 'account.invoice' and context.get('active_ids'):
+                    action = env['account.invoice.wizard.copy'].copy_invoice(context.get('active_ids'))
+            </field>
+        </record>
+
+        <record id="account_invoice_copy_btn_copy" model="ir.values">
+            <field name="name">Copy</field>
+            <field name="model">account.invoice</field>
+            <field name="key" >action</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.server,%d'%account_invoice_copy_action_btn_copy" />
+        </record> -->
+    </data>
+</odoo>
