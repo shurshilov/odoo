@@ -20,7 +20,7 @@ class AccountInvoiceWizardCopy(models.TransientModel):
                     'view_type': 'form',
                     'view_mode': 'form',
                     'res_model': 'account.invoice.wizard.copy',
-                    'view_id': self.env.ref('account_invoice_copy.account_invoice_copy_view_copy_form').id,
+                    'view_id': self.env.ref('account_invoices_copy.account_invoice_copy_view_copy_form').id,
                     'type': 'ir.actions.act_window',
                     'target': 'new',
                     'context': self._context,
