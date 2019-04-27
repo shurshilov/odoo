@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Copyright 2019 Artem Shurshilov
+License OPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).-->
+<odoo>
+    <data>
+        <record id="res_config_settings_view_form" model="ir.ui.view">
+            <field name="name">res.config.settings.form.watermark</field>
+            <field name="model">res.config.settings</field>
+            <field name="priority" eval="20"/>
+            <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@id='social_default_image_setting']" position="after">
+                    <div class="col-12 col-lg-6 o_setting_box" id="social_default_image_setting">
+                        <div class="o_setting_right_pane">
+                            <label string="Default Watermark Image" for="social_default_image"/>
+                            <span class="fa fa-lg fa-globe" title="Values set here are website-specific." groups="website.group_multi_website"/>
+                            <div class="text-muted">
+                                If set, add to all images watermark.
+                            </div>
+                            <field name="website_watermark_mode" class="w-25 mt-2"/>
+                            <field name="website_watermark_image" widget="image" 
+                                class="w-25 mt-2" attrs="{'invisible': [('website_watermark_mode', '=', 'text')]}"/>
+                            <field name="website_watermark_text" class="w-25 mt-2" attrs="{'invisible': [('website_watermark_mode', '=', 'image')]}"/>
+                            <field name="website_watermark_enable" class="w-25 mt-2"/>
+                        </div>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_template_property_form_watermark" model="ir.ui.view">
+            <field name="name">product.template.form.watermark</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='general_information']" position="after">
+                    <page name="watermark" string="Watermark">
+                        <field name="watermark_image" class="w-25 mt-2" widget="image"/>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
