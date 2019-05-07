@@ -9,11 +9,12 @@
         #outer {
                display: none;
                position: absolute;
-               margin-right: -50%;
+               /*margin-right: -50%;*/
+               left:200px;
                /*transform: translate(-50%, -50%);*/
                z-index: 999;
-               min-width: 500px;
-               min-height: 500px;
+               min-width: 800px;
+               min-height: 600px;
                /*top: 0px;
                left: -13%;*/
                background: rgba(120, 120, 120, 0.3);
