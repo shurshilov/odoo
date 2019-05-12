@@ -20,6 +20,7 @@ odoo.define('web_widget_darkroom.darkroom_modal_button', function(require) {
     var field_utils = require('web.field_utils');
     var rpc = require('web.rpc');
     var Context = require('web.Context');
+    var DocumentViewer = require('mail.DocumentViewer');
 
 /*	AbstractFieldBinary.include({
 
@@ -216,30 +217,17 @@ odoo.define('web_widget_darkroom.darkroom_modal_button', function(require) {
                 //***from field_image_preview
                 var image = this.$el.find('img[name="' + this.name + '"]');
                 $(image).click(function(e) {
-                        // set attr SRC image, in our hidden div
-                        var a = $('#outer').find('img')[0];
-                        if (a) a.remove();
-                        $('#outer').prepend('<img id="inner" src="'+self.imgSrc+'" />');
-                        //change css of parent because class oe_avatar 90x90 size maximum
-                        $('#outer').find('img').parent().css=({
-                            width:'100%',
-                            height:'100%',            
-                        });         
-                        $('#outer').fadeIn('slow');
-                
-                        $('#outer').click(function(e)
-                        {
-                            self.$('#inner').remove();
-                            $(this).fadeOut();
-
-                        });
-                        $(document).mouseup(function (e){ // action click on web-document
-                            var div = $("#outer"); // ID-element
-                            if (!div.is(e.target) // if click NO our elementе
-                               && div.has(e.target).length === 0) { // and NO our children elemets
-                                    div.hide(); 
-                            }
-                        });
+                    var source_id = self.model + "/" + JSON.stringify(self.res_id) +"/image";
+                    var attachments = [{
+                        "filename": self.recordData.display_name ,
+                        "id": source_id,
+                        "is_main": true,
+                        "mimetype": "image/jpeg",
+                        "name": self.recordData.display_name + " " + self.value,
+                        "type": "image",
+                    }]
+                    var attachmentViewer = new DocumentViewer(self, attachments, source_id);
+                    attachmentViewer.appendTo($('body'));
                         
                 });
             }
