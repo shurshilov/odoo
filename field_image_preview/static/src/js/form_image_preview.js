@@ -12,8 +12,11 @@ imageWidget.include({
         this._super.apply(this, arguments);
         var self = this;
         this.$("img").click(function(e) {
-            // console.log(self);
-            var source_id = self.model + "/" + JSON.stringify(self.res_id) +"/image";
+            var name_field = self.name;
+            if (name_field == "image_medium" ||
+            	name_field == "image_small")
+            	name_field = "image";
+            var source_id = self.model + "/" + JSON.stringify(self.res_id) + "/" + name_field;
             var attachments = [{
                 "filename": self.recordData.display_name ,
                 "id": source_id,
