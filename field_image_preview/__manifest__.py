@@ -18,7 +18,7 @@ This is extension for <field widget="image"> widget image
     
     # Categories can be used to filter modules in modules listing
     'category': "Tools",
-	   'version': '1.0',
+    'version': '2.0',
     # any module necessary for this one to work correctly
     'depends': ['web'],    
     "license": "LGPL-3",
@@ -26,9 +26,9 @@ This is extension for <field widget="image"> widget image
 #    'currency': 'EUR',
     # always loaded
     'images':[
-    	    'static/description/stock_open2.png',
-	        'static/description/stock_open.png',
-	        'static/description/stock_cursor.png',
+            'static/description/stock_open2.png',
+            'static/description/stock_open.png',
+            'static/description/stock_cursor.png',
     ],
     'data': [ 'views/form_image_preview_templates.xml', ],   
     'qweb': [ 'static/src/xml/image.xml', ],
