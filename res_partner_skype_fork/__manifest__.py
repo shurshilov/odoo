@@ -6,8 +6,8 @@
     'license': 'LGPL-3',
     "category": "Tools",
     "website": "https://vk.com/id20132180",
-    'price': 9.00,
-    'currency': 'EUR',
+    #'price': 9.00,
+    #'currency': 'EUR',
     "depends": ['web'],
     "images": [
 	    'static/description/module.png',
