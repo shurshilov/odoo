@@ -5,9 +5,9 @@
     "author": "Shurshilov Artem",
     'license': 'LGPL-3',
     "category": "Tools",
-    "website": "https://vk.com/id20132180",
-    'price': 9.00,
-    'currency': 'EUR',
+    "website": "https://apps.odoo.com/apps/browse?repo_maintainer_id=160431",
+    #'price': 9.00,
+    #'currency': 'EUR',
     "depends": ['web'],
     "images": [
 	    'static/description/module.png',
