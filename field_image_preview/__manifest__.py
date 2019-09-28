@@ -18,7 +18,7 @@ This is extension for <field widget="image"> widget image
     
     # Categories can be used to filter modules in modules listing
     'category': "Tools",
-    'version': '2.0',
+    'version': '3.0',
     # any module necessary for this one to work correctly
     'depends': ['web'],    
     "license": "LGPL-3",
