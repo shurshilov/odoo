@@ -7,7 +7,8 @@
     'summary': """Provide product dimensions in stock and e-commerce for products and display it on website""",  # describe here which problems solved by module
     'author': "Shurshilov Artem",
     'support': "shurshilov.a@yandex.ru",
-    'website': "https://vk.com/id20132180",
+#    'website': "https://vk.com/id20132180",
+    'website': "http://www.eurodoo.com",
     "license": "LGPL-3",
     'category': 'eCommerce, Website',
     'version': '11.0.0.0',  # odoo.x.y.z; z - bags, y - feautures, x - model or view big changes

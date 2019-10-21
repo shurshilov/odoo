@@ -9,7 +9,8 @@
     'application': False,
     'author': 'Shurshilov Artem,IT-Projects LLC',
     'license': 'GPL-3',
-    'website': 'https://vk.com/id20132180',
+#    'website': 'https://vk.com/id20132180',
+    'website': "http://www.eurodoo.com",
     'price': 30.0,
     'currency': 'EUR',
     'images': [

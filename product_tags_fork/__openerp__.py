@@ -26,7 +26,8 @@
     "version": "1.0",
     'license': 'GPL-3',
     "author": "Shurshilov Artem",
-    "website": "https://vk.com/id20132180",
+#    "website": "https://vk.com/id20132180",
+    'website': "http://www.eurodoo.com",
     "category": "Sales Management",
     "depends": [
         'product',

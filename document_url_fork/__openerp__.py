@@ -29,7 +29,8 @@
 Module that allows to attach an URL as a document.
     """,
     'author': "Shurshilov Artem",
-    'website': "https://vk.com/id20132180",
+#    'website': "https://vk.com/id20132180",
+    'website': "http://www.eurodoo.com",
     'license': 'AGPL-3',
     'depends': [
         'document',

@@ -14,11 +14,12 @@ This is extension for <field widget="image"> widget image
 
 """,
     'author': 'Shurshilov Artem',
-    "website": "https://vk.com/id20132180",
+#    "website": "https://vk.com/id20132180",
+    'website': "http://www.eurodoo.com",
     
     # Categories can be used to filter modules in modules listing
     'category': "Tools",
-	   'version': '1.0',
+    'version': '1.0.1',
     # any module necessary for this one to work correctly
     'depends': ['web'],    
     "license": "LGPL-3",
