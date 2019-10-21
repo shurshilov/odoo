@@ -17,9 +17,9 @@
     'version': '10.0.0.0',
     "license": "LGPL-3",
     'images':[
-            'static/description/search_artem.png',
-	    'static/description/product.png',
-	    'static/description/search_new.png',
+            'static/description/stock_cursor.png',
+	    'static/description/stock_open.png',
+	    'static/description/stock_open2.png',
     ],
 
     # any module necessary for this one to work correctly
