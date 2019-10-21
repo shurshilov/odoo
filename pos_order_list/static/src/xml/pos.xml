@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="InfoPopupWidget">
+        <div class="modal-dialog">
+            <div class="popup popup-selection">
+                <p class="title"><t t-esc=" widget.options.title || 'Select' " /></p>
+                <div class='selection scrollable-y touch-scrollable'>
+                    <t t-esc='widget.list'/>
+                    <t t-esc='list'/>
+                    <table class="client-list" style="width:100%;font-size: 14px;">
+                        <thead>
+                            <th style="padding:10px;width:75%" name="th_ol_ref">Имя</th>
+                            <th style="padding:10px;width:10%" name="th_ol_ref">Цена</th>
+                            <th style="padding:10px;width:15%" name="th_ol_customer">Кол-во</th>
+                        </thead>
+                        <tbody class="order-list-contents-products">
+                        <t t-foreach="widget.options.list || []" t-as="item">
+                            <tr class='selection-item' t-att-data-item-index='item_index'>
+                                <td style="padding:10px"><t t-esc='item.name'/></td>
+                                <td style="padding:10px"><t t-esc='item.price'/></td>
+                                <td style="padding:10px"><t t-esc='item.qty'/></td>
+                            </tr>
+                        </t>
+                    </tbody>
+                    </table>
+                </div>
+                <div class="footer">
+                    <div class="button cancel">
+                        OK
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+
+    <t t-name="ListOrderButtonWidget">
+        <t t-if="widget.pos.config.iface_load_done_order">
+            <div class="header-button order-list-button">
+                <i class='fa fa-fw fa-shopping-cart'/>
+                My orders
+            </div>
+        </t>
+    </t>
+
+    <t t-name="OrderListScreenWidget">
+        <div class="clientlist-screen screen">
+            <div class="screen-content">
+                <section class="top-content">
+                    <span class='button back'>
+                        <i class='fa fa-angle-double-left'></i>
+                        Back
+                    </span>
+                    <span class='button update' style="right:0">
+                        <i class='fa fa-refresh'></i>
+                        Refresh
+                    </span>
+                    <span class='searchbox'>
+                        <input placeholder='Search Order' />
+                        <span class='search-clear'></span>
+                    </span>
+                    <span class='searchbox'></span>
+                </section>
+                <section class="full-content" style="top:81px">
+                    <div class="window">
+                        <section class="subwindow">
+                            <div class="subwindow-container">
+                                <div class="subwindow-container-fix touch-scrollable scrollable-y">
+                                    <table class="client-list">
+                                        <thead>
+<!--                                            <th name="th_ol_ref" style="white-space: nowrap;" class="nooverflow">Номер заказа/продажи</th> -->
+                                            <th name="th_ol_ref" style="white-space: nowrap;" class="nooverflow">Ref.</th>
+                                            <th name="th_ol_customer">Customer</th>
+                                            <th name="th_ol_date">Date</th>
+                                            <th name="th_ol_amount_total">Amount Total</th>
+                                        </thead>
+                                        <tbody class="order-list-contents"  style="cursor:pointer">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="OrderLine">
+        <tr class='order-line' t-att-data-id='order.id' t-att-data-Uid='order.uid'>
+<!--            <td name="td_ol_gestori" style="white-space: nowrap;" class="nooverflow"><t t-esc='order.gestori_ref' /></td> -->
+            <td name="td_ol_name" style="white-space: nowrap;" class="nooverflow"><t t-esc='order.pos_reference or order.name' /></td>
+            <td name="td_ol_customer"><t t-esc='order.partner_id[1]' /></td>
+            <td name="td_ol_date"><t t-esc='order.date_order' /></td>
+            <td name="td_ol_amount_total"><t t-esc='widget.format_currency(order.amount_total)' /></td>
+        </tr>
+    </t>
+</templates>
