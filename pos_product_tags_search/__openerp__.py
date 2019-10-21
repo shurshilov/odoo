@@ -29,7 +29,7 @@
     ],
     'data': [ 'views/pos_product_tags_search.xml', ],   
     #'qweb': [ 'static/src/xml/image.xml', ],
-    'installable': True,
+    'installable': False,
     'application': False,
     # If it's True, the modules will be auto-installed when all dependencies
     # are installed

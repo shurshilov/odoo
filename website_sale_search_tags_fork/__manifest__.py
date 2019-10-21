@@ -20,5 +20,5 @@
     ],
     'depends': ['website_sale', 'product_tags_fork'],
     'auto_install': False,
-    'installable': True,
+    'installable': False,
 }

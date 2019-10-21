@@ -17,7 +17,7 @@
     "currency": "EUR",
     'application': False,
     "auto_install": False,
-    'installable': True,
+    'installable': False,
     'depends': [
         'web',
     ],

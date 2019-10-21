@@ -16,7 +16,7 @@
     'website': "http://www.eurodoo.com",
     "license": "LGPL-3",
     'category': 'Accounting',
-    'version': '12.0.0.0',  # odoo.x.y.z; z - bags, y - feautures, x - model or view big changes
+    'version': '13.0.0.0',  # odoo.x.y.z; z - bags, y - feautures, x - model or view big changes
     'depends': ['base', 'account'],  # any odoo module necessary for this one to work correctly
     'data': [  # always loaded
         'views/account_invoice_views.xml',

@@ -42,7 +42,7 @@
         'static/description/icon.png',
         'static/description/kanban.png',
      ],
-    'installable': True,
+    'installable': False,
     'application': False,
     'auto_install': False,
 
