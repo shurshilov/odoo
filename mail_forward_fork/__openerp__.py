@@ -7,10 +7,11 @@
     "version": "1.0.0",
 
     "author": "Shurshilov Artem",
-    "website": "https://vk.com/id20132180",
+    'website': "http://www.eurodoo.com",
+#    "website": "https://vk.com/id20132180",
     "license": "LGPL-3",
-    'price': 30.00,
-    'currency': 'EUR',
+#    'price': 30.00,
+#    'currency': 'EUR',
     "depends": [
         "mail_base",
     ],

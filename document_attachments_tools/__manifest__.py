@@ -6,7 +6,7 @@
     'summary': """add feautures to sidebar document attachments""",  # describe here which problems solved by module
     'author': "Eyekraft, Shurshilov Artem",
     'support': "shurshilov.a@yandex.ru",
-    'website': "https://vk.com/id20132180",
+    'website': "http://www.eurodoo.com",
     "license": "LGPL-3",
     'category': 'Document Management',
     'version': '10.1.0.0',  # odoo.x.y.z; z - bags, y - feautures, x - model or view big changes

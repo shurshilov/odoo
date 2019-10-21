@@ -28,7 +28,8 @@
         Widget that get backlight row, when this check on ckeckbox, see screenshot in description
     """,
     'author': "Shurshilov Artem",
-    'website': "https://vk.com/id20132180",
+    'website': "http://www.eurodoo.com",
+#    'website': "https://vk.com/id20132180",
     'license': 'AGPL-3',
     'depends': [
         'web',

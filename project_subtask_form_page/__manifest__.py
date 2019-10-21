@@ -14,6 +14,7 @@
         'hr_timesheet',
     ],
     'author': "Shurshilov Artem",
+    'website': "http://www.eurodoo.com",
     'version': '10.0.0.1',
     'images': [
         'static/description/screen.png',
