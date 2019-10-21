@@ -10,7 +10,8 @@
                      for a better understanding
                    """,
     'author': 'Shurshilov Artem',
-    "website": "https://vk.com/id20132180",
+#    "website": "https://vk.com/id20132180",
+    'website': "http://www.eurodoo.com",
     
     # Categories can be used to filter modules in modules listing
     'category': "Tools",

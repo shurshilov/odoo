@@ -13,7 +13,8 @@
     """,  # describe here which problems solved by module
     'author': "Shurshilov Artem",
     'support': "shurshilov.a@yandex.ru",
-    'website': "https://vk.com/id20132180",
+    'website': "http://www.eurodoo.com",
+#    'website': "https://vk.com/id20132180",
     "license": "OPL-1",
     'category': 'Accounting',
     'version': '12.0.0.0',  # odoo.x.y.z; z - bags, y - feautures, x - model or view big changes
