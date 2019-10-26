@@ -1,0 +1,12 @@
+<odoo>
+    <record id="pos_config_pos_order_list" model="ir.ui.view">
+        <field name="model">pos.config</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_config_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='iface_cashdrawer']" position="after">
+                <field name="iface_load_done_order"/>
+                <field name="iface_load_done_order_max_qty"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
