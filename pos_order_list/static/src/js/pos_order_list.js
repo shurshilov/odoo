@@ -114,7 +114,7 @@ odoo.define('pos_order_list.widgets', function (require) {
                 });
 
                 self.gui.show_popup('info', {
-                    title: 'Информация по чеку',
+                    title: 'Receipt information',
                     list: products,
                 });
             });
