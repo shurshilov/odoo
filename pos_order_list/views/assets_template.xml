@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data>
+        <template id="index_pos_order_list" name="POS Index with my orders button" inherit_id="point_of_sale.index">
+	    <xpath expr="." position="inside">
+        	<script type="text/javascript" src="/pos_order_list/static/src/js/pos_order_list.js"></script>
+	    </xpath>
+        </template>
+</data>
+</odoo>
