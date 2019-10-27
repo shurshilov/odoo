@@ -34,7 +34,7 @@ class Extension(main.Binary):
                       filename_field='datas_fname', unique=None, filename=None, mimetype=None,
                       download=None, width=0, height=0, crop=False, related_id=None, access_mode=None,
                       access_token=None, avoid_if_small=False, upper_limit=False, signature=False):
-        if field == 'image':
+        if field == 'image' and model == 'product.template':
             if request.env['ir.config_parameter'].sudo().get_param("website_watermark_enable"):
                 field = 'watermark_image'
         return super(Extension, self).content_image(xmlid, model, id, field,
@@ -63,9 +63,15 @@ class ResConfigSettings(models.TransientModel):
         website_watermark_image = self.env['ir.config_parameter'].get_param("website_watermark_image")
         return website_watermark_image
 
+    @api.model
+    def set_website_watermark_centr(self):
+        website_watermark_centr = self.env['ir.config_parameter'].get_param("website_watermark_centr")
+        return website_watermark_centr
+
     website_watermark_image = fields.Binary('Image for watermark', default=get_default_website_watermark_image)
     website_watermark_text = fields.Char('Text for watermark, image will default')
     website_watermark_enable = fields.Boolean("Enable/Disable website watermark", default=get_default_website_watermark_enable)
+    website_watermark_centralize = fields.Boolean("centralize watermark or leave in the upper left corner", default=set_website_watermark_centr)
     website_watermark_mode = fields.Selection([
         ('text', 'Watermark just text'),
         ('image', 'Watermark your own image'),
@@ -76,6 +82,7 @@ class ResConfigSettings(models.TransientModel):
         config_parameters = self.env['ir.config_parameter']
         config_parameters.set_param("website_watermark_enable", self.website_watermark_enable)
         config_parameters.set_param("website_watermark_image", self.website_watermark_image)
+        config_parameters.set_param("website_watermark_centr", self.website_watermark_centralize)
 
     @api.multi
     def write(self, values):
@@ -87,8 +94,17 @@ class ResConfigSettings(models.TransientModel):
                 if prod.image:
                     img = Image.open(io.BytesIO(base64.b64decode(prod.image))).convert("RGBA")
                     x, y = watermark.size
-                    img.paste(watermark, (0, 0, x, y), watermark)
+                    #img.paste(watermark, (0, 0, x, y), watermark)
+                    width, height = img.size
+                    transparent = Image.new('RGBA', (width, height), (0,0,0,0))
+                    transparent.paste(img, (0,0))
+                    if self.website_watermark_centralize:
+                        transparent.paste(watermark, (x/2, y/2, x, y), mask=watermark)
+                    else:
+                        transparent.paste(watermark, (0, 0, x, y), mask=watermark)
+                    transparent.show()
                     with io.BytesIO() as output:
-                        img.save(output, format=img.format) if img.format else img.save(output, format='PNG')
+                        #img.save(output, format=img.format) if img.format else img.save(output, format='PNG')
+                        transparent.save(output)
                         prod.watermark_image = base64.b64encode(output.getvalue())
         return result
