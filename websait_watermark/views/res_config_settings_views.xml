@@ -20,6 +20,7 @@ License OPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).-->
                                 <field name="website_watermark_centralize"/>                                
                                 <field name="website_watermark_text" attrs="{'invisible': [('website_watermark_mode', '=', 'image')]}"/>
                                 <field name="website_watermark_enable"/>
+                                <field name="website_watermark_transparent"/>
                                 <field name="website_watermark_image" widget="image" class="w-25 mt-2" attrs="{'invisible': [('website_watermark_mode', '=', 'text')]}"/>
                             </group>
                     </div>

@@ -64,32 +64,44 @@ class ResConfigSettings(models.TransientModel):
         return website_watermark_image
 
     @api.model
-    def set_website_watermark_centr(self):
+    def get_default_website_watermark_centr(self):
         website_watermark_centr = self.env['ir.config_parameter'].get_param("website_watermark_centr")
         return website_watermark_centr
+
+    @api.model
+    def get_default_website_watermark_transparent(self):
+        website_watermark_transparent = self.env['ir.config_parameter'].get_param("website_watermark_transparent")
+        if website_watermark_transparent:
+            return website_watermark_transparent
+        else:
+            return 0
 
     website_watermark_image = fields.Binary('Image for watermark', default=get_default_website_watermark_image)
     website_watermark_text = fields.Char('Text for watermark, image will default')
     website_watermark_enable = fields.Boolean("Enable/Disable website watermark", default=get_default_website_watermark_enable)
-    website_watermark_centralize = fields.Boolean("centralize watermark or leave in the upper left corner", default=set_website_watermark_centr)
+    website_watermark_centralize = fields.Boolean("centralize watermark or leave in the upper left corner", default=get_default_website_watermark_centr)
+    website_watermark_transparent = fields.Integer("transparent watermark 0-256 opacity,0 - disable", default=get_default_website_watermark_transparent)
     website_watermark_mode = fields.Selection([
         ('text', 'Watermark just text'),
         ('image', 'Watermark your own image'),
     ], string='Selection mode', default='image')
 
     @api.multi
-    def set_website_watermark_enable(self):
+    def set_website_watermark(self):
         config_parameters = self.env['ir.config_parameter']
         config_parameters.set_param("website_watermark_enable", self.website_watermark_enable)
         config_parameters.set_param("website_watermark_image", self.website_watermark_image)
         config_parameters.set_param("website_watermark_centr", self.website_watermark_centralize)
+        config_parameters.set_param("website_watermark_transparent", self.website_watermark_transparent)
 
     @api.multi
     def write(self, values):
         result = super(ResConfigSettings, self).write(values)
-        self.set_website_watermark_enable()
+        self.set_website_watermark()
         if self.website_watermark_image and self.website_watermark_enable:
             watermark = Image.open(io.BytesIO(base64.b64decode(self.website_watermark_image))).convert("RGBA")
+            if self.website_watermark_transparent and self.website_watermark_transparent < 256 and self.website_watermark_transparent >0:
+                watermark.putalpha(self.website_watermark_transparent)
             for prod in self.env['product.template'].search([]):
                 if prod.image:
                     img = Image.open(io.BytesIO(base64.b64decode(prod.image))).convert("RGBA")
@@ -101,7 +113,7 @@ class ResConfigSettings(models.TransientModel):
                     #transparent = Image.new('RGBA', (width, height), (0,0,0,0))
                     #transparent.paste(img, (0,0))
                     if self.website_watermark_centralize:
-                        #transparent.paste(watermark, (int(x/2), int(y/2), x, y), mask=watermark)
+                        #transparent.paste(watermark, (x, y), mask=watermark)
                         img.paste(watermark, (x, y), watermark)
                     else:
                         #transparent.paste(watermark, (0, 0, x, y), mask=watermark)
