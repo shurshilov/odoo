@@ -93,18 +93,22 @@ class ResConfigSettings(models.TransientModel):
             for prod in self.env['product.template'].search([]):
                 if prod.image:
                     img = Image.open(io.BytesIO(base64.b64decode(prod.image))).convert("RGBA")
-                    x, y = watermark.size
+                    #x, y = watermark.size
+                    x = int((img.size[0] / 2) - (watermark.size[0] / 2))
+                    y = int((img.size[1] / 2) - (watermark.size[1] / 2))
                     #img.paste(watermark, (0, 0, x, y), watermark)
                     width, height = img.size
-                    transparent = Image.new('RGBA', (width, height), (0,0,0,0))
-                    transparent.paste(img, (0,0))
+                    #transparent = Image.new('RGBA', (width, height), (0,0,0,0))
+                    #transparent.paste(img, (0,0))
                     if self.website_watermark_centralize:
-                        transparent.paste(watermark, (int(x/2), int(y/2), x, y), mask=watermark)
+                        #transparent.paste(watermark, (int(x/2), int(y/2), x, y), mask=watermark)
+                        img.paste(watermark, (x, y), watermark)
                     else:
-                        transparent.paste(watermark, (0, 0, x, y), mask=watermark)
-                    transparent.show()
+                        #transparent.paste(watermark, (0, 0, x, y), mask=watermark)
+                        img.paste(watermark, (0, 0, x, y), watermark)
+                    #transparent.show()
                     with io.BytesIO() as output:
-                        #img.save(output, format=img.format) if img.format else img.save(output, format='PNG')
-                        transparent.save(output)
+                        img.save(output, format=img.format) if img.format else img.save(output, format='PNG')
+                        #transparent.save(output)
                         prod.watermark_image = base64.b64encode(output.getvalue())
         return result
