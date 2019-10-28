@@ -99,7 +99,7 @@ class ResConfigSettings(models.TransientModel):
                     transparent = Image.new('RGBA', (width, height), (0,0,0,0))
                     transparent.paste(img, (0,0))
                     if self.website_watermark_centralize:
-                        transparent.paste(watermark, (x/2, y/2, x, y), mask=watermark)
+                        transparent.paste(watermark, (int(x/2), int(y/2), x, y), mask=watermark)
                     else:
                         transparent.paste(watermark, (0, 0, x, y), mask=watermark)
                     transparent.show()
