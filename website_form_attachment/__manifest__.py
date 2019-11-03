@@ -21,7 +21,9 @@
         'views/website_crm_templates.xml',
     ],
     'images':[
-            'static/description/Edit.png',
+            'static/description/field.png',
+            'static/description/choose.png',
+            'static/description/result.png',
     ],
     "external_dependencies": {"python": [], "bin": []},
 }
