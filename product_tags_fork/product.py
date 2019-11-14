@@ -38,9 +38,9 @@ class ProductTag(models.Model):
 
     image = fields.Binary('Image')
 
-    _parent_store = True
-    _parent_order = 'name'
-    _order = 'parent_left'
+    # _parent_store = True
+    # _parent_order = 'name'
+    # _order = 'parent_left'
 
     @api.multi
     def name_get(self):
