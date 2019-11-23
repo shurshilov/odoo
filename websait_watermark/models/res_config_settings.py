@@ -34,14 +34,22 @@ class Extension(main.Binary):
                       filename_field='datas_fname', unique=None, filename=None, mimetype=None,
                       download=None, width=0, height=0, crop=False, related_id=None, access_mode=None,
                       access_token=None, avoid_if_small=False, upper_limit=False, signature=False):
-        if field == 'image' and model == 'product.template':
+        if field == 'image' and (model == 'product.template' or model == 'product.product'):
             if request.env['ir.config_parameter'].sudo().get_param("website_watermark_enable"):
-                field = 'watermark_image'
+                if model == 'product.template':
+                    field = 'watermark_image'
+                else:
+                    field = 'watermark_image_product'
         return super(Extension, self).content_image(xmlid, model, id, field,
                                                     filename_field, unique, filename, mimetype,
                                                     download, width, height, crop, related_id, access_mode,
                                                     access_token, avoid_if_small, upper_limit, signature)
 
+class ProductProduct(models.Model):
+    _name = 'product.product'
+    _inherit = 'product.product'
+
+    watermark_image_product = fields.Binary('Image with watermark product')
 
 class Product(models.Model):
     _name = 'product.template'
@@ -123,4 +131,25 @@ class ResConfigSettings(models.TransientModel):
                         img.save(output, format=img.format) if img.format else img.save(output, format='PNG')
                         #transparent.save(output)
                         prod.watermark_image = base64.b64encode(output.getvalue())
+            for prod in self.env['product.product'].search([]):
+                if prod.image:
+                    img = Image.open(io.BytesIO(base64.b64decode(prod.image))).convert("RGBA")
+                    #x, y = watermark.size
+                    x = int((img.size[0] / 2) - (watermark.size[0] / 2))
+                    y = int((img.size[1] / 2) - (watermark.size[1] / 2))
+                    #img.paste(watermark, (0, 0, x, y), watermark)
+                    width, height = img.size
+                    #transparent = Image.new('RGBA', (width, height), (0,0,0,0))
+                    #transparent.paste(img, (0,0))
+                    if self.website_watermark_centralize:
+                        #transparent.paste(watermark, (x, y), mask=watermark)
+                        img.paste(watermark, (x, y), watermark)
+                    else:
+                        #transparent.paste(watermark, (0, 0, x, y), mask=watermark)
+                        img.paste(watermark, (0, 0, x, y), watermark)
+                    #transparent.show()
+                    with io.BytesIO() as output:
+                        img.save(output, format=img.format) if img.format else img.save(output, format='PNG')
+                        #transparent.save(output)
+                        prod.watermark_image_product = base64.b64encode(output.getvalue())
         return result
