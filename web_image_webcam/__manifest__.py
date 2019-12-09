@@ -14,6 +14,10 @@
               "Shurshilov Artem",
     "license": "LGPL-3",
     "price": 19.00,
+    'images':[
+            'static/description/field.png',
+            'static/description/choose.png',
+    ],
     "currency": "EUR",
     "data": [
         "views/assets.xml",
