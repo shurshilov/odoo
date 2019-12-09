@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
-    "name": "Skype field in partner form odoo 11",
-    "version": "1.0.0",
+    "name": "Skype field in partner form odoo 12 and 13",
+    "version": "12.0.0.0",
     "author": "Shurshilov Artem",
     'license': 'LGPL-3',
     "category": "Tools",
@@ -22,5 +22,5 @@
     "qweb": [
         'static/src/xml/base.xml',
     ],
-    'installable': False,
+    'installable': True,
 }
