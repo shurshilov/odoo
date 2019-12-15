@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+<template id="assets_editor" inherit_id="web.assets_frontend" name="FaceID Assests">
+    <xpath expr="." position="inside">
+	    <link rel="stylesheet" href="/auth_faceid/static/src/css/lightbox.css" />
+        <script type="text/javascript" src="/auth_faceid/static/src/js/faceid.js"></script>
+	</xpath>
+</template>
+
+        <template id="login" inherit_id="web.login" name="OAuth Login buttons">
+<!--             <xpath expr="//form" position="before">
+                <t t-set="form_small" t-value="True" t-if="len(providers) &gt; 2"/>
+            </xpath> -->
+            <xpath expr="//div[hasclass('o_login_auth')]" position="inside">
+                <div class="o_auth_oauth_providers list-group mt-1 mb-1 text-left" id="camera-faceid">
+                    <a class="list-group-item list-group-item-action py-2">
+                        <i class="fa fa-camera"/>
+                        FACEID
+                    </a>
+                </div>
+                <div id="outer">
+                	<video id="video" autoplay="autoplay"></video>
+					<link id="snap" class="btn btn-primary">Snap shot</link>
+					<canvas id="canvas"></canvas>
+					<img id="screenshot-img"></img>
+				</div>
+            </xpath>
+        </template>
+
+</data>
+</openerp>

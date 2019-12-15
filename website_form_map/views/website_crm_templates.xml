@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+# Copyright 2019 Artem Shurshilov
+# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
+-->
+<odoo>
+    <template id="assets_editor" inherit_id="web.assets_frontend" name="FaceID Assests">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+       integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+       crossorigin=""/>
+            <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+       integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+       crossorigin=""></script>
+<!--             <link rel="stylesheet" href="/auth_faceid/static/src/css/lightbox.css" /> -->
+            <script type="text/javascript" src="/website_form_map/static/src/js/leaflet.js"></script>
+        </xpath>
+    </template>
+
+    <template id="contactus_form_map" name="Contact Form" inherit_id="base.contact">
+        <xpath expr="//div[@itemprop='address']" position="after">
+            <div id="mapid" style="height:230px;"></div>
+        </xpath>
+    </template>
+
+    <template id="company_description" inherit_id="website.company_description" name="Company Description">
+        <xpath expr="//span[@class='fa fa-map-marker fa-fw mt16']" position="replace"/>
+        <xpath expr="//a[@target='_BLANK']" position="replace"/>
+    </template>
+</odoo>
