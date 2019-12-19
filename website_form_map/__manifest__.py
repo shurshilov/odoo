@@ -14,8 +14,8 @@
     #"currency": "EUR",
     'application': False,
     "auto_install": False,
-    'installable': False,
-    'depends': ['base','website','website_form', 'website_crm', 'website_partner', 'crm'],
+    'installable': True,
+    'depends': ['base','website'],
     'data': [
         'views/website_crm_templates.xml',
     ],

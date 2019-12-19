@@ -16,7 +16,7 @@
     'application': False,
     "auto_install": False,
     'installable': True,
-    'depends': ['website_form','website_crm','website_partner', 'crm'],
+    'depends': ['website_crm','website_form', 'website_partner', 'crm'],
     'data': [
         'views/website_crm_templates.xml',
     ],

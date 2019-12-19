@@ -8,12 +8,12 @@ odoo.define('website_form_map.leaflet', function (require) {
 	var point = new L.LatLng(lat, lng);
 
 	//var map = L.map('map').setView(point, 15);
-	var mymap = L.map('mapid').setView([51.505, -0.09], 13);
+	var mymap = L.map('mapid').setView([55.753960,37.620393], 13);
 
 	L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   		attribution: 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
 	}).addTo(mymap);
-	const provider = new GeoSearch.OpenStreetMapProvider();
+/*	const provider = new GeoSearch.OpenStreetMapProvider();
 
 	var circle = L.circle(point, {
   		fillColor: '#42A5F5',
@@ -26,7 +26,7 @@ odoo.define('website_form_map.leaflet', function (require) {
   		query: lat + ',' + lng
 	}).then(function(result) {
   		marker.bindPopup(result[0].label).openPopup();
-	});
+	});*/
 
  });
 

@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-        <template id="contactus_form_attach" name="Contact Form" inherit_id="website.contactus" customize_show="True">
+        <template id="contactus_form_attach" name="Contact Form" inherit_id="website_crm.contactus_form">
             <xpath expr="//form[@method='post']" position="replace">      
-<!--                 <div> -->
                     <form action="/website_form/" method="post" data-model_name="crm.lead" data-success_page="/contactus-thank-you" class="s_website_form container-fluid mt32" enctype="multipart/form-data" data-editable-form="false">
                         <div class="form-group row form-field o_website_form_required_custom">
                             <label class="col-lg-3 col-md-4 col-form-label" for="contact_name">Your Name</label>
@@ -54,7 +53,6 @@
                             </div>
                         </div>
                     </form>
-<!--                 </div> -->
             </xpath>
         </template>
 </odoo>
