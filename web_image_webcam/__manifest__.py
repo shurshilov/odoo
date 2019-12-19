@@ -7,12 +7,18 @@
     "summary": "Allows to take image with WebCam",
     "version": "13.0.1.0.0",
     "category": "web",
-    "website": "https://www.techreceptives.com",
+    "website": "https://www.eurodoo.com",
     "author": "Tech Receptives, "
               "Odoo Community Association (OCA), "
               "Kaushal Prajapati, "
               "Shurshilov Artem",
     "license": "LGPL-3",
+    "price": 19.00,
+    'images':[
+            'static/description/field.png',
+            'static/description/choose.png',
+    ],
+    "currency": "EUR",
     "data": [
         "views/assets.xml",
     ],
