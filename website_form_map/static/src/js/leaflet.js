@@ -2,7 +2,8 @@ odoo.define('website_form_map.leaflet', function (require) {
 "use strict";
 
   require('web.dom_ready');
-	var rpc = require('web.rpc');
+  var rpc = require('web.rpc');
+  $('.img-fluid').hide();
   var lat = 55.505,
       lng = 38.6611378,
       enable = false,
@@ -54,11 +55,11 @@ odoo.define('website_form_map.leaflet', function (require) {
       deferred2.done(function () {
           deferred3.done(function () {
               if (enable){
-              	var point = new L.LatLng(lat, lng);
-              	var mymap = L.map('mapid').setView(point, 13);
-              	L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                		attribution: 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
-              	}).addTo(mymap);
+                var point = new L.LatLng(lat, lng);
+                var mymap = L.map('mapid').setView(point, 13);
+                L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
+                }).addTo(mymap);
               }
           });
       });
