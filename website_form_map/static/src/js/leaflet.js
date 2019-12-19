@@ -1,32 +1,67 @@
 odoo.define('website_form_map.leaflet', function (require) {
 "use strict";
 
-    require('web.dom_ready');
+  require('web.dom_ready');
+	var rpc = require('web.rpc');
+  var lat = 55.505,
+      lng = 38.6611378,
+      enable = false,
+      size = 230;
+  var deferred1 = $.Deferred(),
+      deferred2 = $.Deferred(),
+      deferred3 = $.Deferred(),
+      deferred4 = $.Deferred();
+  rpc.query({
+                model: 'ir.config_parameter',
+                method: 'search_read',
+                args: [[['key','=','website_leaflet_lat']]],
+            })
+    .then(function(result){
+        lat = result[0].value;
+        deferred1.resolve();
+  });
+  rpc.query({
+                model: 'ir.config_parameter',
+                method: 'search_read',
+                args: [[['key','=','website_leaflet_lng']]],
+            })
+    .then(function(result){
+        lng = result[0].value;
+        deferred2.resolve();
+  });
+  rpc.query({
+                model: 'ir.config_parameter',
+                method: 'search_read',
+                args: [[['key','=','website_leaflet_enable']]],
+            })
+    .then(function(result){
+        enable =  (result[0].value == 'True');
+        deferred3.resolve();
+  });
+  rpc.query({
+                model: 'ir.config_parameter',
+                method: 'search_read',
+                args: [[['key','=','website_leaflet_size']]],
+            })
+    .then(function(result){
+        size = result[0].value;
+        $('#mapid').css('width',size);
+        $('#mapid').css('height',size);
+        deferred4.resolve();
+  });
 
-	var lat = -13.268355,
-  		lng = -39.6611378;
-	var point = new L.LatLng(lat, lng);
-
-	//var map = L.map('map').setView(point, 15);
-	var mymap = L.map('mapid').setView([51.505, -0.09], 13);
-
-	L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  		attribution: 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
-	}).addTo(mymap);
-	const provider = new GeoSearch.OpenStreetMapProvider();
-
-	var circle = L.circle(point, {
-  		fillColor: '#42A5F5',
-  		fillOpacity: 0.2,
-  		radius: 500
-	}).addTo(mymap);
-	var marker = L.marker(point).addTo(mymap);
-
-	provider.search({
-  		query: lat + ',' + lng
-	}).then(function(result) {
-  		marker.bindPopup(result[0].label).openPopup();
-	});
-
+  deferred1.done(function () {
+      deferred2.done(function () {
+          deferred3.done(function () {
+              if (enable){
+              	var point = new L.LatLng(lat, lng);
+              	var mymap = L.map('mapid').setView(point, 13);
+              	L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                		attribution: 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
+              	}).addTo(mymap);
+              }
+          });
+      });
+    });
  });
 

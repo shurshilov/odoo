@@ -3,8 +3,8 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
 {
-    'name': 'Website contact us leaflet OSM free map',
-    'summary': '''Adds leaflet OSM map on contact us form''',
+    'name': 'Website widget map (OSM and leaflet)',
+    'summary': '''Adds FREE leaflet OSM map on contact us form''',
     'version': '13.0.0.0.1',
     'category': 'Tools',
     'website': "http://www.eurodoo.com",
@@ -14,7 +14,7 @@
     #"currency": "EUR",
     'application': False,
     "auto_install": False,
-    'installable': False,
+    'installable': True,
     'depends': ['base','website','website_form', 'website_crm', 'website_partner', 'crm'],
     'data': [
         'views/website_crm_templates.xml',
