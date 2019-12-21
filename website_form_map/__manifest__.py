@@ -3,7 +3,7 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
 {
-    'name': 'Website widget map (OSM and leaflet)',
+    'name': 'Website widget map (OSM and Leaflet)',
     'summary': '''Adds FREE leaflet OSM map on contact us form''',
     'version': '13.0.0.0.1',
     'category': 'Tools',
@@ -20,9 +20,9 @@
         'views/website_crm_templates.xml',
     ],
     'images':[
-            'static/description/field.png',
-            'static/description/choose.png',
             'static/description/result.png',
+            'static/description/settings.png',
+            #'static/description/result.png',
     ],
     "external_dependencies": {"python": [], "bin": []},
 }

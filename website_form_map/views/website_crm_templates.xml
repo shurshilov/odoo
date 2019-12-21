@@ -32,9 +32,9 @@
             <field name="arch" type="xml">
                 <xpath expr="//div[@id='social_default_image_setting']" position="after">
                     <div class="col-12 col-lg-8 o_setting_box" id="social_default_image_setting">
-                            <label string="Default Watermark Image" for="social_default_image"/>
+                            <label string="Default Leaflet map settings" for="social_default_image"/>
                             <div class="text-muted">
-                                If set, add to all images leaflet.
+                                Please click enable to see all settings Leaflet map.
                             </div>
                             <group>
                                 <field name="website_leaflet_enable"/>
