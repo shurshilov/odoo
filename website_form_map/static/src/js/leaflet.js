@@ -4,7 +4,7 @@ odoo.define('website_form_map.leaflet', function (require) {
 "use strict";
 
   require('web.dom_ready');
-  var rpc = require('web.rpc');
+  //var rpc = require('web.rpc');
   var lat = 55.505,
       lng = 38.6611378,
       enable = false,
