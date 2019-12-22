@@ -110,7 +110,7 @@ class ResConfigSettings(models.TransientModel):
             watermark = Image.open(io.BytesIO(base64.b64decode(self.website_watermark_image))).convert("RGBA")
             if self.website_watermark_transparent and self.website_watermark_transparent < 256 and self.website_watermark_transparent >0:
                 watermark.putalpha(self.website_watermark_transparent)
-            for prod in self.env['product.template'].search([],order="write_date desc",limit=250):
+            for prod in self.env['product.template'].search([],order="write_date",limit=250):
                 if prod.image:
                     img = Image.open(io.BytesIO(base64.b64decode(prod.image))).convert("RGBA")
                     #x, y = watermark.size
@@ -131,7 +131,7 @@ class ResConfigSettings(models.TransientModel):
                         img.save(output, format=img.format) if img.format else img.save(output, format='PNG')
                         #transparent.save(output)
                         prod.watermark_image = base64.b64encode(output.getvalue())
-            for prod in self.env['product.product'].search([],order="write_date desc",limit=250):
+            for prod in self.env['product.product'].search([],order="write_date",limit=250):
                 if prod.image:
                     img = Image.open(io.BytesIO(base64.b64decode(prod.image))).convert("RGBA")
                     #x, y = watermark.size
