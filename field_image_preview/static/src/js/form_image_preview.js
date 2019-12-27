@@ -20,7 +20,7 @@ imageWidget.include({
                 name_field = "image";
             // unique forces a reload of the image when the record has been updated
             var source_id = self.model + "/" + JSON.stringify(self.res_id) + "/" + name_field
-                + "?unique="+ field_utils.format.datetime(self.recordData.__last_update).replace(/[^0-9]/g, '');
+                + "?unique="+ field_utils.format.datetime(self.recordData.__last_update).replace(/[^0-9]/g, '')+"#";
             var attachments = [{
                 "filename": self.recordData.display_name ,
                 "id": source_id,
