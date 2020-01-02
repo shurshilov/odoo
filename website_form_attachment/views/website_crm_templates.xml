@@ -1,61 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-        <template id="contactus_form_attach" name="Contact Form" inherit_id="website.contactus" customize_show="True">
-            <!-- <xpath expr="//form[@action='/website_form/']" position="replace"> -->
-            <xpath expr="//form[@method='post']" position="replace">
-<!--                 <div> -->
-                    <form action="/website_form/" method="post" data-model_name="crm.lead" data-success_page="/contactus-thank-you" class="s_website_form container-fluid mt32" enctype="multipart/form-data" data-editable-form="false">
-                        <div class="form-group row form-field o_website_form_required_custom">
-                            <label class="col-lg-3 col-md-4 col-form-label" for="contact_name">Your Name</label>
-                            <div class="col-lg-7 col-md-8">
-                                <input type="text" class="form-control o_website_form_input" name="contact_name" t-att-value="request.params.get('contact_name', '')" required=""/>
-                            </div>
-                        </div>
-                        <div class="form-group row form-field">
-                            <label class="col-lg-3 col-md-4 col-form-label" for="phone">Phone Number</label>
-                            <div class="col-lg-7 col-md-8">
-                                <input type="text" class="form-control o_website_form_input" name="phone" t-att-value="request.params.get('phone', '')" />
-                            </div>
-                        </div>
-                        <div class="form-group row form-field o_website_form_required_custom">
-                            <label class="col-lg-3 col-md-4 col-form-label" for="email_from">Email</label>
-                            <div class="col-lg-7 col-md-8">
-                                <input type="text" class="form-control o_website_form_input" name="email_from" required="" t-att-value="request.params.get('email_from', '')" />
-                            </div>
-                        </div>
-                        <div class="form-group row form-field o_website_form_required_custom">
-                            <label class="col-lg-3 col-md-4 col-form-label" for="partner_name">Your Company</label>
-                            <div class="col-lg-7 col-md-8">
-                                <input type="text" class="form-control o_website_form_input" name="partner_name" required="" t-att-value="request.params.get('partner_name', '')" />
-                            </div>
-                        </div>
-                        <div class="form-group row form-field o_website_form_required">
-                            <label class="col-lg-3 col-md-4 col-form-label" for="name">Subject</label>
-                            <div class="col-lg-7 col-md-8">
-                                <input type="text" class="form-control o_website_form_input" name="name" required="" t-att-value="request.params.get('name', '')" />
-                            </div>
-                        </div>
-                        <div class="form-group row form-field o_website_form_required_custom">
-                            <label class="col-lg-3 col-md-4 col-form-label" for="description">Your Question</label>
-                            <div class="col-lg-7 col-md-8">
-                                <textarea class="form-control o_website_form_input" name="description" required=""><t t-esc="request.params.get('description', '')"/></textarea>
-                            </div>
-                        </div>
-                        <div class="form-group row form-field o_website_form_required_custom">
-                            <label class="col-lg-3 col-md-4 col-form-label" for="description">Attachments</label>
-                            <div class="col-lg-7 col-md-8">
-                                <input type="file" widget="many2many_binary" multiple="true" class="form-control o_website_form_input" name="attachment" required=""><t t-esc="request.params.get('attachment', '')"/></input>
+        <template id="contactus_form_attach"
+              inherit_id="website_crm.contactus_form"
+              name="Contact Form Captcha" priority="99">
+        <xpath expr="//div[hasclass('form-field')][last()]" position="before">
+            <div class="form-group row form-field o_website_form_required_custom">
+                <label class="col-lg-3 col-md-4 col-form-label" for="description">Attachments</label>
+                <div class="col-lg-7 col-md-8">
+                    <input type="file" widget="many2many_binary" multiple="true" class="form-control o_website_form_input" name="attachment" required=""><t t-esc="request.params.get('attachment', '')"/></input>
 
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="offset-lg-3 offset-md-4 col-md-8 col-lg-7">
-                                <a href="#" role="button" class="btn btn-primary btn-lg o_website_form_send">Send</a>
-                                <span id="o_website_form_result"></span>
-                            </div>
-                        </div>
-                    </form>
-<!--                 </div> -->
-            </xpath>
-        </template>
+                </div>
+            </div>
+        </xpath>
+    </template>
 </odoo>
