@@ -5,7 +5,7 @@
 {
     'name': 'Website widget map (OSM and Leaflet)',
     'summary': '''Adds FREE leaflet OSM map on contact us form''',
-    'version': '13.0.0.0.1',
+    'version': '13.0.0.1.1',
     'category': 'Tools',
     'website': "http://www.eurodoo.com",
     'author': 'Shurshilov Artem',
