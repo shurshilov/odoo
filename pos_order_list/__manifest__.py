@@ -7,7 +7,7 @@
     'summary': """
         Adds button my orders in POS interface""",
 
-    'author': "Artem Shurshilov",
+    'author': "Shurshilov Artem",
     'website': "http://www.eurodoo.com",
 
     # Categories can be used to filter modules in modules listing
