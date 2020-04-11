@@ -38,7 +38,7 @@
         'product_view.xml',
     ],
     'images': [
-        'static/description/icon.png',
+        'static/description/tags.png',
         'static/description/kanban.png',
      ],
     'installable': True,
