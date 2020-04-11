@@ -19,10 +19,10 @@
 #    You should have received a copy of the GNU Affero General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-from openerp import api
-from openerp import fields
-from openerp import models
-from openerp import exceptions
+from odoo import api
+from odoo import fields
+from odoo import models
+from odoo import exceptions
 
 
 class ProductTag(models.Model):
@@ -38,11 +38,11 @@ class ProductTag(models.Model):
 
     image = fields.Binary('Image')
 
-    _parent_store = True
-    _parent_order = 'name'
+    # _parent_store = True
+    # _parent_order = 'name'
     _order = 'parent_left'
 
-    @api.multi
+    #@api.multi
     def name_get(self):
         """ Return the tags' display name, including their direct parent. """
         res = {}
