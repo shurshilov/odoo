@@ -18,7 +18,7 @@
 	'version': '1.0',
     # any module necessary for this one to work correctly
     'depends': ['web','point_of_sale','product_tags_fork'],    
-    "license": "LGPL-3",
+    "license": "AGPL-3",
     'price': 15,
     'currency': 'EUR',
     # always loaded
