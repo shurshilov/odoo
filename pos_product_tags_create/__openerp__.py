@@ -23,7 +23,7 @@
     'currency': 'EUR',
     # always loaded
     'images':[
-            'static/description/search_artem.png',
+            'static/description/tags_Create.png',
 	        'static/description/product.png',
 	        'static/description/search_new.png',
     ],
