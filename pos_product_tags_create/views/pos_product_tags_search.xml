@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+<template id="assets_editor" inherit_id="web.assets_backend" name="Form Product Tags Assests">
+    <xpath expr="." position="inside">
+        <script type="text/javascript" src="/pos_product_tags_create/static/src/js/pos_product_tags_search.js"></script>
+	   </xpath>
+</template>
+<!--         <record id="product_template_form_inherit" model="ir.ui.view">
+            <field name="name">product.template.view.form</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//h1" position="after">
+                    <field name="tag_ids_name"  placeholder="Tags..."/> 
+                </xpath>
+            </field>
+        </record> -->
+</data>
+</openerp>
