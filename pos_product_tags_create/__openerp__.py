@@ -19,8 +19,8 @@
     # any module necessary for this one to work correctly
     'depends': ['web','point_of_sale','product_tags_fork'],    
     "license": "LGPL-3",
-#    'price': 9.99,
-#    'currency': 'EUR',
+    'price': 15,
+    'currency': 'EUR',
     # always loaded
     'images':[
             'static/description/search_artem.png',
