@@ -26,6 +26,11 @@
         'views/web_digital_sign_view.xml',
         'views/res_users_view.xml',
     ],
+        'images': [
+        'static/description/sign.png',
+        'static/description/sign.png',
+        'static/description/sign.png',
+    ],
     'qweb': [
         'static/src/xml/digital_sign.xml',
     ],
