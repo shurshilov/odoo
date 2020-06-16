@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <div t-name="snippet_openstreet_map.s_google_map_modal" class="form-horizontal">
+
+        <div class="form-group">
+            <label for="center-map" class="col-sm-3 control-label text-right">Center map point</label>
+            <div class="col-sm-9">
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="fa fa-building-o"/></div>
+
+                    <input type="text" class="form-control" id="center-map" placeholder="(55.75, 37.62)"/>
+                </div>
+            </div>
+            <div class="col-sm-9 col-sm-offset-3">
+                <small class="help-block">copy coords of your map</small>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label for="markers" class="col-sm-3 control-label text-right">Markers</label>
+            <div class="col-sm-9">
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="fa fa-map-marker"/></div>
+
+                    <input type="text" class="form-control" id="markers" placeholder="[(55.75, 37.62), (12.1, 32.2)]"/>
+                </div>
+            </div>
+            <div class="col-sm-9 col-sm-offset-3">
+                <small class="help-block">copy your markers coords list</small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="pin_style" class="col-sm-3 control-label text-right">Marker Style</label>
+            <div class="col-sm-9">
+                <select id="pin_style" name="pin_style" class="col-sm-5">
+                    <option value="flat">Flat</option>
+                    <option>Default</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="zoom" class="col-sm-3 control-label text-right">Zoom</label>
+            <div class="col-sm-9">
+                <select id="zoom" name="zoom" class="col-sm-5">
+                    <option value="2">0</option>
+                    <option value="6">1</option>
+                    <option value="8">2</option>
+                    <option value="10">3</option>
+                    <option value="12">4</option>
+                    <option value="14">5</option>
+                    <option value="16">6</option>
+                    <option value="18">7</option>
+                    <option value="20">8</option>                   
+                </select>
+            </div>
+        </div>
+
+    </div>
+</templates>
