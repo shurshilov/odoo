@@ -5,7 +5,9 @@
     'name': "Openstreet Leaflet Map Snippet",
 
     'summary': """
-        Openstreet Leaflet Map Snippet""",
+        Adds FREE leaflet OSM map on website as snippet
+    [TAGS] website maps leaflet osm map free map osm leaflet
+    map leaflet map maps lealet website openstreet map widget""",
 
     'author': "Shurshilov Artem",
     'website': "http://www.eurodoo.com",
