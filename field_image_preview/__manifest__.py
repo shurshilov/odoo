@@ -21,9 +21,9 @@ This is extension for <field widget="image"> widget image
     
     # Categories can be used to filter modules in modules listing
     'category': "Tools",
-    'version': '12.4.0',
+    'version': '12.5.0.0',
     # any module necessary for this one to work correctly
-    'depends': ['web','mail'],
+    'depends': ['web','mail', 'swipe_images_backend'],
     "license": "LGPL-3",
 #    'price': 9.99,
 #    'currency': 'EUR',
