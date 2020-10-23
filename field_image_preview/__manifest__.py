@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Copyright (C) 2016-2019 Artem Shurshilov <shurshilov.a@yandex.ru>
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+# License LGPL-3 or later (http://www.gnu.org/licenses/agpl).
 {
     'name': 'Widget image preview',
     'summary': """Adds functional preview (open/popup) image in original size 
