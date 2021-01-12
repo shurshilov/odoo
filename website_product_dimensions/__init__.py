@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright 2018 Artem Shurshilov
+# Copyright 2018 Shurshilov Artem
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html). licensing details.
 #################################################################################
 from . import models

@@ -1,4 +1,4 @@
-// Copyright 2019 Artem Shurshilov
+// Copyright 2019 Shurshilov Artem
 // License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 odoo.define('website_form_map.leaflet', function (require) {
 "use strict";

@@ -1,7 +1,7 @@
 /**
 *    Copyright 2013 Matthieu Moquet
 *    Copyright 2016-2017 LasLabs Inc.
-*    Copyright 2017-2018 Artem Shurshilov
+*    Copyright 2017-2018 Shurshilov Artem
 *    License MIT (https://opensource.org/licenses/MIT)
 **/
 

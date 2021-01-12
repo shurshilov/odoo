@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2018 Artem Shurshilov <shurshilov.a@yandex.ru>
+# Copyright (C) 2018 Shurshilov Artem <shurshilov.a@yandex.ru>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 {
     'name': 'POS product tags search',

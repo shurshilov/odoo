@@ -2,8 +2,8 @@
 ##############################################################################
 #
 #    Cybrosys Technologies Pvt. Ltd.
-#    Copyright (C) 2018-Today Artem Shurshilov(shurshilov.a@yandex.ru).
-#    Author: Artem Shurshilov
+#    Copyright (C) 2018-Today Shurshilov Artem(shurshilov.a@yandex.ru).
+#    Author: Shurshilov Artem
 #    you can modify it under the terms of the GNU LESSER
 #    GENERAL PUBLIC LICENSE (LGPL v3), Version 3.
 #
@@ -25,7 +25,7 @@
     'summary': """Chat (chatter) In POS Screen""",
     'description': "This module adds chat interface in Point of sale screen.",
     'license': 'AGPL-3',
-    'author': "Artem Shurshilov",
+    'author': "Shurshilov Artem",
     'website': "http://www.eurodoo.com",
 #    'website': "https://vk.com/id20132180",
     'category': 'Point Of Sale',

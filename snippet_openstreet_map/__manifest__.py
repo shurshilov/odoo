@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2020 Artem Shurshilov <shurshilov.a@yandex.ru>
+# Copyright (C) 2020 Shurshilov Artem <shurshilov.a@yandex.ru>
 # License OPL-1.0 or later (http://www.gnu.org/licenses/agpl).
 {
     'name': "Openstreet Leaflet Map Snippet",

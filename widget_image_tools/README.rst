@@ -79,4 +79,4 @@ After installing the module, you can use it in the following ways
 Contributors
 ------------
 
-* Artem Shurshilov <shurshilov.a@yandex.ru>
+* Shurshilov Artem <shurshilov.a@yandex.ru>

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2016-2019 Artem Shurshilov <shurshilov.a@yandex.ru>
+# Copyright (C) 2016-2019 Shurshilov Artem <shurshilov.a@yandex.ru>
 # License LGPL-3 or later (http://www.gnu.org/licenses/agpl).
 {
     'name': 'Widget image preview',
