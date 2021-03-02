@@ -23,7 +23,7 @@ This is extension for <field widget="image"> widget image
     'category': "Tools",
     'version': '13.1.0.1',
     # any module necessary for this one to work correctly
-    'depends': ['web','mail', 'swipe_images_backend'],
+    'depends': ['web','mail'],
     "license": "LGPL-3",
 #    'price': 9.99,
 #    'currency': 'EUR',
