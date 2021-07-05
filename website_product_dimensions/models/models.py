@@ -27,7 +27,6 @@ class Product(models.Model):
         help="Default Unit of Measure used for weight."
     )
 
-    @api.multi
     @api.depends('length', 'width', 'height')
     def _compute_volume_auto(self):
         for rec in self:
