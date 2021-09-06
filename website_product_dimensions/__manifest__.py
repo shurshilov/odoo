@@ -13,14 +13,14 @@
     'website': "http://www.eurodoo.com",
     "license": "LGPL-3",
     'category': 'Website',
-    'version': '12.0.0.0',  # odoo.x.y.z; z - bags, y - feautures, x - model or view big changes
+    'version': '12.0.0.1',  # odoo.x.y.z; z - bags, y - feautures, x - model or view big changes
     'images': [
         'static/description/screen.png',
         'static/description/screen1.png',
     ],
     "price": 39.00,
     "currency": "EUR",
-    'depends': ['product', ],  # any odoo module necessary for this one to work correctly
+    'depends': ['product', 'website_sale'],  # any odoo module necessary for this one to work correctly
     'data':  [  # always loaded
         'views/views.xml',
         'views/templates.xml'
