@@ -4,10 +4,10 @@
         <xpath expr="//p[@t-field='product.description_sale']" position="after">
             <t t-if="product.display_dimensions">
                 <br />
-                    Height: <span t-field="product.height" /> , <span t-field="product.dimensions_uom_id" /><br />
-                    Width: <span t-field="product.width" /> , <span t-field="product.dimensions_uom_id" /><br />
-                    Length: <span t-field="product.length" /> , <span t-field="product.dimensions_uom_id" /><br />             
-                    Volume: <span t-field="product.volume_auto" /> , <span t-field="product.dimensions_uom_id" /><br />
+                    Height: <span t-field="product.height" /> , <span t-field="product.uom_id" /><br />
+                    Width: <span t-field="product.width" /> , <span t-field="product.uom_id" /><br />
+                    Length: <span t-field="product.length" /> , <span t-field="product.uom_id" /><br />             
+                    Volume: <span t-field="product.volume_auto" /> , <span t-field="product.uom_id" /><br />
                     Weigth: <span t-field="product.weight" /> , <span t-field="product.weight_uom_id" /><br /> 
                 <br />
             </t>
