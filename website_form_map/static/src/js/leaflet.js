@@ -24,7 +24,7 @@ odoo.define('website_form_map.leaflet', function (require) {
               attribution: 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
           }).addTo(mymap);
           let marker = new L.Marker([lat, lng]);
-          marker.addTo(self.map);
+          marker.addTo(mymap);
           $('#mapid').css('width',size);
           $('#mapid').css('height',size);
           // hide google icon
