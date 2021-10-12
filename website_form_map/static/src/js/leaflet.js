@@ -18,15 +18,18 @@ odoo.define('website_form_map.leaflet', function (require) {
       size = data_json['size'];
 
       if (enable && $('#mapid').length){
-          var point = new L.LatLng(lat, lng);
-          var mymap = L.map('mapid').setView(point, 13);
+          let point = new L.LatLng(lat, lng);
+          let mymap = L.map('mapid').setView(point, 13);
           L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
               attribution: 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
           }).addTo(mymap);
+          let marker = new L.Marker([lat, lng]);
+          marker.addTo(self.map);
           $('#mapid').css('width',size);
           $('#mapid').css('height',size);
           // hide google icon
           $('.img-fluid').hide();
+          setTimeout(function () { self.mymap.invalidateSize() }, 400);
       }
   });
 
