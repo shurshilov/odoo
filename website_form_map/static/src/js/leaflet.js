@@ -29,7 +29,7 @@ odoo.define('website_form_map.leaflet', function (require) {
           $('#mapid').css('height',size);
           // hide google icon
           $('.img-fluid').hide();
-          setTimeout(function () { self.mymap.invalidateSize() }, 400);
+          setTimeout(function () { mymap.invalidateSize() }, 400);
       }
   });
 
