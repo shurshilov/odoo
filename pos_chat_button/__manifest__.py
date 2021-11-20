@@ -25,7 +25,7 @@
     'summary': """Chat (chatter) In POS Screen""",
     'description': "This module adds chat interface in Point of sale screen.",
     'license': 'AGPL-3',
-    'author': "Artem Shurshilov",
+    'author': "Shurshilov Artem",
 #    'website': "https://vk.com/id20132180",
     'website': "http://www.eurodoo.com",
     'category': 'Point Of Sale',
