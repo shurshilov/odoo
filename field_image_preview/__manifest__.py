@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2016-2019 Shurshilov Artem <shurshilov.a@yandex.ru>
+# Copyright (C) 2016-2021 Shurshilov Artem <shurshilov.a@yandex.ru>
 # License LGPL-3 or later (http://www.gnu.org/licenses/agpl).
 {
     'name': 'Widget image preview',
@@ -16,25 +16,33 @@ This is extension for <field widget="image"> widget image
 
 """,
     'author': 'Shurshilov Artem',
-#    "website": "https://vk.com/id20132180",
+    #    "website": "https://vk.com/id20132180",
     'website': "http://www.eurodoo.com",
-    
+
     # Categories can be used to filter modules in modules listing
     'category': "Tools",
-    'version': '14.1.0.1',
+    'version': '15.1.0.1',
     # any module necessary for this one to work correctly
-    'depends': ['web','mail', 'swipe_images_backend'],
+    'depends': ['web', 'mail'],
     "license": "LGPL-3",
-#    'price': 9.99,
-#    'currency': 'EUR',
+    #    'price': 9.99,
+    #    'currency': 'EUR',
     # always loaded
-    'images':[
+    'images': [
             'static/description/stock_open2.png',
             'static/description/stock_open.png',
             'static/description/stock_cursor.png',
     ],
-    'data': [ 'views/form_image_preview_templates.xml', ],   
-    'qweb': [ 'static/src/xml/image.xml', ],
+    # 'data': [ 'views/form_image_preview_templates.xml', ],
+    'assets': {
+        'web.assets_backend': [
+            'field_image_preview/static/**/*',
+        ],
+        'web.assets_qweb': [
+            'field_image_preview/static/src/xml/image.xml',
+        ],
+    },
+    # 'qweb': [ 'static/src/xml/image.xml', ],
     'installable': True,
     'application': False,
     # If it's True, the modules will be auto-installed when all dependencies
