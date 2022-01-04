@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <template id="assets_backend" inherit_id="web.assets_backend">
+    <!-- <template id="assets_backend" inherit_id="web.assets_backend">
         <xpath expr="." position="inside">
             <script type="text/javascript"
                     src="/base_geoengine/static/src/js/geoengine_common.js"/>
@@ -25,7 +25,7 @@
             <link rel="stylesheet"
                   href="/base_geoengine/static/src/css/style.css"/>
         </xpath>
-    </template>
+    </template> -->
 
     <menuitem name="GeoEngine Backend" id="geoengine_base_menu"
               web_icon="base_geoengine,images/map.png"

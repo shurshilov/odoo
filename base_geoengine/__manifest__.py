@@ -19,7 +19,26 @@
         "security/ir.model.access.csv",
     ],
     "external_dependencies": {"python": ["shapely", "geojson", "simplejson"]},
-    "qweb": ["static/src/xml/geoengine.xml"],
+    # "qweb": ["static/src/xml/geoengine.xml"],
+
+    'assets': {
+        'web.assets_backend': [
+            'base_geoengine/static/src/js/geoengine_common.js',
+            'base_geoengine/static/src/js/widgets/geoengine_record.js',
+            'base_geoengine/static/src/js/widgets/geoengine_template_widgets.js',
+            'base_geoengine/static/src/js/widgets/geoengine_widgets.js',
+            'base_geoengine/static/src/js/views/geoengine/geoengine_renderer.js',
+            'base_geoengine/static/src/js/views/geoengine/geoengine_controller.js',
+            'base_geoengine/static/src/js/views/geoengine/geoengine_view.js',
+            'base_geoengine/static/src/js/views/view_registry.js',
+            'base_geoengine/static/src/js/views/form_renderer.js',
+            'base_geoengine/static/src/css/style.css',
+        ],
+        'web.assets_qweb': [
+            'base_geoengine/static/src/**/*.xml',
+        ],
+    },
+
     "installable": True,
     "pre_init_hook": "init_postgis",
 }
