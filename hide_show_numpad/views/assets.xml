@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="hide_numpad_assets" inherit_id="point_of_sale.assets" name="point_of_sale assets">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/hide_show_numpad/static/src/js/hide_numpad.js"></script>
+            </xpath>
+        </template>
+    </data>
+</odoo>

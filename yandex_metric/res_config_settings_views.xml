@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_yandex_metrica" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.yandex.metrica</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="90"/>
+        <field name="inherit_id" ref="website.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@data-key='website']" position="inside">
+                        <div class="row mt16 o_settings_container">
+                            <div class="col-12 col-lg-12 o_setting_box" title="Use yandex metric functional">
+                                    <span class="o_form_label">Yandex metric</span>
+                                    <div class="text-muted">
+                                        Use yandex metric functional
+                                    </div>
+                            </div>
+                            <field name="yandex_metric"/>
+                        </div>
+                </xpath> 
+        </field>
+    </record>
+</odoo>
