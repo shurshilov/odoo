@@ -13,8 +13,8 @@
     # any module necessary for this one to work correctly
     'depends': ['web', 'website_sale'],
     "license": "LGPL-3",
-    'price': 19,
-    'currency': 'EUR',
+    # 'price': 19,
+    # 'currency': 'EUR',
     'images': [
         'static/description/result.png',
         'static/description/result.png',
