@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <templates id="pos_create_purchase_order" inherit_id="point_of_sale.template" xml:space="preserve">
+         <t t-name="PosCreatePurchase" name="Pos Create Purchase Widget" owl="1">
+            <div class="control-button"
+                style="background-color: #6ec89b; color: #fff; width:90%;"
+                t-on-click="createPurchaseOrder">
+                    <i class="fa fa-credit-card"></i> Create purchase order
+            </div>
+        </t>
+
+        <t t-name="ProductScreen"
+            t-inherit="point_of_sale.ProductScreen"
+            t-inherit-mode="extension"
+            owl="1">
+            <xpath expr="//div[hasclass('subpads')]" position="before">
+                <PosCreatePurchase/>
+            </xpath>
+        </t>
+  	</templates> 	

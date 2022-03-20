@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_mail_firebase" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.mail.farebase</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="90"/>
+        <field name="inherit_id" ref="base_setup.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <div id="business_documents" position="after">
+                <h2 id="mail_firebase">Android Notificator</h2>
+                <div class="col-12 col-lg-12 o_setting_box" title="Firebase WEB wizard">
+                            <!-- <div class="o_setting_right_pane">
+                                <field name="mail_firebase_key"/>
+                            </div>
+                            <div class="o_setting_left_pane">
+                                <span class="o_form_label">Firebase key</span>
+                            </div> -->
+
+                            <div class="o_setting_right_pane">
+                                <field name="firebase_channel_notify"/>
+                            </div>
+                            <div class="o_setting_left_pane">
+                                <span class="o_form_label">Firebase channels(discuss) notify</span>
+                            </div>
+
+                            <div class="o_setting_right_pane">
+                                <field name="firebase_message_post_notify"/>
+                            </div>
+                            <div class="o_setting_left_pane">
+                                <span class="o_form_label">Firebase chatter(records) notify</span>
+                            </div>
+                            <!-- <div class="o_setting_right_pane">
+                                <field name="firebase_white_list_models"/>
+                            </div>
+                            <div class="o_setting_left_pane">
+                                <span class="o_form_label">White list of chatter models enable</span>
+                            </div> -->
+                </div>
+                <h2 id="firebase_wizard">Android Notificator (Wizard users)</h2>
+                <div>
+                    <div class="col-12 col-lg-12 o_setting_box" title="Firebase WEB wizard">
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">Firebase title web</span>
+                        </div>
+
+                        <div class="o_setting_left_pane">
+                            <field name="res_users_firebase_title_web"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">Firebase body web</span>
+                        </div>
+                        <div class="o_setting_left_pane">
+                            <field name="res_users_firebase_body_web"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">Firebase icon web</span>
+                        </div>
+                        <div class="o_setting_left_pane">
+                            <field name="res_users_firebase_icon_web"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">Firebase image web</span>
+                        </div>
+                        <div class="o_setting_left_pane">
+                            <field name="res_users_firebase_image_web"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">Firebase action web</span>
+                        </div>
+                        <div class="o_setting_left_pane">
+                            <field name="res_users_firebase_action_web"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </field>
+    </record>
+</odoo>

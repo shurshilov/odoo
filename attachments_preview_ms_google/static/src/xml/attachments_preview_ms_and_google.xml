@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--Copyright (C) 2020 Artem Shurshilov <shurshilov.a@yandex.ru>-->
+    <templates>
+        <t t-extend="mail.AttachmentPreview">
+            <!-- <t t-jquery=".o_attachment_download" t-operation="replace"/> -->
+            <t t-jquery=".o_attachment_delete_cross" t-operation="after">
+                <span t-if="isDeletable" class="fa fa-windows text-white o_attachment_preview_ms_cross attachment_manager_icon" t-att-title="'Preview MS ' + attachment.name" t-att-data-id="attachment.id" t-att-data-name="attachment.name" t-att-data-url="attachment.url"/>
+                <span t-if="isDeletable" class="fa fa-google text-white o_attachment_preview_google_cross attachment_manager_icon" t-att-title="'Preview Google ' + attachment.name" t-att-data-id="attachment.id" t-att-data-name="attachment.name" t-att-data-url="attachment.url"/>
+            </t>
+        </t>
+
+
+        <t t-extend="mail.Attachment">
+            <!-- <t t-jquery=".o_attachment_download" t-operation="replace"/> -->
+            <t t-jquery=".o_attachment_delete_cross" t-operation="after">
+                <div class="o_attachment_view">
+                    <span t-if="isDeletable" class="fa fa-windows o_attachment_preview_ms_cross attachment_manager_icon" t-att-title="'Preview MS' + attachment.name" t-att-data-id="attachment.id" t-att-data-name="attachment.name" t-att-data-url="attachment.url"/>
+                    <span t-if="isDeletable" class="fa fa-google o_attachment_preview_google_cross attachment_manager_icon" t-att-title="'Preview Google ' + attachment.name" t-att-data-id="attachment.id" t-att-data-name="attachment.name" t-att-data-url="attachment.url"/>
+                </div>
+            </t>
+
+        </t>
+
+    </templates>

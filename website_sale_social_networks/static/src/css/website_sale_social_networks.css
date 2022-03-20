@@ -1,0 +1,405 @@
+.social {
+  font-family: cursive;
+    /*position: fixed;*/
+    display: inline-block;
+/* 	  height: 60px;
+    bottom: 40px;
+    right: 40px;*/
+}
+.social a {
+  margin: 0.6rem;
+  transition: 0.5s ease;
+  height: 15vw;
+  width: 15vw;
+  max-width: 4rem;
+  max-height: 4rem;
+  display: inline-block;
+}
+.social a:hover {
+  cursor: pointer;
+}
+.social a svg {
+  height: 100%;
+  width: 100%;
+  fill: white;
+}
+.social .badges a {
+  border-radius: 1rem;
+}
+.round {
+  border-radius: 50%;
+}
+.rounded {
+  border-radius: 20%;
+}
+.amazon {
+  background: #383940;
+}
+.amazon:focus, .amazon:hover {
+  background: #202125;
+}
+.amazon .amz-arrow {
+  fill: #fd9a00;
+}
+.amazon .amz-a {
+  fill: #231f20;
+}
+.app-store {
+  background: #383940;
+}
+.app-store:focus, .app-store:hover {
+  background: #202125;
+}
+.behance {
+  background: #1769ff;
+}
+.behance:focus, .behance:hover {
+  background: #0050e3;
+}
+.buffer {
+  background: #333333;
+}
+.buffer:focus, .buffer:hover {
+  background: #1a1a1a;
+}
+.codepen {
+  background: #383940;
+}
+.codepen:focus, .codepen:hover {
+  background: #202125;
+}
+.dribbble {
+  background: #ea4c89;
+}
+.dribbble:focus, .dribbble:hover {
+  background: #e51e6b;
+}
+.facebook {
+  background: #3b5998;
+}
+.facebook:focus, .facebook:hover {
+  background: #2d4373;
+}
+.flickr {
+  background: #e6e6e6;
+}
+.flickr:focus, .flickr:hover {
+  background: #ccc;
+}
+.flickr .flickr-blue {
+  fill: #256DD9;
+}
+.flickr .flickr-pink {
+  fill: #FE0084;
+}
+.generic {
+  background: #383940;
+}
+.generic:focus, .generic:hover {
+  background: #202125;
+}
+.github {
+  background: #383940;
+}
+.github:focus, .github:hover {
+  background: #202125;
+}
+.google-play {
+  background: #383940;
+}
+.google-play:focus, .google-play:hover {
+  background: #202125;
+}
+.google-plus {
+  background: #dd4b39;
+}
+.google-plus:focus, .google-plus:hover {
+  background: #c23321;
+}
+.instagram {
+  background: #383940;
+}
+.instagram:focus, .instagram:hover {
+  background: #202125;
+}
+.linkedin {
+  background: #007bb6;
+}
+.linkedin:focus, .linkedin:hover {
+  background: #005983;
+}
+.medium {
+  background: #383940;
+}
+.medium:focus, .medium:hover {
+  background: #202125;
+}
+.pinterest {
+  background: #bd081c;
+}
+.pinterest:focus, .pinterest:hover {
+  background: #8c0615;
+}
+.reddit {
+  background: #cee3f8;
+}
+.reddit:focus, .reddit:hover {
+  background: #a1caf2;
+}
+.reddit svg {
+  stroke-width: 18;
+  stroke: #383940;
+}
+.reddit svg.alt {
+  stroke-width: 21;
+}
+.reddit svg:focus svg, .reddit svg:hover svg {
+  stroke: #202125;
+}
+.reddit svg .reddit-eyes {
+  fill: #f04a22;
+  stroke-width: 0;
+}
+.reddit svg .reddit-line {
+  stroke-linecap: round;
+  fill: none;
+  stroke-linejoin: round;
+}
+.rss {
+  background: #D95B29;
+}
+.rss:focus, .rss:hover {
+  background: #b0481f;
+}
+.snapchat {
+  background: #f7ec1e;
+}
+.snapchat:focus, .snapchat:hover {
+  background: #dad008;
+}
+.snapchat svg {
+  stroke-width: 13;
+  stroke: #25262a;
+}
+.soundcloud {
+  background: #ff6000;
+}
+.soundcloud:focus, .soundcloud:hover {
+  background: #cc4d00;
+}
+.spotify {
+  background: #2ebd59;
+}
+.spotify:focus, .spotify:hover {
+  background: #249446;
+}
+.tumblr {
+  background: #36465D;
+}
+.tumblr:focus, .tumblr:hover {
+  background: #232e3d;
+}
+.twitter {
+  background: #55acee;
+}
+.twitter:focus, .twitter:hover {
+  background: #2795e9;
+}
+.vine {
+  background: #00B289;
+}
+.vine:focus, .vine:hover {
+  background: #007f62;
+}
+.vk {
+  background: #4D76A4;
+}
+.vk:focus, .vk:hover {
+  background: #3d5d81;
+}
+.whatsapp {
+  background: #25D366;
+}
+.whatsapp:focus, .whatsapp:hover {
+  background: #1da851;
+}
+.youtube {
+  background: #cd201f;
+}
+.youtube:focus, .youtube:hover {
+  background: #a11918;
+}
+.no-bg a {
+  background-color: transparent !important;
+  margin: 0;
+
+}
+.no-bg .amazon svg {
+  fill: #383940;
+}
+.no-bg .amazon:focus svg, .no-bg .amazon:hover svg {
+  fill: #202125;
+}
+.no-bg .app-store svg {
+  fill: #383940;
+}
+.no-bg .app-store:focus svg, .no-bg .app-store:hover svg {
+  fill: #202125;
+}
+.no-bg .behance svg {
+  fill: #1769ff;
+}
+.no-bg .behance:focus svg, .no-bg .behance:hover svg {
+  fill: #0050e3;
+}
+.no-bg .buffer svg {
+  fill: #333333;
+}
+.no-bg .buffer:focus svg, .no-bg .buffer:hover svg {
+  fill: #1a1a1a;
+}
+.no-bg .codepen svg {
+  fill: #383940;
+}
+.no-bg .codepen:focus svg, .no-bg .codepen:hover svg {
+  fill: #202125;
+}
+.no-bg .dribbble svg {
+  fill: #ea4c89;
+}
+.no-bg .dribbble:focus svg, .no-bg .dribbble:hover svg {
+  fill: #e51e6b;
+}
+.no-bg .facebook svg {
+  fill: #3b5998;
+}
+.no-bg .facebook:focus svg, .no-bg .facebook:hover svg {
+  fill: #2d4373;
+}
+.no-bg .flickr:focus .flickr-blue, .no-bg .flickr:hover .flickr-blue {
+  fill: #1e57ad;
+}
+.no-bg .flickr:focus .flickr-pink, .no-bg .flickr:hover .flickr-pink {
+  fill: #cb0069;
+}
+.no-bg .generic svg {
+  fill: #383940;
+}
+.no-bg .generic:focus svg, .no-bg .generic:hover svg {
+  fill: #202125;
+}
+.no-bg .github svg {
+  fill: #383940;
+}
+.no-bg .github:focus svg, .no-bg .github:hover svg {
+  fill: #202125;
+}
+.no-bg .google-play svg {
+  fill: #383940;
+}
+.no-bg .google-play:focus svg, .no-bg .google-play:hover svg {
+  fill: #202125;
+}
+.no-bg .google-plus svg {
+  fill: #dd4b39;
+}
+.no-bg .google-plus:focus svg, .no-bg .google-plus:hover svg {
+  fill: #c23321;
+}
+.no-bg .instagram svg {
+  fill: #383940;
+}
+.no-bg .instagram:focus svg, .no-bg .instagram:hover svg {
+  fill: #202125;
+}
+.no-bg .linkedin svg {
+  fill: #007bb6;
+}
+.no-bg .linkedin:focus svg, .no-bg .linkedin:hover svg {
+  fill: #005983;
+}
+.no-bg .medium svg {
+  fill: #383940;
+}
+.no-bg .medium:focus svg, .no-bg .medium:hover svg {
+  fill: #202125;
+}
+.no-bg .pinterest svg {
+  fill: #bd081c;
+}
+.no-bg .pinterest:focus svg, .no-bg .pinterest:hover svg {
+  fill: #8c0615;
+}
+.no-bg .reddit svg {
+  fill: white !important;
+}
+.no-bg .rss svg {
+  fill: #D95B29;
+}
+.no-bg .rss:focus svg, .no-bg .rss:hover svg {
+  fill: #b0481f;
+}
+.no-bg .snapchat svg {
+  fill: #383940;
+  stroke: #383940;
+}
+.no-bg .snapchat:focus svg, .no-bg .snapchat:hover svg {
+  fill: #202125;
+  stroke: #202125;
+}
+.no-bg .soundcloud svg {
+  fill: #ff6000;
+}
+.no-bg .soundcloud:focus svg, .no-bg .soundcloud:hover svg {
+  fill: #cc4d00;
+}
+.no-bg .spotify svg {
+  fill: #2ebd59;
+}
+.no-bg .spotify:focus svg, .no-bg .spotify:hover svg {
+  fill: #249446;
+}
+.no-bg .tumblr svg {
+  fill: #36465D;
+}
+.no-bg .tumblr:focus svg, .no-bg .tumblr:hover svg {
+  fill: #232e3d;
+}
+.no-bg .twitter svg {
+  fill: #55acee;
+}
+.no-bg .twitter:focus svg, .no-bg .twitter:hover svg {
+  fill: #2795e9;
+}
+.no-bg .vine svg {
+  fill: #00B289;
+}
+.no-bg .vine:focus svg, .no-bg .vine:hover svg {
+  fill: #007f62;
+}
+.no-bg .vk svg {
+  fill: #4D76A4;
+}
+.no-bg .vk:focus svg, .no-bg .vk:hover svg {
+  fill: #3d5d81;
+}
+.no-bg .whatsapp svg {
+  fill: #25D366;
+}
+.no-bg .whatsapp:focus svg, .no-bg .whatsapp:hover svg {
+  fill: #1da851;
+}
+.no-bg .youtube svg {
+  fill: #cd201f;
+}
+.no-bg .youtube:focus svg, .no-bg .youtube:hover svg {
+  fill: #a11918;
+}
+.social .app-store {
+  width: 50.625vw;
+  max-width: 20.25rem;
+}
+.social .google-play {
+  width: 50.625vw;
+  max-width: 20.25rem;
+}
