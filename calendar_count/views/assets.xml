@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="calendar_count_assets" inherit_id="web.assets_backend" name="calendar_count Assets">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/calendar_count/static/src/js/calendar_count.js"></script>
+            </xpath>
+        </template>
+    </data>
+</odoo>
