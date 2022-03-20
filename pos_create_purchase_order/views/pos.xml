@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="assets_for_pos_create_sale_order" inherit_id="point_of_sale.assets">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/pos_create_purchase_order/static/src/js/pos_create_purchase_order.js"/>
+            </xpath>
+        </template>
+    </data>
+</odoo>

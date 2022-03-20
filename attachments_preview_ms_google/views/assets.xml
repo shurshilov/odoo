@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="attachments_preview_ms_and_google_assets" inherit_id="web.assets_backend" name="attachments_preview_ms_and_google assets">
+            <xpath expr="." position="inside">
+            	<link href="/attachments_preview_ms_google/static/src/css/attachment_dragdrop.css" rel="stylesheet" />
+                <script type="text/javascript" src="/attachments_preview_ms_google/static/src/js/attachments_preview_ms_google.js"></script>
+            </xpath>
+        </template>
+    </data>
+</odoo>

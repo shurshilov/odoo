@@ -1,0 +1,13 @@
+.o_attachment .o_attachment_wrap .o_attachment_preview_ms_cross,
+.o_attachment .o_attachment_wrap .o_attachment_preview_google_cross  {
+    float: right;
+    cursor: pointer;
+    margin-right: 2px;
+    /*opacity: 0;*/
+    display: none;
+}
+.o_attachment .o_attachment_wrap:hover .o_attachment_preview_ms_cross,
+.o_attachment .o_attachment_wrap:hover .o_attachment_preview_google_cross  {
+    /*opacity: 1;*/
+    display: block;
+}

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2020 Shurshilov Artem <shurshilov.a@yandex.ru> -->
+<odoo>
+    <data>
+        <template id="website_sale_social_networks_MY" inherit_id="website.layout" customize_show="True" name="website_sale_social_networks_MY" priority="30">
+            <xpath expr="//div[@id='wrapwrap']" position="after">
+                <div t-attf-style="{{website.position_social_network}}">
+                    <t t-set="index" t-value="0"/>
+                    <t t-foreach="website.social_network_live" t-as="network">
+                        <t t-if="network.background">
+                            <div class="social" t-attf-style="{{network.style}}">
+                                <t t-if="index == 0">
+                                    <span style="color: black;text-align: left;font-size: 15px;">
+                                        <t t-esc="network.title"/>
+                                    </span>
+                                </t>
+                                <t t-if="network.name_application">
+                                    <a t-attf-href="{{network.name_application}}:{{network.contact}}"                      
+                                       t-attf-class="{{network.class_css}}"
+                                        target="_blank">
+                                            <t t-raw="network.icon"/>
+                                    </a>
+                                </t>
+                                <t t-else="">
+                                    <a t-attf-href="{{network.contact}}"
+                                       t-attf-class="{{network.class_css}}"
+                                        target="_blank">
+                                            <t t-raw="network.icon"/>
+                                    </a>
+                                </t>
+                            </div>
+                        </t>
+                        <t t-else="">
+                            <div class="social no-bg" t-attf-style="{{network.style}}">
+                                <t t-if="index == 0">
+                                    <span style="color: black;text-align: left;font-size: 15px;">
+                                        <t t-esc="network.title"/>
+                                    </span>
+                                </t>
+                                <t t-if="network.name_application">
+                                    <a t-attf-href="{{network.name_application}}:{{network.contact}}"                      
+                                       t-attf-class="{{network.class_css}}"
+                                        target="_blank">
+                                            <t t-raw="network.icon"/>
+                                    </a>
+                                </t>
+                                <t t-else="">
+                                    <a t-attf-href="{{network.contact}}"
+                                       t-attf-class="{{network.class_css}}"
+                                        target="_blank">
+                                            <t t-raw="network.icon"/>
+                                    </a>
+                                </t>
+                            </div>
+                        </t>
+                        <t t-set="index" t-value="index+1"/>
+                    </t>
+                </div>
+            </xpath>
+        </template>
+
+
+<!--         <template id="website_sale_social_networks_css_website" inherit_id="web._assets_utils" name="website_sale_social_networks_my">
+            <xpath expr="//link[last()]" position="after">
+                <link rel="stylesheet" type="text/css" href="/website_sale_social_networks/static/src/css/website_sale_social_networks.css"/>
+                <link rel="stylesheet" type="text/scss" href="/theme_bootswatch/static/lib/bootswatch/flatly/_bootswatch.scss"/>
+            </xpath>
+        </template> -->
+        <template id="social_networks_css_website" inherit_id="website.assets_frontend" name="Shop">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet" type="text/css" href="/website_sale_social_networks/static/src/css/website_sale_social_networks.css"/>
+            </xpath>
+        </template>
+
+        <record id="website_sale_social_networks_tree" model="ir.ui.view">
+            <field name="name">website social tree</field>
+            <field name="model">website.social</field>
+            <field name="arch" type="xml">
+                <tree string="Manage social networks">
+                    <field name="name"/>
+                    <field name="name_application"/>
+                    <field name="contact" />
+                    <field name="title"/>
+                    <field name="background"/>
+                    <field name="class_css"/>
+                    <field name="icon"/>
+                    <field name="style"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="website_sale_social_networks_form" model="ir.ui.view">
+            <field name="name">website social form</field>
+            <field name="model">website.social</field>
+            <field name="arch" type="xml">
+                <form string="Social network">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="name_application" placeholder="If this is just a link leave the field empty"/>
+                            <field name="contact" placeholder="If application your nickname, else URL"/>
+                            <field name="title"/>
+                            <field name="background"/>
+                            <field name="class_css"/>
+                            <field name="icon"/>
+                            <field name="style"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="website_sale_social_networks_action_setting">
+            <field name="name">Manage social networks</field>
+            <field name="res_model">website.social</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="website_sale_social_networks.website_sale_social_networks_tree"/>
+            <field name="target">current</field>
+        </record>
+
+
+        <record id="website_sale_social_networks" model="ir.ui.view">
+            <field name="name">website.form.social.networks</field>
+            <field name="model">website</field>
+            <field name="inherit_id" ref="website.view_website_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='domain']" position="after">
+                    <field name="social_network_live" widget="many2many_tags"/>
+                    <field name="position_social_network"/>
+                    <div class="row mt16 o_settings_container col-12 col-lg-12 o_setting_box">
+                    <group string="Manage launch icons messangers and social networks">
+                        <div>
+                            <button 
+                                type="action" 
+                                name="website_sale_social_networks.website_sale_social_networks_action_setting" 
+                                string="Go manager" class="oe_link" />
+                        </div>
+                    </group>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>
