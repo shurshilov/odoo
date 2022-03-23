@@ -20,7 +20,7 @@
     # Check https://github.com/odoo/odoo/blob/13.0/odoo/addons/base/data/ir_module_category_data.xml
     # for the full list
     'category': 'eCommerce',
-    'version': '14.1.0.0',
+    'version': '14.2.0.0',
     "license": "OPL-1",
     "support": "shurshilov.a@yandex.ru",
     # 'price': 19,
@@ -43,8 +43,8 @@
     # ],
     'assets': {
         'web.assets_backend': [
-            "static/src/lib/**/*",
-            "static/src/js/**/*",
+            "swipe_images_backend/static/src/libs/**/*",
+            "swipe_images_backend/static/src/js/**/*",
         ],
         'web.assets_qweb': [
             'swipe_images_backend/static/src/xml/image.xml',

@@ -25,7 +25,7 @@
         </div>
     </t>
 
-   <t t-name="image.legacy.mail.DocumentViewer.Content">
+   <t t-name="im_livechat.legacy.mail.DocumentViewer.Content">
         <div class="o_viewer_content">
             <t t-set="model" t-value="widget.modelName"/>
             <div class="o_viewer-header">
@@ -74,7 +74,7 @@
 
     <t t-name="image.legacy.mail.DocumentViewer">
         <div class="modal o_modal_fullscreen" tabindex="-1" data-keyboard="false" role="dialog">
-            <t class="o_document_viewer_content_call" t-call="image.legacy.mail.DocumentViewer.Content"/>
+            <t class="o_document_viewer_content_call" t-call="im_livechat.legacy.mail.DocumentViewer.Content"/>
 
             <t t-if="widget.attachment.length !== 1">
                 <a class="arrow arrow-left move_previous" href="#">
