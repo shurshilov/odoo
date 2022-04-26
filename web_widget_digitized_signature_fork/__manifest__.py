@@ -2,7 +2,7 @@
 # Copyright 2011-2015 Serpent Consulting Services Pvt. Ltd.
 # Copyright 2017 Tecnativa - Vicent Cubells
 # Copyright 2019 Open Source Integrators
-# Copyright 2020 Shurshilov Artem <shurshilov.a@yandex.ru>
+# Copyright 2020 EURO ODOO, EURO ODOO, Shurshilov Artem <shurshilov.a@yandex.ru>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 {
@@ -12,7 +12,7 @@
               'Agile Business Group, '
               'Tecnativa, '
               'Odoo Community Association (OCA)'
-              'Shurshilov Artem',
+              'EURO ODOO, EURO ODOO, Shurshilov Artem',
     'website': 'www.eurodoo.com',
     'license': 'AGPL-3',
     'category': 'Web',

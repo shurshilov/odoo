@@ -8,7 +8,7 @@
         Provide free unlimited push notifications on android phones, absolutely free,
         which free android App (used Firebase Push Notifications) work even App close""",
 
-    'author': "Shurshilov Artem",
+    'author': "EURO ODOO, EURO ODOO, Shurshilov Artem",
     'website': "https://eurodoo.com",
     "live_test_url": "https://eurodoo.com",
 

@@ -34,7 +34,7 @@
 		Google Drive, Microsoft OneDrive, Dropbox Clouds Odoo Integrations
         """,
 
-    'author': "Shurshilov Artem",
+    'author': "EURO ODOO, EURO ODOO, Shurshilov Artem",
     'website': "https://eurodoo.com",
     "live_test_url": "https://eurodoo.com/login_employee?login=demo1&password=demo1",
 

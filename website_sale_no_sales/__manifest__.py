@@ -17,7 +17,7 @@
     ],
     "version": "13.0.1.0.0",
     "application": False,
-    "author": "Shurshilov Artem,IT-Projects LLC, Denis Mudarisov",
+    "author": "EURO ODOO, EURO ODOO, Shurshilov Artem,IT-Projects LLC, Denis Mudarisov",
     "support": "shurshilov.a@yandex.ru",
     "website": "https://eurodoo.com",
     "license": "LGPL-3",  # MIT

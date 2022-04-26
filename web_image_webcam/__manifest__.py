@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Copyright 2016 Siddharth Bhalgami <siddharth.bhalgami@techreceptives.com>
-# Copyright 2019-2022 Shurshilov Artem <shurshilov.a@yandex.ru>
+# Copyright 2019-2022 EURO ODOO, EURO ODOO, Shurshilov Artem <shurshilov.a@yandex.ru>
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 {
     "name": "Web Widget - Image WebCam",
@@ -14,7 +14,7 @@
     "author": "Tech Receptives, "
               "Odoo Community Association (OCA), "
               "Kaushal Prajapati, "
-              "Shurshilov Artem",
+              "EURO ODOO, EURO ODOO, Shurshilov Artem",
     "license": "LGPL-3",
     "price": 19.00,
     'images':[

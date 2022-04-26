@@ -7,7 +7,7 @@
     'summary': """
         Clear cart button add on website""",
 
-    'author': "Shurshilov Artem",
+    'author': "EURO ODOO, EURO ODOO, Shurshilov Artem",
     'website': "https://eurodoo.com",
 
     # Categories can be used to filter modules in modules listing

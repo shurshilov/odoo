@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright 2019 Shurshilov Artem
+# Copyright 2019 EURO ODOO, EURO ODOO, Shurshilov Artem
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
 {
@@ -10,7 +10,7 @@
         The copied account takes the draft status, regardless of the status of the copied account.
         Responsible in the copied account will be the user who launched the action.
     """,  # describe here which problems solved by module
-    'author': "Shurshilov Artem",
+    'author': "EURO ODOO, EURO ODOO, Shurshilov Artem",
     'support': "shurshilov.a@yandex.ru",
 #    'website': "https://vk.com/id20132180",
     'website': "http://www.eurodoo.com",

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright 2019 Shurshilov Artem
+# Copyright 2019 EURO ODOO, EURO ODOO, Shurshilov Artem
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
 {
@@ -9,7 +9,7 @@
     'version': '12.0.0.0.2',
     'category': 'Tools',
     'website': "http://www.eurodoo.com",
-    'author': 'Shurshilov Artem',
+    'author': 'EURO ODOO, EURO ODOO, Shurshilov Artem',
     'license': 'LGPL-3',
     #"price": 9.00,
     #"currency": "EUR",

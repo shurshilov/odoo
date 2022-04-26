@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2016-2019 Shurshilov Artem <shurshilov.a@yandex.ru>
+# Copyright (C) 2016-2019 EURO ODOO, EURO ODOO, Shurshilov Artem <shurshilov.a@yandex.ru>
 # License LGPL-3 or later (http://www.gnu.org/licenses/agpl).
 {
     'name': 'Widget image preview',
@@ -15,7 +15,7 @@ This is extension for <field widget="image"> widget image
     * close on click on/out image
 
 """,
-    'author': 'Shurshilov Artem',
+    'author': 'EURO ODOO, EURO ODOO, Shurshilov Artem',
 #    "website": "https://vk.com/id20132180",
     'website': "http://www.eurodoo.com",
     

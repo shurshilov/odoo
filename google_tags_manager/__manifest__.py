@@ -36,7 +36,7 @@
     'version': '12.0.0.0.1',
     'category': 'Website',
     'website': "https://eurodoo.com",
-    'author': 'Shurshilov Artem',
+    'author': 'EURO ODOO, EURO ODOO, Shurshilov Artem',
     'license': 'LGPL-3',
     # "price": 19.00,
     # "currency": "EUR",

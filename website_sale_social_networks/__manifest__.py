@@ -46,7 +46,7 @@
         phone generic with background
         """,
 
-    'author': "Shurshilov Artem",
+    'author': "EURO ODOO, EURO ODOO, Shurshilov Artem",
     'website': "https://eurodoo.com",
     'live_test_url': "https://eurodoo.com",
 

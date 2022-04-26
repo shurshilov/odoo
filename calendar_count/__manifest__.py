@@ -4,7 +4,7 @@
 {
     'name': 'Calendar counter by day',
     'summary': """Calendar counter by date calendar counter calendar count calendar sum calendar""",
-    'author': 'Shurshilov Artem, Advance',
+    'author': 'EURO ODOO, EURO ODOO, Shurshilov Artem, Advance',
     "website": "https://eurodoo.com",
     #"live_test_url": "https://eurodoo.com/login_employee?login=demo1&amp;password=demo1",
 

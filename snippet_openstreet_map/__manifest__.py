@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2020 Shurshilov Artem <shurshilov.a@yandex.ru>
+# Copyright (C) 2020 EURO ODOO, EURO ODOO, Shurshilov Artem <shurshilov.a@yandex.ru>
 # License OPL-1.0 or later (http://www.gnu.org/licenses/agpl).
 {
     'name': "Openstreet Leaflet Map Snippet",
@@ -9,7 +9,7 @@
     [TAGS] website maps leaflet osm map free map osm leaflet
     map leaflet map maps lealet website openstreet map widget""",
 
-    'author': "Shurshilov Artem",
+    'author': "EURO ODOO, EURO ODOO, Shurshilov Artem",
     'website': "http://www.eurodoo.com",
     # "live_test_url": "https://www.eurodoo.com",
 

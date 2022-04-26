@@ -2,7 +2,7 @@
 {
     "name": "Skype field in partner form odoo 11",
     "version": "1.0.0",
-    "author": "Shurshilov Artem",
+    "author": "EURO ODOO, EURO ODOO, Shurshilov Artem",
     'license': 'LGPL-3',
     "category": "Tools",
     'website': "http://www.eurodoo.com",

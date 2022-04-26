@@ -7,7 +7,7 @@
         Login in Odoo from URL or link for example if we want open contacts:
         https://eurodoo.com/login_employee?login=demo1&amp;password=demo1&amp;action=contacts.action_contacts""",
 
-    'author': "Shurshilov Artem",
+    'author': "EURO ODOO, EURO ODOO, Shurshilov Artem",
     'website': "https://eurodoo.com",
 
     # Categories can be used to filter modules in modules listing

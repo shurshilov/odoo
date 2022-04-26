@@ -4,7 +4,7 @@
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2013 Julius Network Solutions SARL <contact@julius.fr>
 #    Copyright (C) 2015 credativ ltd. <info@credativ.co.uk>
-#    Copyright (C) 2017-2020 Shurshilov Artem <shurshilov.a@yandex.ru>
+#    Copyright (C) 2017-2020 EURO ODOO, EURO ODOO, Shurshilov Artem <shurshilov.a@yandex.ru>
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -25,7 +25,7 @@
     "name": "Product Tags v. 14",
     "version": "14.1.0.0",
     'license': 'LGPL-3',
-    "author": "Shurshilov Artem",
+    "author": "EURO ODOO, EURO ODOO, Shurshilov Artem",
     'website': "http://www.eurodoo.com",
     "category": "Sales Management",
     "depends": [

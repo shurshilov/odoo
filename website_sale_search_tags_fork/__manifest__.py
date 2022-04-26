@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2020 Shurshilov Artem <shurshilov.a@yandex.ru>
+# Copyright (C) 2020 EURO ODOO, EURO ODOO, Shurshilov Artem <shurshilov.a@yandex.ru>
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 {
     'name': "Website Search Product Tags",
@@ -7,7 +7,7 @@
     'summary': """
         Search website products by tags such as categories good and complete search""",
 
-    'author': "Shurshilov Artem",
+    'author': "EURO ODOO, EURO ODOO, Shurshilov Artem",
     'website': "http://www.eurodoo.com",
 
     # Categories can be used to filter modules in modules listing

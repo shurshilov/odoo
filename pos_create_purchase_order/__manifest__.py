@@ -4,7 +4,7 @@
 {
     'name': 'POS create purchase order',
     'summary': """Pos create purchase order quick create sales order in POS point of sale""",
-    'author': 'Shurshilov Artem',
+    'author': 'EURO ODOO, EURO ODOO, Shurshilov Artem',
     "website": "https://eurodoo.com",
     "live_test_url": "https://youtu.be/h1fH0Bh_J0c",
 

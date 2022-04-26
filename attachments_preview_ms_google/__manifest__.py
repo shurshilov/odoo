@@ -51,7 +51,7 @@
         Archive file types (.ZIP and .RAR)
         """,
 
-    'author': "Shurshilov Artem",
+    'author': "EURO ODOO, EURO ODOO, Shurshilov Artem",
     'website': "https://eurodoo.com",
     "live_test_url": "https://eurodoo.com/login_employee?login=demo1&amp;password=demo1",
 

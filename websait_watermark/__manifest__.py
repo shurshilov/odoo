@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright 2019 Shurshilov Artem
+# Copyright 2019 EURO ODOO, EURO ODOO, Shurshilov Artem
 # License OPL-1.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
 {
@@ -11,7 +11,7 @@
         copy image + watermark.
         Setting insert in website settings. 
     """,  # describe here which problems solved by module
-    'author': "Shurshilov Artem",
+    'author': "EURO ODOO, EURO ODOO, Shurshilov Artem",
     'support': "shurshilov.a@yandex.ru",
     'website': "http://www.eurodoo.com",
 #    'website': "https://vk.com/id20132180",

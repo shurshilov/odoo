@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright 2018 Shurshilov Artem
+# Copyright 2018 EURO ODOO, EURO ODOO, Shurshilov Artem
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
 {
@@ -7,7 +7,7 @@
     'summary': """Provide product dimensions in stock and e-commerce for products and display it on website
     [TAGS] product website size produxt website dimensions proportions measurements magnitude scantling
     product volume product capacity product length product width breadth beam""",  # describe here which problems solved by module
-    'author': "Shurshilov Artem",
+    'author': "EURO ODOO, EURO ODOO, Shurshilov Artem",
     'support': "shurshilov.a@yandex.ru",
 #    'website': "https://vk.com/id20132180",
     'website': "http://www.eurodoo.com",
