@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Copyright 2019-2022 Shurshilov Artem
+License OPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).-->
+<odoo>
+    <data>
+        <record id="website_watermark" model="ir.ui.view">
+            <field name="name">website.form.watermark</field>
+            <field name="model">website</field>
+            <field name="inherit_id" ref="website.view_website_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='domain']" position="after">
+                    <label string="Settings watermark image" for="website_watermark_enable"/>
+                    <div class="text-muted">
+                        Multi website support, but images will created for all product and template
+                    </div>
+                    <group>
+                        <field name="website_watermark_enable"/>
+                        <field name="website_watermark_mode" attrs="{'invisible': [('website_watermark_enable', '=', False)]}"/>
+                        <field name="website_watermark_centralize" attrs="{'invisible': [('website_watermark_enable', '=', False)]}"/>
+                        <field name="website_watermark_text" attrs="{'invisible': ['|',('website_watermark_mode', '=', 'image'),('website_watermark_enable', '=', False)]}"/>
+                        <field name="website_watermark_transparent" attrs="{'invisible': [('website_watermark_enable', '=', False)]}"/>
+                        <field name="website_watermark_image" widget="image" class="w-25 mt-2" attrs="{'invisible': ['|',('website_watermark_mode', '=', 'text'),('website_watermark_enable', '=', False)]}"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_template_property_form_watermark" model="ir.ui.view">
+            <field name="name">product.template.form.watermark</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='general_information']" position="after">
+                    <page name="watermark" string="Watermark image">
+                        <field name="watermark_image" class="w-25 mt-2" widget="image"/>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_product_property_form_watermark" model="ir.ui.view">
+            <field name="name">product.template.form.watermark.product</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='general_information']" position="after">
+                    <page name="watermark" string="Watermark image">
+                        <field name="watermark_image_product" class="w-25 mt-2" widget="image"/>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

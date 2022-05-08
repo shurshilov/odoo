@@ -87,5 +87,26 @@
         </div>
     </t>
 
+    <!--
+        @param {string} src
+    -->
+    <t t-name="image.legacy.mail.PrintImage">
+        <html>
+            <head>
+                <script>
+                    function onload_img() {
+                        setTimeout('print_img()', 10);
+                    }
+                    function print_img() {
+                        window.print();
+                        window.close();
+                    }
+                </script>
+            </head>
+            <body onload='onload_img()'>
+                <img t-att-src='src' alt=""/>
+            </body>
+        </html>
+    </t>
 
 </template>

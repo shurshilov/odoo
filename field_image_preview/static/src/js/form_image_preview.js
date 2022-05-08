@@ -305,7 +305,7 @@ odoo.define('image.legacy.mail.DocumentViewer', function (require) {
         _onPrint: function (e) {
             e.preventDefault();
             var src = this.$('.o_viewer_img').prop('src');
-            var script = QWeb.render('im_livechat.legacy.mail.PrintImage', {
+            var script = QWeb.render('image.legacy.mail.PrintImage', {
                 src: src
             });
             var printWindow = window.open('about:blank', "_new");

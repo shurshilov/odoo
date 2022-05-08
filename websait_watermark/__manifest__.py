@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright 2019 Shurshilov Artem
+# Copyright 2019-2022 Shurshilov Artem
 # License OPL-1.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
 {
@@ -9,18 +9,21 @@
         In backend-side image of product dont change.
         Tehnical module add new field binary in database with
         copy image + watermark.
-        Setting insert in website settings. 
+        Setting insert in website settings.
+        product watermark
+        template watermark
+        product security
     """,  # describe here which problems solved by module
     'author': "Shurshilov Artem",
     'support': "shurshilov.a@yandex.ru",
     'website': "http://www.eurodoo.com",
 #    'website': "https://vk.com/id20132180",
     "license": "OPL-1",
-    'category': 'Accounting',
-    'version': '13.0.0.0',  # odoo.x.y.z; z - bags, y - feautures, x - model or view big changes
-    'depends': ['base', 'web', 'website', 'stock', 'product', 'website_sale'],  # any odoo module necessary for this one to work correctly
+    'category': 'Website',
+    'version': '15.0.0.1',  # odoo.x.y.z; z - bags, y - feautures, x - model or view big changes
+    'depends': ['base', 'web', 'product', 'website_sale'],  # any odoo module necessary for this one to work correctly
     'data': [  # always loaded
-        'views/res_config_settings_views.xml',
+        'views/website.xml',
     ],
     'images': [
         'static/description/screen.png',
@@ -28,7 +31,7 @@
     ],
     'price': 19.00,
     'currency': 'EUR',
-    'installable': False,
+    'installable': True,
     'application': False,
     'auto_install': False,
 }
