@@ -1,18 +1,17 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<templates id="hide_show_numpad.template" inherit_id="point_of_sale.template">
-    <t t-extend="ProductScreenWidget">
-        <t t-jquery=".subwindow-container-fix.pads" t-operation="replace">
-            <div style="border-top: solid 2px rgb(110,200,155);">
-                <i class="numpad-toggle fa fa-caret-down fa-2x"
-                   style="cursor: pointer; transform: scale(2,1); color: rgb(110,200,155);">
-                </i>
-            </div>
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
 
-            <div class="numpad-container">
-                <div class="control-buttons oe_hidden"></div>
-                <div class="placeholder-ActionpadWidget"></div>
-                <div class="placeholder-NumpadWidget"></div>
-            </div>
-        </t>
+    <t t-name="HideShowNumpad"
+       t-inherit="point_of_sale.ProductScreen"
+       t-inherit-mode="extension"
+       owl="1">
+
+        <xpath expr="//div[@class='pads']" position="before">
+                <div style="border-top: solid 2px rgb(110,200,155);text-align: center;" t-on-click="toogleNumpad">
+                    <i class="numpad-toggle fa fa-caret-down fa-2x"
+                    style="cursor: pointer; transform: scale(2,1); color: rgb(110,200,155);">
+                    </i>
+                </div>
+        </xpath>
     </t>
 </templates>
