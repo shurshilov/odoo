@@ -1,17 +1,17 @@
-odoo.define('snippet_openstreet_map.s_google_map_editor', function (require) {
+odoo.define('snippet_openstreet_map.s_openstreet_map_editor', function (require) {
     'use strict';
 
     var ajax = require('web.ajax');
     var Dialog = require("web_editor.widget").Dialog;
     var core = require('web.core');
     var s_options = require('web_editor.snippets.options');
-    var googleScriptLoaded = require("snippet_openstreet_map.s_google_map_frontend").googleScriptLoaded;
+    // var googleScriptLoaded = require("snippet_openstreet_map.s_openstreet_map_frontend").googleScriptLoaded;
 
     var _t = core._t;
 
-    ajax.loadXML('/snippet_openstreet_map/static/src/xml/s_google_map_modal.xml', core.qweb);
+    ajax.loadXML('/snippet_openstreet_map/static/src/xml/s_openstreet_map_modal.xml', core.qweb);
 
-    s_options.registry.map = s_options.Class.extend({
+    s_options.registry.omap = s_options.Class.extend({
 /*        start: function () {
             this.$filterValueOpts = this.$el.find('[data-map_zoom]');
             console.log("EDITOR");
@@ -43,7 +43,7 @@ odoo.define('snippet_openstreet_map.s_google_map_editor', function (require) {
                     }},
                     {text: _t("Cancel"), close: true}
                 ],
-                $content: $(core.qweb.render("snippet_openstreet_map.s_google_map_modal"))
+                $content: $(core.qweb.render("snippet_openstreet_map.s_openstreet_map_modal"))
             });
 
             this.dialog.opened().then((function () {
@@ -98,6 +98,7 @@ odoo.define('snippet_openstreet_map.s_google_map_editor', function (require) {
 
         onBuilt: function () {
             this._super.apply(this, arguments);
+            console.log(12312)
             this.map('click', null, null);
         },
     });

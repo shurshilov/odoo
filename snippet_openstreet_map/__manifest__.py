@@ -17,7 +17,7 @@
     # Check https://github.com/odoo/odoo/blob/13.0/odoo/addons/base/data/ir_module_category_data.xml
     # for the full list
     'category': 'Website',
-    'version': '12.0.0.0',
+    'version': '15.0.0.0',
     "license": "OPL-1",
     'price': 49,
     'currency': 'EUR',
@@ -33,11 +33,23 @@
 
     # always loaded
     'data': [
-        'views/assets.xml',
+        # 'views/assets.xml',
         'views/s_google_map.xml',
     ],
-    'qweb': [
-        "static/src/xml/attendance.xml",
-        "static/src/xml/kiosk.xml",
-    ],
+    'assets': {
+        'web.assets_frontend': [
+            'snippet_openstreet_map/static/src/js/lib/leaflet.js',
+            'snippet_openstreet_map/static/src/js/s_google_map_frontend.js',
+        ],
+        'website.assets_editor': [
+            'snippet_openstreet_map/static/src/js/s_google_map_editor.js',
+        ],
+        'web.assets_qweb': [
+            'snippet_openstreet_map/static/src/**/*.xml',
+        ],
+    },
+    # 'qweb': [
+    #     "static/src/xml/attendance.xml",
+    #     "static/src/xml/kiosk.xml",
+    # ],
 }

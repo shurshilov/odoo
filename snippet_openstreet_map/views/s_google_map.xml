@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-  <template name="Openstreet Map" id="s_google_map">
-    <section class="s_google_map" data-map-type="ROADMAP" data-map-color="" data-map-zoom="12" data-map-gps="(55.75, 37.62)" data-pin-style="flat" style="height: 488px; overflow: hidden;">
+  <template name="Openstreet Map" id="s_openstreet_map">
+    <section class="s_openstreet_map" data-map-type="ROADMAP" data-map-color="" data-map-zoom="12">
       <div class="map_container"/>
       <div class="description">
         <font>Visit us:</font>
@@ -11,16 +11,16 @@
   </template>
 
   <!-- Add to the top bar -->
-  <template id="google_map_snippet" inherit_id="website.snippets">
+  <template id="openstreet_map_snippet" inherit_id="website.snippets">
     <xpath expr="//div[@id='snippet_feature']/div[hasclass('o_panel_body')]/t" position="before">
-      <t t-snippet="snippet_openstreet_map.s_google_map" t-thumbnail="/snippet_openstreet_map/static/src/img/thumbnail.png"/>
+      <t t-snippet="snippet_openstreet_map.s_openstreet_map" t-thumbnail="/snippet_openstreet_map/static/src/img/thumbnail.png"/>
     </xpath>
   </template>
 
   <!-- Snippet's Options -->
-  <template id="s_google_map_option" inherit_id="website.snippet_options">
-    <xpath expr="//div[@data-js='background']" position="before">
-      <div data-js="map" data-selector="section.s_google_map" data-no-check="true">
+  <template id="s_openstreet_map_option" inherit_id="website.snippet_options">
+    <xpath expr="//div[@data-js='Box']" position="before">
+      <div data-js="map" data-selector="section.s_openstreet_map" data-no-check="true">
           <li data-map="" data-no-preview="true">
             <a><i class="fa fa-fw fa-cog"/>Map Options</a>
           </li>
@@ -69,12 +69,4 @@
     </xpath>
   </template>
 
-  <template id="s_google_map_remove_options" inherit_id="website.snippet_options">
-    <xpath expr="//div[@data-js='background']" position="attributes">
-      <attribute name="data-exclude" add=".s_google_map" separator=","/>
-    </xpath>
-    <xpath expr="//div[@data-js='colorpicker']" position="attributes">
-      <attribute name="data-exclude" add=".s_google_map" separator=","/>
-    </xpath>
-  </template>
 </odoo>

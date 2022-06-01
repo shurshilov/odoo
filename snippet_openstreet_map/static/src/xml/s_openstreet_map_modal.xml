@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates xml:space="preserve">
-    <div t-name="snippet_openstreet_map.s_google_map_modal" class="form-horizontal">
+    <div t-name="snippet_openstreet_map.s_openstreet_map_modal" class="form-horizontal">
 
         <div class="form-group">
             <label for="center-map" class="col-sm-3 control-label text-right">Center map point</label>
             <div class="col-sm-9">
                 <div class="input-group">
-                    <div class="input-group-addon"><i class="fa fa-building-o"/></div>
+                    <div class="input-group-addon">
+                        <i class="fa fa-building-o"/>
+                    </div>
 
                     <input type="text" class="form-control" id="center-map" placeholder="(55.75, 37.62)"/>
                 </div>
@@ -21,7 +23,9 @@
             <label for="markers" class="col-sm-3 control-label text-right">Markers</label>
             <div class="col-sm-9">
                 <div class="input-group">
-                    <div class="input-group-addon"><i class="fa fa-map-marker"/></div>
+                    <div class="input-group-addon">
+                        <i class="fa fa-map-marker"/>
+                    </div>
 
                     <input type="text" class="form-control" id="markers" placeholder="[(55.75, 37.62), (12.1, 32.2)]"/>
                 </div>
@@ -53,7 +57,7 @@
                     <option value="14">5</option>
                     <option value="16">6</option>
                     <option value="18">7</option>
-                    <option value="20">8</option>                   
+                    <option value="20">8</option>
                 </select>
             </div>
         </div>
