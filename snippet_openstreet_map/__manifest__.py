@@ -41,12 +41,12 @@
             'snippet_openstreet_map/static/src/js/lib/leaflet.js',
             'snippet_openstreet_map/static/src/js/s_google_map_frontend.js',
         ],
-        'website.assets_editor': [
-            'snippet_openstreet_map/static/src/js/s_google_map_editor.js',
-        ],
-        'web.assets_qweb': [
-            'snippet_openstreet_map/static/src/**/*.xml',
-        ],
+        # 'website.assets_editor': [
+        #     'snippet_openstreet_map/static/src/js/s_google_map_editor.js',
+        # ],
+        # 'web.assets_qweb': [
+        #     'snippet_openstreet_map/static/src/**/*.xml',
+        # ],
     },
     # 'qweb': [
     #     "static/src/xml/attendance.xml",
