@@ -1,19 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-    <templates id="pos_create_sale_order" inherit_id="point_of_sale.template" xml:space="preserve">
-         <t t-name="PosCreateSale" name="Pos Create Sale Widget" owl="1">
-            <div class="control-button"
-                style="background-color: #6ec89b; color: #fff; width:90%;"
-                t-on-click="createSaleOrder">
-                    <i class="fa fa-shopping-cart"></i> Create sale order
-            </div>
-        </t>
+<templates id="pos_create_sale_order" inherit_id="point_of_sale.template" xml:space="preserve">
+    <t t-name="PosCreateSale" name="Pos Create Sale Widget" owl="1">
+        <div class="control-button" style="background-color: #6ec89b; color: #fff; width:90%;" t-on-click="createSaleOrder">
+            <i role="img" aria-label="Create Sale Order" title="Create Sale Order" class="fa fa-shopping-cart"></i>
+             Create sale order
+        </div>
+    </t>
 
-        <t t-name="ProductScreen"
-            t-inherit="point_of_sale.ProductScreen"
-            t-inherit-mode="extension"
-            owl="1">
-            <xpath expr="//div[hasclass('subpads')]" position="before">
-                <PosCreateSale/>
-            </xpath>
-        </t>
-  	</templates> 	
+    <t t-name="ProductScreen" t-inherit="point_of_sale.ProductScreen" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('control-buttons')]" position="inside">
+            <PosCreateSale/>
+        </xpath>
+    </t>
+</templates>

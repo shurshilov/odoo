@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2021 Artem Shurshilov <shurshilov.a@yandex.ru>
+# Copyright (C) 2021-2022 Artem Shurshilov <shurshilov.a@yandex.ru>
 # License OPL-1.0 or later (http://www.gnu.org/licenses/agpl).
 {
     'name': 'POS create sale order',
@@ -10,7 +10,7 @@
 
     # Categories can be used to filter modules in modules listing
     'category': "Point of sale",
-    'version': '14.0.0.0',
+    'version': '15.0.0.0',
     # any module necessary for this one to work correctly
     'depends': ['web', 'point_of_sale'],
     "license": "OPL-1",
@@ -19,10 +19,14 @@
     'images':[
         'static/description/preview.gif',
     ],
-    'data': [
-        'views/pos.xml',
-     ],
-    'qweb': [ 'static/src/xml/pos.xml', ],
+    'assets': {
+        'point_of_sale.assets': [
+            'pos_create_sale_order/static/src/js/pos_create_sales_order.js',
+        ],
+        'web.assets_qweb': [
+            'pos_create_sale_order/static/src/xml/**/*.xml',
+        ],
+    },
     'installable': True,
     'application': False,
     # If it's True, the modules will be auto-installed when all dependencies
