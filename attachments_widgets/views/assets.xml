@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="attachments_widgets_assets" inherit_id="web.assets_backend" name="Attachments widgets Assets">
+            <xpath expr="." position="inside">
+                <script src="/attachments_widgets/static/src/js/audio_widget.js" type="text/javascript" />
+            </xpath>
+        </template>
+    </data>
+</odoo>
