@@ -88,7 +88,7 @@ odoo.define('audio_widget', function (require) {
         supportedFieldTypes: ['binary'],
         accepted_file_extensions: 'audio/*,application/ogg',
 
-        _getUrl: function (attachment) {
+        _getUrl: function () {
             if (this.field.type == 'binary')
                 return session.url('/web/content', {
                     model: this.model,

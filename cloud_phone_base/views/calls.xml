@@ -21,6 +21,7 @@
                     <group>
                         <field name="external_id"/>
                         <field name="ir_attachment_id" widget="attachment_many2one_audio_widget"/>
+                        <field name="ir_attachment" widget="attachment_binary_video_widget"/>
                     </group>
                 </form>
             </field>

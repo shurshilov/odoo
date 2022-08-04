@@ -20,6 +20,7 @@ class Calls(models.Model):
         default="incoming",
     )
     ir_attachment_id = fields.Many2one("ir.attachment", string="Audio/video record")
+    ir_attachment = fields.Binary( string="Audio/video record2")
     rec_duration = fields.Char(string="RecDuration")
     call_duration = fields.Char(string="CallDuration")
     filename = fields.Char(string="FileName")
