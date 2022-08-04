@@ -11,7 +11,7 @@
     # Check https://github.com/odoo/odoo/blob/13.0/odoo/addons/base/data/ir_module_category_data.xml
     # for the full list
     "category": "Tools",
-    "version": "14.0.0.0",
+    "version": "14.0.0.1",
     "license": "OPL-1",
     "support": "shurshilov.a@yandex.ru",
     # "price": 9,
