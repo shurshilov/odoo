@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2020 Artem Shurshilov <shurshilov.a@yandex.ru>
+# Copyright (C) 2020-2022 Artem Shurshilov <shurshilov.a@yandex.ru>
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 {
     'name': "Social manager website 35+ top messangers and social networks svg",
@@ -54,7 +54,7 @@
     # Check https://github.com/odoo/odoo/blob/13.0/odoo/addons/base/data/ir_module_category_data.xml
     # for the full list
     'category': 'eCommerce',
-    'version': '14.0.0.1',
+    'version': '15.0.0.1',
     "license": "LGPL-3",
     "support": "shurshilov.a@yandex.ru",
     # 'price': 19,
@@ -76,6 +76,12 @@
         'data.xml',
     ],
 
+    'assets': {
+        'web.assets_frontend': [
+            'website_sale_social_networks/static/src/css/website_sale_social_networks.css',
+    ],
+
+    },
     # 'qweb': [
     #     "static/src/xml/base.xml",
     # ],
