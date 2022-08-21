@@ -8,16 +8,18 @@
         </t>
     </t>
 
-    <div t-name="WebCamDialog" id="WebCamModal">
-        <div style="display: flex;justify-content: center;align-content: space-between;  align-items: center;flex-direction: column;">
-            <div class="live_webcam_outer_div">
-                <div id="live_webcam"/>
-            </div>
-            <div class="col-md-2 mt64 direction_icon fa fa-angle-right fa-8x"/>
-            <div class="webcam_result_outer_div">
-                <div id="webcam_result"/>
-            </div>
+    <t t-name="WebcamDialogNew">
+        <div class="video-options">
+            <select name="" id="" class="custom-select">
+                <option value="">Select camera</option>
+            </select>
         </div>
-    </div>
+        <div style="display: flex; justify-content: center; align-content: space-between;  align-items: center;flex-direction: column;">
+            <video id="live_webcam" autoplay="" playsinline="" style="display:none"/>
+            <canvas id="faceid_canvas" width="400" height="400"></canvas>
+            <div id="webcam_result"/>
+        </div>
+    </t>
+
 
 </template>
