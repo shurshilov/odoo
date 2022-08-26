@@ -67,7 +67,10 @@ odoo.define('web_image_webcam.webcam_widget', function (require) {
 
             // отображаем видео в диалоге
             video.srcObject = stream;
-            video.play();
+
+            video.addEventListener("canplay", (e) => {
+                video.play();
+            });
             video.addEventListener("loadedmetadata", (e) => {
                 this.streamStarted = true;
                 def.resolve();
@@ -80,15 +83,18 @@ odoo.define('web_image_webcam.webcam_widget', function (require) {
             return new Promise(resolve => setTimeout(resolve, ms));
         },
 
-        start_video: async function () {
+        start_video: async function (device) {
             try {
+                let config = {
+                    width: { min: 640, ideal: 1280 },
+                    height: { min: 480, ideal: 720 },
+                    facingMode: this.shouldFaceUser ? 'user' : 'environment',
+                }
+                if (device)
+                    config.deviceId = { exact: device }
+
                 const videoStream = await navigator.mediaDevices.getUserMedia({
-                    video: {
-                        width: { min: 640, ideal: 1280 },
-                        height: { min: 480, ideal: 720 },
-                        facingMode: this.shouldFaceUser ? 'user' : 'environment',
-                        // .deviceId = { exact: select.value }
-                    }
+                    video: config
                 })
                 await this.handleStream(videoStream)
             } catch (e) {
@@ -130,15 +136,7 @@ odoo.define('web_image_webcam.webcam_widget', function (require) {
                     text: _t("Flip"), classes: 'btn-primary flip_btn',
                     click: () => {
 
-                        if (this.streamStarted) {
-                            // останавливае распознование, если отключаем камеру
-                            this.streamStarted = false;
-                            this.$el.find('video')[0].srcObject.getTracks().forEach((track) => {
-                                track.stop();
-                            });
-                          }
-                          this.shouldFaceUser = !this.shouldFaceUser;
-                          this.start()
+                        this.flip()
                     }
                 },
                 {
@@ -149,16 +147,48 @@ odoo.define('web_image_webcam.webcam_widget', function (require) {
             this._super(parent, options);
         },
 
-        start: function () {
+        flip: function () {
+            if (this.streamStarted) {
+                // останавливае распознование, если отключаем камеру
+                this.streamStarted = false;
+                this.$el.find('video')[0].srcObject.getTracks().forEach((track) => {
+                    track.stop();
+                });
+            }
+            this.shouldFaceUser = !this.shouldFaceUser;
+            this.start(this.device)
+        },
+
+        restart: function (device) {
+            if (this.streamStarted) {
+                // останавливае распознование, если отключаем камеру
+                this.streamStarted = false;
+                this.$el.find('video')[0].srcObject.getTracks().forEach((track) => {
+                    track.stop();
+                });
+            }
+            this.start(device)
+        },
+
+        start: function (device = null) {
             return this._super.apply(this, arguments).then(async () => {
                 // At time of Init "Save & Close" button is disabled
                 this.$('.save_close_btn').attr('disabled', 'disabled');
                 this.$('.take_snap_btn').attr('disabled', 'disabled');
 
                 const cameraOptions = this.$('.custom-select');
+                cameraOptions.empty();
+                cameraOptions.off('change');
+                // добавляем обработчик смены камеры
+                cameraOptions.on('change', (e) => {
+                    this.device = $(e.target).val();
+                    this.restart(this.device)
+                });
+
+                // добавляем все доступные камеры в селекшен
                 const devices = await navigator.mediaDevices.enumerateDevices();
                 const videoDevices = devices.filter(device => device.kind === 'videoinput');
-                const options = videoDevices.map(videoDevice => {
+                videoDevices.map(videoDevice => {
                     var opt = document.createElement('option');
                     opt.value = videoDevice.deviceId;
                     opt.innerHTML = videoDevice.label;
@@ -166,16 +196,21 @@ odoo.define('web_image_webcam.webcam_widget', function (require) {
                     return opt;
                 });
 
+                if (device)
+                    cameraOptions.val(device);
+
                 // запрашиваем разрешение на доступ к поточному видео камеры
                 // и запускаем видео с камеры
-                await this.start_video()
+                await this.start_video(device)
 
                 // подготавливаем канвас для отрисовки видео
                 this.res = await this.drawVideoPrepare("video", "#faceid_canvas");
-                if (this.res)
+                if (this.res) {
                     // отрисовываем видео на канвас
                     this.drawVideo(this.res[0], this.res[1]);
+                    // включаем кнопку сделать снапшот
                     $('.take_snap_btn').removeAttr('disabled');
+                }
             });
         },
 
@@ -193,7 +228,7 @@ odoo.define('web_image_webcam.webcam_widget', function (require) {
     imageWidget.include({
         _render: async function () {
             this._super.apply(this, arguments);
-            this.$el.find('.o_form_binary_file_web_cam').off().on('click', () =>{
+            this.$el.find('.o_form_binary_file_web_cam').off().on('click', () => {
                 // Init Webcam
                 new WebcamDialogNew(this).open();
             });
