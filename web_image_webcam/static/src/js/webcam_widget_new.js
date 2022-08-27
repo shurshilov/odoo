@@ -1,5 +1,4 @@
 /*
-    Copyright 2016 Siddharth Bhalgami <siddharth.bhalgami@techreceptives.com>
     Copyright 2019-2022 Shurshilov Artem <shurshilov.a@yandex.ru>
     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 */
@@ -16,62 +15,26 @@ odoo.define('web_image_webcam.webcam_widget', function (require) {
     var WebcamDialogNew = Dialog.extend({
         template: 'WebcamDialogNew',
 
-        drawVideoPrepare: function (sourceSelector, canvasSelector) {
-            let def = $.Deferred();
-            let video = null;
-
-            if (this.streamStarted)
-                video = this.$el.find(sourceSelector)[0];
-
-            // не нашли видео элемента или поток не запущен
-            // или распознование завершено
-            if (!video || !this.streamStarted)
-                def.resolve(null);
-
-            var canvas = this.$el.find(canvasSelector)[0];
-            if (!canvas)
-                def.resolve(null);
-
-            def.resolve([canvas, video]);
-            return def
-        },
-
-        drawVideo: async function (canvas, video) {
-            // отрисовка прекращается при закрытии диалога
-            if (!this.streamStarted)
-                return
-
-            // если изображение с камеры слишком большое
-            // уменьшаем его до размера диалогового окна
-            if (video.videoWidth > this.$el.width()) {
-                canvas.width = this.$el.width();
-                canvas.height = (this.$el.width() * video.videoHeight) / video.videoWidth;
-            }
-            else {
-                canvas.width = video.videoWidth;
-                canvas.height = video.videoHeight;
-            }
-
-            // отрисовываем видео
-            canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
-            // рисуем видео с камеры 100fps
-            await this.sleep(10);
-
-            this.drawVideo(canvas, video);
-
-        },
-
         handleStream: async function (stream) {
             let def = $.Deferred();
             const video = this.$el.find('video')[0];
 
+
+            // if (video.videoWidth != this.$el.width()) {
+                this.$el.find('video').width("100%")
+                this.$el.find('video').height("100%")
+                // video.width = this.$el.width();
+                // video.height = (this.$el.width() * video.videoHeight) / video.videoWidth;
+            // }
+
             // отображаем видео в диалоге
             video.srcObject = stream;
 
-            video.addEventListener("canplay", (e) => {
+            video.addEventListener("canplay", () => {
                 video.play();
             });
-            video.addEventListener("loadedmetadata", (e) => {
+
+            video.addEventListener("loadedmetadata", () => {
                 this.streamStarted = true;
                 def.resolve();
             }, false);
@@ -79,8 +42,21 @@ odoo.define('web_image_webcam.webcam_widget', function (require) {
             return def
         },
 
-        sleep(ms) {
-            return new Promise(resolve => setTimeout(resolve, ms));
+        stop_video: function () {
+            // останавливае видео поток
+            this.streamStarted = false;
+            this.$el.find('video')[0].srcObject.getTracks().forEach((track) => {
+                track.stop();
+            });
+        },
+
+        take_snapshot: function(video) {
+            var canvas = document.createElement("canvas");
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            var canvasContext = canvas.getContext("2d");
+            canvasContext.drawImage(video, 0, 0);
+            return canvas.toDataURL('image/jpeg');
         },
 
         start_video: async function (device) {
@@ -113,16 +89,17 @@ odoo.define('web_image_webcam.webcam_widget', function (require) {
                 {
                     text: _t("Take Snapshot"), classes: 'btn-primary take_snap_btn',
                     click: () => {
-                        this.img_data = this.res[0].toDataURL()
+                        const video = this.$el.find('video')[0];
+                        this.img_data = this.take_snapshot(video)
                         // Display Snap besides Live WebCam Preview
                         this.$("#webcam_result").html('<img src="' + this.img_data + '"/>');
 
                         // Remove "disabled" attr from "Save & Close" button
-                        this.$('.save_close_btn').removeAttr('disabled');
+                        $('.save_close_btn').removeClass('disabled');
                     }
                 },
                 {
-                    text: _t("Save & Close"), classes: 'btn-primary save_close_btn', close: true,
+                    text: _t("Save & Close"), classes: 'btn-primary disabled save_close_btn', close: true,
                     click: () => {
                         var img_data_base64 = this.img_data.split(',')[1];
                         // From the above info, we doing the opposite stuff to find the approx size of Image in bytes.
@@ -135,7 +112,6 @@ odoo.define('web_image_webcam.webcam_widget', function (require) {
                 {
                     text: _t("Flip"), classes: 'btn-primary flip_btn',
                     click: () => {
-
                         this.flip()
                     }
                 },
@@ -147,40 +123,11 @@ odoo.define('web_image_webcam.webcam_widget', function (require) {
             this._super(parent, options);
         },
 
-        flip: function () {
-            if (this.streamStarted) {
-                // останавливае распознование, если отключаем камеру
-                this.streamStarted = false;
-                this.$el.find('video')[0].srcObject.getTracks().forEach((track) => {
-                    track.stop();
-                });
-            }
-            this.shouldFaceUser = !this.shouldFaceUser;
-            this.start(this.device)
-        },
-
-        restart: function (device) {
-            if (this.streamStarted) {
-                // останавливае распознование, если отключаем камеру
-                this.streamStarted = false;
-                this.$el.find('video')[0].srcObject.getTracks().forEach((track) => {
-                    track.stop();
-                });
-            }
-            this.start(device)
-        },
-
         start: function (device = null) {
             return this._super.apply(this, arguments).then(async () => {
-                // At time of Init "Save & Close" button is disabled
-                this.$('.save_close_btn').attr('disabled', 'disabled');
-                this.$('.take_snap_btn').attr('disabled', 'disabled');
-
                 const cameraOptions = this.$('.custom-select');
-                cameraOptions.empty();
-                cameraOptions.off('change');
                 // добавляем обработчик смены камеры
-                cameraOptions.on('change', (e) => {
+                cameraOptions.empty().off().on('change', (e) => {
                     this.device = $(e.target).val();
                     this.restart(this.device)
                 });
@@ -196,30 +143,30 @@ odoo.define('web_image_webcam.webcam_widget', function (require) {
                     return opt;
                 });
 
+                // устанавливаем камеру если уже выбрали
                 if (device)
                     cameraOptions.val(device);
 
                 // запрашиваем разрешение на доступ к поточному видео камеры
                 // и запускаем видео с камеры
-                await this.start_video(device)
+                await this.start_video(device);
 
-                // подготавливаем канвас для отрисовки видео
-                this.res = await this.drawVideoPrepare("video", "#faceid_canvas");
-                if (this.res) {
-                    // отрисовываем видео на канвас
-                    this.drawVideo(this.res[0], this.res[1]);
-                    // включаем кнопку сделать снапшот
-                    $('.take_snap_btn').removeAttr('disabled');
-                }
             });
         },
 
+        flip: function () {
+            this.stop_video();
+            this.shouldFaceUser = !this.shouldFaceUser;
+            this.start(this.device);
+        },
+
+        restart: function (device) {
+            this.stop_video();
+            this.start(device)
+        },
+
         destroy: function () {
-            // останавливае распознование, если отключаем камеру
-            this.streamStarted = false;
-            this.$el.find('video')[0].srcObject.getTracks().forEach((track) => {
-                track.stop();
-            });
+            this.stop_video();
             this._super.apply(this, arguments);
         },
 
