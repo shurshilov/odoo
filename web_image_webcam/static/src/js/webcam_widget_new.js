@@ -19,6 +19,10 @@ odoo.define('web_image_webcam.webcam_widget', function (require) {
             let def = $.Deferred();
             const video = this.$el.find('video')[0];
 
+            // устанавливаем выбранную камеру
+            if (stream && stream.getVideoTracks().length)
+                this.$('.custom-select').val(stream.getVideoTracks()[0].getSettings().deviceId);
+
             // отображаем видео в диалоге
             video.srcObject = stream;
 
