@@ -19,14 +19,6 @@ odoo.define('web_image_webcam.webcam_widget', function (require) {
             let def = $.Deferred();
             const video = this.$el.find('video')[0];
 
-
-            // if (video.videoWidth != this.$el.width()) {
-                this.$el.find('video').width("100%")
-                this.$el.find('video').height("100%")
-                // video.width = this.$el.width();
-                // video.height = (this.$el.width() * video.videoHeight) / video.videoWidth;
-            // }
-
             // отображаем видео в диалоге
             video.srcObject = stream;
 
