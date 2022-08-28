@@ -1,6 +1,6 @@
 /*
     Copyright 2016 Siddharth Bhalgami <siddharth.bhalgami@techreceptives.com>
-    Copyright 2019 Shurshilov Artem <shurshilov.a@yandex.ru>
+    Copyright 2019-2022 Shurshilov Artem <shurshilov.a@yandex.ru>
     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 */
 odoo.define('web_image_webcam.webcam_widget', function (require) {
@@ -15,7 +15,7 @@ odoo.define('web_image_webcam.webcam_widget', function (require) {
 
     imageWidget.include({
 
-        _render: function () {
+        _render: async function () {
             this._super();
 
             var self = this,
@@ -24,21 +24,10 @@ odoo.define('web_image_webcam.webcam_widget', function (require) {
 
             // ::webcamjs:: < https://github.com/jhuckaby/webcamjs >
             // Webcam: Set Custom Parameters
-            Webcam.set({
-                width: 320,
-                height: 240,
-                dest_width: 320,
-                dest_height: 240,
-                image_format: 'jpeg',
-                jpeg_quality: 90,
-                force_flash: false,
-                fps: 45,
-                swfURL: '/web_image_webcam/static/src/js/webcam.swf',
-                //force_flash: true,
-            });
+            //let stream = await navigator.mediaDevices.getUserMedia({video: true});
+
 
             self.$el.find('.o_form_binary_file_web_cam').removeClass('col-md-offset-5');
-
             self.$el.find('.o_form_binary_file_web_cam').off().on('click', function () {
                 // Init Webcam
                 new Dialog(self, {
@@ -88,8 +77,18 @@ odoo.define('web_image_webcam.webcam_widget', function (require) {
                         }
                     ]
                 }).open();
-                // console.log(WebCamDialog);
-                // console.log(WebCamDialog.find('#live_webcam'));
+                Webcam.set({
+                    width: 640,
+                    height: 480,
+                    // dest_width: width,
+                    // dest_height: height,
+                    image_format: 'jpeg',
+                    jpeg_quality: 100,
+                    force_flash: false,
+                    fps: 45,
+                    swfURL: '/web_image_webcam/static/src/js/webcam.swf',
+                    //force_flash: true,
+                });
                 Webcam.attach(WebCamDialog.find('#live_webcam')[0]);
 
                 // At time of Init "Save & Close" button is disabled
@@ -104,6 +103,7 @@ odoo.define('web_image_webcam.webcam_widget', function (require) {
     Dialog.include({
         destroy: function () {
             // Shut Down the Live Camera Preview | Reset the System
+            Webcam.off('live');
             Webcam.reset();
             this._super.apply(this, arguments);
         },
