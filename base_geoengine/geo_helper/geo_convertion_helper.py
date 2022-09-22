@@ -1,5 +1,5 @@
 # Copyright 2011-2012 Nicolas Bessi (Camptocamp SA)
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+# License LGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 import logging
 
 try:

@@ -10,10 +10,7 @@
     "version": "15.1.1.0",
     "category": "web",
     "website": "https://www.eurodoo.com",
-    "author": "Tech Receptives, "
-              "Odoo Community Association (OCA), "
-              "Kaushal Prajapati, "
-              "Shurshilov Artem",
+    "author": "Shurshilov Artem",
     "license": "LGPL-3",
     "price": 19.00,
     'images': [
@@ -28,12 +25,10 @@
     'assets': {
         'web.assets_backend': [
             'web_image_webcam/static/src/**/*.css',
-            'web_image_webcam/static/src/js/webcam.js',
-            # 'web_image_webcam/static/src/js/webcam_widget.js',
             'web_image_webcam/static/src/js/webcam_widget_new.js',
         ],
         'web.assets_qweb': [
-            'web_image_webcam/static/src/**/*.xml',
+            'web_image_webcam/static/src/xml/web_widget_image_webcam.xml',
         ],
     },
     "installable": True,
