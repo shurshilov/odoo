@@ -9,11 +9,17 @@
                 <form string="Number">
                     <group>
                         <field name="connector_id"/>
+                        <field name="connector_cloud_phone_vendor" invisible="1"/>
                         <field name="name"/>
                         <field name="employee_id"/>
                         <field name="tel"/>
-                        <field name="recording_in"/>
-                        <field name="recording_out"/>
+
+                        <field name="recording_in" attrs="{'invisible':[('connector_cloud_phone_vendor', '!=', 'mts')]}"/>
+                        <field name="recording_out" attrs="{'invisible':[('connector_cloud_phone_vendor', '!=', 'mts')]}"/>
+
+                        <field name="extension" attrs="{'invisible':[('connector_cloud_phone_vendor', '!=', 'mango')]}"/>
+                        <field name="comment" attrs="{'invisible':[('connector_cloud_phone_vendor', '!=', 'mango')]}"/>
+                        <field name="schema_name" attrs="{'invisible':[('connector_cloud_phone_vendor', '!=', 'mango')]}"/>
                     </group>
                     <group>
                         <field name="call_ids"/>
@@ -28,6 +34,7 @@
             <field name="arch" type="xml">
                 <tree string="Numbers">
                     <field name="connector_id"/>
+                    <field name="name"/>
                     <field name="employee_id"/>
                     <field name="tel"/>
                 </tree>

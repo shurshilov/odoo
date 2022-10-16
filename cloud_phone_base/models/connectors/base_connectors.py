@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from hashlib import sha256
 from odoo import fields, models, api
 from odoo.exceptions import ValidationError
 
@@ -24,6 +25,77 @@ class Connector(models.Model):
     login = fields.Char(string="Login")
     password = fields.Char(string="Password")
     company_id = fields.Many2one("res.company", string="Company")
+
+    def _mango_auth_request(
+        self, url, json_data={}, binary_content=False, csv_content=False
+    ):
+        try:
+            # генерируем подпись
+            sign = sha256(
+                (self.vpbx_api_key + json.dumps(json_data) + self.vpbx_api_salt).encode(
+                    "utf-8"
+                )
+            ).hexdigest()
+            data = {
+                "vpbx_api_key": self.vpbx_api_key,
+                "sign": sign,
+                "json": json.dumps(json_data),
+            }
+
+            response = requests.post(url, data=data)
+            if response.status_code == 404:
+                return {}
+            if binary_content:
+                return response.content
+            else:
+                if csv_content:
+                    import io
+
+                    try:
+                        import csv
+                    except ImportError:
+                        raise ValidationError("Cannot import csv lib!")
+                    # обработка строки csv файла
+                    try:
+                        data_file = io.StringIO(response.text)
+                        data_file.seek(0)
+                        file_reader = []
+                        csv_reader = csv.reader(data_file, delimiter=";")
+                        file_reader.extend(csv_reader)
+                    except Exception as e:
+                        raise ValidationError("Invalid file!")
+                    keys = [
+                        "records",
+                        "start",
+                        "finish",
+                        "answer",
+                        "from_extension",
+                        "from_number",
+                        "to_extension",
+                        "to_number",
+                        "disconnect_reason",
+                        "line_number",
+                        "location",
+                        "create",
+                        "entry_id",
+                    ]
+                    values = []
+                    for i in range(len(file_reader)):
+                        field = list(map(str, file_reader[i]))
+                        count = 1
+                        count_keys = len(keys)
+                        if len(field) > count_keys:
+                            for new_fields in field:
+                                if count > count_keys:
+                                    keys.append(new_fields)
+                                count += 1
+                        values.append(dict(zip(keys, field)))
+                    return values
+                return json.loads(response.text) if response.text else []
+        except Timeout as e:
+            raise ValidationError("Request timeout error " + str(e))
+        except Exception as e:
+            raise ValidationError("Request unknown error " + str(e))
 
     def _basic_auth_request(self, url, binary_content=False):
         try:

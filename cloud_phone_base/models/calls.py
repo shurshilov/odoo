@@ -20,7 +20,6 @@ class Calls(models.Model):
         default="incoming",
     )
     ir_attachment_id = fields.Many2one("ir.attachment", string="Audio/video record")
-    ir_attachment = fields.Binary( string="Audio/video record2")
     rec_duration = fields.Char(string="RecDuration")
     call_duration = fields.Char(string="CallDuration")
     filename = fields.Char(string="FileName")
@@ -38,8 +37,10 @@ class Calls(models.Model):
         self = self.sudo()
         res = []
         for rec in self:
-            number_name = "{}({})".format(
-                rec.number_id.tel, rec.number_id.employee_id.name or "Не привязан"
+            number_name = "{}({} - {})".format(
+                rec.number_id.tel,
+                rec.number_id.employee_id.name or "Не привязан",
+                rec.number_id.connector_cloud_phone_vendor,
             )
             if rec.type == "incoming":
                 name = "{} - {}".format(rec.tel, number_name)

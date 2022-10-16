@@ -4,7 +4,7 @@
 {
     "name": "Cloud phone base",
     "summary": """
-        Cloud phone base functionality
+        Cloud phone base functionality MTS, MANGO office
         store, view, filter, delete calls
         """,
     "author": "EURO ODOO, Shurshilov Artem",
@@ -14,7 +14,7 @@
     # Check https://github.com/odoo/odoo/blob/13.0/odoo/addons/base/data/ir_module_category_data.xml
     # for the full list
     "category": "Tools",
-    "version": "14.0.0.1",
+    "version": "14.1.0.1",
     "license": "OPL-1",
     "support": "shurshilov.a@yandex.ru",
     # "price": 39,

@@ -21,7 +21,6 @@
                     <group>
                         <field name="external_id"/>
                         <field name="ir_attachment_id" widget="attachment_many2one_audio_widget"/>
-                        <field name="ir_attachment" widget="attachment_binary_video_widget"/>
                     </group>
                 </form>
             </field>
@@ -32,14 +31,16 @@
             <field name="model">cloud.phone.call</field>
             <field name="arch" type="xml">
                 <tree string="Calls">
-                    <field name="external_id"/>
+                    <field name="connector_id"/>
+                    <field name="external_id" invisible="1"/>
                     <field name="tel" invisible="1"/>
                     <field name="compute_tel"/>
                     <field name="number_id"/>
                     <field name="type"/>
                     <field name="time"/>
+                    <field name="call_duration"/>
                     <field name="rec_duration"/>
-                    <field name="ir_attachment_id" widget="attachment_audio_widget"/>
+                    <field name="ir_attachment_id" widget="attachment_many2one_audio_widget"/>
                 </tree>
             </field>
         </record>
