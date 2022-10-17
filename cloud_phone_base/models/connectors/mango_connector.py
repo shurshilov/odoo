@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from distutils import extension
 from odoo import fields, models, api
 
 import base64
@@ -14,6 +13,7 @@ class Number(models.Model):
     extension = fields.Char(string="Extension")
     comment = fields.Char(string="Comment")
     schema_name = fields.Char(string="Schema name")
+    protocol = fields.Char(string="Protocol")
 
 
 class Connector(models.Model):
@@ -52,6 +52,7 @@ class Connector(models.Model):
                     extension=user["telephony"]["extension"],
                     name=user["general"]["name"],
                     connector_id=self.id,
+                    protocol=number["protocol"]
                 )
 
                 existed = self.env["cloud.phone.number"].search(
@@ -100,7 +101,7 @@ class Connector(models.Model):
 
         return numbers_ids
 
-    def get_record_mp3_attachment(self, call_id):
+    def get_record_mp3_attachment_mango(self, call_id):
         """Запрос mp3 файла записи разговора звонка
 
         Arguments:
@@ -127,8 +128,8 @@ class Connector(models.Model):
         }
         return attachment
 
-    def create_attachment(self, call_id):
-        attachment_mp3 = self.get_record_mp3_attachment(call_id)
+    def create_attachment_mango(self, call_id):
+        attachment_mp3 = self.get_record_mp3_attachment_mango(call_id)
         if attachment_mp3:
             attachment_id = self.env["ir.attachment"].create(attachment_mp3)
             call_id.ir_attachment_id = attachment_id
@@ -140,7 +141,7 @@ class Connector(models.Model):
         minutes = (seconds // 60) % 60
         return "%02d:%02d:%02d" % (hours, minutes, seconds)
 
-    def get_and_updete_call(self, call):
+    def get_and_updete_call_mango(self, call):
         """
         Get call from cloud or update if already exist
         update should when run when call already exist
@@ -149,9 +150,14 @@ class Connector(models.Model):
         number = self.env["cloud.phone.number"].search(
             [
                 (
-                    "tel",
+                    "extension",
                     "=",
-                    call["to_number"] if call["to_extension"] else call["from_number"],
+                    call["to_extension"] if call["to_extension"] else call["from_extension"],
+                ),
+                (
+                    "protocol",
+                    "=",
+                    'tel',
                 )
             ]
         )
@@ -189,11 +195,11 @@ class Connector(models.Model):
             call_id = self.env["cloud.phone.call"].create(call_data)
             # attach mp3 recording of call, if recDuration exist
             if int(call["answer"]) > 0:
-                self.create_attachment(call_id)
+                self.create_attachment_mango(call_id)
 
         # if try get when calling run, can request recording again later
         elif int(call["answer"]) > 0 and not call_id.ir_attachment_id:
-            self.create_attachment(call_id)
+            self.create_attachment_mango(call_id)
 
     def get_and_update_calls_mango(self, begin_datetime, end_datetime):
         # получение ключа для доступа к истории всех звонков за период
@@ -210,7 +216,8 @@ class Connector(models.Model):
             self.url + path, json_data=json_data, binary_content=False, csv_content=True
         )
         for call in calls:
-            self.get_and_updete_call(call)
+            if int(call["answer"]) > 0:
+                self.get_and_updete_call_mango(call)
 
     @api.model
     def schedule_connector_mango(

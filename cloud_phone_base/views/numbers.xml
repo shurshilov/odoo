@@ -20,6 +20,7 @@
                         <field name="extension" attrs="{'invisible':[('connector_cloud_phone_vendor', '!=', 'mango')]}"/>
                         <field name="comment" attrs="{'invisible':[('connector_cloud_phone_vendor', '!=', 'mango')]}"/>
                         <field name="schema_name" attrs="{'invisible':[('connector_cloud_phone_vendor', '!=', 'mango')]}"/>
+                        <field name="protocol" attrs="{'invisible':[('connector_cloud_phone_vendor', '!=', 'mango')]}"/>
                     </group>
                     <group>
                         <field name="call_ids"/>
