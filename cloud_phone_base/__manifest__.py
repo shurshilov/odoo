@@ -17,8 +17,8 @@
     "version": "14.1.0.1",
     "license": "OPL-1",
     "support": "shurshilov.a@yandex.ru",
-    # "price": 39,
-    # "currency": "EUR",
+    "price": 39,
+    "currency": "EUR",
     "images": [
         "static/description/preview.png",
     ],
