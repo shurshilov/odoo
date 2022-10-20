@@ -6,7 +6,9 @@
     "summary": """
         Search website products by tags such as categories good and complete search
         fuzzy tags search find tags website tags tag website site tags site
-        search site tags""",
+        search site tags search tags website tags search website tags ecommerce
+        ecommerce tags search product tags product template tags website
+        website sale tags sale website""",
     "author": "Shurshilov Artem",
     "website": "http://www.eurodoo.com",
     # Categories can be used to filter modules in modules listing
