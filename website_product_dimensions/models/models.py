@@ -1,25 +1,27 @@
 # -*- coding: utf-8 -*-
 # Copyright 2018 Shurshilov Artem
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
-from odoo import models, fields, api
+from odoo import models, fields, api, tools
 
 
 class Product(models.Model):
     _name = 'product.template'
     _inherit = 'product.template'
 
+    @tools.ormcache()
+    def _get_default_uom_id(self):
+        # Deletion forbidden (at least through unlink)
+        return self.env.ref('uom.product_uom_unit')
 
     display_dimensions = fields.Boolean(string='Display dimensions on website?', default=True)
     length = fields.Float(string='Length',)
     width = fields.Float(string='Width',)
     height = fields.Float(string='Height',)
     volume_auto = fields.Float(string='Volume', compute='_compute_volume_auto',)
-    uom_id = fields.Many2one(
-        'uom.uom',
-        'Dimension(UOM)',
-        #domain=lambda self: [('category_id', '=', self.env.ref('product.uom_categ_length').id)],
-        help="Default Unit of Measure used for dimension."
-    )
+    dimension_uom_id = fields.Many2one(
+        'uom.uom', 'Dimension(UOM)',
+        default=_get_default_uom_id, required=True,
+        help="Default Unit of Measure used for dimension.")
     weight_uom_id = fields.Many2one(
         'uom.uom',
         'Weight(UOM)',

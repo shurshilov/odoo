@@ -16,7 +16,7 @@
                 </group>
                 <group>
                   <field name="volume_auto"/>
-                  <field name="uom_id"/>
+                  <field name="dimension_uom_id"/>
                   <field name="weight_uom_id" readonly="0"/>
                 </group>
              </group>
