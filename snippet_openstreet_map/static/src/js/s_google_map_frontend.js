@@ -4,11 +4,8 @@ odoo.define('snippet_openstreet_map.s_openstreet_map_frontend', function (requir
     var sAnimation = require('website.content.snippets.animation');
 
     sAnimation.registry.s_openstreet_map = sAnimation.Class.extend({
-        selector: 'section.s_openstreet_map',
+        selector: 'section.my_openstreet_map',
 
-        // start: function () {
-        //     return $.when.apply( this.redraw(),[this._super.apply(this, arguments)]);
-        // },
         start: function () {
             this.redraw()
             return this._super.apply(this, arguments);
@@ -37,20 +34,25 @@ odoo.define('snippet_openstreet_map.s_openstreet_map_frontend', function (requir
         redraw: async function () {
             console.log(this.el.dataset)
 
-            if (this.el.dataset.mapMarkers){
+            if (this.el.dataset.mapMarkers) {
                 let markers = JSON.parse(this.el.dataset.mapMarkers);
-                
-                var container = L.DomUtil.get('mapid');
+
+                let container = L.DomUtil.get('map_container');
                 if (container != null) {
                     container._leaflet_id = null;
                 }
-                this.map = L.map($('.map_container')[0]).setView([51.505, -0.09], this.el.dataset.mapZoom);
+
+                this.map = L.map($('.map_container')[0]).setView(markers[0],
+                    this.el.dataset.mapZoom,
+                    { zoomControl: false });
                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    attribution: 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
+                    attribution: 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
+                    reuseTiles: true,
+                    unloadInvisibleTiles: true
                 }).addTo(this.map);
                 this.add_markers(markers)
-                $('.openstreet_description').hide()
-                setTimeout(()=> { this.map.invalidateSize() }, 400);
+                this.map.removeControl(this.map.zoomControl);
+                setTimeout(() => { this.map.invalidateSize() }, 400);
             }
 
         },

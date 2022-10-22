@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
   <template name="Openstreet Map" id="s_openstreet_map">
-    <section class="s_openstreet_map" data-map-type="ROADMAP" data-map-zoom="12" style="height: 488px; overflow: hidden;">
+    <section class="my_openstreet_map" data-map-type="ROADMAP" data-map-zoom="12" style="height: 488px;display: grid;">
       <div id="map_container" class="map_container"/>
-      <div class="openstreet_description">
-        <font>Visit us:</font>
-        <span> Our office is located in the Belgorod city Russian Federation. Whatshapp +7 985 797 2124 </span>
-      </div>
     </section>
   </template>
 
@@ -20,7 +16,7 @@
   <!-- Snippet's Options -->
   <template id="s_openstreet_map_option" inherit_id="website.snippet_options">
     <xpath expr="//div[@data-js='Box']" position="before">
-      <div data-js="OpenstreetMap" data-selector="section.s_openstreet_map" data-no-check="true">
+      <div data-js="OpenstreetMap" data-selector="section.my_openstreet_map" data-no-check="true">
             <we-select string="Zoom" data-no-preview="true" data-reset-map-color="" data-attribute-name="mapZoom">
                 <we-button data-select-data-attribute="6">1</we-button>
                 <we-button data-select-data-attribute="8">2</we-button>

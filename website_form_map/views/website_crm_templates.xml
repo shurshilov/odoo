@@ -4,13 +4,13 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 -->
 <odoo>
-    <template id="assets_editor" inherit_id="web.assets_frontend" name="FaceID Assests">
+    <!-- <template id="assets_editor" inherit_id="web.assets_frontend" name="FaceID Assests">
         <xpath expr="." position="inside">
             <link rel="stylesheet" href="/website_form_map/static/src/css/leaflet.css" />
             <script type="text/javascript" src="/website_form_map/static/src/js/lib/leaflet.js"></script>
             <script type="text/javascript" src="/website_form_map/static/src/js/leaflet.js"></script>
         </xpath>
-    </template>
+    </template> -->
 
     <template id="contactus_form_map" name="Contact Form" inherit_id="base.contact">
         <xpath expr="//div[@itemprop='address']" position="after">
@@ -18,10 +18,10 @@
         </xpath>
     </template>
 
-    <template id="company_description" inherit_id="website.company_description" name="Company Description">
+    <!-- <template id="company_description" inherit_id="website.company_description" name="Company Description">
         <xpath expr="//span[@class='fa fa-map-marker fa-fw mt16']" position="replace"/>
         <xpath expr="//a[@target='_BLANK']" position="replace"/>
-    </template>
+    </template> -->
 
 
         <record id="res_config_settings_view_form_leaflet" model="ir.ui.view">

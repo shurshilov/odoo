@@ -17,10 +17,23 @@
     'application': False,
     "auto_install": False,
     'installable': True,
-    'depends': ['base','website','website_form', 'website_crm', 'website_partner', 'crm'],
+    'depends': ['base','website', 'website_crm', 'website_partner', 'crm'],
     'data': [
         'views/website_crm_templates.xml',
     ],
+    'assets': {
+        'web.assets_frontend': [
+            'website_form_map/static/src/js/lib/leaflet.js',
+            'website_form_map/static/src/js/leaflet.js',
+            'website_form_map/static/src/css/leaflet.css',
+        ],
+        # 'website.assets_editor': [
+        #     'snippet_openstreet_map/static/src/js/s_google_map_editor.js',
+        # ],
+        # 'web.assets_qweb': [
+        #     'snippet_openstreet_map/static/src/**/*.xml',
+        # ],
+    },
     'images':[
             'static/description/result.png',
             'static/description/settings.png',
