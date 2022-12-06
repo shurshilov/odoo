@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="cloud_phone_base_call_events" inherit_id="web.assets_backend" name="cloud_phone_base_call_events Assests">
+            <xpath expr="." position="inside">
+            	<!-- <link href="/view_online/static/src/css/view_online.css" rel="stylesheet"/> -->
+                <script type="text/javascript" src="/cloud_phone_base/static/src/js/call_event_dialog.js"></script>
+                <script type="text/javascript" src="/cloud_phone_base/static/src/js/call_event.js"></script>
+            </xpath>
+        </template>
+    </data>
+</odoo>

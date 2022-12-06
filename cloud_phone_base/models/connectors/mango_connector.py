@@ -139,7 +139,7 @@ class Connector(models.Model):
         seconds = timedelta.seconds
         hours = seconds // 3600
         minutes = (seconds // 60) % 60
-        return "%02d:%02d:%02d" % (hours, minutes, seconds)
+        return "%02d:%02d:%02d" % (hours, minutes, seconds%60)
 
     def get_and_updete_call_mango(self, call):
         """
@@ -147,6 +147,9 @@ class Connector(models.Model):
         update should when run when call already exist
         but not yet have recording
         """
+        calltype = "incoming" if call["to_extension"] else "outgoing"
+        calltel = call["from_number"] if call["to_extension"] else call["to_number"]
+        # ищем по внутреннему номеру
         number = self.env["cloud.phone.number"].search(
             [
                 (
@@ -159,8 +162,50 @@ class Connector(models.Model):
                     "=",
                     'tel',
                 )
-            ]
+            ],
+            limit=1
         )
+        if not number:
+            # если не нашли по extension, пробуем искать по номеру в номерах манго
+            # берем только цифры
+            phone_to = "".join(i for i in call["to_number"] if i.isdigit())
+            phone_from = "".join(i for i in call["from_number"] if i.isdigit())
+
+            calltype = "incoming"
+            calltel = call["from_number"]
+            number = self.env["cloud.phone.number"].search(
+                [
+                    (
+                        "tel",
+                        "=",
+                        phone_to,
+                    ),
+                    (
+                        "connector_id",
+                        "=",
+                        self.id,
+                    ),
+                ],
+                limit=1
+            )
+            if not number:
+                calltype = "outgoing"
+                calltel = call["to_number"]
+                number = self.env["cloud.phone.number"].search(
+                    [
+                        (
+                            "tel",
+                            "=",
+                            phone_from,
+                        ),
+                        (
+                            "connector_id",
+                            "=",
+                            self.id,
+                        ),
+                    ],
+                    limit=1
+                )
         start_datetime = datetime.fromtimestamp(int(call["start"]))
         finish_datetime = datetime.fromtimestamp(int(call["finish"]))
         duration = self.get_hms(finish_datetime - start_datetime)
@@ -183,8 +228,8 @@ class Connector(models.Model):
         call_data = dict(
             time=start_datetime,
             number_id=number.id or False,
-            type="incoming" if call["to_extension"] else "outgoing",
-            tel=call["from_number"],
+            type=calltype,
+            tel=calltel,
             rec_duration=rec_duration,
             call_duration=duration,
             connector_id=self.id,

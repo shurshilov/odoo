@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template xml:space="preserve">
+	<div t-name="CallEventDialog">
+		<div style="display: flex;flex-direction: column;align-items: center;">
+			<t t-esc="widget.options.subtype"/>
+			<div class="s_process_step_icon">
+				<span>
+					<i style="background-color: #34B885 !important;color: #FFFFFF;width: 10rem;height: 10rem;line-height: 10rem;" class="fa fa-5x mx-auto rounded-circle bg-o-color-3 fa-phone"></i>
+				</span>
+			</div>
+			<t t-esc="widget.options.name"/>
+			<h1>
+				<t t-esc="widget.options.phone"/>
+			</h1>
+			<!-- <span>
+				<t t-esc="widget.options.call"/>
+			</span> -->
+		</div>
+	</div>
+
+</template>

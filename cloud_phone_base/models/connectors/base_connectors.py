@@ -26,6 +26,32 @@ class Connector(models.Model):
     password = fields.Char(string="Password")
     company_id = fields.Many2one("res.company", string="Company")
 
+    def _mango_auth_check(self, vpbx_api_key, sign, json_str):
+        """Проверяет подпись и апи ключ во входящем запросе
+
+        Arguments:
+            vpbx_api_key -- апи ключ
+            sign -- подпись
+            json -- полезные данные
+
+        Returns:
+            проверка пройдена или нет
+        """
+
+        if self.vpbx_api_key != vpbx_api_key:
+            return False
+
+        # генерируем подпись
+        sign_old = sha256(
+                (self.vpbx_api_key + json_str + self.vpbx_api_salt).encode(
+                    "utf-8"
+                )
+        ).hexdigest()
+        if sign != sign_old:
+            False
+
+        return True
+
     def _mango_auth_request(
         self, url, json_data={}, binary_content=False, csv_content=False
     ):
@@ -120,6 +146,7 @@ class Connector(models.Model):
         return False
 
     def find_by_number(self, model, number):
+        number = "".join(i for i in number if i.isdigit())
         for rec in self.env[model].search([]):
             if rec.work_phone:
                 work_phone_digits = "".join(i for i in rec.work_phone if i.isdigit())

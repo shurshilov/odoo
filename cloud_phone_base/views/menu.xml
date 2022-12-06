@@ -43,5 +43,13 @@
         sequence="5"
         groups="cloud_phone_base.group_cp_manager"
     />
+    <menuitem
+        id="events_menu_cp"
+        name="Events"
+        action="cloud_phone_base.action_cloud_phone_event"
+        parent="main_menu_cp"
+        sequence="6"
+        groups="cloud_phone_base.group_cp_manager"
+    />
 
 </odoo>
