@@ -31,36 +31,35 @@
 odoo.define('call_event_form', function (require) {
     "use strict";
 
-    const core = require('web.core');
-    var BasicRenderer = require('web.BasicRenderer');
+    const BasicRenderer = require('web.BasicRenderer');
     const CallEventDialog = require('call_event_dialog');
-    const _t = core._t;
 
     BasicRenderer.include({
         start: function () {
             let res = this._super.apply(this, arguments);
 
-            if (this.state && this.state.data && this.state.data.id) {
-                this.call('bus_service', 'onNotification', this, function (notifications) {
-                    _.each(notifications, ((notification) => {
-                        if (notification[1].type == "mango_call") {
+            console.log("start event call bus")
+            this.call('bus_service', 'onNotification', this, function (notifications) {
+                _.each(notifications, ((notification) => {
+                    if (notification[1].type == "mango_call") {
 
-                            new CallEventDialog(this, {
-                                size: 'extra-large',
-                                dialogClass: 'o_act_window',
-                                model: notification[1].model,
-                                id: notification[1].id,
-                                title: notification[1].title,
-                                subtype: notification[1].subtype,
-                                phone: notification[1].phone,
-                                call: notification[1].call,
-                                name: notification[1].name ? notification[1].name : "",
-                                fullscreen: true,
-                            }).open();
-                        }
-                    }).bind(this));
-                })
-            }
+                        console.log("message received")
+                        new CallEventDialog(this, {
+                            size: 'extra-large',
+                            dialogClass: 'o_act_window',
+                            model: notification[1].model,
+                            id: notification[1].id,
+                            title: notification[1].title,
+                            subtype: notification[1].subtype,
+                            color: notification[1].color,
+                            phone: notification[1].phone,
+                            call: notification[1].call,
+                            name: notification[1].name ? notification[1].name : "",
+                            fullscreen: true,
+                        }).open();
+                    }
+                }).bind(this));
+            })
             return res
         },
 

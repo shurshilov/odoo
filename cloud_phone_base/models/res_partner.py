@@ -22,12 +22,20 @@ class ResPartner(models.Model):
                     rec.call_ids += self.env["cloud.phone.call"].search(
                         [
                             "|",
+                            ("number_id.tel", "=", "7" + mobile[1:]),
+                            "|",
                             ("number_id.tel", "=", mobile[1:]),
                             ("number_id.tel", "=", mobile),
                         ]
                     )
                     rec.call_ids += self.env["cloud.phone.call"].search(
-                        ["|", ("tel", "=", mobile[1:]), ("tel", "=", mobile)]
+                        [
+                            "|",
+                            ("tel", "=", "7" + mobile[1:]),
+                            "|",
+                            ("tel", "=", mobile[1:]),
+                            ("tel", "=", mobile),
+                        ]
                     )
             if rec.phone:
                 phone = "".join(i for i in rec.phone if i.isdigit())
@@ -35,10 +43,18 @@ class ResPartner(models.Model):
                     rec.call_ids += self.env["cloud.phone.call"].search(
                         [
                             "|",
+                            ("number_id.tel", "=", "7" + phone[1:]),
+                            "|",
                             ("number_id.tel", "=", phone[1:]),
                             ("number_id.tel", "=", phone),
                         ]
                     )
                     rec.call_ids += self.env["cloud.phone.call"].search(
-                        ["|", ("tel", "=", phone[1:]), ("tel", "=", phone)]
+                        [
+                            "|",
+                            ("tel", "=", "7" + mobile[1:]),
+                            "|",
+                            ("tel", "=", phone[1:]),
+                            ("tel", "=", phone),
+                        ]
                     )

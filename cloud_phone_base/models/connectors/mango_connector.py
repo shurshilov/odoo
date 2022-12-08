@@ -141,11 +141,16 @@ class Connector(models.Model):
         minutes = (seconds // 60) % 60
         return "%02d:%02d:%02d" % (hours, minutes, seconds%60)
 
-    def get_and_updete_call_mango(self, call):
-        """
-        Get call from cloud or update if already exist
-        update should when run when call already exist
-        but not yet have recording
+    def find_number_by_extension_and_tel_mango(self, call):
+        """Определяет подключенный номер из звонка, а также тип звонка.
+        Его легко можно найти по extension. Если он не указан
+        по самому номеру телефона.
+
+        Arguments:
+            call -- звонок (dict)
+
+        Returns:
+            number, calltype, calltel
         """
         calltype = "incoming" if call["to_extension"] else "outgoing"
         calltel = call["from_number"] if call["to_extension"] else call["to_number"]
@@ -157,11 +162,11 @@ class Connector(models.Model):
                     "=",
                     call["to_extension"] if call["to_extension"] else call["from_extension"],
                 ),
-                (
-                    "protocol",
-                    "=",
-                    'tel',
-                )
+                # (
+                #     "protocol",
+                #     "=",
+                #     'tel',
+                # )
             ],
             limit=1
         )
@@ -206,6 +211,16 @@ class Connector(models.Model):
                     ],
                     limit=1
                 )
+
+        return (number,calltype,calltel)
+
+    def get_and_updete_call_mango(self, call):
+        """
+        Get call from cloud or update if already exist
+        update should when run when call already exist
+        but not yet have recording
+        """
+        (number,calltype,calltel) = self.find_number_by_extension_and_tel_mango(call)
         start_datetime = datetime.fromtimestamp(int(call["start"]))
         finish_datetime = datetime.fromtimestamp(int(call["finish"]))
         duration = self.get_hms(finish_datetime - start_datetime)
@@ -218,7 +233,7 @@ class Connector(models.Model):
         )
 
         # время самого разговора и время записи
-        rec_duration = ""
+        rec_duration = "00:00:00"
         if int(call["answer"]) > 0:
             start_answer_datetime = datetime.fromtimestamp(int(call["answer"]))
             rec_duration = self.get_hms(finish_datetime - start_answer_datetime)
@@ -261,7 +276,9 @@ class Connector(models.Model):
             self.url + path, json_data=json_data, binary_content=False, csv_content=True
         )
         for call in calls:
-            if int(call["answer"]) > 0:
+            # если с ответом или исходящий, входящие не сохраняются так как их слишком
+            # много из за очереди IVR на каждый вызов примерно 10 входящих
+            if int(call["answer"]) > 0 or call["from_extension"]:
                 self.get_and_updete_call_mango(call)
 
     @api.model

@@ -5,7 +5,12 @@
 			<t t-esc="widget.options.subtype"/>
 			<div class="s_process_step_icon">
 				<span>
-					<i style="background-color: #34B885 !important;color: #FFFFFF;width: 10rem;height: 10rem;line-height: 10rem;" class="fa fa-5x mx-auto rounded-circle bg-o-color-3 fa-phone"></i>
+					<t t-if="widget.options.color == 'red' ">
+						<i style="background-color: red !important;color: #FFFFFF;width: 10rem;height: 10rem;line-height: 10rem;" class="fa fa-5x mx-auto rounded-circle bg-o-color-3 fa-phone"></i>
+					</t>
+					<t t-else="">
+						<i style="background-color: #34B885 !important;color: #FFFFFF;width: 10rem;height: 10rem;line-height: 10rem;" class="fa fa-5x mx-auto rounded-circle bg-o-color-3 fa-phone"></i>
+					</t>
 				</span>
 			</div>
 			<t t-esc="widget.options.name"/>

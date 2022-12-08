@@ -22,11 +22,12 @@ class MangoCall(http.Controller):
             "dct":{"type":0}
         }
         """
-        body = http.request.httprequest.data
         mango_connector = (
             http.request.env["cloud.phone.connector"]
             .sudo()
-            .search([("cloud_phone_vendor", "=", "mango")], limit=1)
+            .search(
+                [("active", "=", True), ("cloud_phone_vendor", "=", "mango")], limit=1
+            )
         )
 
         auth_checked = mango_connector._mango_auth_check(
@@ -37,35 +38,36 @@ class MangoCall(http.Controller):
 
         call = json.loads(kw.get("json"))
 
-        # если вызов на который ответили (сняли трубку)
+        # если вызов на который ответили (сняли трубку) и вызов сотруднику и не с внутреннего номера
+        # значит разговариваем с клиентом
         if (
             call["call_state"] == "Connected"
             and call["location"] == "abonent"
             and "extension" in call["to"]
+            and "extension" not in call["from"]
+            and "sip" not in call["from"]["number"]
         ):
-            number = (
-                http.request.env["cloud.phone.number"]
-                .sudo()
-                .search(
-                    [
-                        (
-                            "extension",
-                            "=",
-                            call["to"]["extension"],
-                        ),
-                        (
-                            "protocol",
-                            "=",
-                            "tel",
-                        ),
-                    ],
-                    limit=1,
-                )
+            # парсим событие в массив звонка
+            call_dict = dict(
+                from_extension=call["from"]["extension"]
+                if "extension" in call["from"]
+                else "",
+                from_number=call["from"]["number"],
+                to_extension=call["to"]["extension"]
+                if "extension" in call["to"]
+                else "",
+                to_number=call["to"]["number"],
             )
-            # берем только цифры
-            phone = "".join(i for i in call["from"]["number"] if i.isdigit())
+            (
+                number,
+                calltype,
+                calltel,
+            ) = mango_connector.find_number_by_extension_and_tel_mango(call_dict)
 
-            if number:
+            # если номер привязан к сотруднику
+            if number and number.employee_id and calltype == "incoming":
+                # берем только цифры
+                phone = "".join(i for i in call["from"]["number"] if i.isdigit())
                 # ищем партнера
                 partner_id = (
                     http.request.env["res.partner"]
@@ -73,18 +75,22 @@ class MangoCall(http.Controller):
                     .search(
                         [
                             "|",
-                            ("phone", "=", phone[1:]),
-                            "|",
                             ("phone", "=", phone),
                             "|",
+                            ("phone", "=", phone[1:]),
+                            "|",
+                            ("phone", "=", "8"+phone[1:]),
+                            "|",
                             ("mobile", "=", phone),
+                            "|",
                             ("mobile", "=", phone[1:]),
+                            ("mobile", "=", "8"+phone[1:]),
                         ],
                         limit=1,
                     )
                 )
                 if partner_id:
-                    # отправить на клиента форму партнера
+                    # отправить на юзера
                     http.request.env["bus.bus"].sudo().sendone(
                         (
                             http.request._cr.dbname,
@@ -93,15 +99,15 @@ class MangoCall(http.Controller):
                         ),
                         {
                             "type": "mango_call",
-                            "title": "Звонок от партнера %s" % partner_id.name,
+                            "title": "Текущий звонок от партнера %s" % partner_id.name,
                             "message": "Вы можете перейти к данному контагенту",
                             "subtype": "Наш партнер",
+                            "color":"green",
                             "name": partner_id.name,
                             "phone": phone,
                             "call": call,
                             "id": partner_id.id,
                             "model": "res.partner",
-                            "user_id": number.employee_id.user_id.id,
                         },
                     )
 
@@ -124,24 +130,28 @@ class MangoCall(http.Controller):
                         )
                     )
                     if lead_id:
-                        # отправить на клиента форму лида
+                        # поднимаем лида вверх
+                        priority_old = int(lead_id.priority)
+                        if priority_old < 3:
+                            priority_old += 1
+                            lead_id.priority = str(priority_old)
+                        # отправить на юзера
                         http.request.env["bus.bus"].sudo().sendone(
                             (
                                 http.request._cr.dbname,
                                 "res.partner",
                                 number.employee_id.user_id.partner_id.id,
                             ),
-                            # (http.request._cr.dbname, "res.partner", 3),
                             {
                                 "type": "mango_call",
-                                "title": "Звонок от старого лида %s" % phone,
+                                "title": "Текущий звонок от старого лида %s" % phone,
                                 "message": "Вы можете перейти к данному старому лиду",
                                 "subtype": "Старый лид",
+                                "color":"green",
                                 "phone": phone,
                                 "call": call,
                                 "id": lead_id.id,
                                 "model": "crm.lead",
-                                "user_id": number.employee_id.user_id.id,
                             },
                         )
 
@@ -149,10 +159,7 @@ class MangoCall(http.Controller):
                     else:
                         lead = {
                             "type": "lead",
-                            "user_id": False,
-                            "description": str(call["to"])
-                            + "\n"
-                            + str(call["taken_from_call_id"]),
+                            "description": str(call),
                             "name": "Отвеченный звонок",
                             "phone": call["from"]["number"],
                             "mobile": call["from"]["number"],
@@ -167,25 +174,25 @@ class MangoCall(http.Controller):
                             ),
                             {
                                 "type": "mango_call",
-                                "title": "Звонок от нового лида %s" % phone,
+                                "title": "Текущий звонок от нового лида %s" % phone,
                                 "message": "Вы можете перейти к данному  новому лиду",
                                 "subtype": "Новый лид",
+                                "color":"green",
                                 "phone": phone,
                                 "call": call,
                                 "id": lead_id.id,
                                 "model": "crm.lead",
-                                "user_id": number.employee_id.user_id.id,
                             },
                         )
 
         http.request.env["cloud.phone.event"].sudo().create(
             {
                 "type": "mango_event_call",
-                "body": body.decode("utf-8"),
+                "body": "",
                 "params": str(kw),
-                "call_from": call["from"]["number"],
-                "call_to": call["to"]["number"],
-                "line_number": call["to"]["line_number"],
+                #"call_from": call["from"]["number"],
+                #"call_to": call["to"]["number"],
+                # "line_number": call["to"]["line_number"],
                 # "disconnect_reason": call["disconnect_reason"],
             }
         )
@@ -213,11 +220,12 @@ class MangoCall(http.Controller):
         пропущен, разговор не состоялся;
         """
 
-        body = http.request.httprequest.data
         mango_connector = (
             http.request.env["cloud.phone.connector"]
             .sudo()
-            .search([("cloud_phone_vendor", "=", "mango")], limit=1)
+            .search(
+                [("active", "=", True), ("cloud_phone_vendor", "=", "mango")], limit=1
+            )
         )
 
         auth_checked = mango_connector._mango_auth_check(
@@ -228,14 +236,84 @@ class MangoCall(http.Controller):
 
         call = json.loads(kw.get("json"))
 
-        # если звонок пропущен всеми менеджерами, и это не партнер, создать лид
-        if not call["entry_result"]:
+        # парсим событие в массив звонка
+        call_dict = dict(
+            records="пропущенный, записи нет",
+            start=call["create_time"],
+            finish=call["end_time"],
+            answer="0",
+            from_extension=call["from"]["extension"]
+            if "extension" in call["from"]
+            else "",
+            from_number=call["from"]["number"],
+            to_extension=call["to"]["extension"] if "extension" in call["to"] else "",
+            to_number=call["to"]["number"],
+            disconnect_reason=call["disconnect_reason"],
+            line_number=call["line_number"],
+            location="abonent",
+        )
+
+        (
+            number,
+            calltype,
+            calltel,
+        ) = mango_connector.find_number_by_extension_and_tel_mango(call=call_dict)
+        # если звонок не состоялся и он входящий и не с внутреннего номера
+        # значит он пропущенный входящий от клиента
+        if (
+            number
+            and not call["entry_result"]
+            and calltype == "incoming"
+            and "extension" not in call["from"]
+            and "sip" not in call["from"]["number"]
+        ):
             # берем только цифры
             phone = "".join(i for i in call["from"]["number"] if i.isdigit())
 
             # ищем партнера
             partner_id = (
                 http.request.env["res.partner"]
+                .sudo()
+                .search(
+                    [
+                        "|",
+                        ("phone", "=", phone),
+                        "|",
+                        ("phone", "=", phone[1:]),
+                        "|",
+                        ("phone", "=", "8"+phone[1:]),
+                        "|",
+                        ("mobile", "=", phone),
+                        "|",
+                        ("mobile", "=", phone[1:]),
+                        ("mobile", "=", "8"+phone[1:]),
+                    ],
+                    limit=1,
+                )
+            )
+            if partner_id and number.employee_id:
+                # отправить на юзера
+                http.request.env["bus.bus"].sudo().sendone(
+                    (
+                        http.request._cr.dbname,
+                        "res.partner",
+                        number.employee_id.user_id.partner_id.id,
+                    ),
+                    {
+                        "type": "mango_call",
+                        "title": "Пропущенный звонок от партнера %s" % partner_id.name,
+                        "message": "Вы можете перейти к данному партнеру",
+                        "subtype": "Пропущенный от партнера",
+                        "color":"red",
+                        "phone": phone,
+                        "call": call,
+                        "id": partner_id.id,
+                        "model": "res.partner",
+                    },
+                )
+            # ищем лида
+            lead_id = (
+                http.request.env["crm.lead"]
                 .sudo()
                 .search(
                     [
@@ -250,29 +328,73 @@ class MangoCall(http.Controller):
                     limit=1,
                 )
             )
+            if lead_id:
+                # поднимаем лида вверх
+                priority_old = int(lead_id.priority)
+                if priority_old < 3:
+                    priority_old += 1
+                    lead_id.priority = str(priority_old)
 
-            # если это не партнер, значит лид, удаляем сип номера (внутренние)
-            if not partner_id and "sip" not in call["from"]["number"]:
+            # если это не партнер и не старый лид, то новый лид
+            new = False
+            if not partner_id and not lead_id:
+                new = True
                 lead = {
                     "type": "lead",
-                    "user_id": False,
-                    "description": str(call["to"])
-                    + "\n"
-                    + call["line_number"]
-                    + "\n"
-                    + str(call["disconnect_reason"])
-                    + "\n"
-                    + str(call["create_time"]),
+                    "user_id": number.employee_id.user_id.id
+                    if number.employee_id
+                    else False,
+                    "description": str(call),
                     "name": "Пропущенный звонок",
                     "phone": call["from"]["number"],
                     "mobile": call["from"]["number"],
                 }
                 lead_id = http.request.env["crm.lead"].sudo().create(lead)
+            if number.employee_id:
+                # отправить на юзера
+                http.request.env["bus.bus"].sudo().sendone(
+                    (
+                        http.request._cr.dbname,
+                        "res.partner",
+                        number.employee_id.user_id.partner_id.id,
+                    ),
+                    {
+                        "type": "mango_call",
+                        "title": "Пропущенный звонок от нового лида %s" % phone
+                        if new
+                        else "Пропущенный звонок от старого лида %s" % phone,
+                        "message": "Вы можете перейти к данному новому лиду"
+                        if new
+                        else "Вы можете перейти к данному старому лиду",
+                        "subtype": "Пропущенный от старого лида",
+                        "color":"red",
+                        "phone": phone,
+                        "call": call,
+                        "id": lead_id.id,
+                        "model": "crm.lead",
+                    },
+                )
+            # создать пропущенный входящий звонок в истории звонков
+            # так как изначально в истории только звонки с записью или исходящие без записи(когда звонок не состоялся)
+            # то здесь мы сохраняем входящие без записи. Сразу это не делается так как
+            # входящих из-за IVR очереди слишком много и они будут мешать, к примеру на 1 лид:
+            # будет создано 10 звонков из который 2 IVR 7 входящих не отвеч на менеджеров и 1 отвеченный
+            # итого 10. Если никто не ответил, то 2 IVR 8 входящих не отвеч на менеджеров
+            # итого 10 звонков в истории тоже.
+            # Это больше внутренняя информаци и для менеджеров не нужна. В текущей реализации будет 1
+            # неотвеченный или 1 отвеченный.
+            # А в общей истории звонков events будут все звонки 10(штук) + 1 завершающее событие.
+
+            # добавить пропущенный звонок в историю звонков
+            # пропущенные могут быть с записью и тогда их не создаем, т.к. они уже есть
+            if call["talk_time"] == 0:
+                mango_connector.get_and_updete_call_mango(call_dict)
+
         # в любом случае создать событие в системе
         http.request.env["cloud.phone.event"].sudo().create(
             {
                 "type": "mango_event_summary",
-                "body": body.decode("utf-8"),
+                "body": "",
                 "params": str(kw),
                 "call_from": call["from"]["number"],
                 "call_to": call["to"]["number"],

@@ -43,9 +43,7 @@ class Connector(models.Model):
 
         # генерируем подпись
         sign_old = sha256(
-                (self.vpbx_api_key + json_str + self.vpbx_api_salt).encode(
-                    "utf-8"
-                )
+            (self.vpbx_api_key + json_str + self.vpbx_api_salt).encode("utf-8")
         ).hexdigest()
         if sign != sign_old:
             False
@@ -155,6 +153,8 @@ class Connector(models.Model):
                         return rec
                     if self.swipe(work_phone_digits[1:], number):
                         return rec
+                    if self.swipe("7" + work_phone_digits[1:], number):
+                        return rec
 
             if rec.mobile_phone:
                 mobile_phone_digits = "".join(
@@ -164,6 +164,8 @@ class Connector(models.Model):
                     if self.swipe(mobile_phone_digits, number):
                         return rec
                     if self.swipe(mobile_phone_digits[1:], number):
+                        return rec
+                    if self.swipe("7" + mobile_phone_digits[1:], number):
                         return rec
 
     @api.model

@@ -33,7 +33,7 @@ class Numbers(models.Model):
         for rec in self:
             name = "{}({} - {})".format(
                 rec.tel,
-                rec.employee_id.name or "Не привязан",
+                rec.employee_id.name or rec.name or "Не привязан",
                 rec.connector_cloud_phone_vendor,
             )
             res.append((rec.id, name))

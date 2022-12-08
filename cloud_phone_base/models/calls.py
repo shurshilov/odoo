@@ -39,7 +39,7 @@ class Calls(models.Model):
         for rec in self:
             number_name = "{}({} - {})".format(
                 rec.number_id.tel,
-                rec.number_id.employee_id.name or "Не привязан",
+                rec.number_id.employee_id.name or rec.number_id.name or "Не привязан",
                 rec.number_id.connector_cloud_phone_vendor,
             )
             if rec.type == "incoming":
