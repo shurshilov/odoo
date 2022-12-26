@@ -4,7 +4,7 @@
 from odoo import http
 from odoo.http import request
 import werkzeug
-from werkzeug import url_encode
+from werkzeug.urls import url_encode
 from odoo import _, SUPERUSER_ID
 from odoo.tools import config
 
