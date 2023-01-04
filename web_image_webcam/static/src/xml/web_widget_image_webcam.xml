@@ -1,26 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Copyright 2022 Artem Shurshilov -->
-<template id="template" xml:space="preserve">
-
-    <t t-extend="FieldBinaryImage">
-        <t t-jquery=".o_clear_file_button" t-operation="after">
-            <button class="fa fa-camera fa-lg float-center o_form_binary_file_web_cam" title="WebCam" aria-label="WebCam"/>
-        </t>
+<templates xml:space="preserve">
+    <t t-name="web.ImageFieldWebcam" t-inherit="web.ImageField" t-inherit-mode="extension" owl="1">
+        <xpath expr="//FileUploader" position="after">
+            <button t-on-click="_openRearCamera" class="btn btn-light border-0 rounded-circle m-1 p-1" data-tooltip="WebCam" aria-label="WebCam">
+                <i class="fa fa-camera fa-fw"/>
+            </button>
+        </xpath>
     </t>
 
-    <t t-name="WebcamDialogNew">
-        <div>
-            <div class="video-options">
-                <select name="" id="" class="custom-select">
-                    <option value="">Select camera</option>
-                </select>
-            </div>
+    <t t-name="web_image_webcam.WebcamDialog" owl="1">
+        <Dialog contentClass="'AttachmentWebcamDialog'" title="getTitle()" size="'xl'">
+            <p class="o_AttachmentWebcamDialog_mainText" t-esc="getBody()"/>
+
             <div style="display: flex; justify-content: center; align-content: space-between;  align-items: center;flex-direction: column;">
-                <video id="live_webcam" width="100%" height="100%" autoplay="" playsinline=""/>
-                <div id="webcam_result"/>
+                <div>
+                    <select t-ref="selectCamera" t-on-change="(ev) => this.onChangeDevice(ev)">
+                        <option value="">Select camera</option>
+                    </select>
+                </div>
+                <video t-ref="video" width="100%" height="100%" autoplay="" playsinline=""/>
+                <img t-attf-src="{{state.snapshot}}"/>
             </div>
-        </div>
+
+            <t t-set-slot="footer">
+                <button class="btn btn-primary" t-on-click="_onWebcamSnapshot">
+                    <i class="fa fa-camera mr8"/>
+                    <t>Take Snapshot</t>
+                </button>
+                <button t-ref="saveButton" class="btn btn-primary" t-on-click="_onWebcamSave" t-att-disabled="!state.snapshot ? 'disabled' : ''">
+                    <i class="fa fa-save mr8"/>
+                    <t>Save and Close</t>
+                </button>
+                <button class="btn btn-secondary" t-on-click="_onClickCancel">
+                    <t>Cancel</t>
+                </button>
+            </t>
+        </Dialog>
     </t>
-
-
-</template>
+</templates>
