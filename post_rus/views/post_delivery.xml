@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_picking_add_post_rus_button" model="ir.ui.view">
+        <field name="name">view_picking_add_post_rus_button</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="before">
+                <div class="oe_button_box" name="button_box">
+                    <button type="object" name="action_view_post" class="oe_stat_button" icon="fa-truck">
+                        <field name="post_count" widget="statinfo" string="Почта России" />
+                    </button>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

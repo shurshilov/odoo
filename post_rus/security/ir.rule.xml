@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<openerp>
+<data>
+    <record id="group_post_admin" model="res.groups">
+            <field name="name">Почта России / Admin</field>
+            <field name="implied_ids" eval="[(4, ref('sales_team.group_sale_manager')), (4, ref('stock.group_stock_user'))]"/>
+        </record>
+
+    <record id="group_post_manager" model="res.groups">
+            <field name="name">Почта России / Manager</field>
+            <field name="implied_ids" eval="[(4, ref('sales_team.group_sale_manager')), (4, ref('stock.group_stock_user'))]"/>
+        </record>
+
+<!--ADMIN-->
+    <record id="admin_rule" model="ir.rule">
+            <field name="name">Админ читает,изменяет,создает, удаляет любые заказы и видет админ информацию</field>
+            <field name="model_id" ref="model_post_order"/>
+            <field name="groups" eval="[(4, ref('group_post_admin'))]"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+            <field name="domain_force">
+                [ (1,'=',1) ]
+            </field>
+        </record>
+
+<!--MANAGER-->
+    <record id="manager_rule" model="ir.rule">
+            <field name="name">Админ читает,изменяет,создает, удаляет любые заказы, но не видит админ информацию</field>
+            <field name="model_id" ref="model_post_order"/>
+            <field name="groups" eval="[(4, ref('group_post_manager'))]"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+            <field name="domain_force">
+                [ (1,'=',1) ]
+            </field>
+        </record>
+
+</data>
+</openerp>
