@@ -171,6 +171,7 @@ export class FieldGeoEngineEditMapOwl extends Component {
 
         // this._super(value);
         this.value = value;
+        this.props.update(value)
 
         if (this.map) {
 
@@ -318,7 +319,7 @@ export class FieldGeoEngineEditMapOwl extends Component {
             });
 
             $(document).trigger('FieldGeoEngineEditMap:ready', [this.map]);
-            this._setValue(this.value);
+            this._setValue(this.props.value);
 
             // if (this.mode !== 'readonly' &&
                 // !this.get('effective_readonly')) {
