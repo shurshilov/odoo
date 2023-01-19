@@ -300,8 +300,6 @@ export class FieldGeoEngineEditMapOwl extends Component {
 
     _renderMap () {
         if (!this.map) {
-            // var $el = this.$el[0];
-            console.log(this)
             $(this.__owl__.parent.bdom.el).css({width: '100%', height: '100%'});
             this.map = new ol.Map({
                 layers: this.rasterLayers,
@@ -321,21 +319,14 @@ export class FieldGeoEngineEditMapOwl extends Component {
             $(document).trigger('FieldGeoEngineEditMap:ready', [this.map]);
             this._setValue(this.props.value);
 
-            // if (this.mode !== 'readonly' &&
-                // !this.get('effective_readonly')) {
-                this._setupControls();
-                this.drawControl.setActive(true);
-                this.modifyControl.setActive(true);
-                this.clearmapControl.element.children[0].disabled = false;
-            // }
+            this._setupControls();
+            this.drawControl.setActive(true);
+            this.modifyControl.setActive(true);
+            this.clearmapControl.element.children[0].disabled = false;
         }
     }
 
     _render () {
-        console.log(this.props.record.resModel)
-        console.log(this.props.name)
-        // debugger;
-
         this.env.services.rpc("/web/dataset/call_kw", {
             model: this.props.record.resModel,
             method: "get_edit_info_for_geo_column",
@@ -344,16 +335,7 @@ export class FieldGeoEngineEditMapOwl extends Component {
             args: [
                 this.props.name
             ],
-        })
-        // this.env.services.rpc({
-        //     model: this.props.record.resModel,
-        //     method: 'get_edit_info_for_geo_column',
-        //     // args: [this.props.name],
-        //     args: [[], {
-        //         column: this.props.name
-        //     }]
-        // })
-        .then(function (result) {
+        }).then(function (result) {
             this._createLayers(result);
             this.geoType = result.geo_type;
             this.projection = result.projection;
