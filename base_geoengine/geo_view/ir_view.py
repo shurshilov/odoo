@@ -20,9 +20,8 @@ class IrUIView(models.Model):
     projection = fields.Char(default="EPSG:3857", required=True)
     default_extent = fields.Char(
         "Default map extent",
-        size=128,
         default="-123164.85222423, 5574694.9538936, 1578017.6490538,"
         " 6186191.1800898",
     )
     default_zoom = fields.Integer("Default map zoom")
-    restricted_extent = fields.Char("Restricted map extent", size=128)
+    restricted_extent = fields.Char("Restricted map extent")
