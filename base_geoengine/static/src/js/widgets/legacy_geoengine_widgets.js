@@ -17,7 +17,6 @@ odoo.define('base_geoengine.geoengine_widgets', function (require) {
     var field_registry = require('web.field_registry');
     var fields = require("web.basic_fields");
 
-    
     var inherits = function (subClass, superClass) {
         if (typeof superClass !== "function" && superClass !== null) {
         throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
@@ -59,8 +58,9 @@ odoo.define('base_geoengine.geoengine_widgets', function (require) {
          * @override
          */
         start: function () {
+            debugger;
             var def = this._super();
-
+            
             // Add a listener on parent tab if it exists in order to refresh
             // geoengine view we need to trigger it on DOM update for changes
             // from view to edit mode.
@@ -598,12 +598,11 @@ odoo.define('base_geoengine.geoengine_widgets', function (require) {
     //    .add('geo_rect', FieldGeoRect)
     //    .add('geo_rect', FieldGeoRectReadonly);
 
-    return {
-        FieldGeoEngineEditMap: FieldGeoEngineEditMap,
+    return FieldGeoEngineEditMap
     //    FieldGeoPointXY: FieldGeoPointXY,
     //    FieldGeoPointXYReadonly: FieldGeoPointXYReadonly,
     //    FieldGeoRect: FieldGeoRect,
     //    FieldGeoRectReadonly: FieldGeoRectReadonly,
-    };
+    
 
 });

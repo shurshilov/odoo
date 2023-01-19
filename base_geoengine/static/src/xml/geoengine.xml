@@ -113,4 +113,10 @@
              border="1"/>
     </t>
 
+    <t t-name="FieldGeoEngineEditMapOwl" owl="1">
+        <div>
+        <span>MAP</span>
+        </div>
+    </t>
+
 </templates>
