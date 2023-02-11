@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2016-2021 Shurshilov Artem <shurshilov.a@yandex.ru>
-# License LGPL-3 or later (http://www.gnu.org/licenses/agpl).
+# Copyright (C) 2016-2023 Shurshilov Artem <shurshilov.a@yandex.ru>
+# License LGPL-3
 {
     'name': 'Widget image preview',
     'summary': """Adds functional preview (open/popup) image in original size 
@@ -9,11 +9,6 @@
     'description': """
 This is extension for <field widget="image"> widget image
 ==============================================
-* STOCK and CONTACT example:
-    * open image on click in original size in popup
-    * close on close button
-    * close on click on/out image
-
 """,
     'author': 'Shurshilov Artem',
     #    "website": "https://vk.com/id20132180",
@@ -21,7 +16,7 @@ This is extension for <field widget="image"> widget image
 
     # Categories can be used to filter modules in modules listing
     'category': "Tools",
-    'version': '15.1.0.2',
+    'version': '16.1.0.2',
     # any module necessary for this one to work correctly
     'depends': ['web', 'mail'],
     "license": "LGPL-3",
@@ -33,16 +28,14 @@ This is extension for <field widget="image"> widget image
             'static/description/stock_open.png',
             'static/description/stock_cursor.png',
     ],
-    # 'data': [ 'views/form_image_preview_templates.xml', ],
+
     'assets': {
         'web.assets_backend': [
-            'field_image_preview/static/**/*',
-        ],
-        'web.assets_qweb': [
+            'field_image_preview/static/src/js/image_field.js',
             'field_image_preview/static/src/xml/image.xml',
         ],
     },
-    # 'qweb': [ 'static/src/xml/image.xml', ],
+
     'installable': True,
     'application': False,
     # If it's True, the modules will be auto-installed when all dependencies
