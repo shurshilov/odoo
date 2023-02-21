@@ -196,6 +196,7 @@ class MangoCall(http.Controller):
                 # "disconnect_reason": call["disconnect_reason"],
             }
         )
+        return "OK"
 
     @http.route(
         "/events/summary", auth="none", type="http", csrf=False, methods=["POST"]
@@ -402,3 +403,4 @@ class MangoCall(http.Controller):
                 "disconnect_reason": call["disconnect_reason"],
             }
         )
+        return "OK"

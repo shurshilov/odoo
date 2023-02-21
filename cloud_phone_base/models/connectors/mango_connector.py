@@ -40,7 +40,8 @@ class Connector(models.Model):
         path = "/config/users/request"
         numbers = self._mango_auth_request(self.url + path)
         numbers_ids = self.env["cloud.phone.number"]
-        for user in numbers["users"]:
+        # TODO: sometimes users not in numbers
+        for user in numbers.get("users"):
             for number in user["telephony"]["numbers"]:
                 employee_id = self.find_by_number("hr.employee", number["number"])
 
@@ -154,8 +155,25 @@ class Connector(models.Model):
         """
         calltype = "incoming" if call["to_extension"] else "outgoing"
         calltel = call["from_number"] if call["to_extension"] else call["to_number"]
-        # ищем по внутреннему номеру
+        # ищем по внутреннему номеру но протокол tel
         number = self.env["cloud.phone.number"].search(
+            [
+                (
+                    "extension",
+                    "=",
+                    call["to_extension"] if call["to_extension"] else call["from_extension"],
+                ),
+                (
+                    "protocol",
+                    "=",
+                    'tel',
+                )
+            ],
+            limit=1
+        )
+        # ищем по внутреннему номеру протокол sip
+        if not number:
+            number = self.env["cloud.phone.number"].search(
             [
                 (
                     "extension",

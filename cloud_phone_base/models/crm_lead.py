@@ -43,7 +43,7 @@ class CrmLead(models.Model):
                     rec.call_ids += self.env["cloud.phone.call"].search(
                         [
                             "|",
-                            ("number_id.tel", "=", "7" + mobile[1:]),
+                            ("number_id.tel", "=", "7" + phone[1:]),
                             "|",
                             ("number_id.tel", "=", phone[1:]),
                             ("number_id.tel", "=", phone),
@@ -52,7 +52,7 @@ class CrmLead(models.Model):
                     rec.call_ids += self.env["cloud.phone.call"].search(
                         [
                             "|",
-                            ("tel", "=", "7" + mobile[1:]),
+                            ("tel", "=", "7" + phone[1:]),
                             "|",
                             ("tel", "=", phone[1:]),
                             ("tel", "=", phone),

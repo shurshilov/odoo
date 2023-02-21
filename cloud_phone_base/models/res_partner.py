@@ -52,7 +52,7 @@ class ResPartner(models.Model):
                     rec.call_ids += self.env["cloud.phone.call"].search(
                         [
                             "|",
-                            ("tel", "=", "7" + mobile[1:]),
+                            ("tel", "=", "7" + phone[1:]),
                             "|",
                             ("tel", "=", phone[1:]),
                             ("tel", "=", phone),
