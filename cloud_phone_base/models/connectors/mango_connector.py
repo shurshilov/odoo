@@ -328,3 +328,13 @@ class Connector(models.Model):
                       - waiting_time_end_call
                 ).timestamp(),
             )
+            if recreate:
+                without_recording_call_ids = self.env["cloud.phone.call"].search(
+                    [
+                        ("rec_duration", "!=", "00:00:00"),
+                        ("ir_attachment_id", "=", False),
+                        ("connector_id", "=", connector.id),
+                    ]
+                )
+                for call_id in without_recording_call_ids:
+                    connector.create_attachment_mango(call_id)

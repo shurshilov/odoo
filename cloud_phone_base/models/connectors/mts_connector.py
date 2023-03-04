@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 from odoo import fields, models, api
 
-import base64
+from datetime import datetime
 from datetime import timedelta
-
+import logging
+_logger = logging.getLogger(__name__)
 
 class Number(models.Model):
 
@@ -67,7 +68,7 @@ class Connector(models.Model):
             "type": "binary",
             "res_id": call_id.id,
             "res_model": call_id._name,
-            "datas": base64.b64encode(attachment_raw),
+            "raw": attachment_raw,
         }
         return attachment
 
@@ -120,12 +121,11 @@ class Connector(models.Model):
             self.create_attachment(call_id)
 
     def get_and_update_calls(self, number, begin_datetime, end_datetime):
-        path = "/recs/{number}/{begin_datetime}/{end_datetime}".format(
-            number=number.tel,
-            begin_datetime=begin_datetime,
-            end_datetime=end_datetime,
-        )
+        path = f"/recs/{number.tel}/{begin_datetime}/{end_datetime}"
+        _logger.info(f"Start update calls for number {number.id}")
+        _logger.info(path)
         calls = self._basic_auth_request(self.url + path)
+        _logger.info(f"Calls number: {len(calls)}")
         for call in calls:
             self.get_and_updete_call(call, number)
 
@@ -147,23 +147,24 @@ class Connector(models.Model):
                 connector.get_and_update_calls(
                     number,
                     # moscow time
-                    fields.Datetime.to_string(
+                    (
                         fields.Datetime.now()
                         + timedelta(hours=3)
                         - delta
                         - waiting_time_end_call
-                    ),
-                    fields.Datetime.to_string(
+                    ).strftime("%Y-%m-%dT%H:%M:%S"),
+                    (
                         fields.Datetime.now()
                         + timedelta(hours=3)
                         - waiting_time_end_call
-                    ),
+                    ).strftime("%Y-%m-%dT%H:%M:%S"),
                 )
             if recreate:
                 without_recording_call_ids = self.env["cloud.phone.call"].search(
                     [
                         ("rec_duration", "!=", "00:00:00"),
                         ("ir_attachment_id", "=", False),
+                        ("connector_id", "=", connector.id),
                     ]
                 )
                 for call_id in without_recording_call_ids:
