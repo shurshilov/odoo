@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    <record id="crm_lead_website_firebase_push" model="ir.ui.view">
+        <field name="name">crm.lead.website.firebase.push</field>
+        <field name="model">crm.lead</field>
+        <field name="priority" eval="90"/>
+        <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+        <!-- 12 and 13 version diif-->
+        <!-- <field name="inherit_id" ref="crm.crm_case_form_view_oppor"/> -->
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='phone']" position="after">
+                    <field name="firebase_push_token"/>
+                </xpath> 
+        </field>
+    </record>
+
+    <!-- 12 and 13 version diif-->
+    <record id="launch_firebase_wizard_new" model="ir.actions.act_window">
+        <field name="name">Send firebase push notifications</field>
+        <field name="res_model">crm.lead.firebase.message</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <!-- <field name="context">{
+            'default_composition_mode': 'mass',
+            'default_mass_keep_log': True,
+            'default_res_ids': active_ids
+        }</field> -->
+        <field name="binding_model_id" ref="model_crm_lead"/>
+        <field name="binding_view_types">list, form</field>
+    </record>
+    <!-- <act_window id="launch_firebase_wizard"
+                    name="Send firebase push notifications"
+                    binding_model="crm.lead"
+                    res_model="crm.lead.firebase.message"
+                    view_mode="form"
+                    target="new"/> -->
+
+        <record model="ir.ui.view" id="view_crm_lead_firebase_message">
+            <field name="name">crm.lead.firebase.message.form</field>
+            <field name="model">crm.lead.firebase.message</field>
+            <field name="arch" type="xml">
+                <form string="Add URL">
+                    <group>
+                        <field name="title"/>
+                        <field name="body"/>
+                        <field name="icon"/>
+                        <field name="image"/>
+                        <field name="click_action"/>
+                    </group>
+                    <footer>
+                        <button name="channel_firebase_notifications" string="Send" class="oe_highlight" type="object" />
+                        or
+                        <button special="cancel" string="Cancel" class="oe_link" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

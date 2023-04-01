@@ -1,0 +1,70 @@
+/* Layout */
+
+article {
+  display: table-cell;
+  width: 200px;
+  vertical-align: bottom;
+  text-align: center;
+}
+
+#youtube, #docs, #gmail, #drive {
+  position: relative;
+  margin: 0 auto;
+}
+
+
+/* Google Drive */
+
+#drive {
+  width: 112px;
+  height: 96px;
+  cursor: pointer;
+}
+
+#drive #yellow {
+  background: #fdd04a;
+  display: block;
+  width: 39px;
+  height: 62px;
+  transform: skew(30deg);
+  -webkit-transform: skew(30deg);
+  position: absolute;
+  top: 0;
+  right: 19px;
+  z-index: 2;
+}
+
+#drive #blue {
+  background: #3f83f9;     
+  display: block;
+  width: 74px;
+  height: 34px;
+  transform: skew(-30deg);
+  -webkit-transform: skew(-30deg);
+  position: absolute;
+  bottom: 0;
+  right: 10px;
+  z-index: 0;
+}
+
+#drive #green {
+  background: #10a862;
+  display: block;
+  width: 38px;
+  height: 96px;
+  transform: skew(150deg);
+  -webkit-transform: skew(150deg);
+  position: absolute;
+  top: 0;
+  left: 9px;
+  z-index: 1;
+}
+
+#drive #green:after {
+  content: "";
+  border-bottom: 40px solid #fff;
+  border-right: 45px solid transparent;
+  position: absolute;
+  left: -6px;
+  bottom: -1px;
+} 
