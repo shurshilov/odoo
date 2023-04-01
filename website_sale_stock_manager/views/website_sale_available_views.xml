@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--License MIT (https://opensource.org/licenses/MIT).
+    Copyright 2016 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+    Copyright 2016 Florent Thomas <https://github.com/flotho>
+    Copyright 2017-2018 Kolushov Alexandr <https://github.com/KolushovAlexandr>
+    Copyright 2020-2022 Shurshilov Artem <shurshilov.a@yandex.ru> -->
+<odoo>
+    <template id="assets_frontend" inherit_id="website.assets_frontend" name="Shop">
+        <xpath expr="." position="inside">
+            <link
+                rel='stylesheet'
+                href='/website_sale_stock_manager/static/src/css/website_sale_available.css'
+            />
+            <script
+                src="/website_sale_stock_manager/static/src/js/website_sale_available_tour.js"
+                type="text/javascript"
+            />
+        </xpath>
+    </template>
+    <!-- priority 99 for compatibility with sale options, first load sale options view and then this one -->
+    <template
+        id="cart_lines_inherited"
+        inherit_id="website_sale.cart_lines"
+        priority="99"
+    >
+        <xpath expr="//table[@id='cart_products']//thead/tr" position="inside">
+            <th width="60">Available</th>
+        </xpath>
+        <xpath expr="//t[@t-as='line']/tr" position="inside">
+            <td class="text-right" name="virtual_available">
+                <t t-esc="line.product_id.virtual_available" />
+            </td>
+        </xpath>
+        <xpath expr="//table[@id='cart_products']//tbody//tr" position="attributes">
+            <attribute
+                name="t-attf-class"
+                separator=" "
+                add="#{line and 'product_uom_qty' in line and line.product_uom_qty &gt; line.product_id.virtual_available and 'warning' or ''}"
+            />
+        </xpath>
+        <xpath expr="//table[@id='cart_products']" position="inside">
+            <t t-set="availability" t-value="True" />
+            <t t-foreach="website_sale_order.website_order_line" t-as="line">
+                <t
+                    t-if="line and 'product_uom_qty' in line and line.product_uom_qty &gt; line.product_id.virtual_available and 'warning' or ''"
+                >
+                    <t t-set="availability" t-value="False" />
+                </t>
+            </t>
+        </xpath>
+    </template>
+
+
+
+
+    <template id="stock_panel_available" inherit_id="website_sale.products_item" active="True" customize_show="True" name="Show Stock Available Ticket">
+        <xpath expr="//form" position="inside">
+            <div class="pull-right" style="z-index: 5;position: relative;margin-right: 10px;opacity: 0.75;">
+                <t t-if="product.type == 'service'">
+                    <t t-call="website_sale_stock_manager.in_stock_msg"></t>
+                </t>
+                <t t-else="">
+                    <t t-if="product.sudo().virtual_available &gt; 0">
+                        <t t-call="website_sale_stock_manager.in_stock_msg"></t>
+                    </t>
+
+                    <t t-if="not product.sudo().virtual_available &gt; 0">
+                        <t t-call="website_sale_stock_manager.out_stock_msg"></t>
+                    </t>
+                </t>
+            </div>
+        </xpath>
+    </template>
+
+    <!-- QTY -->
+    <template id="stock_panel_qty" inherit_id="website_sale.products_item" active="True" customize_show="True" name="Show Stock Qty Available">
+        <xpath expr="//*[hasclass('product_price')]" position="after">
+            <t t-if="product.type != 'service'">
+                <span style="margin: 0 3px;">
+                    <i>
+                        <u>
+                            <t t-esc="product.sudo().virtual_available" />
+                            <t t-esc="product.sudo().uom_id.name"/>
+                        left.</u>
+                    </i>
+                </span>
+            </t>
+        </xpath>
+    </template>
+
+
+    <template id="in_stock_msg">
+        <div class="in-stock-msg mt8" t-attf-style="{{website.css_msg_in_stock}}">
+            <span>In stock</span>
+        </div>
+    </template>
+
+    <template id="out_stock_msg">
+        <div class="out-stock-msg mt8" t-attf-style="{{website.css_msg_out_stock}}">
+            <span>Out stock</span>
+        </div>
+    </template>
+</odoo>

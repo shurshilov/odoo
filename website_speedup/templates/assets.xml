@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Copyright 2021 Shurshilov Artem -->
+
+<odoo>
+    <template id="assets_common" inherit_id="web.assets_common" name="min assets_common">
+        <xpath expr="//script[@src='/web/static/lib/moment/moment.js']" position="replace">
+        <script type="text/javascript" src="/website_speedup/static/lib/moment.min.js"></script>
+        </xpath>
+
+        <xpath expr="//script[@src='/web/static/lib/underscore/underscore.js']" position="replace">
+        <script type="text/javascript" src="/website_speedup/static/lib/underscore-min.js"></script>
+        </xpath>
+
+        <xpath expr="//script[@src='/web/static/lib/jquery/jquery.js']" position="replace">
+        <script type="text/javascript" src="/website_speedup/static/lib/jquery.min.js"></script>
+        </xpath>
+
+        <xpath expr="//script[@src='/web/static/lib/jquery.ui/jquery-ui.js']" position="replace">
+        <script type="text/javascript" src="/website_speedup/static/lib/jquery-ui.min.js"></script>
+        </xpath>
+
+        <xpath expr="//script[@src='/web/static/lib/underscore.string/lib/underscore.string.js']" position="replace">
+        <script type="text/javascript" src="/website_speedup/static/lib/underscore.string.min.js"></script>
+        </xpath>
+        
+
+        <xpath expr="//script[@src='/web/static/lib/select2/select2.js']" position="replace">
+        <script type="text/javascript" src="/website_speedup/static/lib/select2.min.js"></script>
+        </xpath>
+
+        <xpath expr="//script[@src='/web/static/lib/jquery.ba-bbq/jquery.ba-bbq.js']" position="replace">
+        <script type="text/javascript" src="/website_speedup/static/lib/jquery.ba-bbq.min.js"></script>
+        </xpath>
+
+        <xpath expr="//script[@src='/web/static/lib/jquery.form/jquery.form.js']" position="replace">
+        <script type="text/javascript" src="/website_speedup/static/lib/jquery.form.min.js"></script>
+        </xpath>
+
+        <xpath expr="//script[@src='/web/static/lib/popper/popper.js']" position="after">
+        <script type="text/javascript" src="/website_speedup/static/lib/bootstrap.min.js"></script>
+        </xpath>
+
+        <xpath expr="//script[@src='/web/static/lib/bootstrap/js/alert.js']" position="replace"/>
+        <xpath expr="//script[@src='/web/static/lib/bootstrap/js/button.js']" position="replace"/>
+        <xpath expr="//script[@src='/web/static/lib/bootstrap/js/carousel.js']" position="replace"/>
+        <xpath expr="//script[@src='/web/static/lib/bootstrap/js/collapse.js']" position="replace"/>
+        <xpath expr="//script[@src='/web/static/lib/bootstrap/js/dropdown.js']" position="replace"/>
+        <xpath expr="//script[@src='/web/static/lib/bootstrap/js/index.js']" position="replace"/>
+        <xpath expr="//script[@src='/web/static/lib/bootstrap/js/modal.js']" position="replace"/>
+        <xpath expr="//script[@src='/web/static/lib/bootstrap/js/popover.js']" position="replace"/>
+        <xpath expr="//script[@src='/web/static/lib/bootstrap/js/scrollspy.js']" position="replace"/>
+        <xpath expr="//script[@src='/web/static/lib/bootstrap/js/tab.js']" position="replace"/>
+        <xpath expr="//script[@src='/web/static/lib/bootstrap/js/toast.js']" position="replace"/>
+        <xpath expr="//script[@src='/web/static/lib/bootstrap/js/tooltip.js']" position="replace"/>
+        <xpath expr="//script[@src='/web/static/lib/bootstrap/js/util.js']" position="replace"/>
+
+        <xpath expr="//script[@src='/web/static/lib/tempusdominus/tempusdominus.js']" position="replace">
+        <script type="text/javascript" src="/website_speedup/static/lib/tempusdominus-bootstrap-4.min.js"></script>
+        </xpath>
+        
+        
+
+        <!-- <xpath expr="//script[@src='/web/static/lib/popper/popper.js']" position="replace">
+        <script type="text/javascript" src="/website_speedup/static/lib/popper.min.js"></script>
+        </xpath> -->
+
+    </template>
+
+</odoo>

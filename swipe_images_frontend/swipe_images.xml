@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2020 Shurshilov Artem <shurshilov.a@yandex.ru> -->
+<odoo>
+    <data>
+        <!-- ADD product_image_ids to products_item form -->
+        <template id="swipe_products_item" inherit_id="website_sale.products_item" customize_show="True" name="Swipe images on items" priority="32">
+            <xpath expr="//div[hasclass('oe_product_image')]" position="replace">
+                <!-- <div class="card-body p-1"> -->
+                    <t t-set="image_ids" t-value="product_variant._get_images() if product_variant else product._get_images()"/>
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
+                    <a itemprop="url" t-att-href="product_href" class="d-block h-100" id="swipe_products_item">
+                        <div class="carousel-inner oe_product_image_swipe card-body p-1">
+
+                            <t t-set="availability" t-value="True" />
+                            <t t-if="len(image_ids)" t-foreach="image_ids" t-as="pimg">
+                                <t t-if="availability">
+                                <div class="carousel-item" t-field="pimg.image_1920" t-options='{
+                                	"widget": "image",
+                                	"class": "d-flex h-100 justify-content-center align-items-center",
+                                	"alt-field": "name",
+                                	"zoom": "image",
+                                	"itemprop": "image",
+                                	"resize": None if product_image_big else "300x300"}'/>
+                                </t>
+                                <t t-else="">
+                                <div class="carousel-item" t-field="pimg.image_1920" t-options='{
+                                	"widget": "image",
+                                	"class": "d-flex h-100 justify-content-center align-items-center hide_brazzers",
+                                	"alt-field": "name",
+                                	"zoom": "image",
+                                	"itemprop": "image",
+                                	"resize": None if product_image_big else "300x300"}'
+                                style="display:contents"/>
+                                </t>
+                                <t t-set="availability" t-value="False" />
+                            </t>
+                        </div>
+                    </a>
+                <!-- </div> -->
+
+            </xpath>
+        </template>
+
+        <!-- DELETE old slider in product website form-->
+        <template id="swipe_product" inherit_id="website_sale.shop_product_carousel" customize_show="True" name="Swipe images" priority="32">
+            <xpath expr="//div[hasclass('carousel-outer')]" position="replace">
+
+                <div class="carousel-outer" id="swipe_product">
+                    <div class="carousel-inner oe_product_image_swipe">
+
+                        <!-- <div t-if="variant_img" class="carousel-item" t-field="product_variant.image_1920" t-options="{'widget': 'image', 'class': 'product_detail_img js_variant_img', 'alt-field': 'name', 'zoom': 'image', 'unique': str(product['__last_update']) + (str(product_variant['__last_update']) or ''), 'itemprop': 'image'}"/>
+
+                        <div t-attf-class="carousel-item" t-field="product.image_1920" t-options="{'widget': 'image', 'class': 'product_detail_img', 'alt-field': 'name', 'zoom': 'image', 'unique': product['__last_update'], 'itemprop': 'image'}"/> -->
+                        <t t-set="availability" t-value="True" />
+                        <t t-if="len(product_images)" t-foreach="product_images" t-as="pimg">
+                            <t t-if="availability">
+                                <div class="carousel-item" t-field="pimg.image_1920" t-options='{"widget": "image", "class": "product_detail_img", "alt-field": "name", "zoom": "image", "itemprop": "image"}'/>
+                            </t>
+                            <t t-else="">
+                                <div class="carousel-item" t-field="pimg.image_1920" t-options='{"widget": "image", "class": "product_detail_img hide_brazzers", "alt-field": "name", "zoom": "image", "itemprop": "image"}' style="display:contents"/>
+                            </t>
+                            <t t-set="availability" t-value="False" />
+                        </t>
+                    </div>
+                </div>
+            </xpath>
+        </template>
+
+        <!-- FRONTEND swipe images -->
+        <template id="assets_frontend" inherit_id="website.assets_frontend" name="Shop">
+            <xpath expr="." position="inside">
+            <!-- <xpath expr="//script[contains(@src, '/web/static/tests/views/kanban_tests.js')]" position="after"> -->
+                <link rel="stylesheet" href="/swipe_images_frontend/static/src/css/swipe.css" />
+                <link rel="stylesheet" href="/swipe_images_frontend/static/src/libs/jQuery.Brazzers-Carousel.css" />
+                <script type="text/javascript" src="/swipe_images_frontend/static/src/libs/jQuery.Brazzers-Carousel.js"/>
+                <script type="text/javascript" src="/swipe_images_frontend/static/src/js/swipe_images.js"/>
+            </xpath>
+        </template>
+
+    </data>
+</odoo>

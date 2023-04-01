@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_stock_manager" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.stock.manager</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="90"/>
+        <field name="inherit_id" ref="website.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='google_analytics_setting']" position="after">
+                <div class="col-12 col-lg-6 o_setting_box">
+
+                    <div class="o_setting_right_pane">
+                        <p class="o_form_label">Website stock manager</p>
+                        <div>
+                            <div class="content-group mt16">
+                                <label for="css_msg_in_stock" class="o_light_label"/>
+                                <field name="css_msg_in_stock"/>
+                                <label for="css_msg_out_stock" class="o_light_label"/>
+                                <field name="css_msg_out_stock"/>
+                            </div>
+
+                            <div class="text-muted">
+                                <div>
+                                    <a href="https://youtu.be/oajDld5V1JY" class="oe_link" target="_blank">
+                                        <i class="fa fa-arrow-right"></i> Youtube Tutorial
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>
