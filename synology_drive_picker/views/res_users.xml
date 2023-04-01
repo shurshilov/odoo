@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+
+    <record id="res_users_preferences_synology" model="ir.ui.view">
+        <field name="name">res.users.preferences.synology</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form_simple_modif" />
+        <field name="arch" type="xml">
+             <xpath expr="//field[@name='email']" position="after">
+                    <group string="Synology settings" colspan="12">
+                        <field name="synology_ip"/>
+                        <field name="synology_port"/>
+                        <field name="synology_user"/>
+                        <field name="synology_pass" password="1"/>
+                        <field name="synology_https"/>
+                        <field name="synology_dir"/>
+                        <field name="synology_storage"/>
+                    </group>
+            </xpath>
+        </field>
+    </record>
+
+<record id="res_users_form_view_face_synology" model="ir.ui.view">
+        <field name="name">res.users.form.view.face.synology</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="priority" eval="99"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Synology settings">
+                    <group>
+                        <field name="synology_ip"/>
+                        <field name="synology_port"/>
+                        <field name="synology_user"/>
+                        <field name="synology_pass" password="1"/>
+                        <field name="synology_https"/>
+                        <field name="synology_session"/>
+                        <field name="synology_dir"/>
+                        <field name="synology_storage"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+
+  </data>
+</odoo>

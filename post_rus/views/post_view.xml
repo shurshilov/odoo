@@ -1,0 +1,220 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <template id="assets_backend" name="post assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet" href="/post_rus/static/src/css/post.css" />
+            </xpath>
+        </template>
+        <!-- wizard add to batch-->
+        <record id="model_action_id" model="ir.actions.act_window">
+            <field name="name">Добавить в пакет</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">post.addtobatch</field>
+            <!-- <field name="view_type">form</field> -->
+            <field name="view_mode">form</field>
+            <field name="context">{'post_order_ids':active_ids}</field>
+            <field name="target">new</field>
+        </record>
+        <record model="ir.ui.view" id="post_add_to_batch_wizard">
+            <field name="name">post.addtobatch.wizard</field>
+            <field name="model">post.addtobatch</field>
+            <!-- <field name="act_window_id" ref="model_action_id" /> -->
+            <field name="arch" type="xml">
+                <form string="Form add to batch" save="False">
+                    <sheet>
+                        <group>
+                            <field name="batch" placeholder="Choose batch" />
+                            <button name="add_to_batch" type="object" string="Добавить в пакет" class="oe_inline oe_stat_button" icon="fa-check-circle-o" />
+                            <button name="cancel" string="Отмена" special="cancel" class="oe_inline oe_stat_button" icon="fa-stop" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!-- post calendar per date of order send-->
+        <record model="ir.ui.view" id="post_orderl_calendar_view">
+            <field name="name">post.order.calendar</field>
+            <field name="model">post.order</field>
+            <field name="arch" type="xml">
+                <!--  date_stop="time_end_t" -->
+                <calendar date_start="list_number_date" string="Orders" color="id_package" mode="month">
+                    <field name="id_package" string="Номер пакета" />
+                    <field name="list_number_date" string="Дата документа для сдачи партии" />
+                </calendar>
+            </field>
+        </record>
+        <!-- post graph analysis how many order per month -->
+        <record model="ir.ui.view" id="post_order_graph_view">
+            <field name="name">post.order.graph</field>
+            <field name="model">post.order</field>
+            <field name="arch" type="xml">
+                <graph string="Order Analysis" type="pivot" stacked="True">
+                    <field name="create_date" type="col" />
+                </graph>
+            </field>
+        </record>
+        <!-- post tree views-->
+        <record model="ir.ui.view" id="post_tree_view">
+            <field name="name">post.tree</field>
+            <field name="model">post.order</field>
+            <field name="arch" type="xml">
+                <tree string="Post Tree">
+                    <field name="id_package" string="Пакет" />
+                    <field name="id_post" string="Заказ" />
+                    <field name="sale_order_id" string="Заказ в магазине" />
+                    <field name="address" string="Адрес" />
+                    <!-- <field name="index" string="Индекс"/> -->
+                    <field name="mail_type" string="Тип отправления" />
+                    <field name="mail_category" string="Категория" />
+                    <!-- <field name="status_sync_store" string="Синхронизация"/> -->
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="post_tree_view_second">
+            <field name="name">post.tree.second</field>
+            <field name="model">post.order</field>
+            <field name="inherit_id" ref="post_tree_view" />
+            <field name="mode">primary</field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name=&quot;id_package&quot;]" position="replace" />
+            </field>
+        </record>
+        <!-- post form view-->
+        <record model="ir.ui.view" id="post_form_view">
+            <field name="name">post.form</field>
+            <field name="model">post.order</field>
+            <field name="arch" type="xml">
+                <form string="Post Form">
+                    <header>
+                        <!--                         <button 
+                        name="%(model_action_id)d" 
+                        type="action" 
+                        string="Добавить в существующий пакет" 
+                        context="{'post_order_ids':active_ids}"
+                        class="oe_inline oe_stat_button" 
+                        icon="fa-check-square-o"
+                        attrs="{'invisible':[('state','!=','new')],}" 
+                      /> -->
+                        <button name="merger_pdf" type="object" string="Склеить документы" class="oe_inline oe_stat_button" icon="fa-check-circle-o" attrs="{'invisible':[('state','=','new')],}"/>
+                        <!--                       <button
+                        name="to_new"
+                        type="object"
+                        string="Возврат в новые"
+                        class="oe_inline oe_stat_button"
+                        icon="fa-check-circle-o"
+                        attrs="{'invisible':[('state','=','new')],}"                      
+                      /> -->
+                        <button name="to_archive" type="object" string="Перевод партии в архив" class="oe_inline oe_stat_button" icon="fa-check-circle-o" attrs="{'invisible':[('state','!=','surrender')],}" />
+                        <!--                       <button
+                        name="create_order_post"
+                        type="object"
+                        string="Создать заказ"
+                        class="oe_inline oe_stat_button"
+                        icon="fa-download"
+                        confirm="Вы уверены что хотите создать новый заказ?Данные будут перезаписаны."
+                      /> -->
+                        <field name="state" widget="statusbar" readonly="False" />
+                    </header>
+                    <group col="4" colspan="4">
+                        <field name="id_post" string="ОТПРАВЛЕНИЕ №" />
+                        <field name="status_sync" string="СИНХРОНИЗАЦИЯ" />
+                    </group>
+                    <notebook>
+                        <page string="Данные">
+                            <group>
+                                <group col="6" colspan="4">
+                                    <field name="mail_type" />
+                                    <field name="mail_category" />
+                                    <field name="mass" />
+                                </group>
+                                <group col="4" colspan="4">
+                                    <field name="sale_order_id" />
+                                    <field name="tel_address" />
+                                </group>
+                                <group colspan="4">
+                                    <field name="recipient_name" />
+                                </group>
+                                <group colspan="2">
+                                    <field name="address" />
+                                    <field name="address_success" readonly="True" />
+                                    <field name="address_success_store" invisible="True" />
+                                </group>
+                                <group col="4" colspan="4">
+                                    <field name="payment" />
+                                    <field name="insr_value" />
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Внутренние данные" groups="post_rus.group_post_admin">
+                            <group string="Дополнительные данные">
+                                <group col="4" colspan="4">
+                                    <field name="delivery_order_id" />
+                                    <field name="list_number_date" />
+                                </group>
+                                <group col="4" colspan="4">
+                                    <field name="original_address" />
+                                    <field name="index" />
+                                </group>
+                                <group col="4" colspan="4">
+                                    <field name="id_package" />
+                                    <!-- <field name="id_post"/> -->
+                                </group>
+                                <group col="6" colspan="2">
+                                    <field name="transport_type" />
+                                    <field name="payment_method" />
+                                    <field name="batch_status" />
+                                </group>
+                                <group col="6" colspan="2">
+                                    <field name="postoffice_code" />
+                                    <field name="postoffice_address" />
+                                    <field name="postoffice_name" />
+                                </group>
+                            </group>
+                            <group string="Адрес от почты России">
+                                <group col="4" colspan="4">
+                                    <field name="street" />
+                                    <field name="house" />
+                                </group>
+                                <group col="10" colspan="2">
+                                    <field name="slash" />
+                                    <field name="letter" />
+                                    <field name="corpus" />
+                                    <field name="building" />
+                                    <field name="room" />
+                                </group>
+                                <group col="4" colspan="4">
+                                    <field name="hotel" />
+                                    <field name="num_address_type" />
+                                </group>
+                                <group col="4" colspan="4">
+                                    <field name="region" />
+                                    <field name="location" />
+                                </group>
+                                <group col="4" colspan="4">
+                                    <field name="place" />
+                                    <field name="area" />
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Ответ от сервера" groups="post_rus.group_post_admin">
+                            <field name="response" />
+                        </page>
+                    </notebook>
+                </form>
+            </field>
+        </record>
+        <record id="post_form_view_only_read" model="ir.ui.view">
+            <field name="name">post.form.only.read</field>
+            <field name="model">post.order</field>
+            <field name="inherit_id" ref="post_form_view" />
+            <field name="mode">primary</field>
+            <field name="arch" type="xml">
+                <xpath expr="//form" position="attributes">
+                    <attribute name="create">false</attribute>
+                    <attribute name="edit">false</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

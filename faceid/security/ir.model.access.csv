@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_faceid_source_admin,access_faceid_source_admin,model_faceid_source,faceid.group_manager_faceid,1,1,1,1
+access_faceid_source_user,access_faceid_source_user,model_faceid_source,faceid.group_user_faceid,0,0,0,0
+access_faceid_action_admin,access_faceid_action_admin,model_faceid_action,faceid.group_manager_faceid,1,1,1,1
+access_faceid_action_user,access_faceid_action_user,model_faceid_action,faceid.group_user_faceid,0,0,0,0
+access_faceid_notification_admin,access_faceid_notification_admin,model_faceid_notification,faceid.group_manager_faceid,1,1,1,1
+access_faceid_notification_user,access_faceid_notification_user,model_faceid_notification,faceid.group_user_faceid,0,0,0,0

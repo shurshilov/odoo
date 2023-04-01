@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="website_firebase_push_notifications" inherit_id="website.assets_frontend" name="Website Firebase push notifications">
+            <xpath expr="script[last()]" position="after">
+                <!-- The core Firebase JS SDK is always required and must be listed first -->
+                <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-app.js"></script>
+
+                <!-- TODO: Add SDKs for Firebase products that you want to use
+                     https://firebase.google.com/docs/web/setup#available-libraries -->
+                <!-- <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-analytics.js"></script> -->
+                <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-messaging.js"></script>
+
+<!-- <script type="text/javascript" src="/website_push_firebase/static/src/js/firebase-app.js"></script>
+<script type="text/javascript" src="/website_push_firebase/static/src/js/firebase-messaging.js"></script> -->
+
+                <script type="text/javascript" src="/website_push_firebase/static/src/js/website_push_firebase.js"></script>
+            </xpath>
+        </template>
+    </data>
+</odoo>

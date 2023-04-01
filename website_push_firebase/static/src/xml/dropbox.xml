@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template>
+	<div t-extend="mail.chatter.AttachmentBox">
+		<t t-jquery=".o_chatter_attachment_form" t-operation="after">
+		<article>
+		    <div id="drive" class="dropbox_picker" 
+		    	style="width:50px;height:50px;background-image: url(/dropbox_picker/static/description/dropbox.svg); background-repeat: no-repeat;">
+		    </div>
+		    <footer>
+		      <h5>Open Dropbox</h5>
+		    </footer>
+		  </article>
+		</t>
+	</div>
+
+	<t t-extend="mail.Composer">
+        <t t-jquery=".o_composer_button_add_attachment" t-operation="after">
+            <div class="btn dropbox_picker" 
+            style="background-image: url(/dropbox_picker/static/description/dropbox.svg);
+            background-repeat: no-repeat;
+            padding-bottom: 8px;
+            padding-top: 8px;">
+            </div>
+        </t>
+    </t>
+
+    <t t-extend="mail.Attachment">
+        <t t-jquery=".o_attachment_wrap" t-operation="after">
+            <t t-if="attachment.weburl and attachment.weburl.indexOf('dropbox.com') != -1">
+                <span class="fa fa-1x attachments-manager-public" style="right:30px;background-image: url(/dropbox_picker/static/description/dropbox.svg); background-repeat: no-repeat;background-color: transparent;"/>
+            </t>
+        </t>
+
+        <t t-jquery=".o_attachment_wrap" t-operation="attributes">
+            <attribute name="t-attf-data-weburl">{{attachment.weburl}}</attribute>
+        </t>
+    </t>
+
+    <t t-extend="mail.AttachmentPreview">
+        <t t-jquery=".o_attachment_wrap" t-operation="after">
+            <t t-if="attachment.weburl and attachment.weburl.indexOf('dropbox.com') != -1">
+                <span class="fa fa-1x attachments-manager-public" style="right:30px;background-image: url(/dropbox_picker/static/description/dropbox.svg); background-repeat: no-repeat;background-color: transparent;"/>
+            </t>
+        </t>
+
+        <t t-jquery=".o_attachment_wrap" t-operation="attributes">
+            <attribute name="t-attf-data-weburl">{{attachment.weburl}}</attribute>
+        </t>
+    </t>
+</template>
