@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
+import time
 from odoo import fields, models, api
 
 import base64
 from datetime import timedelta
 from datetime import datetime
-
 
 class Number(models.Model):
 
@@ -121,7 +121,7 @@ class Connector(models.Model):
         if not attachment_raw:
             return attachment_raw
         attachment = {
-            "name": f"{call_id.tel} {call_id.number_id.tel} .mp3",
+            "name": f"{call_id.tel} {call_id.number_id.tel}.mp3",
             "type": "binary",
             "res_id": call_id.id,
             "res_model": call_id._name,
@@ -287,7 +287,9 @@ class Connector(models.Model):
             "date_to": end_datetime,
         }
         json_data = self._mango_auth_request(self.url + path, json_data=json_data)
-
+        # TODO: work callback
+        # because data ready async
+        time.sleep(5)
         # получение csv файла истории всех звонков за период
         path = "/stats/result"
         calls = self._mango_auth_request(
@@ -317,13 +319,13 @@ class Connector(models.Model):
             connector.get_and_update_calls_mango(
                 # moscow time
                 (
-                    fields.Datetime.now()
+                    datetime.now()
                     # + timedelta(hours=3)
                     - delta
                     - waiting_time_end_call
                 ).timestamp(),
                 (
-                    fields.Datetime.now()
+                    datetime.now()
                     #  + timedelta(hours=3)
                       - waiting_time_end_call
                 ).timestamp(),
