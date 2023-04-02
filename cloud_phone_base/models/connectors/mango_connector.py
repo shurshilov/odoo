@@ -121,7 +121,7 @@ class Connector(models.Model):
         if not attachment_raw:
             return attachment_raw
         attachment = {
-            "name": path + ".mp3",
+            "name": str(call_id.id) + ".mp3",
             "type": "binary",
             "res_id": call_id.id,
             "res_model": call_id._name,
