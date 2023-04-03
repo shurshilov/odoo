@@ -318,17 +318,17 @@ class Connector(models.Model):
             waiting_time_end_call = timedelta(minutes=wait_minutes)
             connector.get_and_update_calls_mango(
                 # moscow time
-                (
+                int((
                     datetime.now()
                     # + timedelta(hours=3)
                     - delta
                     - waiting_time_end_call
-                ).timestamp(),
-                (
+                ).timestamp()),
+                int((
                     datetime.now()
                     #  + timedelta(hours=3)
                       - waiting_time_end_call
-                ).timestamp(),
+                ).timestamp()),
             )
             if recreate:
                 without_recording_call_ids = self.env["cloud.phone.call"].search(
