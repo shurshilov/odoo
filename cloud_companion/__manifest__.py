@@ -36,7 +36,7 @@
 
     'author': "EURO ODOO, Shurshilov Artem",
     'website': "https://eurodoo.com",
-    "live_test_url": "https://eurodoo.com/login_employee?login=demo1&password=demo1",
+    "live_test_url": "https://eurodoo.com/login_employee?login=demo1&password=demo777",
 
     # Categories can be used to filter modules in modules listing
     # Check https://github.com/odoo/odoo/blob/13.0/odoo/addons/base/data/ir_module_category_data.xml

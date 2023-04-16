@@ -10,7 +10,7 @@
     "version": "16.1.1.0",
     "category": "web",
     "website": "https://www.eurodoo.com",
-    "live_test_url": "https://eurodoo.com/login_employee?login=demo1&password=demo1",
+    "live_test_url": "https://eurodoo.com/login_employee?login=demo1&password=demo777",
     "author": "Shurshilov Artem",
     "license": "OPL-1",
     "price": 19.00,
