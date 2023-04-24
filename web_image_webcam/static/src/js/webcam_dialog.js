@@ -71,8 +71,8 @@ class WebcamDialog extends Component {
     async startVideo(device = null) {
         try {
             let config = {
-                width: { min: 640, ideal: session.am_webcam_width ? session.am_webcam_width : 1280 },
-                height: { min: 480, ideal: session.am_webcam_height ? session.am_webcam_height : 720 },
+                width: { min: 640, ideal: session.am_webcam_width || 1280 },
+                height: { min: 480, ideal: session.am_webcam_height || 720 },
                 facingMode: this.props.mode ? 'user' : 'environment',
             }
             if (device)
@@ -91,9 +91,12 @@ class WebcamDialog extends Component {
     stopVideo() {
         // останавливае видео поток
         this.streamStarted = false;
-        this.video.el.srcObject.getTracks().forEach((track) => {
-            track.stop();
-        });
+
+        // если захват видео из предыдущего устройства был успешным, остановить его
+        if (this.video.el.srcObject)
+            this.video.el.srcObject.getTracks().forEach((track) => {
+                track.stop();
+            });
     }
 
     /**
