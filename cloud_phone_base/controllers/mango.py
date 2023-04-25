@@ -95,6 +95,7 @@ class MangoCall(http.Controller):
                         (
                             http.request._cr.dbname,
                             "res.partner",
+                            # partner_id.user_id.id if partner_id.user_id else number.employee_id.user_id.partner_id.id,
                             number.employee_id.user_id.partner_id.id,
                         ),
                         {
@@ -140,7 +141,7 @@ class MangoCall(http.Controller):
                             (
                                 http.request._cr.dbname,
                                 "res.partner",
-                                number.employee_id.user_id.partner_id.id,
+                                lead_id.user_id.id if lead_id.user_id else number.employee_id.user_id.partner_id.id,
                             ),
                             {
                                 "type": "mango_call",
@@ -157,33 +158,34 @@ class MangoCall(http.Controller):
 
                     # если это не партнер и не старый лид, значит новый лид
                     else:
-                        lead = {
-                            "type": "lead",
-                            "description": str(call),
-                            "name": "Отвеченный звонок",
-                            "phone": call["from"]["number"],
-                            "mobile": call["from"]["number"],
-                            "user_id": number.employee_id.user_id.id,
-                        }
-                        lead_id = http.request.env["crm.lead"].sudo().create(lead)
-                        http.request.env["bus.bus"].sudo().sendone(
-                            (
-                                http.request._cr.dbname,
-                                "res.partner",
-                                number.employee_id.user_id.partner_id.id,
-                            ),
-                            {
-                                "type": "mango_call",
-                                "title": "Текущий звонок от нового лида %s" % phone,
-                                "message": "Вы можете перейти к данному  новому лиду",
-                                "subtype": "Новый лид",
-                                "color":"green",
-                                "phone": phone,
-                                "call": call,
-                                "id": lead_id.id,
-                                "model": "crm.lead",
-                            },
-                        )
+                        if number.lead_generation != "no":
+                            lead = {
+                                "type": "lead",
+                                "description": str(call),
+                                "name": "Отвеченный звонок",
+                                "phone": call["from"]["number"],
+                                "mobile": call["from"]["number"],
+                                "user_id":  number.employee_id.user_id.id if number.lead_generation == "self" else False,
+                            }
+                            lead_id = http.request.env["crm.lead"].sudo().create(lead)
+                            http.request.env["bus.bus"].sudo().sendone(
+                                (
+                                    http.request._cr.dbname,
+                                    "res.partner",
+                                    number.employee_id.user_id.partner_id.id,
+                                ),
+                                {
+                                    "type": "mango_call",
+                                    "title": "Текущий звонок от нового лида %s" % phone,
+                                    "message": "Вы можете перейти к данному  новому лиду",
+                                    "subtype": "Новый лид",
+                                    "color":"green",
+                                    "phone": phone,
+                                    "call": call,
+                                    "id": lead_id.id,
+                                    "model": "crm.lead",
+                                },
+                            )
 
         http.request.env["cloud.phone.event"].sudo().create(
             {
@@ -216,6 +218,47 @@ class MangoCall(http.Controller):
         "entry_result":1,
         "disconnect_reason":1110
         }
+
+        - call_direction: направление вызова:
+            0 – внутренний (между двумя абонентами ВАТС);
+            1 – входящий (от внешнего номера абоненту ВАТС);
+            2 – исходящий (от абонента ВАТС на внешний номер);
+
+        - from: данные, относящиеся к вызывающему абоненту:
+            - extension: внутренний номер (идентификатор) вызывающего абонента (сотрудника
+            ВАТС). Подставляется в зависимости от направления вызова:
+                - входящий звонок: не передается;
+                API MANGO OFFICE | Версия от 17.04.2023
+                27
+                - исходящий и внутренний звонок: передается, если внутренний номер задан для
+            сотрудника, который инициирует вызов;
+            - number: номер вызывающего абонента:
+                - входящий звонок: номер звонящего (АОН). Если АОН звонящего не определен, не
+                передается;
+                - исходящий и внутренний звонок: номер, с которого совершает вызов абонент ВАТС;
+
+        - to: данные, относящиеся к вызываемому абоненту. В случае, если в звонок был адресован
+            на несколько абонентов в виде цепочки переадресации:
+            - при успешном звонке: абонент, который ответил на вызов;
+            - при не успешном (пропущенном звонке): первый абонент, который пропустил вызов
+            (первое звено цепочки переадресации);
+            - extension: внутренний номер (идентификатор) вызываемого абонента или группы. Не
+                передается, если у сотрудника ВАТС либо у группы сотрудников ВАТС не задан внутренний
+                номер. При исходящих звонках также может определяться, если набранный номер используется
+                каким-либо сотрудником в качестве средства приема вызовов;
+            - number: номер оконечного устройства вызываемого абонента: номер телефона, номер fmc,
+                sip-адрес. Не передается для случая не успешного вызова на группу. При входящем и внутреннем
+                звонке в случае одновременного дозвона на несколько устройств, принадлежащих одному
+                абоненту ВАТС:
+                - при успешном звонке: передается номер устройства, на котором абонент поднял трубку;
+                - при не успешном (пропущенном звонке): передается основной номер абонента ВАТС
+                (первый в списке номеров в карточке сотрудника);
+
+        - line_number: линия ВАТС, через которую прошел вызов. Подставляется в зависимости от
+            направления вызова:
+            - если внутренний вызов – не передается;
+            - если входящий вызов – линия (номер), на который поступил звонок;
+            - если исходящий вызов – линия (номер), через которую звонок вышел из ВАТС;
 
         entry_result: результат вызова: 1 - звонок успешен и разговор состоялся, 0 - звонок
         пропущен, разговор не состоялся;
@@ -252,6 +295,7 @@ class MangoCall(http.Controller):
             disconnect_reason=call["disconnect_reason"],
             line_number=call["line_number"],
             location="abonent",
+            call_direction=call["call_direction"],
         )
 
         (
@@ -340,18 +384,23 @@ class MangoCall(http.Controller):
             new = False
             if not partner_id and not lead_id:
                 new = True
+                user_id = number.employee_id.user_id.id if number.lead_generation == "self" else False
+                # если звонок поступил на линию, отличную от той на которой был начат звонок
+                # т.е. например IVR то тогда при пропущенном, в лиде менеджер будет установлен
+                # первый из очереди. но нам нужно сделать общего лида без привязки к менеджеру
+                if number.tel != call["line_number"]:
+                    user_id = False
                 lead = {
                     "type": "lead",
-                    "user_id": number.employee_id.user_id.id
-                    if number.employee_id
-                    else False,
+                    "user_id": user_id,
                     "description": str(call),
                     "name": "Пропущенный звонок",
                     "phone": call["from"]["number"],
                     "mobile": call["from"]["number"],
                 }
-                lead_id = http.request.env["crm.lead"].sudo().create(lead)
-            if number.employee_id:
+                if number.lead_generation != "no":
+                    lead_id = http.request.env["crm.lead"].sudo().create(lead)
+            if number.employee_id and number.lead_generation != "no":
                 # отправить на юзера
                 http.request.env["bus.bus"].sudo().sendone(
                     (

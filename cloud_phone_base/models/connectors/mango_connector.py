@@ -155,6 +155,10 @@ class Connector(models.Model):
         """
         calltype = "incoming" if call["to_extension"] else "outgoing"
         calltel = call["from_number"] if call["to_extension"] else call["to_number"]
+        # поле call_direction есть только в событии результата звонка 
+        # но его нет в самом звонке
+        # calltype = "incoming" if call["call_direction"] == 0 or 1 else "outgoing"
+        # calltel = call["from_number"] if calltype == "incoming" else call["to_number"]
         # ищем по внутреннему номеру но протокол tel
         number = self.env["cloud.phone.number"].search(
             [

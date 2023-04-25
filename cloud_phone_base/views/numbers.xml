@@ -13,6 +13,7 @@
                         <field name="name"/>
                         <field name="employee_id"/>
                         <field name="tel"/>
+                        <field name="lead_generation"/>
 
                         <field name="recording_in" attrs="{'invisible':[('connector_cloud_phone_vendor', '!=', 'mts')]}"/>
                         <field name="recording_out" attrs="{'invisible':[('connector_cloud_phone_vendor', '!=', 'mts')]}"/>

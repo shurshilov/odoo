@@ -20,6 +20,16 @@ class Numbers(models.Model):
     call_ids = fields.Many2many(
         string="Calls", comodel_name="cloud.phone.call", compute="_compute_call_ids"
     )
+    lead_generation = fields.Selection(
+        [
+            ("self", "Create lead"),
+            ("common", "Create common lead"),
+            ("no", "No create lead"),
+        ],
+        string="Lead generation",
+        default="self",
+        help="Options for lead created by call",
+    )
 
     def _compute_call_ids(self):
         for rec in self:
