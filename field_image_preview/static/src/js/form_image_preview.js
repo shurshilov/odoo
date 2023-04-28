@@ -1,4 +1,4 @@
-
+//Part of Odoo. See LICENSE file for full copyright and licensing details.
 odoo.define('image.legacy.mail.DocumentViewer', function (require) {
     "use strict";
     
@@ -10,7 +10,7 @@ odoo.define('image.legacy.mail.DocumentViewer', function (require) {
     
     var SCROLL_ZOOM_STEP = 0.1;
     var ZOOM_STEP = 0.5;
-    
+
     var DocumentViewer = Widget.extend({
         template: "image.legacy.mail.DocumentViewer",
         events: {
