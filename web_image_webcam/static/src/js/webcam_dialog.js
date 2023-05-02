@@ -1,5 +1,5 @@
 /** @odoo-module */
-const { Component, useRef, useState } = owl;
+const { Component, useRef, useState, onMounted } = owl;
 import { Dialog } from "@web/core/dialog/dialog";
 import { session } from '@web/session';
 
@@ -13,6 +13,10 @@ class WebcamDialog extends Component {
         this.video = useRef("video");
         this.saveButton = useRef("saveButton");
         this.selectCamera = useRef("selectCamera");
+        onMounted(() => this._mounted());
+    }
+
+    async _mounted() {
         await this.initSelectCamera();
         await this.startVideo();
     }
