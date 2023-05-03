@@ -75,9 +75,9 @@ class WebcamDialog extends Component {
     async startVideo(device = null) {
         try {
             let config = {
-                width: { min: 640, ideal: session.am_webcam_width || 1280 },
-                height: { min: 480, ideal: session.am_webcam_height || 720 },
-                facingMode: this.props.mode ? 'user' : 'environment',
+                width: { ideal: session.am_webcam_width || 1280 },
+                height: { ideal: session.am_webcam_height || 720 },
+                // facingMode: this.props.mode ? 'user' : 'environment',
             }
             if (device)
                 config.deviceId = { exact: device }
