@@ -2,7 +2,7 @@
 <odoo noupdate="1">
     <record id="ir_cron_cloud_phone_day_scheduler" model="ir.cron">
       <field name="interval_type">days</field>
-      <field name="name">Cloud phone connectors scheduler</field>
+      <field name="name">Cloud phone connectors scheduler 60 minutes</field>
       <field name="numbercall">-1</field>
       <field name="interval_number">1</field>
       <field name="doall" eval="False"/>
@@ -15,10 +15,10 @@
 # wait_minutes. Request only ended calls
 # recreacte. If has call with rec_duration>00:00:00 and attachment-False
 # try request attachment(recording)
-model.schedule_connector(days=1)</field>
+model.schedule_connector(days=None, minutes=60, wait_minutes=60)</field>
     </record>
 
-    <record id="ir_cron_cloud_phone_day_scheduler_mango" model="ir.cron">
+    <!-- <record id="ir_cron_cloud_phone_day_scheduler_mango" model="ir.cron">
       <field name="interval_type">days</field>
       <field name="name">Cloud phone connectors scheduler</field>
       <field name="numbercall">-1</field>
@@ -32,5 +32,5 @@ model.schedule_connector(days=1)</field>
 # minutes period. now-minutes
 # wait_minutes. Request only ended calls
 model.schedule_connector_mango(minutes=62)</field>
-    </record>
+    </record> -->
 </odoo>

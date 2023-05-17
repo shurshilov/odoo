@@ -1,0 +1,19 @@
+button.open-div-geo {
+  background-color: transparent;
+  color: #77717e;
+  border: 3px solid #77717e !important;  
+  display: inline-block;
+  border-radius: 2px;
+  border: none;
+  height: 45px;
+  width: 100%;
+  padding: 0;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+button.open-div-geo:hover {
+    background-color: #77717e;
+    color: white;    
+    transition: .2s ease;
+}

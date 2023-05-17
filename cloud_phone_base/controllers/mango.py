@@ -30,8 +30,8 @@ class MangoCall(http.Controller):
             )
         )
 
-        auth_checked = mango_connector._mango_auth_check(
-            kw.get("vpbx_api_key"), kw.get("sign"), kw.get("json")
+        auth_checked = http.request.env["cloud.phone.connector.factory.mango"]._auth_check(
+            mango_connector, kw.get("vpbx_api_key"), kw.get("sign"), kw.get("json")
         )
         if not auth_checked:
             return
@@ -272,8 +272,8 @@ class MangoCall(http.Controller):
             )
         )
 
-        auth_checked = mango_connector._mango_auth_check(
-            kw.get("vpbx_api_key"), kw.get("sign"), kw.get("json")
+        auth_checked = http.request.env["cloud.phone.connector.factory.mango"]._auth_check(
+            mango_connector, kw.get("vpbx_api_key"), kw.get("sign"), kw.get("json")
         )
         if not auth_checked:
             return

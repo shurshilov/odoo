@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template>
+<t t-name="FieldCharGeo">
+            <div id="map" style="max-width: 500px;"/>
+</t>
+
+</template>
