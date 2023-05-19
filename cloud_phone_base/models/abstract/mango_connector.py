@@ -5,7 +5,7 @@ import json
 import requests
 import time
 from hashlib import sha256
-from datetime import datetime
+from datetime import datetime, timedelta
 from requests.exceptions import Timeout
 
 from odoo import models
@@ -327,7 +327,9 @@ class CloudPhoneConnectorMango(models.AbstractModel):
         update should when run when call already exist
         but not yet have recording
         """
-        (number, calltype, calltel) = self._find_number_by_extension_and_tel(connector_id, call)
+        (number, calltype, calltel) = self._find_number_by_extension_and_tel(
+            connector_id, call
+        )
         start_datetime = datetime.fromtimestamp(int(call["start"]))
         finish_datetime = datetime.fromtimestamp(int(call["finish"]))
         duration = self.get_hms(finish_datetime - start_datetime)
@@ -382,7 +384,8 @@ class CloudPhoneConnectorMango(models.AbstractModel):
         # получение csv файла истории всех звонков за период
         path = "/stats/result"
         calls = self._auth_request(
-            connector_id, path,
+            connector_id,
+            path,
             json_data=json_data,
             binary_content=False,
             csv_content=True,
@@ -392,3 +395,16 @@ class CloudPhoneConnectorMango(models.AbstractModel):
             # много из за очереди IVR на каждый вызов примерно 10 входящих
             if int(call["answer"]) > 0 or call["from_extension"]:
                 self._get_and_update_call(connector_id, call)
+
+    def _update_numbers_and_fetch_calls(
+        self, connector_id, days=None, minutes=60, wait_minutes=60
+    ):
+        numbers_ids = self._get_and_update_numbers(connector_id)
+        # обновление или добавление звонков и записей звонков, за период
+        delta = timedelta(days=days) if days else timedelta(minutes=minutes)
+        waiting_time_end_call = timedelta(minutes=wait_minutes)
+        self.env["cloud.phone.connector.factory.mango"]._get_and_update_calls(
+            connector_id,
+            int((datetime.now() - delta - waiting_time_end_call).timestamp()),
+            int((datetime.now() - waiting_time_end_call).timestamp()),
+        )

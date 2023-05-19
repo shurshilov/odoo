@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 import json
 import logging
+import pytz
 import requests
-from datetime import timedelta
+from datetime import datetime, timedelta
 from requests.auth import HTTPBasicAuth
 from requests.exceptions import Timeout
 
@@ -152,3 +153,24 @@ class CloudPhoneConnectorMts(models.AbstractModel):
         _logger.info(f"Calls number: {len(calls)}")
         for call in calls:
             self._get_and_update_call(connector_id, call, number)
+
+    def _update_numbers_and_fetch_calls(
+        self, connector_id, days=None, minutes=60, wait_minutes=60
+    ):
+        numbers_ids = self._get_and_update_numbers(connector_id)
+        for number in numbers_ids:
+            delta = timedelta(days=days) if days else timedelta(minutes=minutes)
+            waiting_time_end_call = timedelta(minutes=wait_minutes)
+            # moscow time
+            self._get_and_update_calls(
+                connector_id,
+                (
+                    datetime.now(pytz.timezone("Europe/Moscow"))
+                    - delta
+                    - waiting_time_end_call
+                ).strftime("%Y-%m-%dT%H:%M:%S"),
+                (
+                    datetime.now(pytz.timezone("Europe/Moscow")) - waiting_time_end_call
+                ).strftime("%Y-%m-%dT%H:%M:%S"),
+                number,
+            )

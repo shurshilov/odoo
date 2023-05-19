@@ -7,10 +7,6 @@ class CloudPhoneConnectorFactory(models.AbstractModel):
     _name = "cloud.phone.connector.factory"
     _description = "cloud.phone.connector"
 
-    def _auth_check(self, connector_id):
-        """Checker sign. Only if connector supported"""
-        raise NotImplementedError
-
     def _auth_request(self, connector_id):
         """Fetch authorized request"""
         raise NotImplementedError
@@ -24,13 +20,15 @@ class CloudPhoneConnectorFactory(models.AbstractModel):
     def _create_attachment(self, connector_id, call_id):
         raise NotImplementedError
 
-    def _find_number_by_extension_and_tel(self, connector_id, call):
-        raise NotImplementedError
-
     def _get_and_update_call(self, connector_id, call):
         raise NotImplementedError
 
     def _get_and_update_calls(self, connector_id, begin_datetime, end_datetime):
+        raise NotImplementedError
+
+    def _update_numbers_and_fetch_calls(
+        self, connector_id, days=None, minutes=60, wait_minutes=60
+    ):
         raise NotImplementedError
 
     @staticmethod
