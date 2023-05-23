@@ -42,7 +42,7 @@ class Channel(models.Model):
             :param message : the mail.message to sent
             :returns list of bus notifications (tuple (bus_channe, message_content))
         """
-        res = super(Channel, self)._channel_message_notifications(
+        res = super()._channel_message_notifications(
             message, message_format=message_format)
 
         message_values = message.message_format()[0]
@@ -96,7 +96,7 @@ class Channel(models.Model):
             # delete <p></p>
             'body': message['body'][3:-4],
             'body_html': message['body'],
-            'channel_ids': message['channel_ids'],
+            # 'channel_ids': message['channel_ids'],
         }
         self._mail_channel_firebase_notifications(message_json, device_ids)
 
@@ -122,7 +122,7 @@ class Channel(models.Model):
             data = {
                 "notification": {
                     'title': message['author_id'][1],
-                    'subtitle': message['channel_ids'],
+                    # 'subtitle': message['channel_ids'],
                     'body': message['body'],
                     'sound': None,
                     'badge': None,
@@ -135,7 +135,7 @@ class Channel(models.Model):
                 'priority': 'high',
                 'content_available': True,
                 "data": {
-                    "channel_ids": message['channel_ids'],
+                    # "channel_ids": message['channel_ids'],
                     "body_html": message['body_html']
 
                 },
@@ -145,8 +145,8 @@ class Channel(models.Model):
             data = {
                 "notification": {
                     'title': message['author_id'][1],
-                    'subtitle': message['channel_ids'],
-                    'data': message['channel_ids'],
+                    # 'subtitle': message['channel_ids'],
+                    # 'data': message['channel_ids'],
                     'body': message['body'],
                     'sound': None,
                     'badge': None,
@@ -158,7 +158,7 @@ class Channel(models.Model):
                 'priority': 'high',
                 'content_available': True,
                 "data": {
-                    "channel_ids": message['channel_ids'],
+                    # "channel_ids": message['channel_ids'],
                     "body_html": message['body_html']
                 },
                 "to": ','.join(device_ids),
