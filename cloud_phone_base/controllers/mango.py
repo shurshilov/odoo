@@ -62,7 +62,7 @@ class MangoCall(http.Controller):
                 number,
                 calltype,
                 calltel,
-            ) = mango_connector.find_number_by_extension_and_tel_mango(call_dict)
+            ) = http.request.env["cloud.phone.connector.factory.mango"].sudo()._find_number_by_extension_and_tel(mango_connector, call_dict)
 
             # если номер привязан к сотруднику
             if number and number.employee_id and calltype == "incoming":
@@ -302,7 +302,7 @@ class MangoCall(http.Controller):
             number,
             calltype,
             calltel,
-        ) = mango_connector.find_number_by_extension_and_tel_mango(call=call_dict)
+        ) = http.request.env["cloud.phone.connector.factory.mango"].sudo()._find_number_by_extension_and_tel(mango_connector, call=call_dict)
         # если звонок не состоялся и он входящий и не с внутреннего номера
         # значит он пропущенный входящий от клиента
         if (
@@ -438,7 +438,7 @@ class MangoCall(http.Controller):
             # добавить пропущенный звонок в историю звонков
             # пропущенные могут быть с записью и тогда их не создаем, т.к. они уже есть
             if call["talk_time"] == 0:
-                mango_connector.get_and_updete_call_mango(call_dict)
+                http.request.env["cloud.phone.connector.factory.mango"].sudo()._get_and_update_call(mango_connector, call_dict)
 
         # в любом случае создать событие в системе
         http.request.env["cloud.phone.event"].sudo().create(
