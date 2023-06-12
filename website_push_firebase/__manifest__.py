@@ -8,6 +8,7 @@
      computer is turned on or not, he will receive your message (advertising) as soon
      as he turns on the browser.""",
     "author": "EURO ODOO, Shurshilov Artem",
+    "maintainer": "EURO ODOO",
     "website": "https://eurodoo.com",
     "live_test_url": "https://eurodoo.com",
     # Categories can be used to filter modules in modules listing

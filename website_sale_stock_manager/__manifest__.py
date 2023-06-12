@@ -6,6 +6,7 @@
     Sale only available products on Website stock available quantity website""",
     "version": "15.0.2.0.0",
     "author": "EURO ODOO, Shurshilov Artem",
+    "maintainer": "EURO ODOO",
     "license": "OPL-1",  # MIT
     "category": "eCommerce",
     "support": "shurshilov.a@yandex.ru",

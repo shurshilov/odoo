@@ -12,6 +12,7 @@ zip bundle
     "category": "Website",
     "version": "15.0.0.0",
     "author": "EURO ODOO, Shurshilov Artem",
+    "maintainer": "EURO ODOO",
     "license": "OPL-1",
     "website": "https://eurodoo.com",
     "price": 49,
