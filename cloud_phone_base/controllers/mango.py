@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from odoo import http
 import json
+import logging
+_logger = logging.getLogger(__name__)
 
 
 class MangoCall(http.Controller):
@@ -38,6 +40,7 @@ class MangoCall(http.Controller):
 
         call = json.loads(kw.get("json"))
 
+        _logger.info(f"Incoming call: {call}")
         # если вызов на который ответили (сняли трубку) и вызов сотруднику и не с внутреннего номера
         # значит разговариваем с клиентом
         if (
@@ -64,6 +67,7 @@ class MangoCall(http.Controller):
                 calltel,
             ) = http.request.env["cloud.phone.connector.factory.mango"].sudo()._find_number_by_extension_and_tel(mango_connector, call_dict)
 
+            _logger.info(f"Incoming call found number: {number.id} {number.tel}")
             # если номер привязан к сотруднику
             if number and number.employee_id and calltype == "incoming":
                 # берем только цифры
@@ -91,6 +95,7 @@ class MangoCall(http.Controller):
                 )
                 if partner_id:
                     # отправить на юзера
+                    _logger.info(f"Incoming call sendone parnter_id: {number.employee_id.user_id.partner_id.id}")
                     http.request.env["bus.bus"].sudo().sendone(
                         (
                             http.request._cr.dbname,
@@ -137,11 +142,12 @@ class MangoCall(http.Controller):
                             priority_old += 1
                             lead_id.priority = str(priority_old)
                         # отправить на юзера
+                        _logger.info(f"Incoming call sendone old lead_id: {lead_id}")
                         http.request.env["bus.bus"].sudo().sendone(
                             (
                                 http.request._cr.dbname,
                                 "res.partner",
-                                lead_id.user_id.id if lead_id.user_id else number.employee_id.user_id.partner_id.id,
+                                lead_id.user_id.partner_id.id if lead_id.user_id else number.employee_id.user_id.partner_id.id,
                             ),
                             {
                                 "type": "mango_call",
@@ -168,6 +174,7 @@ class MangoCall(http.Controller):
                                 "user_id":  number.employee_id.user_id.id if number.lead_generation == "self" else False,
                             }
                             lead_id = http.request.env["crm.lead"].sudo().create(lead)
+                            _logger.info(f"Incoming call sendone new lead_id: {lead_id}")
                             http.request.env["bus.bus"].sudo().sendone(
                                 (
                                     http.request._cr.dbname,
@@ -190,6 +197,7 @@ class MangoCall(http.Controller):
         http.request.env["cloud.phone.event"].sudo().create(
             {
                 "type": "mango_event_call",
+                "connector_id": mango_connector.id,
                 "body": "",
                 "params": str(kw),
                 #"call_from": call["from"]["number"],
@@ -444,6 +452,7 @@ class MangoCall(http.Controller):
         http.request.env["cloud.phone.event"].sudo().create(
             {
                 "type": "mango_event_summary",
+                "connector_id": mango_connector.id,
                 "body": "",
                 "params": str(kw),
                 "call_from": call["from"]["number"],
