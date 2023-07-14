@@ -1,9 +1,7 @@
-# -*- coding: utf-8 -*-
 from odoo import fields, models
 
 
 class Number(models.Model):
-
     _inherit = "cloud.phone.number"
 
     extension = fields.Char(string="Extension")

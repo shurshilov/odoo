@@ -1,9 +1,7 @@
-# -*- coding: utf-8 -*-
 from odoo import fields, models
 
 
 class Numbers(models.Model):
-
     _name = "cloud.phone.number"
     _description = "cloud.phone.number"
 
@@ -18,7 +16,9 @@ class Numbers(models.Model):
     recording_in = fields.Boolean(string="recording_in", default=False)
     recording_out = fields.Boolean(string="recording_out", default=False)
     call_ids = fields.Many2many(
-        string="Calls", comodel_name="cloud.phone.call", compute="_compute_call_ids"
+        string="Calls",
+        comodel_name="cloud.phone.call",
+        compute="_compute_call_ids",
     )
     lead_generation = fields.Selection(
         [

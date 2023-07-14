@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2020-2022 Artem Shurshilov
 # Odoo Proprietary License v1.0
 
@@ -31,18 +30,24 @@ from odoo import fields, models
 
 
 class Website(models.Model):
-    _inherit = 'website'
+    _inherit = "website"
 
-    css_msg_in_stock = fields.Text("CSS style msg in stock",
-                                   default="color: #fff;font-weight: 700;line-height: 18px;display: inline-block;padding: 3px 8px 4px;border-radius: 2px;background:green;padding10px")
-    css_msg_out_stock = fields.Text("CSS style msg out stock",
-                                    default="color: #fff;font-weight: 700;line-height: 18px;display: inline-block;padding: 3px 8px 4px;border-radius: 2px;background:red;padding10px")
+    css_msg_in_stock = fields.Text(
+        "CSS style msg in stock",
+        default="color: #fff;font-weight: 700;line-height: 18px;display: inline-block;padding: 3px 8px 4px;border-radius: 2px;background:green;padding10px",
+    )
+    css_msg_out_stock = fields.Text(
+        "CSS style msg out stock",
+        default="color: #fff;font-weight: 700;line-height: 18px;display: inline-block;padding: 3px 8px 4px;border-radius: 2px;background:red;padding10px",
+    )
 
 
 class ResConfigSettings(models.TransientModel):
-    _inherit = 'res.config.settings'
+    _inherit = "res.config.settings"
 
     css_msg_in_stock = fields.Text(
-        related='website_id.css_msg_in_stock', readonly=False)
+        related="website_id.css_msg_in_stock", readonly=False
+    )
     css_msg_out_stock = fields.Text(
-        related='website_id.css_msg_out_stock', readonly=False)
+        related="website_id.css_msg_out_stock", readonly=False
+    )

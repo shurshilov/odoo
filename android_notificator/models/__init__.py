@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from . import firebase
 from . import mail_channel
 from . import mail_thread

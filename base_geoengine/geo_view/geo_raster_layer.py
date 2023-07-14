@@ -41,13 +41,19 @@ class GeoRasterLayer(models.Model):
     units = fields.Char(help="eg. m")
     resolutions = fields.Char("resolutions")
     max_extent = fields.Char("max_extent")
-    dimensions = fields.Char("dimensions", help="List of dimensions separated by ','")
-    params = fields.Char("params", help="Dictiorary of values for dimensions as JSON")
+    dimensions = fields.Char(
+        "dimensions", help="List of dimensions separated by ','"
+    )
+    params = fields.Char(
+        "params", help="Dictiorary of values for dimensions as JSON"
+    )
 
     # technical field to display or not layer type
     has_type = fields.Boolean(compute="_compute_has_type")
     type_id = fields.Many2one(
-        "geoengine.raster.layer.type", "Layer", domain="[('service', '=', raster_type)]"
+        "geoengine.raster.layer.type",
+        "Layer",
+        domain="[('service', '=', raster_type)]",
     )
     type = fields.Char(related="type_id.code")
     sequence = fields.Integer("layer priority lower on top", default=6)
@@ -58,7 +64,10 @@ class GeoRasterLayer(models.Model):
         domain=[("ttype", "ilike", "geo_"), ("model", "=", "view_id.model")],
     )
     view_id = fields.Many2one(
-        "ir.ui.view", "Related View", domain=[("type", "=", "geoengine")], required=True
+        "ir.ui.view",
+        "Related View",
+        domain=[("type", "=", "geoengine")],
+        required=True,
     )
     use_to_edit = fields.Boolean("Use to edit")
 
@@ -74,5 +83,4 @@ class GeoRasterLayer(models.Model):
 
     @api.onchange("raster_type")
     def onchange_set_wmts_options(self):
-        """ Abstract method for WMTS modules to set default options """
-        pass
+        """Abstract method for WMTS modules to set default options"""

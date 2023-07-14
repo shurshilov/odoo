@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2020-2022 Artem Shurshilov
 # Odoo Proprietary License v1.0
 
@@ -28,30 +27,39 @@
 # ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-from odoo import models, fields, api, _
+from odoo import models, fields, api
 import requests
 
 
 class MailFirebase(models.Model):
     _name = "mail.firebase"
-    _description = 'Tokens table for odoo'
+    _description = "Tokens table for odoo"
 
-    user_id = fields.Many2one('res.users', string="User", readonly=True)
+    user_id = fields.Many2one("res.users", string="User", readonly=True)
     os = fields.Char(string="Device OS", readonly=True)
     token = fields.Char(string="Device firebase token", readonly=True)
 
     _sql_constraints = [
-        ('token', 'unique(token, os, user_id)', 'Token must be unique per user!'),
-        ('token_not_false', 'CHECK (token IS NOT NULL)', 'Token must be not null!'),
+        (
+            "token",
+            "unique(token, os, user_id)",
+            "Token must be unique per user!",
+        ),
+        (
+            "token_not_false",
+            "CHECK (token IS NOT NULL)",
+            "Token must be not null!",
+        ),
     ]
 
 
 class ResUsersFirebase(models.Model):
     _inherit = "res.users"
-    _description = 'Add devices tokens to res.users model'
+    _description = "Add devices tokens to res.users model"
 
     mail_firebase_tokens = fields.One2many(
-        "mail.firebase", "user_id", string="Android device(tokens)")
+        "mail.firebase", "user_id", string="Android device(tokens)"
+    )
 
 
 class ResUsersFirebaseMessage(models.TransientModel):
@@ -60,100 +68,152 @@ class ResUsersFirebaseMessage(models.TransientModel):
     for example, website visitors save as Leads and we can send push notification
     to their deviecs
     """
-    _name = 'res.users.firebase.message'
-    _description = 'Firebase data for one push notification'
 
-    title = fields.Char(string='Title firebase message', required=True,
-                        default=lambda self: self._get_default_title())
-    body = fields.Char(string='Body firebase message', required=True,
-                       default=lambda self: self._get_default_body())
-    icon = fields.Char(string='Icon URL firebase message',
-                       default=lambda self: self._get_default_icon())
-    image = fields.Char(string='Image URL firebase message',
-                        default=lambda self: self._get_default_image())
-    click_action = fields.Char(string='Action URL firebase message',
-                               default=lambda self: self._get_default_action())
+    _name = "res.users.firebase.message"
+    _description = "Firebase data for one push notification"
+
+    title = fields.Char(
+        string="Title firebase message",
+        required=True,
+        default=lambda self: self._get_default_title(),
+    )
+    body = fields.Char(
+        string="Body firebase message",
+        required=True,
+        default=lambda self: self._get_default_body(),
+    )
+    icon = fields.Char(
+        string="Icon URL firebase message",
+        default=lambda self: self._get_default_icon(),
+    )
+    image = fields.Char(
+        string="Image URL firebase message",
+        default=lambda self: self._get_default_image(),
+    )
+    click_action = fields.Char(
+        string="Action URL firebase message",
+        default=lambda self: self._get_default_action(),
+    )
 
     @api.model
     def _get_default_title(self):
-        return self.env['ir.config_parameter'].sudo().get_param('res_users_firebase_title_web')
+        return (
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("res_users_firebase_title_web")
+        )
 
     @api.model
     def _get_default_body(self):
-        return self.env['ir.config_parameter'].sudo().get_param('res_users_firebase_body_web')
+        return (
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("res_users_firebase_body_web")
+        )
 
     @api.model
     def _get_default_icon(self):
-        if not self.env['ir.config_parameter'].sudo().get_param('res_users_firebase_icon_web'):
-            return 'https://firebase.google.com/downloads/brand-guidelines/PNG/logo-vertical.png'
-        return self.env['ir.config_parameter'].sudo().get_param('res_users_firebase_icon_web')
+        if (
+            not self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("res_users_firebase_icon_web")
+        ):
+            return "https://firebase.google.com/downloads/brand-guidelines/PNG/logo-vertical.png"
+        return (
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("res_users_firebase_icon_web")
+        )
 
     @api.model
     def _get_default_image(self):
-        if not self.env['ir.config_parameter'].sudo().get_param('res_users_firebase_image_web'):
-            return 'https://firebase.google.com/downloads/brand-guidelines/PNG/logo-vertical.png'
-        return self.env['ir.config_parameter'].sudo().get_param('res_users_firebase_image_web')
+        if (
+            not self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("res_users_firebase_image_web")
+        ):
+            return "https://firebase.google.com/downloads/brand-guidelines/PNG/logo-vertical.png"
+        return (
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("res_users_firebase_image_web")
+        )
 
     @api.model
     def _get_default_action(self):
-        return self.env['ir.config_parameter'].sudo().get_param('res_users_firebase_action_web')
+        return (
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("res_users_firebase_action_web")
+        )
 
     def channel_firebase_notifications(self):
         """Wizard for send messages firebase device
         https://firebase.google.com/docs/cloud-messaging/http-server-ref"""
-        res_users_ids = self._context.get('active_ids')
-        device_ids = self.env['res.users'].sudo().search([
-            ('id', 'in', res_users_ids),
-            ('mail_firebase_tokens', '!=', False),
-        ]).mapped('mail_firebase_tokens').mapped('token')
+        res_users_ids = self._context.get("active_ids")
+        device_ids = (
+            self.env["res.users"]
+            .sudo()
+            .search(
+                [
+                    ("id", "in", res_users_ids),
+                    ("mail_firebase_tokens", "!=", False),
+                ]
+            )
+            .mapped("mail_firebase_tokens")
+            .mapped("token")
+        )
 
         if len(device_ids) == 0:
             return
 
-        key = self.env['ir.config_parameter'].sudo(
-        ).get_param('mail_firebase_key')
+        key = (
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("mail_firebase_key")
+        )
         if not key:
             return
 
-        url = 'https://fcm.googleapis.com/fcm/send'
+        url = "https://fcm.googleapis.com/fcm/send"
 
         headers = {
-            'Content-Type': 'application/json',
-            'Authorization': 'key={}'.format(key)
+            "Content-Type": "application/json",
+            "Authorization": "key={}".format(key),
         }
-        #https://eurodoo.com/cloud_companion/static/description/eurodoo.png
+        # https://eurodoo.com/cloud_companion/static/description/eurodoo.png
         # от 1 до 1000
         if len(device_ids) > 1:
             data = {
                 "notification": {
-                    'title': self.title,
-                    'icon': self.icon,
-                    'image': self.image,
-                    'body': self.body,
-                    'click_action': self.click_action,
-                    'sound': None,
-                    'badge': None,
+                    "title": self.title,
+                    "icon": self.icon,
+                    "image": self.image,
+                    "body": self.body,
+                    "click_action": self.click_action,
+                    "sound": None,
+                    "badge": None,
                 },
-                'dry_run': False,  # test query
-                'priority': 'high',
-                'content_available': True,
+                "dry_run": False,  # test query
+                "priority": "high",
+                "content_available": True,
                 "registration_ids": device_ids,
             }
         else:
             data = {
                 "notification": {
-                    'title': self.title,
-                    'subtitle': self.title,
-                    'icon': self.icon,
+                    "title": self.title,
+                    "subtitle": self.title,
+                    "icon": self.icon,
                     # 'image': self.image,
-                    'body': self.body,
-                    'click_action': self.click_action,
-                    'sound': None,
-                    'badge': None,
+                    "body": self.body,
+                    "click_action": self.click_action,
+                    "sound": None,
+                    "badge": None,
                 },
-                'dry_run': False,  # test query
-                'priority': 'high',
-                'content_available': True,
-                "to": ','.join(device_ids),
+                "dry_run": False,  # test query
+                "priority": "high",
+                "content_available": True,
+                "to": ",".join(device_ids),
             }
         answer = requests.post(url, json=data, headers=headers)

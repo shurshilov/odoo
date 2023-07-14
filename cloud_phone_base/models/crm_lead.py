@@ -5,7 +5,9 @@ class CrmLead(models.Model):
     _inherit = "crm.lead"
 
     call_ids = fields.Many2many(
-        string="Calls", comodel_name="cloud.phone.call", compute="_compute_call_ids"
+        string="Calls",
+        comodel_name="cloud.phone.call",
+        compute="_compute_call_ids",
     )
 
     def _compute_call_ids(self):

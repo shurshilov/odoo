@@ -6,7 +6,7 @@
     "name": "Stop/Allow online sales on website",
     "summary": """Adds options to disable all sales and hide all prices,
      but keep products visible at website
-     allow disable sales allow sale website 
+     allow disable sales allow sale website
      site allow disable sales stop online sales allow""",
     "category": "eCommerce",
     "images": [

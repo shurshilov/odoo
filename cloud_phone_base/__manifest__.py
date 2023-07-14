@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright (C) 2022 Artem Shurshilov <shurshilov.a@yandex.ru>
 # License OPL-1.0 or later (http://www.gnu.org/licenses/agpl).
 {
@@ -41,7 +40,7 @@
         "views/crm_lead.xml",
         "data/scheduler_data.xml",
     ],
-    'qweb': [
+    "qweb": [
         "static/src/xml/call_dialog.xml",
     ],
 }

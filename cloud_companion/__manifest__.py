@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright (C) 2020 Artem Shurshilov <shurshilov.a@yandex.ru>
 # Odoo Proprietary License v1.0
 
@@ -28,43 +27,45 @@
 # ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 {
-    'name': "Odoo cloud companion",
-
-    'summary': """
+    "name": "Odoo cloud companion",
+    "summary": """
 		Google Drive, Microsoft OneDrive, Dropbox Clouds Odoo Integrations
         """,
-
-    'author': "EURO ODOO, EURO ODOO, Shurshilov Artem",
-    'website': "https://eurodoo.com",
+    "author": "EURO ODOO, EURO ODOO, Shurshilov Artem",
+    "website": "https://eurodoo.com",
     "live_test_url": "https://eurodoo.com/login_employee?login=demo1&password=demo1",
-
     # Categories can be used to filter modules in modules listing
     # Check https://github.com/odoo/odoo/blob/13.0/odoo/addons/base/data/ir_module_category_data.xml
     # for the full list
-    'category': 'Point Of Sale',
-    'version': '13.5.1.10',
+    "category": "Point Of Sale",
+    "version": "13.5.1.10",
     "license": "OPL-1",
-    'price': 4,
-    'currency': 'EUR',
-    'images':[
-        'static/description/companion.png',
-        'static/description/button_url.png',
-        'static/description/button_manage_search.png',
-        'static/description/button_download.png',
+    "price": 4,
+    "currency": "EUR",
+    "images": [
+        "static/description/companion.png",
+        "static/description/button_url.png",
+        "static/description/button_manage_search.png",
+        "static/description/button_download.png",
     ],
-
     # any module necessary for this one to work correctly
-    'depends': ['base','web', 'mail', 'dropbox_picker', 'google_drive_picker', 'microsoft_onedrive_picker', 'attachments_manager'],
-    'installable': True,
-
+    "depends": [
+        "base",
+        "web",
+        "mail",
+        "dropbox_picker",
+        "google_drive_picker",
+        "microsoft_onedrive_picker",
+        "attachments_manager",
+    ],
+    "installable": True,
     # always loaded
-    'data': [
+    "data": [
         #'views/assets.xml',
         #'views/document_url_view.xml',
         #'security/restrict_manage_attachments_security.xml',
     ],
-
-    'qweb': [
+    "qweb": [
         #'static/src/xml/pos.xml',
     ],
 }

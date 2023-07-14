@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from . import calls
 from . import events
 from . import numbers

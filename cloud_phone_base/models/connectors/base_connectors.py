@@ -1,9 +1,7 @@
-# -*- coding: utf-8 -*-
 from odoo import fields, models, api
 
 
 class Connector(models.Model):
-
     _name = "cloud.phone.connector"
     _description = "cloud.phone.connector"
 
@@ -33,7 +31,9 @@ class Connector(models.Model):
             )
 
             if recreate:
-                without_recording_call_ids = self.env["cloud.phone.call"].search(
+                without_recording_call_ids = self.env[
+                    "cloud.phone.call"
+                ].search(
                     [
                         ("rec_duration", "!=", "00:00:00"),
                         ("ir_attachment_id", "=", False),
@@ -42,5 +42,6 @@ class Connector(models.Model):
                 )
                 for call_id in without_recording_call_ids:
                     self.env[
-                        "cloud.phone.connector.factory" + connector.cloud_phone_vendor
+                        "cloud.phone.connector.factory"
+                        + connector.cloud_phone_vendor
                     ]._create_attachment(connector, call_id)

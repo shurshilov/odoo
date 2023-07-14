@@ -1,9 +1,7 @@
-# -*- coding: utf-8 -*-
 from odoo import fields, models
 
 
 class Events(models.Model):
-
     _name = "cloud.phone.event"
     _description = "cloud.phone.event"
 

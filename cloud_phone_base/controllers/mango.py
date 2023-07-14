@@ -1,12 +1,14 @@
-# -*- coding: utf-8 -*-
 from odoo import http
 import json
 import logging
+
 _logger = logging.getLogger(__name__)
 
 
 class MangoCall(http.Controller):
-    @http.route("/events/call", auth="none", type="http", csrf=False, methods=["POST"])
+    @http.route(
+        "/events/call", auth="none", type="http", csrf=False, methods=["POST"]
+    )
     def events_call(self, **kw):
         """Уведомление содержит информацию о вызове и его параметрах. Прохождение вызова через
         IVR, очередь вызовов, размещение на абонента сопровождаются рассылкой уведомления о новом
@@ -28,12 +30,20 @@ class MangoCall(http.Controller):
             http.request.env["cloud.phone.connector"]
             .sudo()
             .search(
-                [("active", "=", True), ("cloud_phone_vendor", "=", "mango")], limit=1
+                [("active", "=", True), ("cloud_phone_vendor", "=", "mango")],
+                limit=1,
             )
         )
 
-        auth_checked = http.request.env["cloud.phone.connector.factory.mango"].sudo()._auth_check(
-            mango_connector, kw.get("vpbx_api_key"), kw.get("sign"), kw.get("json")
+        auth_checked = (
+            http.request.env["cloud.phone.connector.factory.mango"]
+            .sudo()
+            ._auth_check(
+                mango_connector,
+                kw.get("vpbx_api_key"),
+                kw.get("sign"),
+                kw.get("json"),
+            )
         )
         if not auth_checked:
             return
@@ -65,13 +75,21 @@ class MangoCall(http.Controller):
                 number,
                 calltype,
                 calltel,
-            ) = http.request.env["cloud.phone.connector.factory.mango"].sudo()._find_number_by_extension_and_tel(mango_connector, call_dict)
+            ) = (
+                http.request.env["cloud.phone.connector.factory.mango"]
+                .sudo()
+                ._find_number_by_extension_and_tel(mango_connector, call_dict)
+            )
 
-            _logger.info(f"Incoming call found number: {number.id} {number.tel}")
+            _logger.info(
+                f"Incoming call found number: {number.id} {number.tel}"
+            )
             # если номер привязан к сотруднику
             if number and number.employee_id and calltype == "incoming":
                 # берем только цифры
-                phone = "".join(i for i in call["from"]["number"] if i.isdigit())
+                phone = "".join(
+                    i for i in call["from"]["number"] if i.isdigit()
+                )
                 # ищем партнера
                 partner_id = (
                     http.request.env["res.partner"]
@@ -83,19 +101,21 @@ class MangoCall(http.Controller):
                             "|",
                             ("phone", "=", phone[1:]),
                             "|",
-                            ("phone", "=", "8"+phone[1:]),
+                            ("phone", "=", "8" + phone[1:]),
                             "|",
                             ("mobile", "=", phone),
                             "|",
                             ("mobile", "=", phone[1:]),
-                            ("mobile", "=", "8"+phone[1:]),
+                            ("mobile", "=", "8" + phone[1:]),
                         ],
                         limit=1,
                     )
                 )
                 if partner_id:
                     # отправить на юзера
-                    _logger.info(f"Incoming call sendone parnter_id: {number.employee_id.user_id.partner_id.id}")
+                    _logger.info(
+                        f"Incoming call sendone parnter_id: {number.employee_id.user_id.partner_id.id}"
+                    )
                     http.request.env["bus.bus"].sudo().sendone(
                         (
                             http.request._cr.dbname,
@@ -105,10 +125,11 @@ class MangoCall(http.Controller):
                         ),
                         {
                             "type": "mango_call",
-                            "title": "Текущий звонок от партнера %s" % partner_id.name,
+                            "title": "Текущий звонок от партнера %s"
+                            % partner_id.name,
                             "message": "Вы можете перейти к данному контагенту",
                             "subtype": "Наш партнер",
-                            "color":"green",
+                            "color": "green",
                             "name": partner_id.name,
                             "phone": phone,
                             "call": call,
@@ -142,19 +163,24 @@ class MangoCall(http.Controller):
                             priority_old += 1
                             lead_id.priority = str(priority_old)
                         # отправить на юзера
-                        _logger.info(f"Incoming call sendone old lead_id: {lead_id}")
+                        _logger.info(
+                            f"Incoming call sendone old lead_id: {lead_id}"
+                        )
                         http.request.env["bus.bus"].sudo().sendone(
                             (
                                 http.request._cr.dbname,
                                 "res.partner",
-                                lead_id.user_id.partner_id.id if lead_id.user_id else number.employee_id.user_id.partner_id.id,
+                                lead_id.user_id.partner_id.id
+                                if lead_id.user_id
+                                else number.employee_id.user_id.partner_id.id,
                             ),
                             {
                                 "type": "mango_call",
-                                "title": "Текущий звонок от старого лида %s" % phone,
+                                "title": "Текущий звонок от старого лида %s"
+                                % phone,
                                 "message": "Вы можете перейти к данному старому лиду",
                                 "subtype": "Старый лид",
-                                "color":"green",
+                                "color": "green",
                                 "phone": phone,
                                 "call": call,
                                 "id": lead_id.id,
@@ -171,10 +197,16 @@ class MangoCall(http.Controller):
                                 "name": "Отвеченный звонок",
                                 "phone": call["from"]["number"],
                                 "mobile": call["from"]["number"],
-                                "user_id":  number.employee_id.user_id.id if number.lead_generation == "self" else False,
+                                "user_id": number.employee_id.user_id.id
+                                if number.lead_generation == "self"
+                                else False,
                             }
-                            lead_id = http.request.env["crm.lead"].sudo().create(lead)
-                            _logger.info(f"Incoming call sendone new lead_id: {lead_id}")
+                            lead_id = (
+                                http.request.env["crm.lead"].sudo().create(lead)
+                            )
+                            _logger.info(
+                                f"Incoming call sendone new lead_id: {lead_id}"
+                            )
                             http.request.env["bus.bus"].sudo().sendone(
                                 (
                                     http.request._cr.dbname,
@@ -183,10 +215,11 @@ class MangoCall(http.Controller):
                                 ),
                                 {
                                     "type": "mango_call",
-                                    "title": "Текущий звонок от нового лида %s" % phone,
+                                    "title": "Текущий звонок от нового лида %s"
+                                    % phone,
                                     "message": "Вы можете перейти к данному  новому лиду",
                                     "subtype": "Новый лид",
-                                    "color":"green",
+                                    "color": "green",
                                     "phone": phone,
                                     "call": call,
                                     "id": lead_id.id,
@@ -200,8 +233,8 @@ class MangoCall(http.Controller):
                 "connector_id": mango_connector.id,
                 "body": "",
                 "params": str(kw),
-                #"call_from": call["from"]["number"],
-                #"call_to": call["to"]["number"],
+                # "call_from": call["from"]["number"],
+                # "call_to": call["to"]["number"],
                 # "line_number": call["to"]["line_number"],
                 # "disconnect_reason": call["disconnect_reason"],
             }
@@ -209,7 +242,11 @@ class MangoCall(http.Controller):
         return "OK"
 
     @http.route(
-        "/events/summary", auth="none", type="http", csrf=False, methods=["POST"]
+        "/events/summary",
+        auth="none",
+        type="http",
+        csrf=False,
+        methods=["POST"],
     )
     def events_summary(self, **kw):
         """Уведомление содержит основную информацию о звонке после его окончания и служит
@@ -276,12 +313,20 @@ class MangoCall(http.Controller):
             http.request.env["cloud.phone.connector"]
             .sudo()
             .search(
-                [("active", "=", True), ("cloud_phone_vendor", "=", "mango")], limit=1
+                [("active", "=", True), ("cloud_phone_vendor", "=", "mango")],
+                limit=1,
             )
         )
 
-        auth_checked = http.request.env["cloud.phone.connector.factory.mango"].sudo()._auth_check(
-            mango_connector, kw.get("vpbx_api_key"), kw.get("sign"), kw.get("json")
+        auth_checked = (
+            http.request.env["cloud.phone.connector.factory.mango"]
+            .sudo()
+            ._auth_check(
+                mango_connector,
+                kw.get("vpbx_api_key"),
+                kw.get("sign"),
+                kw.get("json"),
+            )
         )
         if not auth_checked:
             return
@@ -298,7 +343,9 @@ class MangoCall(http.Controller):
             if "extension" in call["from"]
             else "",
             from_number=call["from"]["number"],
-            to_extension=call["to"]["extension"] if "extension" in call["to"] else "",
+            to_extension=call["to"]["extension"]
+            if "extension" in call["to"]
+            else "",
             to_number=call["to"]["number"],
             disconnect_reason=call["disconnect_reason"],
             line_number=call["line_number"],
@@ -310,7 +357,11 @@ class MangoCall(http.Controller):
             number,
             calltype,
             calltel,
-        ) = http.request.env["cloud.phone.connector.factory.mango"].sudo()._find_number_by_extension_and_tel(mango_connector, call=call_dict)
+        ) = (
+            http.request.env["cloud.phone.connector.factory.mango"]
+            .sudo()
+            ._find_number_by_extension_and_tel(mango_connector, call=call_dict)
+        )
         # если звонок не состоялся и он входящий и не с внутреннего номера
         # значит он пропущенный входящий от клиента
         if (
@@ -334,12 +385,12 @@ class MangoCall(http.Controller):
                         "|",
                         ("phone", "=", phone[1:]),
                         "|",
-                        ("phone", "=", "8"+phone[1:]),
+                        ("phone", "=", "8" + phone[1:]),
                         "|",
                         ("mobile", "=", phone),
                         "|",
                         ("mobile", "=", phone[1:]),
-                        ("mobile", "=", "8"+phone[1:]),
+                        ("mobile", "=", "8" + phone[1:]),
                     ],
                     limit=1,
                 )
@@ -354,10 +405,11 @@ class MangoCall(http.Controller):
                     ),
                     {
                         "type": "mango_call",
-                        "title": "Пропущенный звонок от партнера %s" % partner_id.name,
+                        "title": "Пропущенный звонок от партнера %s"
+                        % partner_id.name,
                         "message": "Вы можете перейти к данному партнеру",
                         "subtype": "Пропущенный от партнера",
-                        "color":"red",
+                        "color": "red",
                         "phone": phone,
                         "call": call,
                         "id": partner_id.id,
@@ -392,7 +444,11 @@ class MangoCall(http.Controller):
             new = False
             if not partner_id and not lead_id:
                 new = True
-                user_id = number.employee_id.user_id.id if number.lead_generation == "self" else False
+                user_id = (
+                    number.employee_id.user_id.id
+                    if number.lead_generation == "self"
+                    else False
+                )
                 # если звонок поступил на линию, отличную от той на которой был начат звонок
                 # т.е. например IVR то тогда при пропущенном, в лиде менеджер будет установлен
                 # первый из очереди. но нам нужно сделать общего лида без привязки к менеджеру
@@ -425,7 +481,7 @@ class MangoCall(http.Controller):
                         if new
                         else "Вы можете перейти к данному старому лиду",
                         "subtype": "Пропущенный от старого лида",
-                        "color":"red",
+                        "color": "red",
                         "phone": phone,
                         "call": call,
                         "id": lead_id.id,
@@ -446,7 +502,9 @@ class MangoCall(http.Controller):
             # добавить пропущенный звонок в историю звонков
             # пропущенные могут быть с записью и тогда их не создаем, т.к. они уже есть
             if call["talk_time"] == 0:
-                http.request.env["cloud.phone.connector.factory.mango"].sudo()._get_and_update_call(mango_connector, call_dict)
+                http.request.env[
+                    "cloud.phone.connector.factory.mango"
+                ].sudo()._get_and_update_call(mango_connector, call_dict)
 
         # в любом случае создать событие в системе
         http.request.env["cloud.phone.event"].sudo().create(

@@ -12,8 +12,7 @@ DEFAULT_EXTENT = (
 
 
 class GeoModel(models.AbstractModel):
-    """ Extend Base class for to allow definition of geo fields.
-    """
+    """Extend Base class for to allow definition of geo fields."""
 
     _inherit = "base"
 
@@ -23,7 +22,7 @@ class GeoModel(models.AbstractModel):
     @api.model
     def fields_get(self, allfields=None, attributes=None):
         """Add geo_type definition for geo fields"""
-        res = super(GeoModel, self).fields_get(allfields=allfields, attributes=attributes)
+        res = super().fields_get(allfields=allfields, attributes=attributes)
         for f_name in res:
             field = self._fields.get(f_name)
             if field and field.type.startswith("geo_"):
@@ -57,7 +56,7 @@ class GeoModel(models.AbstractModel):
         self, view_id=None, view_type="form", toolbar=False, submenu=False
     ):
         """Returns information about the available fields of the class.
-           If view type == 'map' returns geographical columns available"""
+        If view type == 'map' returns geographical columns available"""
         view_obj = self.env["ir.ui.view"]
         field_obj = self.env["ir.model.fields"]
 
@@ -74,7 +73,10 @@ class GeoModel(models.AbstractModel):
             else:
                 view = view_obj.browse(view_id)
             res = super().fields_view_get(
-                view_id=view.id, view_type="form", toolbar=toolbar, submenu=submenu
+                view_id=view.id,
+                view_type="form",
+                toolbar=toolbar,
+                submenu=submenu,
             )
             res["geoengine_layers"] = {
                 "backgrounds": [],
@@ -106,7 +108,10 @@ class GeoModel(models.AbstractModel):
                 res["fields"].update(self.fields_get([geo_f_name]))
         else:
             return super().fields_view_get(
-                view_id=view_id, view_type=view_type, toolbar=toolbar, submenu=submenu
+                view_id=view_id,
+                view_type=view_type,
+                toolbar=toolbar,
+                submenu=submenu,
             )
         return res
 
@@ -142,22 +147,22 @@ class GeoModel(models.AbstractModel):
         self, domain=None, geo_domain=None, offset=0, limit=None, order=None
     ):
         """Perform a geo search it allows direct domain:
-           geo_search(
-               domain=[('name', 'ilike', 'toto']),
-               geo_domain=[('the_point', 'geo_intersect',
-                             myshaply_obj or mywkt or mygeojson)])
+        geo_search(
+            domain=[('name', 'ilike', 'toto']),
+            geo_domain=[('the_point', 'geo_intersect',
+                          myshaply_obj or mywkt or mygeojson)])
 
-           We can also support indirect geo_domain (
-              ‘geom’, ‘geo_operator’, {‘res.zip.poly’: [‘id’, ‘in’, [1,2,3]] })
+        We can also support indirect geo_domain (
+           ‘geom’, ‘geo_operator’, {‘res.zip.poly’: [‘id’, ‘in’, [1,2,3]] })
 
-           The supported operators are :
-            * geo_greater
-            * geo_lesser
-            * geo_equal
-            * geo_touch
-            * geo_within
-            * geo_contains
-            * geo_intersect"""
+        The supported operators are :
+         * geo_greater
+         * geo_lesser
+         * geo_equal
+         * geo_touch
+         * geo_within
+         * geo_contains
+         * geo_intersect"""
         # First we do a standard search in order to apply security rules
         # and do a search on standard attributes
         # Limit and offset are managed after, we may loose a lot of performance

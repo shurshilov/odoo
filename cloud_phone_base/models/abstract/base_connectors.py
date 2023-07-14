@@ -1,9 +1,7 @@
-# -*- coding: utf-8 -*-
-from odoo import models, api
+from odoo import models
 
 
 class CloudPhoneConnectorFactory(models.AbstractModel):
-
     _name = "cloud.phone.connector.factory"
     _description = "cloud.phone.connector"
 
@@ -50,7 +48,9 @@ class CloudPhoneConnectorFactory(models.AbstractModel):
         number = "".join(i for i in number if i.isdigit())
         for rec in self.env[model].search([]):
             if rec.work_phone:
-                work_phone_digits = "".join(i for i in rec.work_phone if i.isdigit())
+                work_phone_digits = "".join(
+                    i for i in rec.work_phone if i.isdigit()
+                )
                 if work_phone_digits:
                     if self.swipe(work_phone_digits, number):
                         return rec

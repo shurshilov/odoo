@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    Copyright (c) 2014 Serv. Tecnol. Avanzados (http://www.serviciosbaeza.com)
@@ -20,6 +19,7 @@
 #
 ##############################################################################
 from odoo import fields, models, api
+
 try:
     # Python 3
     from urllib.parse import urlparse
@@ -28,29 +28,29 @@ except:
 
 
 class AddUrlWizard(models.TransientModel):
-    _name = 'ir.attachment.add_url'
+    _name = "ir.attachment.add_url"
 
-    name = fields.Char('Name', required=True)
-    url =  fields.Char('URL', required=True)
+    name = fields.Char("Name", required=True)
+    url = fields.Char("URL", required=True)
 
     @api.multi
     def action_add_url(self):
         """Adds the URL with the given name as an ir.attachment record."""
-        if not self._context.get('active_model'):
+        if not self._context.get("active_model"):
             return
-        attachment_obj = self.env['ir.attachment']
+        attachment_obj = self.env["ir.attachment"]
         for form in self:
             url = urlparse(form.url)
             if not url.scheme:
-                url = urlparse('%s%s' % ('http://', form.url))
+                url = urlparse("%s%s" % ("http://", form.url))
             attachment = {
-                    'name': form.name,
-                    'type': 'url',
-                    #'url': form.url,
-                    'url': url.geturl(),
-                    'user_id': self._uid,
-                    'res_id': self._context.get('active_record_id',False),
-                    'res_model': self._context.get('active_model',False),
-                }
+                "name": form.name,
+                "type": "url",
+                #'url': form.url,
+                "url": url.geturl(),
+                "user_id": self._uid,
+                "res_id": self._context.get("active_record_id", False),
+                "res_model": self._context.get("active_model", False),
+            }
             attachment_obj.create(attachment)
-        return {'type': 'ir.actions.act_close_wizard_and_reload_view'}
+        return {"type": "ir.actions.act_close_wizard_and_reload_view"}

@@ -1,9 +1,7 @@
-# -*- coding: utf-8 -*-
 from odoo import fields, models
 
 
 class Calls(models.Model):
-
     _name = "cloud.phone.call"
     _description = "cloud.phone.call"
     _order = "time desc"
@@ -19,7 +17,9 @@ class Calls(models.Model):
         required=True,
         default="incoming",
     )
-    ir_attachment_id = fields.Many2one("ir.attachment", string="Audio/video record")
+    ir_attachment_id = fields.Many2one(
+        "ir.attachment", string="Audio/video record"
+    )
     rec_duration = fields.Char(string="RecDuration")
     call_duration = fields.Char(string="CallDuration")
     filename = fields.Char(string="FileName")
@@ -27,7 +27,9 @@ class Calls(models.Model):
     def _compute_tel(self):
         self = self.sudo()
         for rec in self:
-            number_id = self.env["cloud.phone.number"].search([("tel", "=", rec.tel)])
+            number_id = self.env["cloud.phone.number"].search(
+                [("tel", "=", rec.tel)]
+            )
             employee = ""
             if number_id and number_id.employee_id:
                 employee = "(" + number_id.employee_id.name + ")"
@@ -39,7 +41,9 @@ class Calls(models.Model):
         for rec in self:
             number_name = "{}({} - {})".format(
                 rec.number_id.tel,
-                rec.number_id.employee_id.name or rec.number_id.name or "Не привязан",
+                rec.number_id.employee_id.name
+                or rec.number_id.name
+                or "Не привязан",
                 rec.number_id.connector_cloud_phone_vendor,
             )
             if rec.type == "incoming":

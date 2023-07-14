@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2020 Artem Shurshilov
 # Odoo Proprietary License v1.0
 
@@ -70,23 +69,43 @@ class CrmLeadFirebaseMessage(models.TransientModel):
 
     @api.model
     def _get_default_title(self):
-        return self.env["ir.config_parameter"].sudo().get_param("firebase_title_web")
+        return (
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("firebase_title_web")
+        )
 
     @api.model
     def _get_default_body(self):
-        return self.env["ir.config_parameter"].sudo().get_param("firebase_body_web")
+        return (
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("firebase_body_web")
+        )
 
     @api.model
     def _get_default_icon(self):
-        return self.env["ir.config_parameter"].sudo().get_param("firebase_icon_web")
+        return (
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("firebase_icon_web")
+        )
 
     @api.model
     def _get_default_image(self):
-        return self.env["ir.config_parameter"].sudo().get_param("firebase_image_web")
+        return (
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("firebase_image_web")
+        )
 
     @api.model
     def _get_default_action(self):
-        return self.env["ir.config_parameter"].sudo().get_param("firebase_action_web")
+        return (
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("firebase_action_web")
+        )
 
     def channel_firebase_notifications(self):
         """Wizard for send messages firebase device
@@ -107,7 +126,11 @@ class CrmLeadFirebaseMessage(models.TransientModel):
         if len(device_ids) == 0:
             return
 
-        key = self.env["ir.config_parameter"].sudo().get_param("mail_firebase_key")
+        key = (
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("mail_firebase_key")
+        )
         if not key:
             return
 

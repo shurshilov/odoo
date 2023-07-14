@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 import base64
 import json
 import requests
@@ -39,7 +37,9 @@ class CloudPhoneConnectorMango(models.AbstractModel):
 
         # генерируем подпись
         sign_old = sha256(
-            (vpbx_api_key + json_str + connector_id.vpbx_api_salt).encode("utf-8")
+            (vpbx_api_key + json_str + connector_id.vpbx_api_salt).encode(
+                "utf-8"
+            )
         ).hexdigest()
         if sign != sign_old:
             False
@@ -47,7 +47,12 @@ class CloudPhoneConnectorMango(models.AbstractModel):
         return True
 
     def _auth_request(
-        self, connector_id, path, json_data={}, binary_content=False, csv_content=False
+        self,
+        connector_id,
+        path,
+        json_data={},
+        binary_content=False,
+        csv_content=False,
     ):
         try:
             # генерируем подпись
@@ -84,7 +89,7 @@ class CloudPhoneConnectorMango(models.AbstractModel):
                         file_reader = []
                         csv_reader = csv.reader(data_file, delimiter=";")
                         file_reader.extend(csv_reader)
-                    except Exception as e:
+                    except Exception:
                         raise ValidationError("Invalid file!")
                     keys = [
                         "records",
@@ -130,7 +135,9 @@ class CloudPhoneConnectorMango(models.AbstractModel):
         # TODO: sometimes users not in numbers
         for user in numbers.get("users"):
             for number in user["telephony"]["numbers"]:
-                employee_id = self.find_by_number("hr.employee", number["number"])
+                employee_id = self.find_by_number(
+                    "hr.employee", number["number"]
+                )
 
                 number_data = dict(
                     tel=number["number"],
@@ -151,7 +158,9 @@ class CloudPhoneConnectorMango(models.AbstractModel):
                     existed.write(number_data)
                     numbers_ids += existed
                 else:
-                    number_id = self.env["cloud.phone.number"].create(number_data)
+                    number_id = self.env["cloud.phone.number"].create(
+                        number_data
+                    )
                     numbers_ids += number_id
 
         numbers_ids2 = self._get_and_update_numbers2(connector_id)
@@ -235,7 +244,9 @@ class CloudPhoneConnectorMango(models.AbstractModel):
             number, calltype, calltel
         """
         calltype = "incoming" if call["to_extension"] else "outgoing"
-        calltel = call["from_number"] if call["to_extension"] else call["to_number"]
+        calltel = (
+            call["from_number"] if call["to_extension"] else call["to_number"]
+        )
         # поле call_direction есть только в событии результата звонка
         # но его нет в самом звонке
         # calltype = "incoming" if call["call_direction"] == 0 or 1 else "outgoing"
@@ -399,7 +410,7 @@ class CloudPhoneConnectorMango(models.AbstractModel):
     def _update_numbers_and_fetch_calls(
         self, connector_id, days=None, minutes=60, wait_minutes=60
     ):
-        numbers_ids = self._get_and_update_numbers(connector_id)
+        self._get_and_update_numbers(connector_id)
         # обновление или добавление звонков и записей звонков, за период
         delta = timedelta(days=days) if days else timedelta(minutes=minutes)
         waiting_time_end_call = timedelta(minutes=wait_minutes)

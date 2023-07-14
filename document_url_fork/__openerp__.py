@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 ##############################################################################
 #
 #    OpenERP, Open Source Management Solution
@@ -22,29 +21,29 @@
 ##############################################################################
 
 {
-    'name': 'URL attachment',
-    'version': '11.0.1.0.0',
-    'category': 'Tools',
-    'description': """
+    "name": "URL attachment",
+    "version": "11.0.1.0.0",
+    "category": "Tools",
+    "description": """
 Module that allows to attach an URL as a document.
     """,
-    'author': "Shurshilov Artem",
-#    'website': "https://vk.com/id20132180",
-    'website': "http://www.eurodoo.com",
-    'license': 'AGPL-3',
-    'depends': [
-        'document',
+    "author": "Shurshilov Artem",
+    #    'website': "https://vk.com/id20132180",
+    "website": "http://www.eurodoo.com",
+    "license": "AGPL-3",
+    "depends": [
+        "document",
     ],
-    'images':[
-            'static/description/docurl1.png',
-            'static/description/docurl2.png',
-            'static/description/docurl3.png',
+    "images": [
+        "static/description/docurl1.png",
+        "static/description/docurl2.png",
+        "static/description/docurl3.png",
     ],
-    'data': [
-        'view/document_url_view.xml',
+    "data": [
+        "view/document_url_view.xml",
     ],
-    'qweb': [
-        'static/src/xml/url.xml',
+    "qweb": [
+        "static/src/xml/url.xml",
     ],
     "installable": False,
 }

@@ -20,6 +20,7 @@
     "depends": ["website_sale", "stock"],
     "data": [
         "views/website_sale_available_views.xml",
-        "views/res_config_settings_views.xml"],
+        "views/res_config_settings_views.xml",
+    ],
     "installable": True,
 }

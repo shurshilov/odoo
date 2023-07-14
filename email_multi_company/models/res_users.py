@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2020 Artem Shurshilov
 # Odoo Proprietary License v1.0
 
@@ -28,46 +27,48 @@
 # ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-from odoo import api, fields, models
+from odoo import fields, models
 from odoo.addons.base.models import ir_property
 
 
 ir_property.TYPE2FIELD = {
-    'char': 'value_text',
-    'float': 'value_float',
-    'boolean': 'value_integer',
-    'integer': 'value_integer',
-    'text': 'value_text',
-    'html': 'value_text',
-    'binary': 'value_binary',
-    'many2one': 'value_reference',
-    'date': 'value_datetime',
-    'datetime': 'value_datetime',
-    'selection': 'value_text',
+    "char": "value_text",
+    "float": "value_float",
+    "boolean": "value_integer",
+    "integer": "value_integer",
+    "text": "value_text",
+    "html": "value_text",
+    "binary": "value_binary",
+    "many2one": "value_reference",
+    "date": "value_datetime",
+    "datetime": "value_datetime",
+    "selection": "value_text",
 }
 ir_property.TYPE2CLEAN = {
-    'boolean': bool,
-    'integer': lambda val: val or False,
-    'float': lambda val: val or False,
-    'char': lambda val: val or False,
-    'text': lambda val: val or False,
-    'html': lambda val: val or False,
-    'selection': lambda val: val or False,
-    'binary': lambda val: val or False,
-    'date': lambda val: val.date() if val else False,
-    'datetime': lambda val: val or False,
+    "boolean": bool,
+    "integer": lambda val: val or False,
+    "float": lambda val: val or False,
+    "char": lambda val: val or False,
+    "text": lambda val: val or False,
+    "html": lambda val: val or False,
+    "selection": lambda val: val or False,
+    "binary": lambda val: val or False,
+    "date": lambda val: val.date() if val else False,
+    "datetime": lambda val: val or False,
 }
 
 
 class Property(models.Model):
-    _inherit = 'ir.property'
+    _inherit = "ir.property"
 
-    type = fields.Selection(selection_add=[('html', 'Html')], ondelete={'html': 'cascade'})
+    type = fields.Selection(
+        selection_add=[("html", "Html")], ondelete={"html": "cascade"}
+    )
 
     def get_by_record(self):
-        if self.type in ('html'):
+        if self.type in ("html"):
             return self.value_text
-        return super(Property, self).get_by_record()
+        return super().get_by_record()
 
 
 class ResUsers(models.Model):
@@ -77,6 +78,6 @@ class ResUsers(models.Model):
 
 
 class ResPartners(models.Model):
-    _inherit = 'res.partner'
+    _inherit = "res.partner"
 
     email = fields.Char(company_dependent=True)

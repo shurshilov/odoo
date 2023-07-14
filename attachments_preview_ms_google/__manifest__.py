@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright (C) 2020 Artem Shurshilov <shurshilov.a@yandex.ru>
 # Odoo Proprietary License v1.0
 
@@ -28,9 +27,8 @@
 # ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 {
-    'name': "Preview attachment in MS and Google online",
-
-    'summary': """
+    "name": "Preview attachment in MS and Google online",
+    "summary": """
         Image files (.JPEG, .PNG, .GIF, .TIFF, .BMP)
         Video files (WebM, .MPEG4, .3GPP, .MOV, .AVI, .MPEGPS, .WMV, .FLV)
         Text files (.TXT)
@@ -50,36 +48,31 @@
         XML Paper Specification (.XPS)
         Archive file types (.ZIP and .RAR)
         """,
-
-    'author': "EURO ODOO, EURO ODOO, Shurshilov Artem",
-    'website': "https://eurodoo.com",
+    "author": "EURO ODOO, EURO ODOO, Shurshilov Artem",
+    "website": "https://eurodoo.com",
     "live_test_url": "https://eurodoo.com/login_employee?login=demo1&amp;password=demo1",
-
     # Categories can be used to filter modules in modules listing
     # Check https://github.com/odoo/odoo/blob/13.0/odoo/addons/base/data/ir_module_category_data.xml
     # for the full list
-    'category': 'Point Of Sale',
-    'version': '13.0.0.0',
+    "category": "Point Of Sale",
+    "version": "13.0.0.0",
     "license": "OPL-1",
     # 'price': 29,
     # 'currency': 'EUR',
-    'images':[
-        'static/description/Microsoft and Google preview.gif',
-        'static/description/button_url.png',
-        'static/description/button_manage_search.png',
-        'static/description/button_download.png',
+    "images": [
+        "static/description/Microsoft and Google preview.gif",
+        "static/description/button_url.png",
+        "static/description/button_manage_search.png",
+        "static/description/button_download.png",
     ],
-
     # any module necessary for this one to work correctly
-    'depends': ['base','web', 'mail'],
-    'installable': True,
-
+    "depends": ["base", "web", "mail"],
+    "installable": True,
     # always loaded
-    'data': [
-        'views/assets.xml',
+    "data": [
+        "views/assets.xml",
     ],
-
-    'qweb': [
-        'static/src/xml/attachments_preview_ms_and_google.xml',
+    "qweb": [
+        "static/src/xml/attachments_preview_ms_and_google.xml",
     ],
 }

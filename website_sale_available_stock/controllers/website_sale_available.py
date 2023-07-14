@@ -16,7 +16,7 @@ _logger = logging.getLogger(__name__)
 
 class Controller(WebsiteSale):
     def checkout_redirection(self, order):
-        res = super(Controller, self).checkout_redirection(order=order)
+        res = super().checkout_redirection(order=order)
         order = request.website.with_context(request.context).sale_get_order()
         if not all(
             [

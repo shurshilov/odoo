@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright (C) 2020-2022 EURO ODOO, Shurshilov Artem <shurshilov.a@yandex.ru>
 # License OPL-1.0 or later (http://www.gnu.org/licenses/agpl).
 {

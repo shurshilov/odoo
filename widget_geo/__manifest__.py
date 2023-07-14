@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     "name": "Geolocation widgets",
     "summary": """
@@ -19,11 +18,12 @@
     "images": [
         "static/description/audio widget tree.png",
     ],
-    'qweb': ['static/src/xml/*.xml', ],
-    'data': [
-        'views/assets.xml',
+    "qweb": [
+        "static/src/xml/*.xml",
     ],
-    'auto_install': False,
-    'installable': False,
-
+    "data": [
+        "views/assets.xml",
+    ],
+    "auto_install": False,
+    "installable": False,
 }

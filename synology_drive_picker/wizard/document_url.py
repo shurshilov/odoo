@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    Copyright (c) 2014 Serv. Tecnol. Avanzados (http://www.serviciosbaeza.com)
@@ -20,6 +19,7 @@
 #
 ##############################################################################
 from odoo import fields, models, api
+
 try:
     # Python 3
     from urllib.parse import urlparse
@@ -28,27 +28,29 @@ except:
 
 
 class AddUrlWizard(models.TransientModel):
-    _name = 'ir.attachment.add_url_gdrive'
+    _name = "ir.attachment.add_url_gdrive"
 
-    name = fields.Char('Name', required=True)
-    url =  fields.Char('URL', required=True)
+    name = fields.Char("Name", required=True)
+    url = fields.Char("URL", required=True)
 
     @api.model
     def action_add_gdrive(self, docs):
         """Adds the Google Drive Document with an ir.attachment record."""
         context = self.env.context
-        if not context.get('active_model'):
+        if not context.get("active_model"):
             return
         for doc in docs:
-            url = urlparse(doc['url'])
+            url = urlparse(doc["url"])
             if not url.scheme:
-                url = urlparse('%s%s' % ('http://', url))
-            for active_id in context.get('active_ids', []):
-                self.env['ir.attachment'].create({
-                    'name': doc['name'],
-                    'type': 'url',
-                    'url': url.geturl(),
-                    'res_id': active_id,
-                    'res_model': context['active_model'],
-                })
-        return {'type': 'ir.actions.act_close_wizard_and_reload_attachments'}
+                url = urlparse("%s%s" % ("http://", url))
+            for active_id in context.get("active_ids", []):
+                self.env["ir.attachment"].create(
+                    {
+                        "name": doc["name"],
+                        "type": "url",
+                        "url": url.geturl(),
+                        "res_id": active_id,
+                        "res_model": context["active_model"],
+                    }
+                )
+        return {"type": "ir.actions.act_close_wizard_and_reload_attachments"}

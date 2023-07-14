@@ -19,10 +19,14 @@ def _get_geo_func(model, domain):
         attr = "get_{}_sql".format(domain[1])
         if hasattr(current_operator, attr):
             return getattr(current_operator, attr)
-    raise ValueError("Field {} does not support {}".format(current_field, domain[1]))
+    raise ValueError(
+        "Field {} does not support {}".format(current_field, domain[1])
+    )
 
 
-def geo_search(model, domain=None, geo_domain=None, offset=0, limit=None, order=None):
+def geo_search(
+    model, domain=None, geo_domain=None, offset=0, limit=None, order=None
+):
     """Perform a geo search it allows direct domain:
     geo_search(
         domain=[('name', 'ilike', 'toto']),
@@ -102,7 +106,9 @@ def geo_search(model, domain=None, geo_domain=None, offset=0, limit=None, order=
                     )
                     if att_where_sql:
                         rel_where_statement.append(
-                            "({} AND {})".format(att_where_sql, spatial_where_sql)
+                            "({} AND {})".format(
+                                att_where_sql, spatial_where_sql
+                            )
                         )
                     else:
                         rel_where_statement.append("(%s)" % (spatial_where_sql))
@@ -133,13 +139,13 @@ def geo_search(model, domain=None, geo_domain=None, offset=0, limit=None, order=
         return []
 
 
-class GeoOperator(object):
+class GeoOperator:
     def __init__(self, geo_field):
         self.geo_field = geo_field
 
     def get_rel_field(self, rel_col, rel_model):
         """Retrieves the expression to use in PostGIS statement for a spatial
-           rel search"""
+        rel search"""
         try:
             rel_model._fields[rel_col]
         except Exception:
@@ -172,8 +178,7 @@ class GeoOperator(object):
     def _get_postgis_comp_sql(
         self, table, col, value, rel_col=None, rel_model=None, op=""
     ):
-        """return raw sql for all search based on St_**(a, b) posgis operator
-        """
+        """return raw sql for all search based on St_**(a, b) posgis operator"""
         if rel_col and rel_model is not None:
             compare_to = self.get_rel_field(rel_col, rel_model)
         else:
@@ -182,7 +187,9 @@ class GeoOperator(object):
             compare_to = "ST_GeomFromText('{}',{})".format(base.wkt, srid)
         return " {}({}.{}, {})".format(op, table, col, compare_to)
 
-    def get_geo_greater_sql(self, table, col, value, rel_col=None, rel_model=None):
+    def get_geo_greater_sql(
+        self, table, col, value, rel_col=None, rel_model=None
+    ):
         """Returns raw sql for geo_greater operator
         (used for area comparison)
         """
@@ -190,14 +197,18 @@ class GeoOperator(object):
             table, col, value, rel_col, rel_model, op=">"
         )
 
-    def get_geo_lesser_sql(self, table, col, value, rel_col=None, rel_model=None):
+    def get_geo_lesser_sql(
+        self, table, col, value, rel_col=None, rel_model=None
+    ):
         """Returns raw sql for geo_lesser operator
         (used for area comparison)"""
         return self._get_direct_como_op_sql(
             table, col, value, rel_col, rel_model, op="<"
         )
 
-    def get_geo_equal_sql(self, table, col, value, rel_col=None, rel_model=None):
+    def get_geo_equal_sql(
+        self, table, col, value, rel_col=None, rel_model=None
+    ):
         """Returns raw sql for geo_equal operator
         (used for equality comparison)
         """
@@ -208,7 +219,9 @@ class GeoOperator(object):
             compare_to = "ST_GeomFromText('{}')".format(base.wkt)
         return " {}.{} = {}".format(table, col, compare_to)
 
-    def get_geo_intersect_sql(self, table, col, value, rel_col=None, rel_model=None):
+    def get_geo_intersect_sql(
+        self, table, col, value, rel_col=None, rel_model=None
+    ):
         """Returns raw sql for geo_intersec operator
         (used for spatial comparison)
         """
@@ -216,7 +229,9 @@ class GeoOperator(object):
             table, col, value, rel_col, rel_model, op="ST_Intersects"
         )
 
-    def get_geo_touch_sql(self, table, col, value, rel_col=None, rel_model=None):
+    def get_geo_touch_sql(
+        self, table, col, value, rel_col=None, rel_model=None
+    ):
         """Returns raw sql for geo_touch operator
         (used for spatial comparison)
         """
@@ -224,7 +239,9 @@ class GeoOperator(object):
             table, col, value, rel_col, rel_model, op="ST_Touches"
         )
 
-    def get_geo_within_sql(self, table, col, value, rel_col=None, rel_model=None):
+    def get_geo_within_sql(
+        self, table, col, value, rel_col=None, rel_model=None
+    ):
         """Returns raw sql for geo_within operator
         (used for spatial comparison)
         """
@@ -232,7 +249,9 @@ class GeoOperator(object):
             table, col, value, rel_col, rel_model, op="ST_Within"
         )
 
-    def get_geo_contains_sql(self, table, col, value, rel_col=None, rel_model=None):
+    def get_geo_contains_sql(
+        self, table, col, value, rel_col=None, rel_model=None
+    ):
         """Returns raw sql for geo_contains operator
         (used for spatial comparison)
         """

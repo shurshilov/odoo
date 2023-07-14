@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2020 Artem Shurshilov
 # Odoo Proprietary License v1.0
 
@@ -29,27 +28,27 @@
 # DEALINGS IN THE SOFTWARE.
 
 {
-    'name': """Google Tag Manager (TMS) Odoo""",
-    'summary': '''Google Tag Manager function in odoo in all page TMS
+    "name": """Google Tag Manager (TMS) Odoo""",
+    "summary": """Google Tag Manager function in odoo in all page TMS
     tags analityc
-    ''',
-    'version': '12.0.0.0.1',
-    'category': 'Website',
-    'website': "https://eurodoo.com",
-    'author': 'EURO ODOO, EURO ODOO, Shurshilov Artem',
-    'license': 'LGPL-3',
+    """,
+    "version": "12.0.0.0.1",
+    "category": "Website",
+    "website": "https://eurodoo.com",
+    "author": "EURO ODOO, EURO ODOO, Shurshilov Artem",
+    "license": "LGPL-3",
     # "price": 19.00,
     # "currency": "EUR",
-    'application': False,
+    "application": False,
     "auto_install": False,
-    'installable': True,
-    'depends': ['base', 'website'],
-    'data': [
-        'templates.xml',
-        'res_config_settings_views.xml',
+    "installable": True,
+    "depends": ["base", "website"],
+    "data": [
+        "templates.xml",
+        "res_config_settings_views.xml",
     ],
-    'images': [
-        'static/description/dashboard.png',
+    "images": [
+        "static/description/dashboard.png",
     ],
     "external_dependencies": {"python": [], "bin": []},
 }

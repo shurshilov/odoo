@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     "name": "Attachments widgets (Audio etc..)",
     "summary": """
@@ -19,10 +18,9 @@
     "images": [
         "static/description/audio widget tree.png",
     ],
-    'data': [
-        'views/assets.xml',
+    "data": [
+        "views/assets.xml",
     ],
-    'auto_install': False,
-    'installable': True,
-
+    "auto_install": False,
+    "installable": True,
 }

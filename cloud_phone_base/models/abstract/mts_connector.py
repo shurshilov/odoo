@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import json
 import logging
 import pytz
@@ -15,7 +14,6 @@ _logger = logging.getLogger(__name__)
 
 
 class CloudPhoneConnectorMts(models.AbstractModel):
-
     _name = "cloud.phone.connector.factory.mts"
     _inherit = "cloud.phone.connector.factory"
 
@@ -71,7 +69,9 @@ class CloudPhoneConnectorMts(models.AbstractModel):
 
         return numbers_ids
 
-    def _get_record_mp3_attachment(self, connector_id, number, file_name, call_id):
+    def _get_record_mp3_attachment(
+        self, connector_id, number, file_name, call_id
+    ):
         path = "/file/{number}/{file_name}".format(
             number=number, file_name=file_name, external_id=call_id.external_id
         )
@@ -145,7 +145,9 @@ class CloudPhoneConnectorMts(models.AbstractModel):
         elif call["RecDuration"] != "00:00:00" and not call_id.ir_attachment_id:
             self._create_attachment(connector_id, call_id)
 
-    def _get_and_update_calls(self, connector_id, begin_datetime, end_datetime, number):
+    def _get_and_update_calls(
+        self, connector_id, begin_datetime, end_datetime, number
+    ):
         path = f"/recs/{number.tel}/{begin_datetime}/{end_datetime}"
         _logger.info(f"Start update calls for number {number.id}")
         _logger.info(path)
@@ -170,7 +172,8 @@ class CloudPhoneConnectorMts(models.AbstractModel):
                     - waiting_time_end_call
                 ).strftime("%Y-%m-%dT%H:%M:%S"),
                 (
-                    datetime.now(pytz.timezone("Europe/Moscow")) - waiting_time_end_call
+                    datetime.now(pytz.timezone("Europe/Moscow"))
+                    - waiting_time_end_call
                 ).strftime("%Y-%m-%dT%H:%M:%S"),
                 number,
             )

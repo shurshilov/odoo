@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    Cybrosys Technologies Pvt. Ltd.
@@ -21,25 +20,25 @@
 #
 ##############################################################################
 {
-    'name': "POS Chat (Chatter)",
-    'summary': """Chat (chatter) In POS Screen""",
-    'description': "This module adds chat interface in Point of sale screen.",
-    'license': 'AGPL-3',
-    'author': "EURO ODOO, EURO ODOO, Shurshilov Artem",
-    'website': "http://www.eurodoo.com",
-#    'website': "https://vk.com/id20132180",
-    'category': 'Point Of Sale',
-    'version': '1.0.0',
-    'price': 29.00,
-    'currency': 'EUR',
-    'depends': ['base', 'point_of_sale'],
-    'data': ['views/pos_chat.xml'],
-    'qweb': ['static/src/xml/pos_msg.xml'],
-    'images': [
-    'static/description/Odoo POS.png',
-    'static/description/Odoo POS1.png',
-    'static/description/Odoo POS2.png',
+    "name": "POS Chat (Chatter)",
+    "summary": """Chat (chatter) In POS Screen""",
+    "description": "This module adds chat interface in Point of sale screen.",
+    "license": "AGPL-3",
+    "author": "EURO ODOO, EURO ODOO, Shurshilov Artem",
+    "website": "http://www.eurodoo.com",
+    #    'website': "https://vk.com/id20132180",
+    "category": "Point Of Sale",
+    "version": "1.0.0",
+    "price": 29.00,
+    "currency": "EUR",
+    "depends": ["base", "point_of_sale"],
+    "data": ["views/pos_chat.xml"],
+    "qweb": ["static/src/xml/pos_msg.xml"],
+    "images": [
+        "static/description/Odoo POS.png",
+        "static/description/Odoo POS1.png",
+        "static/description/Odoo POS2.png",
     ],
-    'installable': False,
-    'auto_install': False,
+    "installable": False,
+    "auto_install": False,
 }

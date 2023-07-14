@@ -8,20 +8,20 @@ from odoo import api, fields, models
 
 
 class ResUsers(models.Model):
-    _name = 'res.users'
-    _inherit = ['res.users', 'mail.thread']
+    _name = "res.users"
+    _inherit = ["res.users", "mail.thread"]
 
-    digital_signature = fields.Binary(string='Digital Signature',
-                                      oldname="signature_image",
-                                      attachment=True)
+    digital_signature = fields.Binary(
+        string="Digital Signature", oldname="signature_image", attachment=True
+    )
 
     @api.model
     def create(self, vals):
-        res = super(ResUsers, self).create(vals)
-        res._track_signature(vals, 'digital_signature')
+        res = super().create(vals)
+        res._track_signature(vals, "digital_signature")
         return res
 
-    #@api.multi
+    # @api.multi
     def write(self, vals):
-        self._track_signature(vals, 'digital_signature')
-        return super(ResUsers, self).write(vals)
+        self._track_signature(vals, "digital_signature")
+        return super().write(vals)

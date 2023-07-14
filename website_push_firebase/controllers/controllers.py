@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2020 Artem Shurshilov
 # Odoo Proprietary License v1.0
 

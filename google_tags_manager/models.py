@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2020 Artem Shurshilov
 # Odoo Proprietary License v1.0
 
@@ -31,14 +30,18 @@ from odoo import fields, models
 
 
 class Website(models.Model):
-    _inherit = 'website'
+    _inherit = "website"
 
     google_tags_manager_key = fields.Char("Google Tag Manager KEY")
-    google_tags_manager_enable = fields.Boolean('Google Tag Manager Enable')
+    google_tags_manager_enable = fields.Boolean("Google Tag Manager Enable")
 
 
 class ResConfigSettings(models.TransientModel):
-    _inherit = 'res.config.settings'
+    _inherit = "res.config.settings"
 
-    google_tags_manager_enable = fields.Boolean(related='website_id.google_tags_manager_enable', readonly=False)
-    google_tags_manager_key = fields.Char(related='website_id.google_tags_manager_key', readonly=False)
+    google_tags_manager_enable = fields.Boolean(
+        related="website_id.google_tags_manager_enable", readonly=False
+    )
+    google_tags_manager_key = fields.Char(
+        related="website_id.google_tags_manager_key", readonly=False
+    )

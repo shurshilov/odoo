@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2020 Artem Shurshilov
 # Odoo Proprietary License v1.0
 
@@ -28,9 +27,9 @@
 # ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-from odoo import fields, models, api
-from .synology_api import filestation, downloadstation
-from odoo.exceptions import AccessError, UserError, AccessDenied
+from odoo import models, api
+from .synology_api import filestation
+from odoo.exceptions import UserError
 import base64
 import os
 from urllib import parse
@@ -38,84 +37,134 @@ import platform
 
 
 class IrAttachment(models.Model):
-    _inherit = 'ir.attachment'
+    _inherit = "ir.attachment"
 
-    #type = fields.Selection(selection_add=[('synology', 'Synology Drive Cloud')])
+    # type = fields.Selection(selection_add=[('synology', 'Synology Drive Cloud')])
 
     @api.model
     def synology_download(self, path):
-        cp = self.env['res.users'].browse(self._uid)
-        if not cp.synology_ip or not cp.synology_port or not cp.synology_user or not cp.synology_pass:
+        cp = self.env["res.users"].browse(self._uid)
+        if (
+            not cp.synology_ip
+            or not cp.synology_port
+            or not cp.synology_user
+            or not cp.synology_pass
+        ):
             UserError("Please check user synology settings")
 
-        fl = filestation.FileStation(cp.synology_ip, cp.synology_port, cp.synology_user,
-                                     cp.synology_pass, cp.synology_https)
-        api_name = 'SYNO.FileStation.Download'
+        fl = filestation.FileStation(
+            cp.synology_ip,
+            cp.synology_port,
+            cp.synology_user,
+            cp.synology_pass,
+            cp.synology_https,
+        )
+        api_name = "SYNO.FileStation.Download"
         info = fl.file_station_list[api_name]
-        api_path = info['path']
-        #path_file = "./" +os.path.basename(path)
-        url = ('%s%s' % (fl.base_url, api_path)) + '?api=%s&version=%s&method=download&path=%s&mode=%s&_sid=%s' % (
-            api_name, info['maxVersion'], parse.quote_plus(path), 'download', fl._sid)
+        api_path = info["path"]
+        # path_file = "./" +os.path.basename(path)
+        url = (
+            "%s%s" % (fl.base_url, api_path)
+        ) + "?api=%s&version=%s&method=download&path=%s&mode=%s&_sid=%s" % (
+            api_name,
+            info["maxVersion"],
+            parse.quote_plus(path),
+            "download",
+            fl._sid,
+        )
         return url
 
     @api.model
     def synology_import(self, path, res_model, res_id):
-
-        cp = self.env['res.users'].browse(self._uid)
-        if not cp.synology_ip or not cp.synology_port or not cp.synology_user or not cp.synology_pass:
+        cp = self.env["res.users"].browse(self._uid)
+        if (
+            not cp.synology_ip
+            or not cp.synology_port
+            or not cp.synology_user
+            or not cp.synology_pass
+        ):
             UserError("Please check user synology settings")
 
-        if cp.synology_storage == 'copy':
-            fl = filestation.FileStation(cp.synology_ip, cp.synology_port, cp.synology_user,
-                                         cp.synology_pass, cp.synology_https)
+        if cp.synology_storage == "copy":
+            fl = filestation.FileStation(
+                cp.synology_ip,
+                cp.synology_port,
+                cp.synology_user,
+                cp.synology_pass,
+                cp.synology_https,
+            )
             # Download to file
-            fl.get_file(path, 'open')
+            fl.get_file(path, "open")
 
             # Create attahchment from file
-            if platform.system() == 'Windows':
+            if platform.system() == "Windows":
                 path_file = "./" + os.path.basename(path)
             # else:
             #     path_file = "../" + os.path.basename(path)
-            attachment_obj = self.env['ir.attachment']
+            attachment_obj = self.env["ir.attachment"]
             attachment = {
-                'name': path.split('/')[-1],
-                'type': 'binary',
-                'datas':  base64.b64encode(open(path_file, 'rb').read()) if path_file else False,
-                'res_id': res_id,
-                'res_model': res_model,
-                'description': 'synology'
+                "name": path.split("/")[-1],
+                "type": "binary",
+                "datas": base64.b64encode(open(path_file, "rb").read())
+                if path_file
+                else False,
+                "res_id": res_id,
+                "res_model": res_model,
+                "description": "synology",
             }
             attachment_obj.create(attachment)
         else:
             # Create attahchment from url
-            fl = filestation.FileStation(cp.synology_ip, cp.synology_port, cp.synology_user,
-                                         cp.synology_pass, cp.synology_https)
-            api_name = 'SYNO.FileStation.Download'
+            fl = filestation.FileStation(
+                cp.synology_ip,
+                cp.synology_port,
+                cp.synology_user,
+                cp.synology_pass,
+                cp.synology_https,
+            )
+            api_name = "SYNO.FileStation.Download"
             info = fl.file_station_list[api_name]
-            api_path = info['path']
-            url = ('%s%s' % (fl.base_url, api_path)) + '?api=%s&version=%s&method=download&path=%s&mode=%s&_sid=%s' % (
-                api_name, info['maxVersion'], parse.quote_plus(path), 'open', '')#fl._sid)
+            api_path = info["path"]
+            url = (
+                "%s%s" % (fl.base_url, api_path)
+            ) + "?api=%s&version=%s&method=download&path=%s&mode=%s&_sid=%s" % (
+                api_name,
+                info["maxVersion"],
+                parse.quote_plus(path),
+                "open",
+                "",
+            )  # fl._sid)
 
-            attachment_obj = self.env['ir.attachment']
+            attachment_obj = self.env["ir.attachment"]
             attachment = {
-                'name': path.split('/')[-1],
-                'type': 'url',
-                'url': url,
-                'res_id': res_id,
-                'res_model': res_model,
-                'description': 'synology'
+                "name": path.split("/")[-1],
+                "type": "url",
+                "url": url,
+                "res_id": res_id,
+                "res_model": res_model,
+                "description": "synology",
             }
             attachment_obj.create(attachment)
 
     @api.model
-    def synology(self, funcAPI='get_info', params_list=False):
+    def synology(self, funcAPI="get_info", params_list=False):
         # Initiate the classes DownloadStation & FileStation with (ip_address, port, username, password)
         # it will login automatically
-        cp = self.env['res.users'].browse(self._uid)
-        if not cp.synology_ip or not cp.synology_port or not cp.synology_user or not cp.synology_pass:
+        cp = self.env["res.users"].browse(self._uid)
+        if (
+            not cp.synology_ip
+            or not cp.synology_port
+            or not cp.synology_user
+            or not cp.synology_pass
+        ):
             UserError("Please check user synology settings")
-        fl = filestation.FileStation(cp.synology_ip, cp.synology_port, cp.synology_user,
-                                     cp.synology_pass, cp.synology_https)
+        fl = filestation.FileStation(
+            cp.synology_ip,
+            cp.synology_port,
+            cp.synology_user,
+            cp.synology_pass,
+            cp.synology_https,
+        )
         # get_file(self, path=None, mode=None, dest_path=".", chunkSize=8192):
         method_to_call = getattr(fl, funcAPI)
         if params_list:
