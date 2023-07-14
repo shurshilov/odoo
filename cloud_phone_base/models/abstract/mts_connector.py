@@ -1,14 +1,13 @@
 import json
 import logging
+from datetime import datetime, timedelta
+
 import pytz
 import requests
-from datetime import datetime, timedelta
-from requests.auth import HTTPBasicAuth
-from requests.exceptions import Timeout
-
 from odoo import fields, models
 from odoo.exceptions import ValidationError
-
+from requests.auth import HTTPBasicAuth
+from requests.exceptions import Timeout
 
 _logger = logging.getLogger(__name__)
 

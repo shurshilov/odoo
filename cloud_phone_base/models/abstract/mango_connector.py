@@ -1,13 +1,13 @@
 import base64
 import json
-import requests
 import time
-from hashlib import sha256
 from datetime import datetime, timedelta
-from requests.exceptions import Timeout
+from hashlib import sha256
 
+import requests
 from odoo import models
 from odoo.exceptions import ValidationError
+from requests.exceptions import Timeout
 
 
 class CloudPhoneConnectorMango(models.AbstractModel):

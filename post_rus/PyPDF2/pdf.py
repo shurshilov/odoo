@@ -41,24 +41,28 @@ __author_email__ = "biziqe@mathieu.fenniak.net"
 __maintainer__ = "Phaseit, Inc."
 __maintainer_email = "PyPDF2@phaseit.net"
 
+import codecs
 import math
 import struct
 import sys
 import uuid
+import warnings
+from io import BytesIO
 from sys import version_info
 
-from io import BytesIO
-
 from . import utils
-import warnings
-import codecs
 from .generic import *
 from .utils import (
+    ConvertFunctionsToVirtualList,
+    b_,
+    formatWarning,
+    isString,
+    ord_,
     readNonWhitespace,
     readUntilWhitespace,
-    ConvertFunctionsToVirtualList,
+    str_,
+    u_,
 )
-from .utils import isString, b_, u_, ord_, str_, formatWarning
 
 if version_info < (2, 4):
     from sets import ImmutableSet as frozenset
@@ -67,6 +71,7 @@ if version_info < (2, 5):
     from md5 import md5
 else:
     from hashlib import md5
+
 import uuid
 
 
@@ -433,7 +438,8 @@ class PdfFileWriter:
             encryption.  When false, 40bit encryption will be used.  By default,
             this flag is on.
         """
-        import time, random
+        import random
+        import time
 
         if owner_pwd == None:
             owner_pwd = user_pwd

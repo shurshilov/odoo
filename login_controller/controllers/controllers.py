@@ -1,10 +1,9 @@
 # Copyright 2021 Artem Shurshilov
 
-from odoo import http
-from odoo.http import request
 import werkzeug
+from odoo import _, http
+from odoo.http import request
 from werkzeug import url_encode
-from odoo import _
 
 
 class Login(http.Controller):

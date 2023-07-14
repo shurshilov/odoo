@@ -4,7 +4,8 @@
 from odoo import _, api, models
 from odoo.exceptions import MissingError, except_orm
 
-from . import fields as geo_fields, geo_operators
+from . import fields as geo_fields
+from . import geo_operators
 
 DEFAULT_EXTENT = (
     "-123164.85222423, 5574694.9538936, " "1578017.6490538, 6186191.1800898"

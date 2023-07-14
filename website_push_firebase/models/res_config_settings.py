@@ -27,7 +27,7 @@
 # ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-from odoo import fields, models, api
+from odoo import api, fields, models
 
 
 class ResConfigSettingsFirebaseWeb(models.TransientModel):

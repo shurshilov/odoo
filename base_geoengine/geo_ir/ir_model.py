@@ -1,7 +1,6 @@
 # Copyright 2011-2012 Nicolas Bessi (Camptocamp SA)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 from odoo import fields, models
-
 from odoo.addons import base
 
 if "geoengine" not in base.models.ir_actions.VIEW_TYPES:

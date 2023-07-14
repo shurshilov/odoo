@@ -1,26 +1,25 @@
 # Copyright 2018 Artem Shurshilov
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
-import zipfile
 import io
+import zipfile
 
 # import cStringIO
 try:
-    from StringIO import StringIO  ## for Python 2
+    from StringIO import StringIO  # # for Python 2
 except ImportError:
     from io import StringIO  ## for Python 3
-import requests
+
 import base64
-import json
-import urllib
-from reportlab.pdfgen import canvas
-from reportlab.lib.pagesizes import A4, landscape
 import csv
+import json
 import math
+import urllib
 
-from odoo import models, fields, api
-from odoo import exceptions
-
+import requests
+from odoo import api, exceptions, fields, models
 from PyPDF2 import PdfFileMerger, PdfFileReader
+from reportlab.lib.pagesizes import A4, landscape
+from reportlab.pdfgen import canvas
 
 
 class res_company(models.Model):

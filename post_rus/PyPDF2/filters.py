@@ -35,11 +35,11 @@ __author__ = "Mathieu Fenniak"
 __author_email__ = "biziqe@mathieu.fenniak.net"
 
 import math
+import struct
+from io import StringIO
+from sys import version_info
 
 from .utils import PdfReadError, ord_, paethPredictor
-from sys import version_info
-from io import StringIO
-import struct
 
 try:
     import zlib

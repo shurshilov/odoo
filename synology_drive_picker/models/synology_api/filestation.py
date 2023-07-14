@@ -1,10 +1,10 @@
 import os
+import sys
 import time
 from datetime import datetime
+from urllib import parse
 
 import requests
-import sys
-from urllib import parse
 
 from . import auth as syn
 

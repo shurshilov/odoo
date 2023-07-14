@@ -29,24 +29,24 @@
 
 import base64
 import io
-from odoo import models, fields, api, registry
+import logging
+
+# from scipy import misc
+import os
 
 # from . import classify
 # from . import preprocess
 import sys
-import cv2
+import threading
 import time
-
-# from scipy import misc
-import os
-from PIL import Image
-import base64
 
 # from imutils.video import FileVideoStream
 # from imutils.video import FPS
 from datetime import datetime
-import threading
-import logging
+
+import cv2
+from odoo import api, fields, models, registry
+from PIL import Image
 
 _logger = logging.getLogger(__name__)
 

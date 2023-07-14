@@ -1,6 +1,6 @@
 # Copyright 2018 Shurshilov Artem
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
-from odoo import models, fields, api
+from odoo import api, fields, models
 
 
 class Product(models.Model):

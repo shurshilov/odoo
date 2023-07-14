@@ -27,9 +27,10 @@
 # ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
+import json
+
 from odoo import http
 from odoo.http import request
-import json
 
 
 class FirebasePushNotifications(http.Controller):

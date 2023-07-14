@@ -5,8 +5,8 @@
 # Copyright 2016 Florent Thomas <https://github.com/flotho>
 # Copyright 2017 Kolushov Alexandr <https://github.com/KolushovAlexandr>
 
-from odoo.http import request
 from odoo.addons.website_sale.controllers.main import WebsiteSale
+from odoo.http import request
 
 
 class Controller(WebsiteSale):

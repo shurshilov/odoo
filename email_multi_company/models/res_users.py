@@ -30,7 +30,6 @@
 from odoo import fields, models
 from odoo.addons.base.models import ir_property
 
-
 ir_property.TYPE2FIELD = {
     "char": "value_text",
     "float": "value_float",

@@ -2,18 +2,18 @@
 # Copyright 2017 Dinar Gabbasov <https://it-projects.info/team/GabbasovDinar>
 # Copyright 2016-2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
-import mimetypes
 import base64
 import hashlib
-import re
+import mimetypes
 import os
+import re
 
 from odoo import models
 from odoo.exceptions import AccessError
+from odoo.http import STATIC_CACHE, request
+from odoo.modules.module import get_module_path, get_resource_path
+from odoo.tools import consteq, pycompat
 from odoo.tools.mimetypes import guess_mimetype
-from odoo.http import request, STATIC_CACHE
-from odoo.modules.module import get_resource_path, get_module_path
-from odoo.tools import pycompat, consteq
 
 
 class IrHttp(models.AbstractModel):

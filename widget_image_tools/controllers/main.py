@@ -1,13 +1,13 @@
 import base64
+
 import requests
 import werkzeug
-
-from odoo.http import request
-from odoo import http, SUPERUSER_ID
+from odoo import SUPERUSER_ID, http
+from odoo.addons.mail.controllers.main import MailController
 from odoo.addons.web.controllers.main import binary_content
 from odoo.exceptions import AccessError
+from odoo.http import request
 
-from odoo.addons.mail.controllers.main import MailController
 from ..models.image import is_url
 
 

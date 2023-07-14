@@ -19,6 +19,9 @@
 # The above copyright notice and this permission notice must be included in all
 # copies or substantial portions of the Software.
 
+import logging
+from datetime import datetime
+
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 # FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
@@ -27,11 +30,10 @@
 # ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 from odoo import models
-from odoo.http import request
-from ..models.synology_api import filestation
-from datetime import datetime
 from odoo.exceptions import UserError
-import logging
+from odoo.http import request
+
+from ..models.synology_api import filestation
 
 logger = logging.getLogger(__name__)
 

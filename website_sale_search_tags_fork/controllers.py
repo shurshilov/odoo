@@ -1,6 +1,6 @@
 # Copyright 2017-2020 Shurshilov Artem
-from odoo.http import request
 from odoo.addons.website_sale.controllers.main import WebsiteSale as controller
+from odoo.http import request
 from odoo.osv import expression
 
 

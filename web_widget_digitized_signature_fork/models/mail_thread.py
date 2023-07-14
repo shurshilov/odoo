@@ -4,7 +4,8 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 import base64
-from odoo import _, models, fields
+
+from odoo import _, fields, models
 
 
 class MailThread(models.AbstractModel):

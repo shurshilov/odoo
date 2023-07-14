@@ -27,8 +27,8 @@
 # ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-from odoo import models
 import requests
+from odoo import models
 
 
 class Channel(models.Model):

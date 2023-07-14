@@ -27,8 +27,8 @@
 # ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-from odoo import models, fields, api
 import requests
+from odoo import api, fields, models
 
 
 class MailFirebase(models.Model):

@@ -27,13 +27,15 @@
 # ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-from odoo import models, api
-from .synology_api import filestation
-from odoo.exceptions import UserError
 import base64
 import os
-from urllib import parse
 import platform
+from urllib import parse
+
+from odoo import api, models
+from odoo.exceptions import UserError
+
+from .synology_api import filestation
 
 
 class IrAttachment(models.Model):

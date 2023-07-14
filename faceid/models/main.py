@@ -1,8 +1,9 @@
 # Copyright 2019 Artem Shurshilov
+import time
+
 import classify
 import cv2
 import preprocess
-import time
 from scipy import misc
 
 classifier = classify.Classify()

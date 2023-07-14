@@ -1,13 +1,13 @@
 # Copyright 2019 Shurshilov Artem
 # License OPL-1.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
-from odoo import api, fields, models
-from PIL import Image
-import io
 import base64
-from odoo import http
-from odoo.http import request
+import io
+
 import odoo.addons.website.controllers.main as main
+from odoo import api, fields, http, models
+from odoo.http import request
+from PIL import Image
 
 # import odoo
 # from odoo.addons.website.controllers.main import WebsiteBinary

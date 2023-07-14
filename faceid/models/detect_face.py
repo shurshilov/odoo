@@ -24,13 +24,13 @@ https://github.com/kpzhang93/MTCNN_face_detection_alignment
 # SOFTWARE.
 
 
-import numpy as np
-import tensorflow as tf
+import os
+import sys
 
 # from math import floor
 import cv2
-import os
-import sys
+import numpy as np
+import tensorflow as tf
 
 _logger = False
 

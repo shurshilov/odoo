@@ -27,8 +27,8 @@
 # ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-from odoo import models, api
 import requests
+from odoo import api, models
 
 
 class MailThread(models.AbstractModel):

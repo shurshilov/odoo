@@ -1,10 +1,12 @@
 # from scipy import misc
-import tensorflow as tf
-import numpy as np
-from . import detect_face
-import os
 import datetime
+import os
+
 import cv2
+import numpy as np
+import tensorflow as tf
+
+from . import detect_face
 
 
 class PreProcessor:

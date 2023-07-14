@@ -27,13 +27,13 @@
 # ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-from odoo import http
-from odoo.http import content_disposition, request
-from odoo.tools.safe_eval import safe_eval
+import json
 import time
 
+from odoo import http
 from odoo.addons.web.controllers.main import ReportController
-import json
+from odoo.http import content_disposition, request
+from odoo.tools.safe_eval import safe_eval
 
 
 class ReportControllerDocx(ReportController):

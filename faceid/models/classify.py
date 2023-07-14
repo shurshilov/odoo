@@ -1,11 +1,12 @@
-import tensorflow as tf
-import imageio
-import numpy as np
-import os
-import math
-import re
 import base64
 import io
+import math
+import os
+import re
+
+import imageio
+import numpy as np
+import tensorflow as tf
 from PIL import Image
 
 

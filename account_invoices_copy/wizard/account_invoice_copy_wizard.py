@@ -1,7 +1,7 @@
 # Copyright 2019 Shurshilov Artem
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
-from odoo import api, fields, models, _
+from odoo import _, api, fields, models
 
 
 class AccountInvoiceWizardCopy(models.TransientModel):
