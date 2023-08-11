@@ -1,0 +1,86 @@
+.only-descriptor {
+  display: block;
+}
+.face-recognition-detectors {
+z-index: 99999;
+position: absolute !important; 
+width: 600px !important;
+height: 400px !important;
+}
+
+.face-recognition-origin {
+width: 600px !important;
+height: 400px !important;
+}
+/*
+input#toggle-face-rec[type=checkbox]{
+     display:none;
+ }
+
+.switch-face-rec {
+  display: block; 
+  position: relative;
+  border-bottom: 1px solid #FFF;
+  border-radius: 25px;
+  background: #5EC269;
+  box-shadow: inset 0 0 10px #888888;
+  -webkit-box-shadow: inset 0 0 10px rgba(0,0,0,0.25);
+  height: 40px;
+  width: 100px;
+  margin: 0px auto 30px auto;
+  top: -40px;
+}
+
+.switch-face-rec .button{
+  display: block; 
+  position: absolute;
+  border-top: 1px solid #FFF;
+  border-bottom: 1px solid #AAA;
+  border-radius: 100%;
+  background: #48E8AA;
+  height: 32px; 
+  width: 32px;
+  top: 4px;
+  left: 4px;
+  box-shadow: 0 0 2px rgba(0,0,0,0.25)
+}
+
+.switch-face-rec .button .b-inside{
+  display: block; 
+  position: absolute;
+  border: 1px solid #888;
+  border-radius: 100%;
+  background: #FFE067;
+  height: 15px; 
+  width: 15px;
+  top: 7px;
+  left: 7px;
+  box-shadow: 0 0 2px rgba(0,0,0,0.25)
+}
+
+label.label-face-rec {
+    position: relative;
+    height: 40px;
+    width: 120px;
+    display: block; 
+    top: 0px; bottom: 0; right: 0; left:0;
+    z-index: 9999;
+    cursor: pointer;
+    margin: 0 auto;
+}
+
+.switch-face-rec .button {
+    transition: left .25s ease-in-out;
+    -webkit-transition: left .25s ease-in-out;
+}
+
+
+
+input#toggle-face-rec[type=checkbox]:checked ~ .switch-face-rec .button{
+    position: absolute;
+    left: 64px;
+}
+input#toggle-face-rec[type=checkbox]:checked ~ .only-descriptor{
+display: block;
+}
+*/

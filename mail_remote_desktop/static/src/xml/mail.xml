@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template xml:space="preserve">
+    <t t-name="JitsiDialog">
+            <div >
+                <div class="container-fluid">
+                    <div class="col-md-12">
+                            <div id="jitsi" style="height:70vh"/>
+                    </div>
+                </div>
+            </div>
+    </t>
+
+    <t t-name="mail.ComposerMailJitsi"
+       t-inherit="mail.Composer"
+       t-inherit-mode="extension"
+       owl="1">
+        <xpath expr="//button[1]" position="after">
+                    <button class="o_Composer_button o_Composer_buttonAttachmentMailJitsi o_Composer_toolButton btn btn-light fa fa-video-camera"
+                    t-att-class="{ 'o-mobile': env.messaging.device.isMobile }"
+                    title="Create Jitsi meeting"
+                    type="button"
+                    t-on-click="_onClickCreateJitsiMeeting"/>
+        </xpath>
+    </t>
+</template>

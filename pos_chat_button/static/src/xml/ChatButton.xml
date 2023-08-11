@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="ChatButton" owl="1">
+        <div class="chat-button" t-att-class="{ highlight: props.isChatScreenShown }" t-on-click="onClick">
+            <div class="with-badge" t-att-badge="count">
+                <i class="fa fa-comments-o" aria-hidden="true"></i>
+            </div>
+            <div t-if="!env.isMobile">Chat</div>
+        </div>
+    </t>
+
+</templates>

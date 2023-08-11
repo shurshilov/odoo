@@ -1,0 +1,32 @@
+#camera-faceid {
+	cursor:pointer;
+}
+/* Скрытый контейнер с большим изображением */
+#outer{
+    display: none;
+    position: absolute;
+    /*margin-right: -50%;*/
+    left:200px;
+    /*transform: translate(-50%, -50%);*/
+    z-index: 999;
+/*    min-width: 800px;
+    min-height: 600px;*/
+    background: rgba(120, 120, 120, 0.3);
+    top: 0;
+    width: 800px;
+    position: absolute;
+    left: 50%;
+    margin-left: -400px;
+}
+
+/*.face-recognition-detectors {
+z-index: 99999;
+position: absolute;
+width: 450px;
+height: 450px
+}
+
+.face-recognition-origin {
+width:450px;
+height:450px
+}*/
