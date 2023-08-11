@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="view_online" inherit_id="web.assets_backend" name="view_online_form Assests">
+            <xpath expr="." position="inside">
+            	<link href="/view_online/static/src/css/view_online.css" rel="stylesheet"/>
+                <script type="text/javascript" src="/view_online/static/src/js/view_online_form.js"></script>
+            </xpath>
+        </template>
+    </data>
+</odoo>

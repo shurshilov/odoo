@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- BACKEND mail_firebase -->
+        <template id="mail_firebase_push_notifications" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <!-- <script type="text/javascript" src="/mail_firebase/static/src/js/firebase-app.js"/> -->
+                <!-- <script type="text/javascript" src="/mail_firebase/static/src/js/firebase-messaging.js"/> -->
+                <script type="text/javascript" src="https://www.gstatic.com/firebasejs/8.6.0/firebase-app.js"/>
+                <script type="text/javascript" src="https://www.gstatic.com/firebasejs/8.6.0/firebase-messaging.js"/>
+                
+                
+                <!-- <script type="text/javascript" src="/mail_firebase/static/src/js/mail_firebase.js"/> -->
+            </xpath>
+        </template>
+    </data>
+</odoo>
