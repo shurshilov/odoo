@@ -1,4 +1,3 @@
-tensorflow==1.15.0
 imageio
-scipy
-opencv-python
+opencv-pythonscipy
+tensorflow==1.15.0

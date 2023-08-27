@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2017-2020 Shurshilov Artem
 # from odoo import http
 # from odoo.http import request

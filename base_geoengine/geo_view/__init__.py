@@ -18,7 +18,4 @@
 #
 ##############################################################################
 """Module that manages map view and vector/raster layer"""
-from . import geo_raster_layer
-from . import geo_vector_layer
-from . import geo_vector_symbol
-from . import ir_view
+from . import geo_raster_layer, geo_vector_layer, geo_vector_symbol, ir_view

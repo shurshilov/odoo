@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 #
 #    OpenERP, Open Source Management Solution
@@ -17,11 +16,16 @@
 #    You should have received a copy of the GNU Affero General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-from odoo import api, fields, models
+from odoo import fields, models
+
 
 class MailThread(models.AbstractModel):
-    _name = 'mail.thread'
-    #_inherit = ['mail.thread', 'ir.needaction_mixin']
-    _inherit = ['mail.thread']
+    _name = "mail.thread"
+    # _inherit = ['mail.thread', 'ir.needaction_mixin']
+    _inherit = ["mail.thread"]
 
-    hide_notification = fields.Boolean('Hide notification', help="If checked filter messages by not notification.", auto_join=True,)
+    hide_notification = fields.Boolean(
+        "Hide notification",
+        help="If checked filter messages by not notification.",
+        auto_join=True,
+    )

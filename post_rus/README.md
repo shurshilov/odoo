@@ -1,13 +1,11 @@
-Odoo Notes
-----------
+## Odoo Notes
 
 Organize yourself with efficient <a href="https://www.odoo.com/page/notes">todo lists and notes</a>.
 From personal tasks to collaborative meeting minutes, increase your user's
 productivity by giving them the tools to prioritize their work, share their
 ideas and collaborate on documents.
 
-Personal to-do lists that works
--------------------------------
+## Personal to-do lists that works
 
 Quickly create to-dos, organize horizontally for the mid-term (today, this week, this month, ...), prioritize vertically for the short term and group by assigning colors. The kanban approach allows a simple visual organization of your to-dos.
 
@@ -23,8 +21,7 @@ Most people are lost in the flow of urgent daily tasks and have difficulties to 
 
 People used to work on tasks they like and not on important tasks. Start feeling good by checking tasks as done.
 
-Adapts to Your Creative Process
--------------------------------
+## Adapts to Your Creative Process
 
 ### Customize to your own workflow
 
@@ -32,7 +29,7 @@ Everyone has their own way to organize activities. Odoo Notes' smart kanban appr
 
 ### A Creative Person
 
-A creative person will organize notes based on idea's maturity level: Draft Ideas ** Mature Ideas ** Specified **To Do
+A creative person will organize notes based on idea's maturity level: Draft Ideas ** Mature Ideas ** Specified \*\*To Do
 
 ### A Frequent Traveler
 
@@ -42,17 +39,14 @@ An employee travelling a lot can organize their tasks based on the context to pe
 
 A manager will organize their high number of tasks based on prioritizations: Todo Today | This Week | This Month | Later
 
-Personnal Notes
----------------
+## Personnal Notes
 
 ### Notes are private but can be shared
 
 Write down your ideas in pads, keep your notes at your finger tips, attach related documents and use tags and colors to organize the information. Once your ideas are mature, you can share them to others users, start discussing it and collaborate by improving the specification in the pad.
 
-Collaborative Meeting Minutes
------------------------------
+## Collaborative Meeting Minutes
 
 ### Real-time sharing and edition of notes
 
 The real time collaborative writings on notes makes it the perfect tool to collaborate on meeting minutes. Attendees will be able to contribute to the minutes, attach important documents or discuss on the related thread.
-

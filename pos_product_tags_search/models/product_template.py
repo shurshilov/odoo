@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2018 Shurshilov Artem <shurshilov.a@yandex.ru>
@@ -15,20 +14,21 @@
 #
 #    You should have received a copy of the GNU Affero General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-from openerp import api
-from openerp import fields
-from openerp import models
+from openerp import api, fields, models
+
 
 class ProductTemplate(models.Model):
     _inherit = "product.template"
 
-    @api.depends('tag_ids')
+    @api.depends("tag_ids")
     def _get_tag_search_string(self):
         for rec in self:
             name_search_string = rec.name
             for tag in rec.tag_ids:
-                name_search_string += '|' + tag.name
+                name_search_string += "|" + tag.name
             rec.tag_ids_name = name_search_string
         return name_search_string
 
-    tag_ids_name = fields.Char(compute="_get_tag_search_string",string="Tags name",store="True")
+    tag_ids_name = fields.Char(
+        compute="_get_tag_search_string", string="Tags name", store="True"
+    )

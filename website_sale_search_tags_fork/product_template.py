@@ -1,5 +1,4 @@
-from odoo import api
-from odoo import models
+from odoo import api, models
 
 
 class ProductTemplate(models.Model):
@@ -19,4 +18,6 @@ class ProductTemplate(models.Model):
         :return: domain limited to the matches of the search expression
         """
         fields.append("tag_ids")
-        return super()._search_build_domain(domain_list, search, fields, extra=None)
+        return super()._search_build_domain(
+            domain_list, search, fields, extra=None
+        )

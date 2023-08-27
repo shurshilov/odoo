@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <!-- ADD big attachments (for icons) in discuss and chat-->
+    <t t-name="pos_chat_button.Chrome"
+       t-inherit="point_of_sale.Chrome"
+       t-inherit-mode="extension"
+       owl="1">
+        <xpath expr="//div[@class='pos-branding']/TicketButton" position="after">
+            <ChatButton isChatScreenShown="isChatScreenShown" />
+        </xpath>
+        <xpath expr="//div[@class='pos-rightheader']/TicketButton" position="after">
+            <ChatButton isChatScreenShown="isChatScreenShown" t-if="env.isMobile and !state.mobileSearchBarIsShown"/>
+        </xpath>
+    </t>
+
+</templates>

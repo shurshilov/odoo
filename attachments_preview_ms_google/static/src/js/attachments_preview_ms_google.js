@@ -27,45 +27,47 @@ IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
 DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
 ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.**/
-odoo.define('attachments_preview_ms_and_google', function (require) {
-    "use strict";
-    var core = require('web.core');
-    var _t = core._t;
-    var QWeb = core.qweb;
-    var Chatter = require('mail.Chatter');
-    var ActionManager = require('web.ActionManager');
-    var AttachmentBox = require('mail.AttachmentBox');
-    var ListView = require('web.ListView');
-    var rpc = require('web.rpc');
-    var utils = require('web.utils');
-    var Dialog = require('web.Dialog');
-    var session = require('web.session');
+odoo.define("attachments_preview_ms_and_google", function (require) {
+  "use strict";
+  var core = require("web.core");
+  var _t = core._t;
+  var QWeb = core.qweb;
+  var Chatter = require("mail.Chatter");
+  var ActionManager = require("web.ActionManager");
+  var AttachmentBox = require("mail.AttachmentBox");
+  var ListView = require("web.ListView");
+  var rpc = require("web.rpc");
+  var utils = require("web.utils");
+  var Dialog = require("web.Dialog");
+  var session = require("web.session");
 
-    // ATTACHMENTS EDIT AND PREVIEW
-    AttachmentBox.include({
-        events: _.extend({}, AttachmentBox.prototype.events, {
-            'click .o_attachment_preview_ms_cross': '_onPreviewMSAttachment',
-            'click .o_attachment_preview_google_cross': '_onPreviewGoogleAttachment',
-        }),
+  // ATTACHMENTS EDIT AND PREVIEW
+  AttachmentBox.include({
+    events: _.extend({}, AttachmentBox.prototype.events, {
+      "click .o_attachment_preview_ms_cross": "_onPreviewMSAttachment",
+      "click .o_attachment_preview_google_cross": "_onPreviewGoogleAttachment",
+    }),
 
-        _onPreviewMSAttachment: function (ev) {
-            ev.stopPropagation();
-            ev.preventDefault();
-            var activeAttachmentURL = $(ev.currentTarget).data('url');
-            var url = 'https://view.officeapps.live.com/op/embed.aspx?src='+
-            window.location.origin + activeAttachmentURL;
-            window.open(url, '_blank');
-        },
+    _onPreviewMSAttachment: function (ev) {
+      ev.stopPropagation();
+      ev.preventDefault();
+      var activeAttachmentURL = $(ev.currentTarget).data("url");
+      var url =
+        "https://view.officeapps.live.com/op/embed.aspx?src=" +
+        window.location.origin +
+        activeAttachmentURL;
+      window.open(url, "_blank");
+    },
 
-        _onPreviewGoogleAttachment: function (ev) {
-            ev.stopPropagation();
-            ev.preventDefault();
-            var activeAttachmentURL = $(ev.currentTarget).data('url');
-            var url = 'https://docs.google.com/viewer?url='+
-            window.location.origin + activeAttachmentURL;
-            window.open(url, '_blank');
-        },
-
-    });
-
+    _onPreviewGoogleAttachment: function (ev) {
+      ev.stopPropagation();
+      ev.preventDefault();
+      var activeAttachmentURL = $(ev.currentTarget).data("url");
+      var url =
+        "https://docs.google.com/viewer?url=" +
+        window.location.origin +
+        activeAttachmentURL;
+      window.open(url, "_blank");
+    },
+  });
 });

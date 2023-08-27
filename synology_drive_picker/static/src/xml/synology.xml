@@ -1,24 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <template>
 
-    <t t-name="mail.ChatterTopbarSynologyPicker"
-       t-inherit="mail.ChatterTopbar"
-       t-inherit-mode="extension"
-       owl="1">
+    <t t-name="mail.ChatterTopbarSynologyPicker" t-inherit="mail.ChatterTopbar" t-inherit-mode="extension" owl="1">
         <xpath expr="//button[hasclass('o_ChatterTopbar_buttonAddAttachments')]" position="after">
-                <t t-if="!_openAttachmentManager">
-                    <button class="o_ChatterTopbar_button o_ChatterTopbar_buttonSynologyAttachments btn btn-light btn-primary"
-                    type="button" t-att-disabled="!chatterTopbar.chatter.hasWriteAccess" t-on-click="_onSynologyDrivePicker" >
-                        <div class="o_AttachmentBox_buttonAdd btn btn-link"
-                            style="width:15px;height:15px;margin:0;padding:0;background-image: url(/synology_drive_picker/static/description/150.jpeg); background-repeat: round;">
-                        </div>
-                    </button>
-                </t>
-                
+            <t t-if="!_openAttachmentManager">
+                <button class="o_ChatterTopbar_button o_ChatterTopbar_buttonAddAttachments btn btn-light btn-primary" type="button" t-att-disabled="!chatterTopbar.chatter.hasWriteAccess" t-on-click="_onSynologyDrivePicker">
+                    <div class="o_AttachmentBox_buttonAdd btn btn-link" style="width:15px;height:15px;margin:0;padding:0;background-image: url(/synology_drive_picker/static/description/150.jpeg); background-repeat: round;">
+                    </div>
+                </button>
+            </t>
+
         </xpath>
     </t>
 
-    <div t-name="SynologyTree" id="SynologyTree">
+    <div t-name="SynologyTree" class="SynologyTree" style="padding:10px;">
         <div class="col-xs-12 col-12 o_form_view ">
             <t t-if="back">
                 <div>
@@ -28,13 +23,17 @@
                     </button>
                 </div>
             </t>
+            <t t-if="loading">
+                <img style="align-self: center;width:25px;height:25px" id="synology-loading" src="/synology_drive_picker/static/description/loading.gif"/>
+            </t>
             <t t-foreach="files" t-as="file">
                 <t t-if="file.isdir">
-                    <label class="col-md-2 o_form_label">
-                        Folder
-                    </label>
                     <div t-attf-data-path="{{file.path}}" class="col-xs-12 folder" style="margin-left: 30px;border-left: 1px solid #bbbbbb;padding-left: 10px;">
-                        <t t-esc="file.name"/>
+                        <img t-attf-data-path="{{file.path}}" style="display:none;align-self: center;width:15px;height:15px" src="/synology_drive_picker/static/description/loading.gif"/>
+                        <i class="fa fa-folder" style="padding-right: 5px;cursor:pointer;"/>
+                        <span>
+                            <t t-esc="file.name"/>
+                        </span>
                     </div>
                 </t>
                 <t t-else="">

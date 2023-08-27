@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2020 Artem Shurshilov
 # Odoo Proprietary License v1.0
 
@@ -35,18 +34,19 @@ class sale_order(models.Model):
     _inherit = "sale.order"
 
     def create_sales_order(self, partner_id, orderlines, user_id):
-        order_id = self.create(
-            {'partner_id': partner_id, 'user_id': user_id})
+        order_id = self.create({"partner_id": partner_id, "user_id": user_id})
         for line in orderlines:
-            product = line.get('product')
-            product_id = self.env['product.product'].browse(product.get('id'))
+            product = line.get("product")
+            product_id = self.env["product.product"].browse(product.get("id"))
 
-            vals = {'product_id': product.get('id'),
-                    'name': product_id.name,
-                    'product_uom_qty': product.get('quantity'),
-                    'price_unit': product.get('price'),
-                    'product_uom': product.get('uom_id'),
-                    'tax_id': [(6, 0, [tax.id for tax in product_id.taxes_id])],
-                    'discount': product.get('discount'),
-                    'order_id': order_id.id}
-            self.env['sale.order.line'].create(vals)
+            vals = {
+                "product_id": product.get("id"),
+                "name": product_id.name,
+                "product_uom_qty": product.get("quantity"),
+                "price_unit": product.get("price"),
+                "product_uom": product.get("uom_id"),
+                "tax_id": [(6, 0, [tax.id for tax in product_id.taxes_id])],
+                "discount": product.get("discount"),
+                "order_id": order_id.id,
+            }
+            self.env["sale.order.line"].create(vals)

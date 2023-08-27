@@ -7,11 +7,13 @@ article {
   text-align: center;
 }
 
-#youtube, #docs, #gmail, #drive {
+#youtube,
+#docs,
+#gmail,
+#drive {
   position: relative;
   margin: 0 auto;
 }
-
 
 /* Google Drive */
 
@@ -35,7 +37,7 @@ article {
 }
 
 #drive #blue {
-  background: #3f83f9;     
+  background: #3f83f9;
   display: block;
   width: 74px;
   height: 34px;
@@ -67,4 +69,4 @@ article {
   position: absolute;
   left: -6px;
   bottom: -1px;
-} 
+}

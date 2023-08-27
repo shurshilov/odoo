@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_partner_contract_customer_admin,access_partner_contract_customer_admin,model_partner_contract_customer,base.group_system,1,1,1,1
+access_partner_contract_customer,access_partner_contract_customer,model_partner_contract_customer,,1,1,1,0
+access_contract_line_customer,access_contract_line_customer,model_contract_line,,1,1,1,1

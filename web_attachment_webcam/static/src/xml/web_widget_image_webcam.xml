@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Copyright (C) 2020 Artem Shurshilov <shurshilov.a@yandex.ru>-->
+<template id="template" xml:space="preserve">
+
+        <t t-extend="mail.chatter.Attachment.Button">
+            <t t-jquery=".o_chatter_button_attachment" t-operation="after">
+                 <button class="btn btn-primary fa-lg float-center o_form_binary_file_web_cam" title="WebCam" aria-label="WebCam">
+                    <span>
+                        <i class="fa fa-camera"/>
+                    </span>
+                    Webcam
+                </button>
+            </t>
+        </t>
+
+</template>

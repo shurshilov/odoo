@@ -21,27 +21,24 @@
     ],
     "external_dependencies": {"python": ["shapely", "geojson", "simplejson"]},
     # "qweb": ["static/src/xml/geoengine.xml"],
-
-    'assets': {
-        'web.assets_backend': [
-            'base_geoengine/static/src/js/legacy_geoengine_common.js',
-            'base_geoengine/static/src/js/widgets/legacy_geoengine_record.js',
-            'base_geoengine/static/src/js/widgets/legacy_geoengine_template_widgets.js',
-            'base_geoengine/static/src/js/widgets/legacy_geoengine_widgets.js',
-            'base_geoengine/static/src/js/views/geoengine/legacy_geoengine_renderer.js',
-            'base_geoengine/static/src/js/views/geoengine/legacy_geoengine_controller.js',
-            'base_geoengine/static/src/js/views/geoengine/legacy_geoengine_view.js',
-            'base_geoengine/static/src/js/views/legacy_view_registry.js',
-            'base_geoengine/static/src/js/views/legacy_form_renderer.js',
-            'base_geoengine/static/src/js/widgets/registry.js',
-            'base_geoengine/static/src/css/style.css',
-            'base_geoengine/static/src/**/*.xml',
+    "assets": {
+        "web.assets_backend": [
+            "base_geoengine/static/src/js/legacy_geoengine_common.js",
+            "base_geoengine/static/src/js/widgets/legacy_geoengine_record.js",
+            "base_geoengine/static/src/js/widgets/legacy_geoengine_template_widgets.js",
+            "base_geoengine/static/src/js/widgets/legacy_geoengine_widgets.js",
+            "base_geoengine/static/src/js/views/geoengine/legacy_geoengine_renderer.js",
+            "base_geoengine/static/src/js/views/geoengine/legacy_geoengine_controller.js",
+            "base_geoengine/static/src/js/views/geoengine/legacy_geoengine_view.js",
+            "base_geoengine/static/src/js/views/legacy_view_registry.js",
+            "base_geoengine/static/src/js/views/legacy_form_renderer.js",
+            "base_geoengine/static/src/js/widgets/registry.js",
+            "base_geoengine/static/src/css/style.css",
+            "base_geoengine/static/src/**/*.xml",
         ],
         # 'web.assets_qweb': [
-            
         # ],
     },
-
     "installable": True,
     "pre_init_hook": "init_postgis",
 }

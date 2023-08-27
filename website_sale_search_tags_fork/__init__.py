@@ -1,3 +1,1 @@
-# -*- coding: utf-8 -*-
-from . import controllers
-from . import product_template
+from . import controllers, product_template

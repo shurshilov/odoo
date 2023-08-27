@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="pos_chat_button.chat" inherit_id="point_of_sale.index" name="POS add backend assets">
+            <xpath expr="//t[@t-call-assets='point_of_sale.assets_backend_prod_only']" position="after">
+                <!-- <t t-call-assets="web.assets_common" t-js="false"/> -->
+                <t t-call-assets="web.assets_backend" t-js="false"/>
+                <!-- <t t-call-assets="web.assets_common" t-css="false"/> -->
+                <t t-call-assets="web.assets_backend" t-css="false"/>
+            </xpath>
+        </template>
+    </data>
+</odoo>

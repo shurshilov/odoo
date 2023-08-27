@@ -2,10 +2,9 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 import logging
 
-
 try:
     import geojson
-    from shapely import wkt, wkb
+    from shapely import wkb, wkt
     from shapely.geometry import shape
     from shapely.geometry.base import BaseGeometry
 except ImportError:

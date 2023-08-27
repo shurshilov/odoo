@@ -1,7 +1,6 @@
 # Copyright 2011-2012 Nicolas Bessi (Camptocamp SA)
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 from odoo import fields, models
-
 from odoo.addons import base
 
 if "geoengine" not in base.models.ir_actions.VIEW_TYPES:
@@ -32,14 +31,19 @@ class IrModelField(models.Model):
     srid = fields.Integer("srid", required=False)
     geo_type = fields.Selection(POSTGIS_GEO_TYPES, string="PostGIs type")
     dim = fields.Selection(
-        [("2", "2"), ("3", "3"), ("4", "4")], string="PostGIs Dimension", default='2'
+        [("2", "2"), ("3", "3"), ("4", "4")],
+        string="PostGIs Dimension",
+        default="2",
     )
     gist_index = fields.Boolean("Create gist index")
-    ttype = fields.Selection(selection_add=GEO_TYPES, ondelete={
-        'geo_polygon': 'cascade',
-        'geo_multi_polygon': 'cascade',
-        'geo_point': 'cascade',
-        'geo_multi_point': 'cascade',
-        'geo_line': 'cascade',
-        'geo_multi_line': 'cascade',
-    })
+    ttype = fields.Selection(
+        selection_add=GEO_TYPES,
+        ondelete={
+            "geo_polygon": "cascade",
+            "geo_multi_polygon": "cascade",
+            "geo_point": "cascade",
+            "geo_multi_point": "cascade",
+            "geo_line": "cascade",
+            "geo_multi_line": "cascade",
+        },
+    )

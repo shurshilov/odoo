@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright (C) 2020 Artem Shurshilov <shurshilov.a@yandex.ru>
 # Odoo Proprietary License v1.0
 
@@ -20,6 +19,9 @@
 # The above copyright notice and this permission notice must be included in all
 # copies or substantial portions of the Software.
 
+import logging
+from datetime import datetime
+
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 # FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
@@ -28,33 +30,44 @@
 # ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 from odoo import models
-from odoo.http import request
-from ..models.synology_api import filestation, downloadstation
-from datetime import datetime
 from odoo.exceptions import UserError
-import logging
+from odoo.http import request
+
+from ..models.synology_api import filestation
+
 logger = logging.getLogger(__name__)
 
 
 class Http(models.AbstractModel):
-    _inherit = 'ir.http'
+    _inherit = "ir.http"
 
     def session_info(self):
-        """ Params for dynamic interface
-        """
-        result = super(Http, self).session_info()
-        cp = request.env['res.users'].sudo().browse(request.env.user.id)
+        """Params for dynamic interface"""
+        result = super().session_info()
+        cp = request.env["res.users"].sudo().browse(request.env.user.id)
 
-        if (datetime.now() - cp.write_date).seconds > 60*60*24*7 or not cp.synology_session:
-            if not cp.synology_ip or not cp.synology_port or not cp.synology_user or not cp.synology_pass:
+        if (
+            datetime.now() - cp.write_date
+        ).seconds > 60 * 60 * 24 * 7 or not cp.synology_session:
+            if (
+                not cp.synology_ip
+                or not cp.synology_port
+                or not cp.synology_user
+                or not cp.synology_pass
+            ):
                 UserError("Please check user synology settings")
             try:
-                fl = filestation.FileStation(cp.synology_ip, cp.synology_port, cp.synology_user,
-                                             cp.synology_pass, cp.synology_https)
+                fl = filestation.FileStation(
+                    cp.synology_ip,
+                    cp.synology_port,
+                    cp.synology_user,
+                    cp.synology_pass,
+                    cp.synology_https,
+                )
                 cp.synology_session = fl._sid
             except Exception as e:
                 logger.warning("Synology FileStation error '%s'", e)
                 return result
 
-        result['synology_sid'] = cp.synology_session
+        result["synology_sid"] = cp.synology_session
         return result

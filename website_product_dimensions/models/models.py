@@ -1,35 +1,48 @@
-# -*- coding: utf-8 -*-
 # Copyright 2018 Shurshilov Artem
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
-from odoo import models, fields, api, tools
+from odoo import api, fields, models, tools
 
 
 class Product(models.Model):
-    _name = 'product.template'
-    _inherit = 'product.template'
+    _name = "product.template"
+    _inherit = "product.template"
 
     @tools.ormcache()
     def _get_default_uom_id(self):
         # Deletion forbidden (at least through unlink)
-        return self.env.ref('uom.product_uom_unit')
+        return self.env.ref("uom.product_uom_unit")
 
-    display_dimensions = fields.Boolean(string='Display dimensions on website?', default=True)
-    length = fields.Float(string='Length',)
-    width = fields.Float(string='Width',)
-    height = fields.Float(string='Height',)
-    volume_auto = fields.Float(string='Volume', compute='_compute_volume_auto',)
+    display_dimensions = fields.Boolean(
+        string="Display dimensions on website?", default=True
+    )
+    length = fields.Float(
+        string="Length",
+    )
+    width = fields.Float(
+        string="Width",
+    )
+    height = fields.Float(
+        string="Height",
+    )
+    volume_auto = fields.Float(
+        string="Volume",
+        compute="_compute_volume_auto",
+    )
     dimension_uom_id = fields.Many2one(
-        'uom.uom', 'Dimension(UOM)',
-        default=_get_default_uom_id, required=True,
-        help="Default Unit of Measure used for dimension.")
+        "uom.uom",
+        "Dimension(UOM)",
+        default=_get_default_uom_id,
+        required=True,
+        help="Default Unit of Measure used for dimension.",
+    )
     weight_uom_id = fields.Many2one(
-        'uom.uom',
-        'Weight(UOM)',
-        #domain=lambda self: [('category_id', '=', self.env.ref('product.product_uom_categ_kgm').id)],
-        help="Default Unit of Measure used for weight."
+        "uom.uom",
+        "Weight(UOM)",
+        # domain=lambda self: [('category_id', '=', self.env.ref('product.product_uom_categ_kgm').id)],
+        help="Default Unit of Measure used for weight.",
     )
 
-    @api.depends('length', 'width', 'height')
+    @api.depends("length", "width", "height")
     def _compute_volume_auto(self):
         for rec in self:
             rec.volume_auto = rec.height * rec.width * rec.length

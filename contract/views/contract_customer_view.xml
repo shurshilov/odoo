@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="contract_customer_form" model="ir.ui.view">
+            <field name="name">Договор</field>
+            <field name="model">partner.contract.customer</field>
+            <field name="arch" type="xml">
+                <form string="Договор">
+                <header>
+                <button name="print_contract_cust" type="object" string="Печать договора с Клиентом"  attrs="{'invisible': [('type','!=','customer')]}"/>
+                <button name="print_supp" type="object" string="Печать договора с Подрядчиком" attrs="{'invisible': [('type','!=','supplier')]}"/>
+                <button name="print_transport" type="object" string="Печать договора на перевозку" attrs="{'invisible': [('type','!=','transport')]}"/>
+
+                </header>
+                    <sheet>
+                        <h1>
+                            <label for="name"/>
+                            <field name="name"/>
+                        </h1>
+                        <group>
+                            <group>
+                                <field name="date_start"/>
+                                 <field name="date_end"/>
+                                 <field name="type"/>
+                                 <field name="saleorder_id" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="partner_id"/>
+                                 <field name="name_print"/>
+                                <field name="company_id"/>
+                                <field name="name_dirprint"/>
+                                <field name="stamp"/>
+                                <!-- <field name="signed" groups="mta_base.mta_mainmanagers, mta_base.mta_clmainmanagers, base.group_erp_manager"/> -->
+                                <field name="signed" groups="base.group_erp_manager"/>
+                               
+                            </group>
+                        </group>
+                        <field name="lines">
+                        <tree editable="top">
+                          <field name="product_id"/>
+                           <field name="name"/>
+                            <field name="product_uom"/>
+                             <field name="price_unit"/>
+                         </tree>   
+                        </field> 
+                             
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="contract_customer_tree" model="ir.ui.view">
+            <field name="name">Договор</field>
+            <field name="model">partner.contract.customer</field>
+            <field name="arch" type="xml">
+                <tree string="Договора">
+                    <field name="name"/>
+                    <field name="partner_id"/>
+                    <field name="date_start"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="contract_customer_action" model="ir.actions.act_window">
+            <field name="name">Договора</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">partner.contract.customer</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                  Нет созданных контрактов
+              </p><p>
+              </p>
+            </field>
+        </record>
+
+        <record id="contract_customer_action_line" model="ir.actions.act_window">
+            <field name="name">Договорные цены</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">contract.line</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                  Нет созданных контрактов
+              </p><p>
+              </p>
+            </field>
+        </record>
+
+        <record id="view_partner_form" model="ir.ui.view">
+            <field name="name">view_partner_form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_view_contract" type="object" class="oe_stat_button" icon="fa-pencil-square-o"
+                context="{'view':'contract.contract_customer_action', 'search_default_open': 1}">
+                        <field name="contract_count" widget="statinfo" string="Договоры"/>
+                    </button>
+                </xpath>
+                <xpath expr="//field[@name='property_payment_term_id']" position="after">
+                    <field name="customer"/>
+                    <field name="supplier"/>
+                </xpath>
+                <xpath expr="//field[@name='category_id']" position="after">
+                    <field name="pol" invisible="1"/>
+                     <field name="credit" string="Дебиторка по активной компании"/>
+                </xpath>
+            </field>
+        </record>
+
+        <menuitem id="report_sales_contract" name="Договора" parent="sale.menu_sale_config"
+        groups="sales_team.group_sale_manager" action="contract.contract_customer_action" sequence="11"/>
+
+        <menuitem id="report_sales_contract_line" name="Договорные цены" parent="sale.menu_sale_config"
+        groups="sales_team.group_sale_manager" action="contract.contract_customer_action_line" sequence="12"/>
+
+    </data>
+</odoo>

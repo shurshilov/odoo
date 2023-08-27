@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2020 Artem Shurshilov
 # Odoo Proprietary License v1.0
 
@@ -29,32 +28,32 @@
 # DEALINGS IN THE SOFTWARE.
 
 {
-    'name': """Facebook Pixel Integration""",
-    'summary': '''The Facebook pixel is code that you place on your website. 
-    It collects data that helps you track conversions from Facebook ads, 
-    optimize ads, build targeted audiences for future ads, and remarket 
+    "name": """Facebook Pixel Integration""",
+    "summary": """The Facebook pixel is code that you place on your website.
+    It collects data that helps you track conversions from Facebook ads,
+    optimize ads, build targeted audiences for future ads, and remarket
     to people who have already taken some kind of action on your website.
 
-	It works by placing and triggering cookies to track users as 
+	It works by placing and triggering cookies to track users as
 	they interact with your website and your Facebook ads.
-    ''',
-    'version': '13.0.0.0.1',
-    'category': 'Website',
-    'website': "https://eurodoo.com",
-    'author': 'EURO ODOO, Shurshilov Artem',
-    'license': 'LGPL-3',
+    """,
+    "version": "13.0.0.0.1",
+    "category": "Website",
+    "website": "https://eurodoo.com",
+    "author": "EURO ODOO, Shurshilov Artem",
+    "license": "LGPL-3",
     # "price": 19.00,
     # "currency": "EUR",
-    'application': False,
+    "application": False,
     "auto_install": False,
-    'installable': True,
-    'depends': ['base', 'website'],
-    'data': [
-        'templates.xml',
-        'res_config_settings_views.xml',
+    "installable": True,
+    "depends": ["base", "website"],
+    "data": [
+        "templates.xml",
+        "res_config_settings_views.xml",
     ],
-    'images': [
-        'static/description/dashboard.jpg',
+    "images": [
+        "static/description/dashboard.jpg",
     ],
     "external_dependencies": {"python": [], "bin": []},
 }

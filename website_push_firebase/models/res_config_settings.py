@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2020 Artem Shurshilov
 # Odoo Proprietary License v1.0
 
@@ -28,7 +27,7 @@
 # ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-from odoo import fields, models, api
+from odoo import api, fields, models
 
 
 class ResConfigSettingsFirebaseWeb(models.TransientModel):
@@ -52,19 +51,25 @@ class ResConfigSettingsFirebaseWeb(models.TransientModel):
     )
 
     def set_values(self):
-        res = super(ResConfigSettingsFirebaseWeb, self).set_values()
+        res = super().set_values()
         config_parameters = self.env["ir.config_parameter"]
-        config_parameters.set_param("firebase_title_web", self.firebase_title_web)
+        config_parameters.set_param(
+            "firebase_title_web", self.firebase_title_web
+        )
         config_parameters.set_param("firebase_body_web", self.firebase_body_web)
         config_parameters.set_param("firebase_icon_web", self.firebase_icon_web)
-        config_parameters.set_param("firebase_image_web", self.firebase_image_web)
-        config_parameters.set_param("firebase_action_web", self.firebase_action_web)
+        config_parameters.set_param(
+            "firebase_image_web", self.firebase_image_web
+        )
+        config_parameters.set_param(
+            "firebase_action_web", self.firebase_action_web
+        )
         # config_parameters.set_param("firebase_key_web", self.firebase_key_web)
         return res
 
     @api.model
     def get_values(self):
-        res = super(ResConfigSettingsFirebaseWeb, self).get_values()
+        res = super().get_values()
         # res.update(firebase_key_web = self.env['ir.config_parameter'].get_param('firebase_key_web'))
         res.update(
             firebase_title_web=self.env["ir.config_parameter"].get_param(

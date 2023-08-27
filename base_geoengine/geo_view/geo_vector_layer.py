@@ -51,17 +51,22 @@ class GeoVectorLayer(models.Model):
     )
     nb_class = fields.Integer("Number of class", default=1)
     attribute_field_id = fields.Many2one(
-        "ir.model.fields", "attribute field", domain=[("ttype", "in", SUPPORTED_ATT)]
+        "ir.model.fields",
+        "attribute field",
+        domain=[("ttype", "in", SUPPORTED_ATT)],
     )
     geo_field_id = fields.Many2one(
         "ir.model.fields",
         "Geo field",
         domain=[("ttype", "ilike", "geo_")],
         required=True,
-        ondelete='cascade'
+        ondelete="cascade",
     )
     view_id = fields.Many2one(
-        "ir.ui.view", "Related View", domain=[("type", "=", "geoengine")], required=True
+        "ir.ui.view",
+        "Related View",
+        domain=[("type", "=", "geoengine")],
+        required=True,
     )
     sequence = fields.Integer("layer priority lower on top", default=6)
     readonly = fields.Boolean("Layer is read only")

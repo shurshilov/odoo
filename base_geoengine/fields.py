@@ -12,16 +12,16 @@ from .geo_helper import geo_convertion_helper as convert
 
 logger = logging.getLogger(__name__)
 try:
+    import geojson
     from shapely.geometry import Point
     from shapely.geometry.base import BaseGeometry
     from shapely.wkb import loads as wkbloads
-    import geojson
 except ImportError:
     logger.warning("Shapely or geojson are not available in the sys path")
 
 
 class GeoField(fields.Field):
-    """ The field descriptor contains the field definition common to all
+    """The field descriptor contains the field definition common to all
     specialized fields for geolocalization. Subclasses must define a type
     and a geo_type. The type is the name of the corresponding column type,
     the geo_type is the name of the corresponding type in the GIS system.
@@ -62,10 +62,10 @@ class GeoField(fields.Field):
         return val
 
     def convert_to_record(self, value, record):
-        """ Value may be:
-            - a GeoJSON string when field onchange is triggered
-            - a geometry object hexcode from cache
-            - a unicode containing dict
+        """Value may be:
+        - a GeoJSON string when field onchange is triggered
+        - a geometry object hexcode from cache
+        - a unicode containing dict
         """
         if not value:
             return False
@@ -101,12 +101,13 @@ class GeoField(fields.Field):
         if same_type and not shape.is_empty:
             if shape.geom_type.lower() != self.geo_type.lower():
                 msg = _("Geo Value %s must be of the same type %s as fields")
-                raise TypeError(msg % (shape.geom_type.lower(), self.geo_type.lower()))
+                raise TypeError(
+                    msg % (shape.geom_type.lower(), self.geo_type.lower())
+                )
         return shape
 
     def update_geo_db_column(self, model):
-        """Update the column type in the database.
-        """
+        """Update the column type in the database."""
         cr = model._cr
         query = """SELECT srid, type, coord_dimension
                  FROM geometry_columns
@@ -127,12 +128,14 @@ class GeoField(fields.Field):
         elif check_data[1] != self.geo_type:
             raise TypeError(
                 "Geo type modification is not implemented."
-                " We can not change type %s to %s" % (check_data[1], self.geo_type)
+                " We can not change type %s to %s"
+                % (check_data[1], self.geo_type)
             )
         elif check_data[2] != self.dim:
             raise TypeError(
                 "Geo dimention modification is not implemented."
-                " We can not change dimention %s to %s" % (check_data[2], self.dim)
+                " We can not change dimention %s to %s"
+                % (check_data[2], self.dim)
             )
         if self.gist_index:
             cr.execute(
@@ -146,13 +149,13 @@ class GeoField(fields.Field):
         return True
 
     def update_db_column(self, model, column):
-        """ Create/update the column corresponding to ``self``.
+        """Create/update the column corresponding to ``self``.
 
-            For creation of geo column
+        For creation of geo column
 
-            :param model: an instance of the field's model
-            :param column: the column's configuration (dict)
-                           if it exists, or ``None``
+        :param model: an instance of the field's model
+        :param column: the column's configuration (dict)
+                       if it exists, or ``None``
         """
         # the column does not exist, create it
 
@@ -174,7 +177,9 @@ class GeoField(fields.Field):
         self.update_geo_db_column(model)
 
         if column["udt_name"] in self.column_cast_from:
-            sql.convert_column(model._cr, model._table, self.name, self.column_type[1])
+            sql.convert_column(
+                model._cr, model._table, self.name, self.column_type[1]
+            )
         else:
             newname = (self.name + "_moved{}").format
             i = 0
@@ -184,7 +189,11 @@ class GeoField(fields.Field):
                 sql.drop_not_null(model._cr, model._table, self.name)
             sql.rename_column(model._cr, model._table, self.name, newname(i))
             sql.create_column(
-                model._cr, model._table, self.name, self.column_type[1], self.string
+                model._cr,
+                model._table,
+                self.name,
+                self.column_type[1],
+                self.string,
             )
 
 
@@ -231,8 +240,7 @@ class GeoPoint(GeoField):
 
     @classmethod
     def from_latlon(cls, cr, latitude, longitude):
-        """  Convert a (latitude, longitude) into an UTM coordinate Point:
-        """
+        """Convert a (latitude, longitude) into an UTM coordinate Point:"""
         pt = Point(longitude, latitude)
         cr.execute(
             """

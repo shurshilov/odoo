@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2020 Artem Shurshilov
 # Odoo Proprietary License v1.0
 
@@ -31,14 +30,18 @@ from odoo import fields, models
 
 
 class Website(models.Model):
-    _inherit = 'website'
+    _inherit = "website"
 
     facebook_pixel_key = fields.Char("Facebook Pixel KEY")
-    facebook_pixel_key_enable = fields.Boolean('Facebook Pixel Enable')
+    facebook_pixel_key_enable = fields.Boolean("Facebook Pixel Enable")
 
 
 class ResConfigSettings(models.TransientModel):
-    _inherit = 'res.config.settings'
+    _inherit = "res.config.settings"
 
-    facebook_pixel_key_enable = fields.Boolean(related='website_id.facebook_pixel_key_enable', readonly=False)
-    facebook_pixel_key = fields.Char(related='website_id.facebook_pixel_key', readonly=False)
+    facebook_pixel_key_enable = fields.Boolean(
+        related="website_id.facebook_pixel_key_enable", readonly=False
+    )
+    facebook_pixel_key = fields.Char(
+        related="website_id.facebook_pixel_key", readonly=False
+    )

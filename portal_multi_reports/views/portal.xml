@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="portal_multi_reports.selection_multi_template" name="Sales Order Portal Template Selection Multi reports">
+        <t t-set="invoices" t-value="available_reports"/>
+        <div t-if="invoices" class="row">
+            <div class="col">
+                <t t-if="downloadMulti">
+                    <strong class="d-block mb-1">Download Reports</strong>
+                </t>
+                <t t-else="">
+                    <strong class="d-block mb-1">Print Reports</strong>
+                </t>
+                <ul class="list-group mb-4">
+                    <t t-foreach="invoices" t-as="i">
+                        <t t-if="downloadMulti">
+                            <t t-set="report_url" t-value="sale_order.get_portal_url_multi(report_name=i.report_name,report_type=i.report_type,report_id=i.id,download=True)"/>
+                        </t>
+                        <t t-else="">
+                            <t t-set="report_url" t-value="sale_order.get_portal_url_multi(report_name=i.report_name,report_type=i.report_type,report_id=i.id)"/>
+                        </t>
+                        <div class="d-flex flex-wrap align-items-center justify-content-between">
+                            <t t-if="downloadMulti">
+                                <a style="display: flex;justify-content: space-between;align-items: baseline;" class="btn btn-secondary btn-block o_download_btn" t-att-href="report_url" title="Download" target="_blank">
+                                    <i class="fa fa-download"/>
+                                    <span t-esc="i.name"/>
+                                </a>
+                            </t>
+                            <t t-else="">
+                                <a style="display: flex;justify-content: space-between;align-items: baseline;" class="btn btn-secondary btn-block o_print_btn o_portal_invoice_print" t-att-href="report_url" id="print_invoice_report" title="Print" target="_blank">
+                                    <i class="fa fa-print"/>
+                                    <span t-esc="i.name"/>
+                                </a>
+                            </t>
+                        </div>
+                    </t>
+                </ul>
+            </div>
+        </div>
+    </template>
+
+    <template id="sale_order_portal_template_multi_reports" name="Sales Order Portal Template Multi Reports"
+    inherit_id="sale.sale_order_portal_template">
+
+        <xpath expr="//a[@id='print_invoice_report']" position="replace">
+            <t t-set="downloadMulti" t-value="False"/>
+            <t t-call="portal_multi_reports.selection_multi_template"/>
+        </xpath>
+        <xpath expr="//a[hasclass('o_download_btn')]" position="replace">
+            <t t-set="downloadMulti" t-value="True"/>
+            <t t-call="portal_multi_reports.selection_multi_template"/>
+        </xpath>
+    </template>
+</odoo>

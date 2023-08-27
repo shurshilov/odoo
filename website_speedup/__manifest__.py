@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2020-2022 Artem Shurshilov
 # License OPL-1.0
 

@@ -1,13 +1,11 @@
-# -*- coding: utf-8 -*-
 # Copyright (C) 2020-2022 Artem Shurshilov <shurshilov.a@yandex.ru>
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 {
-    'name': "Social manager website 35+ top messangers and social networks svg",
-
-    'summary': """
-        Professional social manager 
+    "name": "Social manager website 35+ top messangers and social networks svg",
+    "summary": """
+        Professional social manager
         website 35+ top messangers and social networks svg
-        launch application by click 
+        launch application by click
         customize icon features
         facebook with background
         twitter with background
@@ -45,42 +43,36 @@
         location generic with background
         phone generic with background
         """,
-
-    'author': "Shurshilov Artem",
-    'website': "https://eurodoo.com",
-    'live_test_url': "https://eurodoo.com",
-
+    "author": "Shurshilov Artem",
+    "website": "https://eurodoo.com",
+    "live_test_url": "https://eurodoo.com",
     # Categories can be used to filter modules in modules listing
     # Check https://github.com/odoo/odoo/blob/13.0/odoo/addons/base/data/ir_module_category_data.xml
     # for the full list
-    'category': 'eCommerce',
-    'version': '15.0.0.1',
+    "category": "eCommerce",
+    "version": "15.0.0.1",
     "license": "LGPL-3",
     "support": "shurshilov.a@yandex.ru",
     # 'price': 19,
     # 'currency': 'EUR',
-    'images': [
-        'static/description/button.png',
-        'static/description/result.png',
-        'static/description/result.png',
+    "images": [
+        "static/description/button.png",
+        "static/description/result.png",
+        "static/description/result.png",
     ],
-
     # any module necessary for this one to work correctly
-    'depends': ['web', 'website'],
-    'installable': True,
-
+    "depends": ["web", "website"],
+    "installable": True,
     # always loaded
-    'data': [
-        'security/ir.model.access.csv',
-        'website_sale_social_networks.xml',
-        'data.xml',
+    "data": [
+        "security/ir.model.access.csv",
+        "website_sale_social_networks.xml",
+        "data.xml",
     ],
-
-    'assets': {
-        'web.assets_frontend': [
-            'website_sale_social_networks/static/src/css/website_sale_social_networks.css',
-    ],
-
+    "assets": {
+        "web.assets_frontend": [
+            "website_sale_social_networks/static/src/css/website_sale_social_networks.css",
+        ],
     },
     # 'qweb': [
     #     "static/src/xml/base.xml",

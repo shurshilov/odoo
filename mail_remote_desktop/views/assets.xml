@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <template id="assets_backend_mail_remote_desktop" name="mail_remote_desktop assets" inherit_id="web.assets_backend">
+      <xpath expr="." position="inside">
+        <script type="text/javascript" src="/mail_remote_desktop/static/src/js/lib/meet.jit.si.external_api.js"></script>
+        <script type="text/javascript" src="/mail_remote_desktop/static/src/js/mail_remote_desktop.js"></script>
+      </xpath>
+    </template>
+  </data>
+</odoo>

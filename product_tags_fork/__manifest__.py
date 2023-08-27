@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 #
 #    OpenERP, Open Source Management Solution
@@ -24,27 +23,26 @@
 {
     "name": "Product Tags v. 14",
     "version": "14.1.0.0",
-    'license': 'LGPL-3',
+    "license": "LGPL-3",
     "author": "Shurshilov Artem",
-    'website': "http://www.eurodoo.com",
+    "website": "http://www.eurodoo.com",
     "category": "Sales Management",
     "depends": [
-        'product',
-        'sale',
+        "product",
+        "sale",
     ],
     "demo": [],
     "data": [
-        'security/ir.model.access.csv',
-        'product_view.xml',
+        "security/ir.model.access.csv",
+        "product_view.xml",
     ],
-    'images': [
-        'static/description/tags.png',
-        'static/description/kanban.png',
-     ],
-    'installable': True,
-    'application': False,
-    'auto_install': False,
-
+    "images": [
+        "static/description/tags.png",
+        "static/description/kanban.png",
+    ],
+    "installable": True,
+    "application": False,
+    "auto_install": False,
 }
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

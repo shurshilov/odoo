@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2021 Artem Shurshilov
 # Odoo Proprietary License v1.0
 
@@ -27,25 +26,31 @@
 # DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
 # ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
-from odoo import fields, models, api
+from odoo import api, fields, models
+
 
 class MailThread(models.AbstractModel):
     _inherit = "mail.thread"
 
-    @api.returns('mail.message', lambda value: value.id)
+    @api.returns("mail.message", lambda value: value.id)
     def message_post(self, **kwargs):
-        if not self._context.get('auto_subscribe_recipients'):
-            return super(MailThread, self.with_context(mail_post_autofollow=False)).message_post(**kwargs)
+        if not self._context.get("auto_subscribe_recipients"):
+            return super(
+                MailThread, self.with_context(mail_post_autofollow=False)
+            ).message_post(**kwargs)
         return super().message_post(**kwargs)
 
 
 class MailComposer(models.TransientModel):
-    _inherit = 'mail.compose.message'
+    _inherit = "mail.compose.message"
 
     auto_subscribe_recipients = fields.Boolean(
-        string='Auto subscribe recipients')
+        string="Auto subscribe recipients"
+    )
 
     def _action_send_mail(self, **kwargs):
         for wizard in self:
-            self = self.with_context(auto_subscribe_recipients=wizard.auto_subscribe_recipients)
-        return super(MailComposer, self)._action_send_mail(**kwargs)
+            self = self.with_context(
+                auto_subscribe_recipients=wizard.auto_subscribe_recipients
+            )
+        return super()._action_send_mail(**kwargs)

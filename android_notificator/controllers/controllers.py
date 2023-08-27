@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2020 Artem Shurshilov
 # Odoo Proprietary License v1.0
 
@@ -28,22 +27,30 @@
 # ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
+import json
+
 from odoo import http
 from odoo.http import request
-from odoo import SUPERUSER_ID
-import json
 
 
 class FirebasePushNotifications(http.Controller):
     @http.route(["/mail/firebase_push_notifications"], type="json", auth="user")
     def firebase_push_notifications(self, currentToken):
         # ADD new DEVICE
-        request.env['mail.firebase'].sudo().create({
-            'user_id': request.env.user.id,
-            'os': '',
-            'token': currentToken,
-        })
+        request.env["mail.firebase"].sudo().create(
+            {
+                "user_id": request.env.user.id,
+                "os": "",
+                "token": currentToken,
+            }
+        )
 
-    @http.route(['/iap/firebase'], type='http', auth="public", methods=['POST', 'GET'], csrf=False)
+    @http.route(
+        ["/iap/firebase"],
+        type="http",
+        auth="public",
+        methods=["POST", "GET"],
+        csrf=False,
+    )
     def map_config(self):
         return json.dumps({"enable": True})
