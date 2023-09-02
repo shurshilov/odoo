@@ -3,7 +3,6 @@
 import werkzeug
 from odoo import _, http
 from odoo.http import request
-from werkzeug import url_encode
 
 
 class Login(http.Controller):
@@ -23,5 +22,5 @@ class Login(http.Controller):
         if db and db != request.db:
             raise Exception(_("Could not select database '%s'") % db)
         request.session.authenticate(request.db, login, password)
-        url = "/web#%s" % url_encode({"action": action})
+        url = "/web#%s" % werkzeug.url_encode({"action": action})
         return werkzeug.utils.redirect(url)
