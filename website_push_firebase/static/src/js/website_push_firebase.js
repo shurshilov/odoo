@@ -128,6 +128,7 @@ odoo.define("website_firebase_push_notifications", function (require) {
             // - the user clicks on an app notification created by a service worker
             //   `messaging.setBackgroundMessageHandler` handler.
             this.messaging.onMessage(function (payload) {
+              debugger;
               console.log("Message received. ", payload);
               //new Notification(payload.notification.title, payload.notification);
               // регистрируем пустой ServiceWorker каждый раз

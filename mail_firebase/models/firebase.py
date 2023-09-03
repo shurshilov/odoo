@@ -98,7 +98,6 @@ class Channel(models.Model):
             # delete <p></p>
             "body": message["body"][3:-4],
             "body_html": message["body"],
-            "channel_ids": message["channel_ids"],
         }
         self._mail_channel_firebase_notifications(message_json, device_ids)
 
@@ -127,45 +126,47 @@ class Channel(models.Model):
             data = {
                 "notification": {
                     "title": message["author_id"],
-                    "subtitle": message["channel_ids"],
+                    # "subtitle": message["channel_ids"],
                     "body": message["body"],
-                    "sound": None,
-                    "badge": None,
+                    # "sound": None,
+                    # "badge": None,
                     # 'icon': 'https://firebase.google.com/downloads/brand-guidelines/SVG/logo-vertical.svg',
                     "icon": "https://firebase.google.com/downloads/brand-guidelines/PNG/logo-vertical.png",
                     # 'image': 'https://firebase.google.com/downloads/brand-guidelines/SVG/logo-vertical.svg',
                     # 'click_action':
                 },
-                "dry_run": False,  # test query
-                "priority": "high",
-                "content_available": True,
-                "data": {
-                    "channel_ids": message["channel_ids"],
-                    "body_html": message["body_html"],
-                },
+                # "dry_run": False,  # test query
+                # "priority": "high",
+                # "content_available": True,
+                # "data": {
+                # "channel_ids": message["channel_ids"],
+                # "body_html": message["body_html"],
+                # },
                 "registration_ids": device_ids,
             }
         else:
             data = {
                 "notification": {
                     "title": message["author_id"],
-                    "subtitle": message["channel_ids"],
-                    "data": message["channel_ids"],
-                    "body": message["body"],
-                    "sound": None,
-                    "badge": None,
+                    # "subtitle": message["channel_ids"],
+                    # "data": message["channel_ids"],
+                    # "body": message["body"],
+                    "body": "test",
+                    # "sound": None,
+                    # "badge": None,
                     # 'icon': 'https://firebase.google.com/downloads/brand-guidelines/SVG/logo-vertical.svg',
                     "icon": "https://firebase.google.com/downloads/brand-guidelines/PNG/logo-vertical.png",
                     # 'image': 'https://firebase.google.com/downloads/brand-guidelines/SVG/logo-vertical.svg',
                 },
-                "dry_run": False,  # test query
-                "priority": "high",
-                "content_available": True,
-                "data": {
-                    "channel_ids": message["channel_ids"],
-                    "body_html": message["body_html"],
-                },
-                "to": ",".join(device_ids),
+                # "dry_run": False,  # test query
+                # "priority": "high",
+                # "content_available": True,
+                # "data": {
+                # "channel_ids": message["channel_ids"],
+                # "body_html": message["body_html"],
+                # "body_html": "test",
+                # },
+                "to": device_ids[0],
             }
         print(headers, data)
         answer = requests.post(url, json=data, headers=headers)

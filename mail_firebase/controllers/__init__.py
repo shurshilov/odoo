@@ -1,1 +1,1 @@
-from . import controllers, mail
+from . import controllers

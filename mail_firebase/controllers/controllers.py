@@ -187,6 +187,7 @@ class FirebasePushNotifications(http.Controller):
             ],
         )
 
+    # TODO: по идее это не нужно и можн удалить
     @http.route(
         ["/mail-firebase-messaging-sw.js"],
         type="http",
@@ -224,8 +225,8 @@ class FirebasePushNotifications(http.Controller):
             // Give the service worker access to Firebase Messaging.
             // Note that you can only use Firebase Messaging here, other Firebase libraries
             // are not available in the service worker.
-            importScripts('https://www.gstatic.com/firebasejs/7.17.1/firebase-app.js');
-            importScripts('https://www.gstatic.com/firebasejs/7.17.1/firebase-messaging.js');
+            importScripts('https://www.gstatic.com/firebasejs/8.6.0/firebase-app.js');
+            importScripts('https://www.gstatic.com/firebasejs/8.6.0/firebase-messaging.js');
 
             // Initialize the Firebase app in the service worker by passing in
             // your app's Firebase config object.
@@ -257,25 +258,22 @@ class FirebasePushNotifications(http.Controller):
             + mail_firebase_measurementId
             + """',
             };
-            // Initialize Firebase
+
             firebase.initializeApp(firebaseConfig);
 
+ // Retrieve firebase messaging
+ const messaging = firebase.messaging();
 
-            // Retrieve an instance of Firebase Messaging so that it can handle background
-            // messages.
-            const messaging = firebase.messaging();
+ messaging.onBackgroundMessage(function(payload) {
+   console.log("Received background message ", payload);
 
-            // Customize notification handler
-            messaging.setBackgroundMessageHandler(function(payload) {
-              console.log('[firebase-messaging-sw.js] Received background message ', payload);
-              // Customize notification here
-              // Copy data object to get parameters in the click handler
-              payload.data.data = JSON.parse(JSON.stringify(payload.data));
+   const notificationTitle = payload.notification.title;
+   const notificationOptions = {
+     body: payload.notification.body,
+   };
 
-              //return self.registration.showNotification(payload.data.title, payload.data);
-              return self.registration.showNotification(payload.notification.title, payload.notification);
-            });
-
+   self.registration.showNotification(notificationTitle, notificationOptions);
+ });
 
             self.addEventListener('notificationclick', function(event) {
               const target = event.notification.data.click_action || '/';

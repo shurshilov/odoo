@@ -12,7 +12,7 @@
     # Check https://github.com/odoo/odoo/blob/13.0/odoo/addons/base/data/ir_module_category_data.xml
     # for the full list
     "category": "Mail",
-    "version": "16.0.0.2",
+    "version": "16.0.0.3",
     "license": "OPL-1",
     "price": 19,
     "currency": "EUR",
@@ -31,8 +31,13 @@
     ],
     "assets": {
         "web.assets_backend": [
+            # import { initializeApp } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-app.js";
+            # import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-analytics.js";
+            # "https://www.gstatic.com/firebasejs/10.3.1/firebase-app.js",
+            # "https://www.gstatic.com/firebasejs/10.3.1/firebase-analytics.js",
             "https://www.gstatic.com/firebasejs/8.6.0/firebase-app.js",
             "https://www.gstatic.com/firebasejs/8.6.0/firebase-messaging.js",
+            "mail_firebase/static/src/js/mail_firebase.js",
         ],
     },
 }
