@@ -32,6 +32,7 @@ patch(DiscussContainer.prototype, "firebase_discuss", {
           // - the user clicks on an app notification created by a service worker
           //   `messaging.setBackgroundMessageHandler` handler.
 
+          // TODO:по идее можно удалить
           if ("serviceWorker" in navigator) {
             window.addEventListener("load", () => {
               navigator.serviceWorker.register(
