@@ -1,9 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-cloud_phone_base_admin_number,admin_number,model_cloud_phone_number,cloud_phone_base.group_cp_manager,1,1,1,1
-cloud_phone_base_user_number,user_number,model_cloud_phone_number,cloud_phone_base.group_cp_user,1,0,0,0
-cloud_phone_base_admin_call,admin_call,model_cloud_phone_call,cloud_phone_base.group_cp_manager,1,1,1,1
-cloud_phone_base_user_call,user_call,model_cloud_phone_call,cloud_phone_base.group_cp_user,1,0,0,0
-cloud_phone_base_admin_event,admin_event,model_cloud_phone_event,cloud_phone_base.group_cp_manager,1,1,1,1
-cloud_phone_base_user_event,user_event,model_cloud_phone_event,cloud_phone_base.group_cp_user,1,0,0,0
-cloud_phone_base_admin_connector,admin_connector,model_cloud_phone_connector,cloud_phone_base.group_cp_manager,1,1,1,1
-cloud_phone_base_user_connector,user_connector,model_cloud_phone_connector,cloud_phone_base.group_cp_user,0,0,0,0
