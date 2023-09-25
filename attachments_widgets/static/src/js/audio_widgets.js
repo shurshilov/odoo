@@ -1,178 +1,173 @@
-odoo.define("audio_widget", function (require) {
-  const FieldBinaryFile = require("web.basic_fields").FieldBinaryFile;
-  const fieldRegistry = require("web.field_registry");
-  const relational_fields = require("web.relational_fields");
-  const FieldMany2One = relational_fields.FieldMany2One;
-  const session = require("web.session");
-  const core = require("web.core");
-  const _t = core._t;
+odoo.define('audio_widget', function (require) {
+    const FieldBinaryFile = require("web.basic_fields").FieldBinaryFile;
+    const fieldRegistry = require('web.field_registry');
+    const relational_fields = require('web.relational_fields');
+    const FieldMany2One = relational_fields.FieldMany2One;
+    const session = require('web.session');
+    const core = require('web.core');
+    const _t = core._t;
 
-  const AttachmentMany2OneAudioWidget = FieldMany2One.extend({
-    supportedFieldTypes: ["many2one"],
-    accepted_file_extensions: "audio/*,application/ogg",
 
-    _getUrl: function (attachment) {
-      return "/web/content/" + attachment.res_id + "?download=true";
-    },
+    const AttachmentMany2OneAudioWidget = FieldMany2One.extend({
 
-    _computeIsAudio(extension) {
-      const audioExtensions = [
-        "wav",
-        "ogg",
-        "mp3",
-        "mp4",
-        "oga",
-        "ogx",
-        "mpeg",
-      ];
-      return audioExtensions.includes(extension);
-    },
+        supportedFieldTypes: ['many2one'],
+        accepted_file_extensions: 'audio/*,application/ogg',
 
-    _computeExtension(filename) {
-      const extension = filename && filename.split(".").pop();
-      if (extension) {
-        return extension;
-      }
-      return clear();
-    },
+        _getUrl: function (attachment) {
+            return '/web/content/' + attachment.res_id + '?download=true';
+        },
 
-    _renderReadonly: function () {
-      this._super.apply(this, arguments);
-      if (this.mode == "readonly")
-        if (this.value) {
-          const url = this._getUrl(this.value);
+        _computeIsAudio(extension) {
+            const audioExtensions = [
+                'wav',
+                'ogg',
+                'mp3',
+                'mp4',
+                'oga',
+                'ogx',
+                'mpeg'
+            ];
+            return audioExtensions.includes(extension);
+        },
 
-          let audio = $("<audio>", {
-            src: url,
-            controls: true,
-            preload: "metadata",
-          });
+        _computeExtension(filename) {
+            const extension = filename && filename.split('.').pop();
+            if (extension) {
+                return extension;
+            }
+            return clear();
+        },
 
-          // this.$el.append(audio);
-          this.$el = audio;
+        _renderReadonly: function () {
+            this._super.apply(this, arguments);
+            if (this.mode == "readonly")
+                if (this.value) {
+                    const url = this._getUrl(this.value);
 
-          audio.on("error", () => {
-            this.displayNotification({
-              title: _t("Wrong Extension Audio File"),
-              message: _t(
-                "Format should be in wav, ogg, mp3, mp4, oga, ogx, mpeg",
-              ),
-              type: "danger",
-            });
-          });
+                    let audio = $('<audio>', {
+                        'src': url,
+                        'controls': true,
+                        'preload': "metadata",
+                    })
+
+                    // this.$el.append(audio);
+                    this.$el = audio;
+
+                    audio.on("error", () => {
+                        this.displayNotification({
+                            title: _t('Wrong Extension Audio File'),
+                            message: _t("Format should be in wav, ogg, mp3, mp4, oga, ogx, mpeg"),
+                            type: 'danger',
+                        });
+                    })
+                }
+        },
+
+        on_file_change: function (ev) {
+            this._super.apply(this, arguments);
+
+            let files = ev.target.files;
+
+            if (!files || files.length === 0)
+                return;
+
+            const filename = files[0].name;
+            const extension = this._computeExtension(filename);
+
+            if (!this._computeIsAudio(extension))
+                this.displayNotification({
+                    title: _t('Wrong Extension Audio File'),
+                    message: _t("Format should be in wav, ogg, mp3, mp4, oga, ogx, mpeg"),
+                    type: 'danger',
+                });
         }
-    },
+    });
 
-    on_file_change: function (ev) {
-      this._super.apply(this, arguments);
+    const AttachmentBinaryAudioWidget = FieldBinaryFile.extend({
 
-      let files = ev.target.files;
+        supportedFieldTypes: ['binary'],
+        accepted_file_extensions: 'audio/*,application/ogg',
 
-      if (!files || files.length === 0) return;
+        _getUrl: function () {
+            if (this.field.type == 'binary')
+                return session.url('/web/content', {
+                    model: this.model,
+                    id: JSON.stringify(this.res_id),
+                    field: this.name,
+                });
+        },
 
-      const filename = files[0].name;
-      const extension = this._computeExtension(filename);
+        _computeIsAudio(extension) {
+            const audioExtensions = [
+                'wav',
+                'ogg',
+                'mp3',
+                'mp4',
+                'oga',
+                'ogx',
+                'mpeg'
+            ];
+            return audioExtensions.includes(extension);
+        },
 
-      if (!this._computeIsAudio(extension))
-        this.displayNotification({
-          title: _t("Wrong Extension Audio File"),
-          message: _t("Format should be in wav, ogg, mp3, mp4, oga, ogx, mpeg"),
-          type: "danger",
-        });
-    },
-  });
+        _computeExtension(filename) {
+            const extension = filename && filename.split('.').pop();
+            if (extension) {
+                return extension;
+            }
+            return clear();
+        },
 
-  const AttachmentBinaryAudioWidget = FieldBinaryFile.extend({
-    supportedFieldTypes: ["binary"],
-    accepted_file_extensions: "audio/*,application/ogg",
+        _renderReadonly: function () {
+            this._super.apply(this, arguments);
+            if (this.mode == "readonly")
+                if (this.value) {
+                    const url = this._getUrl(this.value);
 
-    _getUrl: function () {
-      if (this.field.type == "binary")
-        return session.url("/web/content", {
-          model: this.model,
-          id: JSON.stringify(this.res_id),
-          field: this.name,
-        });
-    },
+                    let audio = $('<audio>', {
+                        'src': url,
+                        'controls': true,
+                        'preload': "metadata",
+                    })
 
-    _computeIsAudio(extension) {
-      const audioExtensions = [
-        "wav",
-        "ogg",
-        "mp3",
-        "mp4",
-        "oga",
-        "ogx",
-        "mpeg",
-      ];
-      return audioExtensions.includes(extension);
-    },
+                    // this.$el.append(audio);
+                    this.$el = audio;
 
-    _computeExtension(filename) {
-      const extension = filename && filename.split(".").pop();
-      if (extension) {
-        return extension;
-      }
-      return clear();
-    },
+                    audio.on("error", () => {
+                        this.displayNotification({
+                            title: _t('Wrong Extension Audio File'),
+                            message: _t("Format should be in wav, ogg, mp3, mp4, oga, ogx, mpeg"),
+                            type: 'danger',
+                        });
+                    })
+                }
+        },
 
-    _renderReadonly: function () {
-      this._super.apply(this, arguments);
-      if (this.mode == "readonly")
-        if (this.value) {
-          const url = this._getUrl(this.value);
+        on_file_change: function (ev) {
+            this._super.apply(this, arguments);
 
-          let audio = $("<audio>", {
-            src: url,
-            controls: true,
-            preload: "metadata",
-          });
+            let files = ev.target.files;
 
-          // this.$el.append(audio);
-          this.$el = audio;
+            if (!files || files.length === 0)
+                return;
 
-          audio.on("error", () => {
-            this.displayNotification({
-              title: _t("Wrong Extension Audio File"),
-              message: _t(
-                "Format should be in wav, ogg, mp3, mp4, oga, ogx, mpeg",
-              ),
-              type: "danger",
-            });
-          });
+            const filename = files[0].name;
+            const extension = this._computeExtension(filename);
+
+            if (!this._computeIsAudio(extension))
+                this.displayNotification({
+                    title: _t('Wrong Extension Audio File'),
+                    message: _t("Format should be in wav, ogg, mp3, mp4, oga, ogx, mpeg"),
+                    type: 'danger',
+                });
         }
-    },
+    });
 
-    on_file_change: function (ev) {
-      this._super.apply(this, arguments);
+    fieldRegistry.add('attachment_many2one_audio_widget', AttachmentMany2OneAudioWidget);
+    fieldRegistry.add('attachment_binary_audio_widget', AttachmentBinaryAudioWidget);
 
-      let files = ev.target.files;
-
-      if (!files || files.length === 0) return;
-
-      const filename = files[0].name;
-      const extension = this._computeExtension(filename);
-
-      if (!this._computeIsAudio(extension))
-        this.displayNotification({
-          title: _t("Wrong Extension Audio File"),
-          message: _t("Format should be in wav, ogg, mp3, mp4, oga, ogx, mpeg"),
-          type: "danger",
-        });
-    },
-  });
-
-  fieldRegistry.add(
-    "attachment_many2one_audio_widget",
-    AttachmentMany2OneAudioWidget,
-  );
-  fieldRegistry.add(
-    "attachment_binary_audio_widget",
-    AttachmentBinaryAudioWidget,
-  );
-
-  return {
-    AttachmentMany2OneAudioWidget: AttachmentMany2OneAudioWidget,
-    AttachmentBinaryAudioWidget: AttachmentBinaryAudioWidget,
-  };
-});
+    return {
+        AttachmentMany2OneAudioWidget: AttachmentMany2OneAudioWidget,
+        AttachmentBinaryAudioWidget: AttachmentBinaryAudioWidget
+    };
+})

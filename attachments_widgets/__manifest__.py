@@ -10,7 +10,7 @@
     # Check https://github.com/odoo/odoo/blob/13.0/odoo/addons/base/data/ir_module_category_data.xml
     # for the full list
     "category": "Tools",
-    "version": "16.0.0.0",
+    "version": "15.0.0.0",
     "license": "OPL-1",
     "support": "shurshilov.a@yandex.ru",
     # "price": 9,
@@ -20,10 +20,10 @@
     ],
     "assets": {
         "web.assets_backend": [
-            "attachments_widgets/static/src/components/audio_widgets.js",
-            "attachments_widgets/static/src/components/audio.xml",
-            # "attachments_widgets/static/src/js/audio_widgets.js",
-            # "attachments_widgets/static/src/js/video_widgets.js",
+            # "attachments_widgets/static/src/components/audio_widgets.js",
+            # "attachments_widgets/static/src/components/audio.xml",
+            "attachments_widgets/static/src/js/audio_widgets.js",
+            "attachments_widgets/static/src/js/video_widgets.js",
         ],
     },
     "auto_install": False,
