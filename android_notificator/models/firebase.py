@@ -1,4 +1,4 @@
-# Copyright 2020-2021 Artem Shurshilov
+# Copyright 2020-2023 Artem Shurshilov
 # Odoo Proprietary License v1.0
 
 # This software and associated files (the "Software") may only be used (executed,
@@ -46,7 +46,9 @@ class Channel(models.Model):
 
         message_values = message.message_format()[0]
         device_ids = []
-        author_id = message_values["author_id"][0]
+        author_id = "Anonymus"
+        if message_values.get("author_id"):
+            author_id = message_values["author_id"][0]
 
         for channel in self:
             for partner in channel.channel_partner_ids:
@@ -92,11 +94,11 @@ class Channel(models.Model):
         'module_icon': '/mail/static/description/icon.png'}
         """
         message_json = {
-            "author_id": message["author_id"],
+            "author_id": message.get("author_id", "Anonymus"),
             # delete <p></p>
             "body": message["body"][3:-4],
             "body_html": message["body"],
-            "channel_ids": message["channel_ids"],
+            # "channel_ids": message["channel_ids"],
         }
         self._mail_channel_firebase_notifications(message_json, device_ids)
 
@@ -125,8 +127,8 @@ class Channel(models.Model):
         if len(device_ids) > 1:
             data = {
                 "notification": {
-                    "title": message["author_id"][1],
-                    "subtitle": message["channel_ids"],
+                    "title": message["author_id"],
+                    # "subtitle": message["channel_ids"],
                     "body": message["body"],
                     "sound": None,
                     "badge": None,
@@ -139,7 +141,7 @@ class Channel(models.Model):
                 "priority": "high",
                 "content_available": True,
                 "data": {
-                    "channel_ids": message["channel_ids"],
+                    # "channel_ids": message["channel_ids"],
                     "body_html": message["body_html"],
                 },
                 "registration_ids": device_ids,
@@ -147,9 +149,9 @@ class Channel(models.Model):
         else:
             data = {
                 "notification": {
-                    "title": message["author_id"][1],
-                    "subtitle": message["channel_ids"],
-                    "data": message["channel_ids"],
+                    "title": message["author_id"],
+                    # "subtitle": message["channel_ids"],
+                    # "data": message["channel_ids"],
                     "body": message["body"],
                     "sound": None,
                     "badge": None,
@@ -161,7 +163,7 @@ class Channel(models.Model):
                 "priority": "high",
                 "content_available": True,
                 "data": {
-                    "channel_ids": message["channel_ids"],
+                    # "channel_ids": message["channel_ids"],
                     "body_html": message["body_html"],
                 },
                 "to": ",".join(device_ids),
