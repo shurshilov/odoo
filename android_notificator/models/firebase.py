@@ -32,6 +32,14 @@ import requests
 from odoo import api, fields, models
 
 
+class ImLivechatChannel(models.Model):
+    _inherit = "im_livechat.channel"
+
+    def _get_available_users(self):
+        self.ensure_one()
+        return self.user_ids
+
+
 class Channel(models.Model):
     _inherit = "mail.channel"
 
