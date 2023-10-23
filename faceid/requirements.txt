@@ -1,0 +1,4 @@
+imageio
+opencv-python
+scipy
+tensorflow==1.15.0

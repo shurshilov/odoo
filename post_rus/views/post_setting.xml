@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <!-- post setting form view-->
+        <record model="ir.ui.view" id="post_setting_form_view">
+            <field name="name">res.config.settings.view.form.inherit.post.rus</field>
+            <field name="model">res.config.settings</field>
+            <field name="priority" eval="90"/>
+            <field name="inherit_id" ref="sale.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@data-key='sale_management']" position="inside">
+<!--                     <form string="Post Setting Form" class="oe_form_configuration">
+                        <header>
+                            <button string="Apply" type="object" name="execute" class="oe_highlight" />
+                            <button string="Cancel" type="object" name="cancel" class="oe_link" />
+                        </header> -->
+                    <h2 class="mt32">Post Rus</h2>
+                    <div class="row mt16 o_settings_container">
+                        <div class="col-12 col-lg-12 o_setting_box" >
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">Store documents in odoo</span>
+<!--                                 <div class="text-muted">
+                                    Хранить или нет локально документы полученные от почты России
+                                </div> -->
+                                <div class="row mt16">
+                                    <label for="default_post_attach_store"  class="col-lg-4 o_light_label"/>
+                                    <field name="default_post_attach_store" class="oe_inline"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-12 o_setting_box" >
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">Default category post rus</span>
+<!--                                 <div class="text-muted">
+                                    Хранить или нет локально документы полученные от почты России
+                                </div> -->
+                                <div class="row mt16">
+                                    <label for="default_mail_category"  class="col-lg-4 o_light_label"/>
+                                    <field name="default_mail_category" class="oe_inline"/>
+                                </div>
+                            </div>
+</div>
+<div class="col-12 col-lg-12 o_setting_box" >
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">Default type post rus</span>
+<!--                                 <div class="text-muted">
+                                    Хранить или нет локально документы полученные от почты России
+                                </div> -->
+                                <div class="row mt16">
+                                    <label for="default_mail_type"  class="col-lg-4 o_light_label"/>
+                                    <field name="default_mail_type" class="oe_inline"/>
+                                </div>
+                            </div>
+</div>
+                            <button name="import_rus_post" type="object" string="Импорт заказов" class="oe_inline oe_stat_button" icon="fa-download" confirm="Вы уверены что хотите импортировать?Данные будут перезаписаны." />
+
+                        <group string="Настройки кампании" colspan="12">
+                            <field name="company_id" />
+                            <field name="accessToken" />
+                            <field name="protocol" />
+                            <field name="host" />
+                        </group>
+                        <group string="Настройки пользователей">
+                            <div>
+                                <button type="action" name="post_rus.post_list_user_auth_act" string="Setup your users auth" class="oe_link" />
+                            </div>
+                        </group>
+                    </div>
+                    <!-- </form> -->
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

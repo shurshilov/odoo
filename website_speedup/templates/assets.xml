@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2018 Onestein
+	 Copyright 2020 Shurshilov Artem
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+
+<odoo>
+    <template id="assets_editor" inherit_id="website.assets_editor">
+        <xpath expr=".">
+            <script type="text/javascript"
+                    src="/website_speedup/static/src/js/website_adv_image_optimization.js"/>
+
+            <link href="/website_speedup/static/src/css/website_adv_image_optimization.scss"
+                  type="text/css" rel="stylesheet"/>
+        </xpath>
+    </template>
+
+    <template id="assets_frontend" inherit_id="web.assets_frontend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/website_speedup/static/lib/jquery.lazy.js" />
+            <script type="text/javascript" src="/website_speedup/static/src/js/frontend.js" />
+        </xpath>
+    </template>
+
+</odoo>

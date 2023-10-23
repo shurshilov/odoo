@@ -1,0 +1,243 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record id="dditem8_action" model="ir.actions.server">
+            <field name="name">Скачать документы pdf</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_stock_picking" />
+            <!-- <field name="binding_model_id" ref="account.model_account_invoice" /> -->
+            <field name="state">code</field>
+            <field name="code">
+                action = env['stock.picking'].browse(records.ids).merge_all_pdf()
+            </field>
+        </record>
+        <record id="dditem1_action" model="ir.actions.server">
+            <field name="name">Создать на сервере</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_post_order" />
+            <!-- <field name="binding_model_id" ref="account.model_account_invoice" /> -->
+            <field name="state">code</field>
+            <field name="code">
+                action = env['post.order'].browse(records.ids).create_order_post()
+            </field>
+        </record>
+        <record id="dditem2_action" model="ir.actions.server">
+            <field name="name">В новые</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_post_order" />
+            <!-- <field name="binding_model_id" ref="account.model_account_invoice" /> -->
+            <field name="state">code</field>
+            <field name="code">
+                action = env['post.order'].browse(records.ids).to_new()
+            </field>
+        </record>
+        <record id="dditem3_action" model="ir.actions.server">
+            <field name="name">Подготовить к отправке</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_post_order" />
+            <!-- <field name="binding_model_id" ref="account.model_account_invoice" /> -->
+            <field name="state">code</field>
+            <field name="code">
+                action = env['post.order'].browse(records.ids).to_surrender()
+            </field>
+        </record>
+        <record id="dditem4_action" model="ir.actions.server">
+            <field name="name">В архив</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_post_order" />
+            <!-- <field name="binding_model_id" ref="account.model_account_invoice" /> -->
+            <field name="state">code</field>
+            <field name="code">
+                action = env['post.order'].browse(records.ids).to_archive()
+            </field>
+        </record>
+<!--         <record id="dditem8_action" model="ir.actions.server">
+            <field name="name">Скачать документы pdf</field>
+            <field name="model_id" ref="model_stock_picking" />
+            <field name="state">code</field>
+            <field name="condition">True</field>
+            <field name="code">                
+                  if context.get('active_model') == 'stock.picking' and context.get('active_ids'):
+                          action = env['stock.picking'].browse(context['active_ids']).merge_all_pdf()
+                </field>
+        </record>
+        <record id="dditem8" model="ir.values">
+            <field name="name">name8</field>
+            <field name="model">stock.picking</field>
+            <field name="key">action</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.server,%d'%dditem8_action" />
+        </record>
+
+        <record id="dditem1_action" model="ir.actions.server">
+            <field name="name">Создать на сервере</field>
+            <field name="model_id" ref="model_post_order" />
+            <field name="state">code</field>
+            <field name="condition">True</field>
+            <field name="code">                
+                  if context.get('active_model') == 'post.order' and context.get('active_ids'):
+                          action = env['post.order'].browse(context['active_ids']).create_order_post()
+                </field>
+        </record>
+        <record id="dditem1" model="ir.values">
+            <field name="name">name1</field>
+            <field name="model">post.order</field>
+            <field name="key">action</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.server,%d'%dditem1_action" />
+        </record>
+        
+        <record id="dditem2_action" model="ir.actions.server">
+            <field name="name">В новые</field>
+            <field name="model_id" ref="model_post_order" />
+            <field name="state">code</field>
+            <field name="code">                
+                  if context.get('active_model') == 'post.order' and context.get('active_ids'):
+                          action = env['post.order'].browse(context['active_ids']).to_new()
+                </field>
+        </record>
+        <record id="dditem2" model="ir.values">
+            <field name="name">name2</field>
+            <field name="model">post.order</field>
+            <field name="key">action</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.server,%d'%dditem2_action" />
+        </record>
+        
+        <record id="dditem3_action" model="ir.actions.server">
+            <field name="name">Подготовить к отправке</field>
+            <field name="model_id" ref="model_post_order" />
+            <field name="state">code</field>
+            <field name="condition">True</field>
+            <field name="code">                
+                  if context.get('active_model') == 'post.order' and context.get('active_ids'):
+                          action = env['post.order'].browse(context['active_ids']).to_surrender()
+                </field>
+        </record>
+        <record id="dditem3" model="ir.values">
+            <field name="name">name3</field>
+            <field name="model">post.order</field>
+            <field name="key">action</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.server,%d'%dditem3_action" />
+        </record>
+        
+        <record id="dditem4_action" model="ir.actions.server">
+            <field name="name">В архив</field>
+            <field name="model_id" ref="model_post_order" />
+            <field name="state">code</field>
+            <field name="condition">True</field>
+            <field name="code">                
+                  if context.get('active_model') == 'post.order' and context.get('active_ids'):
+                          action = env['post.order'].browse(context['active_ids']).to_archive()
+                </field>
+        </record>
+        <record id="dditem4" model="ir.values">
+            <field name="name">name4</field>
+            <field name="model">post.order</field>
+            <field name="key">action</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.server,%d'%dditem4_action" />
+        </record>
+        
+        <record id="dditem5" model="ir.values">
+            <field name="name">name5</field>
+            <field name="model">post.order</field>
+            <field name="key">action</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.act_window,%d'%model_action_id" />
+        </record> -->
+
+
+
+        <!-- Created page for company-->
+        <record id="res_company_post_form_view" model="ir.ui.view">
+            <field name="name">res.company.post.form.view</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form" />
+            <field name="arch" type="xml">
+                <notebook position="inside">
+                    <page string="Почта России">
+                        <group string="Настройки подключения кампании">
+                            <field name="accessToken" />
+                            <field name="protocol" />
+                            <field name="host" />
+                        </group>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+        <!-- Created page for company-->
+        <record model="ir.ui.view" id="post_user_tree">
+            <field name="name">post.user.tree</field>
+            <field name="model">res.users</field>
+            <field name="arch" type="xml">
+                <tree string="Post Tree" editable="bottom">
+                    <field name="name" />
+                    <!-- <field name="login"/> -->
+                    <field name="company_id" />
+                    <field name="basicToken" />
+                </tree>
+            </field>
+        </record>
+        <record id="view_post_order_package_group" model="ir.ui.view">
+            <field name="name">post.order.package.group</field>
+            <field name="model">post.order</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Package">
+                    <filter name="group_package_id" string="Package" context="{'group_by':'id_package'}" />
+                </search>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="post_list_new_act">
+            <field name="name">Новое отправление</field>
+            <field name="res_model">post.order</field>
+            <!-- <field name="view_type">form</field> -->
+            <field name="view_mode">tree,form,graph</field>
+            <field name="view_ids" eval="[(5, 0, 0),                     (0, 0, {'view_mode': 'tree', 'view_id': ref('post_tree_view_second')}),                     (0, 0, {'view_mode': 'form', 'view_id': ref('post_form_view')})]" />
+            <field name="domain">[('state','=', 'new')]</field>
+        </record>
+        <record model="ir.actions.act_window" id="post_list_surrender_act">
+            <field name="name">Отправление к сдаче</field>
+            <field name="res_model">post.order</field>
+            <!-- <field name="view_type">form</field> -->
+            <field name="view_mode">tree,form,graph,calendar</field>
+            <field name="view_ids" eval="[(5, 0, 0),                     (0, 0, {'view_mode': 'tree', 'view_id': ref('post_tree_view')}),                     (0, 0, {'view_mode': 'form', 'view_id': ref('post_form_view_only_read')})]" />
+            <field name="domain">[('state','=', 'surrender')]</field>
+            <field name="context">{'search_default_group_package_id': 1}</field>
+        </record>
+        <record model="ir.actions.act_window" id="post_list_archive_act">
+            <field name="name">Архивное отправление</field>
+            <field name="res_model">post.order</field>
+            <!-- <field name="view_type">form</field> -->
+            <field name="view_mode">tree,form,graph</field>
+            <field name="domain">[('state','=', 'archive')]</field>
+            <field name="context">{'search_default_group_package_id': 1}</field>
+        </record>
+        <record model="ir.actions.act_window" id="post_setting_con_act">
+            <field name="name">post.setting.con</field>
+            <field name="res_model">res.config.settings</field>
+            <!-- <field name="view_type">form</field> -->
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="post_rus.post_setting_form_view" />
+            <field name="target">inline</field>
+        </record>
+        <record model="ir.actions.act_window" id="post_list_user_auth_act">
+            <field name="name">Настройка ключей доступа ПР для пользователей</field>
+            <field name="res_model">res.users</field>
+            <!-- <field name="view_type">form</field> -->
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="post_rus.post_user_tree" />
+            <field name="target">new</field>
+        </record>
+        <!-- top level menu: no parent -->
+        <menuitem id="main_post_menu" name="Почта России" />
+        <menuitem id="post_menu_order" name="Управление почтой" sequence="1" parent="main_post_menu" />
+        <menuitem id="post_menu_order_new" name="Новые" parent="post_menu_order" action="post_list_new_act" sequence="1" />
+        <menuitem id="post_menu_order_zip" name="Архив" parent="post_menu_order" action="post_list_archive_act" sequence="3" />
+        <menuitem id="post_menu_order_set" name="К сдаче" parent="post_menu_order" action="post_list_surrender_act" sequence="2" />
+        <menuitem id="post_menu_setting" name="Настройки" sequence="1" parent="main_post_menu" />
+        <menuitem id="post_menu_setting_con" name="Основные" parent="post_menu_setting" action="post_setting_con_act" />
+    </data>
+</openerp>

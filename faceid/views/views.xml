@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <template id="assets_backend_faceid" name="faceid assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/faceid/static/src/js/faceid.js"></script>
+        </xpath>
+    </template>
+
+    <!-- 
+     ******************************NOTIFICATIONS
+    -->
+    <record id="faceid_view_form_notifications" model="ir.ui.view">
+        <field name="name">Notification form</field>
+        <field name="model">faceid.notification</field>
+        <field name="arch" type="xml">
+          <form>
+            <sheet>
+              <div class="oe_button_box" name="button_box">
+                  <button name="send_email" type="object" string="Отправить" class="oe_stat_button" icon="fa-envelope"/>
+              </div>
+              <group>
+                <field name="name"/>
+                <field name="source_id"/>
+                <field name="type"/>
+                <field name="action"/>
+                <field name="template_id"/>
+                <field name="count_send_setting"/>
+                <field name="count_send_real" readonly="1"/>
+                <field name="state"/>
+              </group>
+            </sheet>
+            <div class="oe_chatter">
+              <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+              <field name="message_ids" widget="mail_thread"/>
+            </div>
+          </form>
+        </field>
+    </record>
+    <record id="faceid_view_tree_notifications" model="ir.ui.view">
+        <field name="name">Notifications tree</field>
+        <field name="model">faceid.notification</field>
+        <field name="arch" type="xml">
+          <tree string="Notifications table">
+                <field name="name"/>
+                <field name="type"/>
+                <field name="action"/>
+                <!-- <field name="address"/> -->
+                <field name="count_send_real" readonly="1"/>
+                <field name="state"/>
+<!--                 <field name="body"/> -->
+          </tree>
+        </field>
+    </record>
+
+    <!-- 
+     ******************************FACES
+    -->
+
+    <record id="faceid_view_form_actions" model="ir.ui.view">
+        <field name="name">Actions form</field>
+        <field name="model">faceid.action</field>
+        <field name="arch" type="xml">
+          <form>
+            <sheet>
+              <group>
+                <field name="face" widget="image"/>
+                <field name="face_id_image" widget="image"/>
+                <field name="min_distanse"/>
+                <field name="unique"/>
+                <field name="name"/>
+                <field name="create_date" readonly="0"/>
+              </group>
+            </sheet>
+          </form>
+        </field>
+    </record>
+    <record id="faceid_view_tree_action" model="ir.ui.view">
+        <field name="name">Actions tree</field>
+        <field name="model">faceid.action</field>
+        <field name="arch" type="xml">
+          <tree string="Actions table">
+            <field name="name"/>
+            <field name="face" widget="image"/>
+            <field name="face_id_image" widget="image"/>
+            <field name="min_distanse"/>
+            <field name="unique"/>
+            <field name="create_date"/>
+          </tree>
+        </field>
+    </record>
+        <!-- Reconciliation action -->
+      <record id="action_view_faceid_client" model="ir.actions.client">
+         <field name="name">Распознование с камеры</field>
+         <field name="tag">faceid</field>
+         <!-- <field name="binding_model_id" ref="faceid.model_faceid_source"/> -->
+         <field name="res_model">faceid.source</field>
+         <!-- <field name="binding_type">action</field> -->
+     </record>
+
+    <record id="faceid_view_tree_source" model="ir.ui.view">
+        <field name="name">Sources tree</field>
+        <field name="model">faceid.source</field>
+        <field name="arch" type="xml">
+          <tree string="Source table">
+            <field name="name"/>
+            <field name="url"/>
+            <field name="faces_count_today"/>
+            <field name="state_compute"/>
+          </tree>
+        </field>
+    </record>
+
+    <record id="action_faceid_analytic_faces_all" model="ir.actions.act_window">
+        <field name="context">{'search_default_source_id': [active_id], 'default_source_id': active_id}</field>
+        <field name="name">Analytic Faces All</field>
+        <field name="res_model">faceid.action</field>
+    </record>
+
+  <record id="view_action_search2" model="ir.ui.view">
+    <field name="name">tabel.tabel.search2</field>
+    <field name="model">faceid.action</field>
+    <field name="type">search</field>
+    <field name="arch" type="xml">
+    <search string="Checker">
+        <filter 
+        string="Сегодня" 
+        name="male"
+        domain="[('create_date', '>=', context_today().strftime('%Y-%m-%d'))]"
+        help = "Чтобы посмотреть табели за прошлые месяцы нажмите ВСЕ"/>
+    </search>
+    </field>
+  </record>
+
+    <record id="action_faceid_analytic_faces_today" model="ir.actions.act_window">
+        <field name="context">{'search_default_male': 1, 'default_source_id': active_id, 'default_unique':True}</field>
+        <field name="name">Analytic Faces Today</field>
+        <field name="res_model">faceid.action</field>
+    </record>
+
+    <record id="faceid_view_form_source" model="ir.ui.view">
+        <field name="name">Source form</field>
+        <field name="model">faceid.source</field>
+        <field name="arch" type="xml">
+          <form string="Source table">
+            <sheet>
+              <header>
+<!--                 <button name="%(action_view_faceid_client)d" type="action" string="Запустить распознование js" 
+                  class="oe_inline oe_stat_button" icon="fa-check-eye" context="{'active_id':active_id}"/> -->
+                <field name="state_compute" widget="statusbar" readonly="1"/>
+              </header>
+              <div class="oe_button_box" name="button_box">
+                    <button class="oe_stat_button" type="action" name="%(action_faceid_analytic_faces_all)d"
+                        icon="fa-camera" title="Analytic">
+                        <field string="All" name="faces_count_all" widget="statinfo"/>
+                    </button>
+                    <button class="oe_stat_button" type="action" name="%(action_faceid_analytic_faces_today)d"
+                        icon="fa-camera" title="Analytic">
+                        <field string="Today" name="faces_count_today" widget="statinfo"/>
+                    </button>
+                  <button name="detec_face_thread" type="object" string="Запустить" class="oe_stat_button" icon="fa-play" attrs="{'invisible':[('state_compute','=','on')],}"/>
+                  <button name="stop_detec_face" type="object" string="Остановить" class="oe_stat_button" icon="fa-pause" attrs="{'invisible':[('state_compute','=','off')],}"/>
+              </div>
+                <group string="Camera" col="12">
+                  <field name="name" colspan="4"/>
+                  <field name="url" colspan="8"/>
+                </group>
+                <group>
+                  <group string="Detection" col="2" colspan="1">
+                    <field name="min_size"/>
+                    <field name="scaled"/>
+                    <field name="frame_interval"/>
+                    <field name="recognize_threshold"/>
+                    <field name="speed_detect" readonly="1"/>
+                  </group>
+                  <group  string="Crop" col="2" colspan="1">
+                    <field name="x"/>
+                    <field name="y"/>
+                    <field name="height"/>
+                    <field name="width"/>
+                  </group>
+                </group>
+
+                <group string="Founded faces">
+                  <field name="faces">
+                    <tree>
+                      <field name="name"/>
+                      <field name="face" widget="image"/>
+                      <field name="create_date"/>
+                    </tree>
+                  </field>
+                </group>
+            </sheet>
+          </form>
+        </field>
+    </record>
+
+    <record id="faceid_action_notifications" model="ir.actions.act_window">
+        <field name="name">Notifications table</field>
+        <field name="res_model">faceid.notification</field>
+        <!-- <field name="view_type">form</field> -->
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_empty_folder">
+              No notifications found
+            </p>
+            <p>
+              The notifications of your company will be displayed here.
+            </p>
+        </field>
+    </record>
+
+    <record id="faceid_action_source" model="ir.actions.act_window">
+        <field name="name">Source table</field>
+        <field name="res_model">faceid.source</field>
+        <!-- <field name="view_type">form</field> -->
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_empty_folder">
+              No source found
+            </p>
+            <p>
+              The source of your company will be displayed here.
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="faceid_main_menu" name="Распознование по лицу" sequence="1"
+      web_icon="faceid,static/description/icon_menu.png"
+      groups="group_manager_faceid,group_user_faceid" />
+    <menuitem id="faceid_menu_source" 
+              name="Список источников" 
+              parent="faceid_main_menu" 
+              sequence="50" 
+              groups="group_manager_faceid,group_user_faceid" 
+              action="faceid_action_source"/>
+
+    <menuitem id="faceid_menu_notifications" 
+          name="Оповещения" 
+          parent="faceid_main_menu" 
+          sequence="50" 
+          groups="group_manager_faceid" 
+          action="faceid_action_notifications"/>
+
+  </data>
+</odoo>

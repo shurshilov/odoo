@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+admin_access,admin_rule,model_post_order,group_post_admin,1,1,1,1
+admin_access_sale,admin_rule,sale.model_sale_order,group_post_admin,1,1,1,1
+manager_access,manager_access,model_post_order,group_post_manager,1,1,1,1
+manager_access_sale,manager_access,sale.model_sale_order,group_post_manager,1,1,1,1

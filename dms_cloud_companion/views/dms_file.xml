@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+
+    Copyright 2020 Shurshilov Artem
+    License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
+
+  -->
+<odoo>
+    <record id="dms_cloud_companion_dms_file_kanban" model="ir.ui.view">
+        <field name="name">dms.cloud.companion.dms.file.kanban</field>
+        <field name="model">dms.file</field>
+        <field name="inherit_id" ref="dms.view_dms_file_kanban" />
+        <field name="arch" type="xml">
+        <xpath expr="//field[@name='id']" position="after">
+            <field name="save_type_related"/>
+            <field name="url_gdrive"/>
+            <field name="url_onedrive"/>
+            <field name="url_dropbox"/>
+        </xpath>
+            <xpath expr="//div[@class='dropdown-menu']" position="replace">
+
+                <div class="dropdown-menu" role="menu">
+                    <div class="row">
+                        <div class="col-6 mk_file_kanban_operations">
+                            <h6 class="dropdown-header">
+                                Operations
+                            </h6>
+                            <a
+                                t-if="record.permission_write.raw_value and !record.is_locked.raw_value"
+                                role="menuitem"
+                                name="lock"
+                                type="object"
+                                class="dropdown-item"
+                            >
+                                <i class="fa fa-lock" />
+                                Lock
+                            </a>
+                            <a
+                                t-if="record.is_locked.raw_value  and record.is_lock_editor.raw_value"
+                                role="menuitem"
+                                name="unlock"
+                                type="object"
+                                class="dropdown-item"
+                            >
+                                <i class="fa fa-unlock-alt" />
+                                Unlock
+                            </a>
+                            <a
+                                t-if="record.permission_write.raw_value and record.active.raw_value"
+                                role="menuitem"
+                                name="toggle_active"
+                                type="object"
+                                class="dropdown-item"
+                            >
+                                <i class="fa fa-archive" />
+                                Archive
+                            </a>
+                            <a
+                                t-if="record.permission_write.raw_value and !record.active.raw_value"
+                                role="menuitem"
+                                name="toggle_active"
+                                type="object"
+                                class="dropdown-item"
+                            >
+                                <i class="fa fa-archive" />
+                                Unarchive
+                            </a>
+                            <a
+                                t-if="record.save_type_related.raw_value == 'file' or record.save_type_related.raw_value == 'database'"
+                                role="menuitem"
+                                class="dropdown-item"
+                                t-attf-href="/web/content?id=#{record.id.raw_value}&amp;field=content&amp;model=dms.file&amp;filename_field=name&amp;download=true"
+                            >
+                                <i class="fa fa-download" />
+                                Download
+                            </a>
+                            <a
+                                t-if="record.save_type_related.raw_value == 'onedrive' or record.save_type_related.raw_value == 'gdrive' or record.save_type_related.raw_value == 'dropbox'"
+                                role="menuitem"
+                                class="dropdown-item"
+                                t-attf-href="#{record.url_gdrive.raw_value or record.url_onedrive.raw_value or record.url_dropbox.raw_value}"
+                                t-attf-target="_blank"
+                            >
+                                <i class="fa fa-download" />
+                                Open Cloud
+                            </a>
+                        </div>
+                        <div
+                            class="col-6 border-left mk_file_kanban_actions"
+                        >
+                            <h6 class="dropdown-header">
+                                Actions
+                            </h6>
+                            <a
+                                role="menuitem"
+                                type="open"
+                                class="dropdown-item"
+                            >
+                                <i class="fa fa-external-link" />
+                                Open
+                            </a>
+                            <a
+                                t-if="record.permission_write.raw_value"
+                                role="menuitem"
+                                type="edit"
+                                class="dropdown-item"
+                            >
+                                <i class="fa fa-pencil-square-o" />
+                                Edit
+                            </a>
+                            <a
+                                t-if="record.permission_unlink.raw_value"
+                                role="menuitem"
+                                type="delete"
+                                class="dropdown-item"
+                            >
+                                <i class="fa fa-trash-o" />
+                                Delete
+                            </a>
+                        </div>
+                    </div>
+                    <div
+                        t-if="record.permission_write.raw_value"
+                        class="row"
+                    >
+                        <div role="menuitem" class="col-12">
+                            <ul
+                                class="oe_kanban_colorpicker"
+                                data-field="color"
+                            />
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="dms_cloud_companion_dms_file_form" model="ir.ui.view">
+        <field name="name">dms.cloud.companion.dms.file.form</field>
+        <field name="model">dms.file</field>
+        <field name="inherit_id" ref="dms.view_dms_file_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='content']" position="replace">
+                <field name="save_type_related"/>
+                <field attrs="{'invisible': [('save_type_related', 'not in', ['database','file'])]}"
+                    name="content"
+                    filename="name"
+                    widget="preview_binary"
+                />
+                <field attrs="{'invisible': [('save_type_related', '!=', 'gdrive')]}"
+                    name="url_gdrive"
+                    widget="gdrive_picker"
+                />
+                <field attrs="{'invisible': [('save_type_related', '!=', 'onedrive')]}"
+                    name="url_onedrive"
+                    widget="onedrive_picker"
+                />
+                <field attrs="{'invisible': [('save_type_related', '!=', 'dropbox')]}"
+                    name="url_dropbox"
+                    widget="dropbox_picker"
+                />
+            </xpath>
+
+        </field>
+    </record>
+ 
+</odoo>
