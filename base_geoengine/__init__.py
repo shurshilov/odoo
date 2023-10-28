@@ -1,3 +1,6 @@
-"""The GeoEngine module"""
-from . import fields, geo_helper, geo_ir, geo_model, geo_operators, geo_view
+from . import models
+from . import expressions
+from . import fields
+from . import geo_convertion_helper
+from . import geo_operators
 from .geo_db import init_postgis

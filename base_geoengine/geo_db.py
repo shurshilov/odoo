@@ -1,5 +1,5 @@
 # Copyright 2011-2012 Nicolas Bessi (Camptocamp SA)
-# License LGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 """Helper to setup Postgis"""
 import logging
 
@@ -37,7 +37,7 @@ def init_postgis(cr):
         CREATE EXTENSION postgis_topology;
     """
         )
-    except Exception:
+    except Exception as exc:
         raise MissingError(
             _(
                 "Error, can not automatically initialize spatial postgis"
@@ -50,7 +50,7 @@ def init_postgis(cr):
                 "CREATE EXTENSION postgis;\n"
                 "CREATE EXTENSION postgis_topology;\n"
             )
-        )
+        ) from exc
 
 
 def create_geo_column(
