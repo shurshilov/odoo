@@ -19,6 +19,7 @@ zip bundle
     "images": [
         "static/description/compress.png",
     ],
+    "installable": False,
     "assets": {
         "web.assets_common": [
             (

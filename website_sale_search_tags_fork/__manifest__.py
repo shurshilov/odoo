@@ -25,7 +25,7 @@
     ],
     # any module necessary for this one to work correctly
     "depends": ["website_sale", "product_tags_fork", "stock"],
-    "installable": True,
+    "installable": False,
     # always loaded
     # 'data': [
     #     'views/views.xml',

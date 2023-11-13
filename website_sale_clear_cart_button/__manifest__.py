@@ -22,7 +22,7 @@
     ],
     # any module necessary for this one to work correctly
     "depends": ["website_sale"],
-    "installable": True,
+    "installable": False,
     # always loaded
     "data": [
         "website_sale_clear_cart_button_views.xml",
