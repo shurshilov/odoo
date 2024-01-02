@@ -22,7 +22,7 @@
 
 {
     "name": "Product Tags v. 14",
-    "version": "14.1.0.0",
+    "version": "14.1.0",
     "license": "LGPL-3",
     "author": "Shurshilov Artem",
     "website": "http://www.eurodoo.com",

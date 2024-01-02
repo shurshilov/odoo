@@ -4,7 +4,7 @@
     "summary": """
     Display Product stock on website product page. Qty (quantity) and available ticket.
     Sale only available products on Website stock available quantity website""",
-    "version": "15.0.2.0.0",
+    "version": "15.0.2",
     "author": "EURO ODOO, Shurshilov Artem",
     "license": "OPL-1",  # MIT
     "category": "eCommerce",

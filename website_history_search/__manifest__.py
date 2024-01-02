@@ -7,7 +7,7 @@
     "website": "www.eurodoo.com",
     # Categories can be used to filter modules in modules listing
     "category": "eCommerce",
-    "version": "13.0.0.0",
+    "version": "13.0.0",
     # any module necessary for this one to work correctly
     "depends": ["web", "website_sale"],
     "license": "LGPL-3",

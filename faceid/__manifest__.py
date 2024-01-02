@@ -11,7 +11,7 @@
     # Check https://github.com/odoo/odoo/blob/13.0/odoo/addons/base/data/ir_module_category_data.xml
     # for the full list
     "category": "Technical Settings",
-    "version": "13.0.0.1",
+    "version": "13.0.1",
     "license": "OPL-1",
     "price": 299,
     "currency": "EUR",

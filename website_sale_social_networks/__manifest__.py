@@ -50,7 +50,7 @@
     # Check https://github.com/odoo/odoo/blob/13.0/odoo/addons/base/data/ir_module_category_data.xml
     # for the full list
     "category": "eCommerce",
-    "version": "15.0.0.1",
+    "version": "15.0.1",
     "license": "LGPL-3",
     "support": "shurshilov.a@yandex.ru",
     # 'price': 19,

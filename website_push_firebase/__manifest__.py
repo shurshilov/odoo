@@ -11,7 +11,7 @@
     "live_test_url": "https://eurodoo.com",
     # Categories can be used to filter modules in modules listing
     "category": "Marketing",
-    "version": "14.0.0.1",
+    "version": "14.0.1",
     # any module necessary for this one to work correctly
     "depends": ["web", "crm", "website", "mail_firebase"],
     "license": "OPL-1",

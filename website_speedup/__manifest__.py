@@ -9,7 +9,7 @@ zip bundle
 
 """,
     "category": "Website",
-    "version": "15.0.0.0",
+    "version": "15.0.0",
     "author": "EURO ODOO, Shurshilov Artem",
     "license": "OPL-1",
     "website": "https://eurodoo.com",

@@ -13,7 +13,7 @@
     # Check https://github.com/odoo/odoo/blob/13.0/odoo/addons/base/data/ir_module_category_data.xml
     # for the full list
     "category": "Website",
-    "version": "15.0.0.1",
+    "version": "15.0.1",
     "license": "OPL-1",
     "price": 49,
     "currency": "EUR",

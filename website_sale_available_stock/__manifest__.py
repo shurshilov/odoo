@@ -10,7 +10,7 @@
 {
     "name": "Sale only available products on Website",
     "summary": """Sale only available products on Website stock available quantity website""",
-    "version": "13.0.2.0.0",
+    "version": "13.0.2",
     "author": "EURO ODOO, Shurshilov Artem,IT-Projects LLC, Ivan Yelizariev",
     "license": "Other OSI approved licence",  # MIT
     "category": "eCommerce",

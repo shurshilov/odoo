@@ -8,7 +8,7 @@
     "live_test_url": "https://eurodoo.com/login_employee?login=demo1&amp;password=demo777",
     # Categories can be used to filter modules in modules listing
     "category": "Extra Tools",
-    "version": "16.3.0.3.0",
+    "version": "16.3.0",
     # any module necessary for this one to work correctly
     "depends": ["web", "mail"],
     "license": "OPL-1",

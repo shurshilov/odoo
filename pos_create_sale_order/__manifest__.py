@@ -8,7 +8,7 @@
     "live_test_url": "https://youtu.be/h1fH0Bh_J0c",
     # Categories can be used to filter modules in modules listing
     "category": "Point of sale",
-    "version": "15.0.0.0",
+    "version": "15.0.0",
     # any module necessary for this one to work correctly
     "depends": ["web", "point_of_sale"],
     "license": "OPL-1",

@@ -37,7 +37,7 @@
 	It works by placing and triggering cookies to track users as
 	they interact with your website and your Facebook ads.
     """,
-    "version": "13.0.0.0.1",
+    "version": "13.0.1",
     "category": "Website",
     "website": "https://eurodoo.com",
     "author": "EURO ODOO, Shurshilov Artem",

@@ -15,7 +15,7 @@
     "website": "http://www.eurodoo.com",
     "license": "LGPL-3",
     "category": "Accounting",
-    "version": "13.0.0.0",  # odoo.x.y.z; z - bags, y - feautures, x - model or view big changes
+    "version": "13.0.0",  # odoo.x.y.z; z - bags, y - feautures, x - model or view big changes
     "depends": [
         "base",
         "account",

@@ -6,7 +6,7 @@
     "name": "Widget image tools",
     "summary": "Provides web widget for image editing and adds it to standard"
     " image widget as modal",
-    "version": "9.0.1.0.1",
+    "version": "9.0.1",
     "category": "Tools",
     #    'website': 'https://vk.com/id20132180',
     "website": "http://www.eurodoo.com",

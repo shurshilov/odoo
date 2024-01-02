@@ -7,7 +7,7 @@
 
 {
     "name": "Web Widget Digitized Signature",
-    "version": "13.0.1.0.0",
+    "version": "13.0.1",
     "author": "Serpent Consulting Services Pvt. Ltd., "
     "Agile Business Group, "
     "Tecnativa, "
