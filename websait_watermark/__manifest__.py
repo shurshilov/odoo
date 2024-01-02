@@ -19,7 +19,7 @@
     #    'website': "https://vk.com/id20132180",
     "license": "OPL-1",
     "category": "Website",
-    "version": "0.0.1",  # odoo.x.y.z; z - bags, y - feautures, x - model or view big changes
+    "version": "15.0.1",  # odoo.x.y.z; z - bags, y - feautures, x - model or view big changes
     "depends": [
         "base",
         "web",

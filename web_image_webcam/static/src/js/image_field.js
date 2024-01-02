@@ -2,12 +2,13 @@
 
 import { ImageField } from "@web/views/fields/image/image_field";
 import { useService } from "@web/core/utils/hooks";
-import { patch } from "web.utils";
+// import { patch } from "web.utils";
+import { patch } from "@web/core/utils/patch";
 import WebcamDialog from "@web_image_webcam/js/webcam_dialog";
 
-patch(ImageField.prototype, "web_image_webcam", {
+patch(ImageField.prototype, {
   setup() {
-    this._super(...arguments);
+    super.setup();
     this.dialogService = useService("dialog");
   },
 

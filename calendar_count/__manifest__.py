@@ -8,7 +8,7 @@
     # "live_test_url": "https://eurodoo.com/login_employee?login=demo1&amp;password=demo1",
     # Categories can be used to filter modules in modules listing
     "category": "Extra Tools",
-    "version": "0.0.1",
+    "version": "14.0.1",
     # any module necessary for this one to work correctly
     "depends": ["web"],
     "license": "LGPL-3",

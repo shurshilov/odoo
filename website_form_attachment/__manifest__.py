@@ -5,7 +5,7 @@
     "name": "Website attachments contact us form",
     "summary": """Adds field attachments to contact us form. Attach contact website form attachment file form
      files adds to website files form send file us files form""",
-    "version": "0.0.2",
+    "version": "12.0.2",
     "category": "Tools",
     "website": "http://www.eurodoo.com",
     "author": "Shurshilov Artem",

@@ -6,7 +6,7 @@
     "summary": """Adds FREE leaflet OSM map on contact us form
     [TAGS] website maps leaflet osm map free map osm leaflet
     map leaflet map maps lealet website openstreet map widget""",
-    "version": "0.1.1",
+    "version": "14.1.1",
     "category": "Tools",
     "website": "http://www.eurodoo.com",
     "author": "Shurshilov Artem",

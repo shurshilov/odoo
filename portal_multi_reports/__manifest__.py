@@ -15,7 +15,7 @@ Also administrator manage which repors available for portal selection and printi
     # Check https://github.com/odoo/odoo/blob/13.0/odoo/addons/base/data/ir_module_category_data.xml
     # for the full list
     "category": "Document Management",
-    "version": "0.0.0",
+    "version": "16.0.0",
     "license": "OPL-1",
     "price": 49.0,
     "currency": "EUR",

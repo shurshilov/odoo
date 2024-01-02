@@ -10,7 +10,7 @@
     # Check https://github.com/odoo/odoo/blob/13.0/odoo/addons/base/data/ir_module_category_data.xml
     # for the full list
     "category": "eCommerce",
-    "version": "0.0.0",
+    "version": "13.0.0",
     "license": "LGPL-3",
     "support": "shurshilov.a@yandex.ru",
     # 'price': 29,
@@ -22,7 +22,7 @@
     ],
     # any module necessary for this one to work correctly
     "depends": ["website_sale"],
-    "installable": False,
+    "installable": True,
     # always loaded
     "data": [
         "website_sale_clear_cart_button_views.xml",

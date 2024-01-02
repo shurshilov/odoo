@@ -15,7 +15,7 @@
         "static/description/shop_sale.png",
         "static/description/shop_no_sale.png",
     ],
-    "version": "1.0.0",
+    "version": "13.0.1",
     "application": False,
     "author": "Shurshilov Artem,IT-Projects LLC, Denis Mudarisov",
     "support": "shurshilov.a@yandex.ru",
@@ -26,5 +26,5 @@
     "depends": ["website_sale"],
     "data": ["templates.xml"],
     "auto_install": False,
-    "installable": False,
+    "installable": True,
 }

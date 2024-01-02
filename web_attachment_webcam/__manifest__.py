@@ -4,7 +4,7 @@
 {
     "name": "Web Widget - Attachment WebCam",
     "summary": "Allows to take image with WebCam to Attachments Chatter on fly snapshot Attachments box web camera foto web photo web camera web",
-    "version": "1.0.0",
+    "version": "15.0.1",
     "category": "web",
     "website": "https://eurodoo.com",
     "author": "Tech Receptives, "

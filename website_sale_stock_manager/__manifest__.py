@@ -4,7 +4,7 @@
     "summary": """
     Display Product stock on website product page. Qty (quantity) and available ticket.
     Sale only available products on Website stock available quantity website""",
-    "version": "2.0.0",
+    "version": "15.0.2",
     "author": "EURO ODOO, Shurshilov Artem",
     "license": "OPL-1",  # MIT
     "category": "eCommerce",
@@ -22,7 +22,7 @@
         "views/website_sale_available_views.xml",
         "views/res_config_settings_views.xml",
     ],
-    "installable": False,
+    "installable": True,
     "assets": {
         "web.assets_frontend": [
             "website_sale_stock_manager/static/src/js/website_sale_available_tour.js",

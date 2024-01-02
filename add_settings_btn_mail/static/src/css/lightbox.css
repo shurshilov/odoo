@@ -1,0 +1,10 @@
+﻿.in {
+}
+/* Выделение миниатюры при наведении */
+.in:hover {
+  cursor: pointer;
+}
+/*        .o_filter_checkbox_label{
+  margin: 2px auto;
+}
+	*/

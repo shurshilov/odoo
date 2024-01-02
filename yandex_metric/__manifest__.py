@@ -5,7 +5,7 @@
     "name": """FREE website session replays and metric""",
     "summary": """FREE feauters webvisor sessions replay website and backend users
         best metrics and repors. Best integration modules""",
-    "version": "0.0.1",
+    "version": "12.0.1",
     "category": "Website",
     "website": "https://eurodoo.com",
     "author": "Shurshilov Artem",
@@ -14,7 +14,7 @@
     # "currency": "EUR",
     "application": False,
     "auto_install": False,
-    "installable": False,
+    "installable": True,
     "depends": ["base", "website"],
     "data": [
         "templates.xml",

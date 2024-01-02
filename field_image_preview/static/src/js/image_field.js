@@ -1,6 +1,7 @@
 /** @odoo-module **/
 import { ImageField } from "@web/views/fields/image/image_field";
-import { patch } from "web.utils";
+// import { ImageField, imageField } from '@web/views/fields/image/image_field';
+import { patch } from "@web/core/utils/patch";
 import { Dialog } from "@web/core/dialog/dialog";
 import { Component, xml } from "@odoo/owl";
 import { useService } from "@web/core/utils/hooks";
@@ -19,9 +20,9 @@ ImageDialog.template = xml`
 </Dialog>`;
 ImageDialog.components = { Dialog };
 
-patch(ImageField.prototype, "field_image_preview", {
+patch(ImageField.prototype, {
   async setup() {
-    this._super(...arguments);
+    super.setup();
     this.dialogService = useService("dialog");
   },
 

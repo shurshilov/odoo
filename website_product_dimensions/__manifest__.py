@@ -12,7 +12,7 @@
     "website": "http://www.eurodoo.com",
     "license": "LGPL-3",
     "category": "Website",
-    "version": "0.0.1",  # odoo.x.y.z; z - bags, y - feautures, x - model or view big changes
+    "version": "15.0.1",  # odoo.x.y.z; z - bags, y - feautures, x - model or view big changes
     "images": [
         "static/description/screen.png",
         "static/description/screen1.png",

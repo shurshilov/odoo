@@ -10,7 +10,7 @@
     # Check https://github.com/odoo/odoo/blob/13.0/odoo/addons/base/data/ir_module_category_data.xml
     # for the full list
     "category": "Technical Settings",
-    "version": "0.0.0",
+    "version": "14.0.0",
     "license": "LGPL-3",
     "images": ["static/description/example.gif"],
     # any module necessary for this one to work correctly

@@ -14,7 +14,7 @@ This is extension for <field widget="image"> widget image
     "website": "http://www.eurodoo.com",
     # Categories can be used to filter modules in modules listing
     "category": "Tools",
-    "version": "1.0.2",
+    "version": "16.1.2",
     # any module necessary for this one to work correctly
     "depends": ["web", "mail"],
     "license": "LGPL-3",

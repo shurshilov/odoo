@@ -12,7 +12,7 @@ enable/disable auto subscribe when send message \
     # Check https://github.com/odoo/odoo/blob/13.0/odoo/addons/base/data/ir_module_category_data.xml
     # for the full list
     "category": "Mail",
-    "version": "2.0.0",
+    "version": "15.2.0",
     "license": "OPL-1",
     # 'price': 19.0,
     # 'currency': 'EUR',

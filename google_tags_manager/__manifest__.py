@@ -32,7 +32,7 @@
     "summary": """Google Tag Manager function in odoo in all page TMS
     tags analityc
     """,
-    "version": "0.0.1",
+    "version": "12.0.1",
     "category": "Website",
     "website": "https://eurodoo.com",
     "author": "Shurshilov Artem",

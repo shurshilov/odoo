@@ -7,7 +7,7 @@
     "support": "shurshilov.a@yandex.ru",
     "website": "https://eurodoo.com",
     "license": "OPL-1",
-    "version": "0.0.0",
+    "version": "14.0.0",
     "category": "Sales",
     "sequence": 1,
     "price": 99.00,

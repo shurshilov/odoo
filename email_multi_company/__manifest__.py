@@ -39,7 +39,7 @@ emails companies email company multi email company several email per company sig
     # Check https://github.com/odoo/odoo/blob/12.0/odoo/addons/base/data/ir_module_category_data.xml
     # for the full list
     "category": "Technical Settings",
-    "version": "0.0.1",
+    "version": "14.0.1",
     "license": "OPL-1",
     # "license": "LGPL-3",
     # 'price': 29,
