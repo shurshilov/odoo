@@ -37,7 +37,7 @@ class WebcamDialog extends Component {
 
   onChangeDevice(e) {
     // добавляем обработчик смены камеры
-    const device = $(e.target).val();
+    const device = e.target.value;
     this.stopVideo();
     this.startVideo(device);
   }
@@ -51,8 +51,17 @@ class WebcamDialog extends Component {
     return canvas.toDataURL("image/jpeg");
   }
 
+  Deferred() {
+    let res,
+      rej,
+      p = new Promise((a, b) => ((res = a), (rej = b)));
+    p.resolve = res;
+    p.reject = rej;
+    return p;
+  }
+
   async handleStream(stream) {
-    const def = $.Deferred();
+    const def = this.Deferred();
 
     // устанавливаем выбранную камеру в селекшене
     if (stream && stream.getVideoTracks().length)
@@ -107,24 +116,6 @@ class WebcamDialog extends Component {
       this.video.el.srcObject.getTracks().forEach((track) => {
         track.stop();
       });
-  }
-
-  /**
-   * @returns {string}
-   */
-  getBody() {
-    return _.str.sprintf(
-      this.env._t(
-        `You can setting default photo size and quality in general settings`,
-      ),
-    );
-  }
-
-  /**
-   * @returns {string}
-   */
-  getTitle() {
-    return this.env._t("Attachments manager Webcam");
   }
 
   urltoFile(url, filename, mimeType) {

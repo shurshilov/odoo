@@ -20,6 +20,6 @@ patch(ImageField.prototype, {
   },
 
   async onWebcamCallback(base64) {
-    this.props.update(base64);
+    await this.props.record.update({ [this.props.name]: base64 });
   },
 });

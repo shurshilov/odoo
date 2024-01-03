@@ -9,8 +9,8 @@
     </t>
 
     <t t-name="web_image_webcam.WebcamDialog" owl="1">
-        <Dialog contentClass="'AttachmentWebcamDialog'" title="getTitle()" size="'xl'">
-            <p class="o_AttachmentWebcamDialog_mainText" t-esc="getBody()"/>
+        <Dialog contentClass="'AttachmentWebcamDialog'" size="'xl'">
+            <p class="o_AttachmentWebcamDialog_mainText"/>
 
             <div style="display: flex; justify-content: center; align-content: space-between;  align-items: center;flex-direction: column;">
                 <div>
