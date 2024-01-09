@@ -1,7 +1,7 @@
 /** @odoo-module */
 
 import { DiscussContainer } from "@mail/components/discuss_container/discuss_container";
-import { patch } from "web.utils";
+import { patch } from "@web/core/utils/patch";
 import { useService } from "@web/core/utils/hooks";
 
 patch(DiscussContainer.prototype, "firebase_discuss", {

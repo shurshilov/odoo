@@ -32,7 +32,7 @@ DEALINGS IN THE SOFTWARE.**/
 import { AttachmentBox } from "@mail/components/attachment_box/attachment_box";
 import AttachmentWebcamDialog from "@web_attachment_webcam/components/attachment_webcam/attachment_webcam";
 import Dialog from "web.Dialog";
-import { patch } from "web.utils";
+import { patch } from "@web/core/utils/patch";
 const { useState, useRef } = owl;
 import { registerPatch } from "@mail/model/model_core";
 

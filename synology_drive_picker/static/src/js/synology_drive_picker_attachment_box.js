@@ -1,7 +1,7 @@
 /** @odoo-module */
 
 import { ChatterTopbar } from "@mail/components/chatter_topbar/chatter_topbar";
-import { patch } from "web.utils";
+import { patch } from "@web/core/utils/patch";
 import { useService } from "@web/core/utils/hooks";
 import Dialog from "web.Dialog";
 import { qweb, _t } from "web.core";
