@@ -1,27 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates xml:space="preserve">
     <t t-name="web_attachment_webcam.AttachmentWebcamDialog" owl="1">
-        <Dialog contentClass="'AttachmentWebcamDialog'" title="getTitle()" size="'large'" t-ref="dialog">
-            <p class="o_AttachmentWebcamDialog_mainText" t-esc="getBody()"/>
+        <Dialog size="'xl'">
 
-                <div style="display: flex;justify-content: center;align-content: space-between;  align-items: center;flex-direction: column;">
-                    <div class="live_webcam_outer_div">
-                        <div t-ref="live_webcam"/>
-                    </div>
-                    <div class="col-md-2 mt64 direction_icon fa fa-angle-right fa-8x"/>
-                    <div class="webcam_result_outer_div">
-                        <img t-attf-src="{{state.snapshot}}"/>
-                    </div>
+            <div style="display: flex; justify-content: center; align-content: space-between;  align-items: center;flex-direction: column;">
+                <div>
+                    <select t-ref="selectCamera" t-on-change="(ev) => this.onChangeDevice(ev)">
+                        <option value="">Select camera</option>
+                    </select>
                 </div>
+                <video t-ref="video" width="100%" height="100%" autoplay="" playsinline=""/>
+                <img t-attf-src="{{state.snapshot}}"/>
+            </div>
 
-            <t t-set-slot="buttons">
-                <button class="btn btn-secondary" t-on-click="_onWebcamSnapshot">Take Snapshot</button>
-                <button class="btn btn-secondary" t-on-click="_onWebcamSave" 
-                    t-att-disabled="state.snapshot === '/web_attachment_webcam/static/src/libs/webcam_placeholder.png' ? 'disabled' : ''">
-                Save and Close</button>
-                <button class="btn btn-secondary" t-on-click="_onClickCancel">Cancel</button>
+            <t t-set-slot="footer">
+                <button class="btn btn-primary" t-on-click="_onWebcamSnapshot">
+                    <i class="fa fa-camera mr8"/>
+                    <t>Take Snapshot</t>
+                </button>
+                <button t-ref="saveButton" class="btn btn-primary" t-on-click="_onWebcamSave" t-att-disabled="!state.snapshot ? 'disabled' : ''">
+                    <i class="fa fa-save mr8"/>
+                    <t>Save and Close</t>
+                </button>
+                <button class="btn btn-secondary" t-on-click="_onClickCancel">
+                    <t>Cancel</t>
+                </button>
             </t>
-
         </Dialog>
     </t>
 </templates>

@@ -1,30 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates xml:space="preserve">
 
-    <t t-name="mail.AttachmentBoxCustom"
+    <t t-name="web_attachment_webcam.AttachmentBoxCustomWebcam"
        t-inherit="mail.AttachmentBox"
        t-inherit-mode="extension"
        owl="1">
-        <xpath expr="//div[hasclass('o_AttachmentBox_title')]" position="before">
+        <xpath expr="//div[hasclass('o_AttachmentBox_title')]" position="after">
 
             <!-- control buttons -->
             <div class="o_control_panel">
                 <div class="o_cp_left">
                     <div class="o_cp_buttons">
                         <div class="o_list_buttons">
-                            <button t-ref="am-new" class='btn btn-primary btn-sm am-control-btn-left oe_button_control_new' title="Upload new files(file)" type="button">
-                                <i class="fa fa-plus"/></button>
+                            <button t-ref="webcam" class='btn btn-primary btn-sm am-control-btn-left web_attachment_webcam' title="Upload new files(file)" type="button">
+                                <i class="fa fa-camera"/></button>
                         </div>
                     </div>
                 </div>
             </div>
-
-          <t t-if="state.hasWebcamDialog" snapshot="state.snapshot">
-            <AttachmentWebcamDialog
-              webcamRear="webcamRear"
-              t-on-dialog-file="_onWebcamCallback"
-              t-on-dialog-closed="_onWebcamClosed"/>
-          </t>
 
         </xpath>
     </t>

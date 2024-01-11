@@ -33,36 +33,41 @@ import { AttachmentBox } from "@mail/components/attachment_box/attachment_box";
 import AttachmentWebcamDialog from "@web_attachment_webcam/components/attachment_webcam/attachment_webcam";
 import Dialog from "web.Dialog";
 import { patch } from "web.utils";
-const { useState, useRef } = owl;
-import { registerPatch } from "@mail/model/model_core";
+const { useRef, onMounted, onWillUnmount } = owl;
+import { useService } from "@web/core/utils/hooks";
+
+Object.assign(AttachmentBox, {
+  components: {
+    Dialog: Dialog,
+    AttachmentWebcamDialog: AttachmentWebcamDialog,
+  },
+});
 
 patch(AttachmentBox.prototype, "web_attachment_webcam", {
-  async willStart(...args) {
-    this._super(...args);
-    this.state = useState({
-      hasFavoritesDialog: false,
-      hasWebcamDialog: false,
-      snapshot: "",
-      attachments_favorite: [],
-    });
-    this._amNewRef = useRef("am-new");
+  setup() {
+    this._super(...arguments);
+    this.dialogService = useService("dialog");
+    // this.state.snapshot = "";
+    this._webcamRef = useRef("webcam");
+    onMounted(this.mounted);
+    // onWillUnmount(()=>$(this.el).contextMenu("destroy"))
   },
 
-  willUnmount(...args) {
-    this._super(...args);
-    $(this.el).contextMenu("destroy");
-  },
+  // willUnmount(...args) {
+  //   this._super(...args);
+  //   $(this.el).contextMenu("destroy");
+  // },
 
   mounted(...args) {
     var self = this;
     // make button open the menu
-    this._amNewRef.el.addEventListener("click", (e) => {
+    this._webcamRef.el.addEventListener("click", (e) => {
       e.preventDefault();
-      $(this._amNewRef.el).contextMenu();
+      $(this._webcamRef.el).contextMenu();
     });
 
-    $(this.el).contextMenu({
-      selector: ".oe_button_control_new",
+    $.contextMenu({
+      selector: ".web_attachment_webcam",
       build: function ($trigger, e) {
         // this callback is executed every time the menu is to be shown
         // its results are destroyed every time the menu is hidden
@@ -95,32 +100,41 @@ patch(AttachmentBox.prototype, "web_attachment_webcam", {
   },
 
   _openRearCamera(ev) {
-    this.webcamRear = true;
-    this.state.hasWebcamDialog = true;
+    this.dialogService.add(AttachmentWebcamDialog, {
+      mode: true,
+      onWebcamCallback: (file) => this.onWebcamCallback(file),
+    });
   },
 
   _openFrontCamera(ev) {
-    this.state.hasWebcamDialog = true;
+    this.dialogService.add(AttachmentWebcamDialog, {
+      mode: false,
+      onWebcamCallback: (file) => this.onWebcamCallback(file),
+    });
   },
 
-  _onWebcamClosed() {
-    this.state.hasWebcamDialog = false;
-    this.webcamRear = false;
+  async onWebcamCallback(file) {
+    await this.attachmentBoxView.fileUploader.uploadFiles([file]);
   },
 
-  _onWebcamCallback(ev) {
-    // TO DO refresh
-    // updating temp attachment or iverride fileuploader _createTemporaryAttachments func
-    this.fileUploader.uploadFiles([ev.detail]);
-    // this._fileUploaderRef.comp.uploadFiles([ev.detail]);
-  },
+  // _onWebcamClosed() {
+  //   this.state.hasWebcamDialog = false;
+  //   this.webcamRear = false;
+  // },
+
+  // _onWebcamCallback(ev) {
+  //   // TO DO refresh
+  //   // updating temp attachment or iverride fileuploader _createTemporaryAttachments func
+  //   this.fileUploader.uploadFiles([ev.detail]);
+  //   // this._fileUploaderRef.comp.uploadFiles([ev.detail]);
+  // },
 });
 
-Object.assign(AttachmentBox, {
-  components: {
-    Dialog: Dialog,
-    AttachmentWebcamDialog: AttachmentWebcamDialog,
-  },
-});
+// Object.assign(AttachmentBox, {
+//   components: {
+//     Dialog: Dialog,
+//     AttachmentWebcamDialog: AttachmentWebcamDialog,
+//   },
+// });
 
-return AttachmentBox;
+export default AttachmentBox;
