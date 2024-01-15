@@ -11,13 +11,13 @@ logger = logging.getLogger("geoengine.sql")
 _schema = logging.getLogger("odoo.schema")
 
 
-def init_postgis(cr):
+def init_postgis(env):
     """Initialize postgis
     Add PostGIS support to the database. PostGIS is a spatial database
     extender for PostgreSQL object-relational database. It adds support for
     geographic objects allowing location queries to be run in SQL.
     """
-    cr.execute(
+    env.cr.execute(
         """
         SELECT
             tablename
@@ -27,11 +27,11 @@ def init_postgis(cr):
             tablename='spatial_ref_sys';
     """
     )
-    check = cr.fetchone()
+    check = env.cr.fetchone()
     if check:
         return {}
     try:
-        cr.execute(
+        env.cr.execute(
             """
         CREATE EXTENSION postgis;
         CREATE EXTENSION postgis_topology;
@@ -54,20 +54,20 @@ def init_postgis(cr):
 
 
 def create_geo_column(
-    cr, tablename, columnname, geotype, srid, dim, comment=None
+    env, tablename, columnname, geotype, srid, dim, comment=None
 ):
     """Create a geometry column with the given type.
 
     :params: srid: geometry's projection srid
     :params: dim: geometry's dimension (2D or 3D)
     """
-    cr.execute(
+    env.cr.execute(
         "SELECT AddGeometryColumn( %s, %s, %s, %s, %s)",
         (tablename, columnname, srid, geotype, dim),
     )
     if comment:
         # pylint: disable=E8103
-        cr.execute(
+        env.cr.execute(
             'COMMENT ON COLUMN "{}"."{}" IS %s'.format(tablename, columnname),
             (comment,),
         )
@@ -83,13 +83,13 @@ def _postgis_index_name(table, col_name):
     return "{}_{}_gist_index".format(table, col_name)
 
 
-def create_geo_index(cr, columnname, tablename):
+def create_geo_index(env, columnname, tablename):
     """Create the given index unless it exists."""
     indexname = _postgis_index_name(tablename, columnname)
-    if sql.index_exists(cr, indexname):
+    if sql.index_exists(env.cr, indexname):
         return
     # pylint: disable=E8103
-    cr.execute(
+    env.cr.execute(
         "CREATE INDEX {} ON {} USING GIST ( {} )".format(
             indexname, tablename, columnname
         )
