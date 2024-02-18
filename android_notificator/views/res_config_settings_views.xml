@@ -1,59 +1,58 @@
-<?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="res_config_settings_view_form_mail_firebase" model="ir.ui.view">
-        <field name="name">res.config.settings.view.form.inherit.mail.farebase</field>
+        <field name="name">res.config.settings.view.form.inherit.mail.firebase</field>
         <field name="model">res.config.settings</field>
         <field name="priority" eval="90"/>
         <field name="inherit_id" ref="base_setup.res_config_settings_view_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//div[hasclass('settings')]" position="inside">
-                <div class="app_settings_block" data-string="Android notificator" string="Android notificator" data-key="android_notificator">
-
-                    <h2 id="firebase">Android Notificator (Firebase key)</h2>
-                    <div class="col-8 col-lg-8 o_setting_box" id="android_notificator">
-                        <div class="o_setting_left_pane">
+            <xpath expr="//form" position="inside">
+                <app data-string="Android notificator" string="Android notificator" name="android_notificator">
+                    <block title="Firebase key" name="android_notificator">
+                        <div>
+                            <span class="o_form_label">Firebase title web</span>
+                        </div>
+                        <div>
                             <field name="mail_firebase_key" readonly="1"/>
                         </div>
-                    </div>
 
+                    </block>
 
-                    <h2 id="firebase">Website visitors leads wizard</h2>
-                    <div>
-                        <div class="col-12 col-lg-12 o_setting_box" title="Firebase WEB wizard">
-                            <div class="o_setting_right_pane">
-                                <span class="o_form_label">Firebase title web</span>
-                            </div>
+                    <block title="Firebase WEB wizard" name="Firebase WEB wizard">
 
-                            <div class="o_setting_left_pane">
-                                <field name="res_users_firebase_title_web"/>
-                            </div>
-                            <div class="o_setting_right_pane">
-                                <span class="o_form_label">Firebase body web</span>
-                            </div>
-                            <div class="o_setting_left_pane">
-                                <field name="res_users_firebase_body_web"/>
-                            </div>
-                            <div class="o_setting_right_pane">
-                                <span class="o_form_label">Firebase icon web</span>
-                            </div>
-                            <div class="o_setting_left_pane">
-                                <field name="res_users_firebase_icon_web"/>
-                            </div>
-                            <div class="o_setting_right_pane">
-                                <span class="o_form_label">Firebase image web</span>
-                            </div>
-                            <div class="o_setting_left_pane">
-                                <field name="res_users_firebase_image_web"/>
-                            </div>
-                            <div class="o_setting_right_pane">
-                                <span class="o_form_label">Firebase action web</span>
-                            </div>
-                            <div class="o_setting_left_pane">
-                                <field name="res_users_firebase_action_web"/>
-                            </div>
+                        <div>
+                            <span class="o_form_label">Firebase title web</span>
                         </div>
-                    </div>
-                </div>
+
+                        <div>
+                            <field name="res_users_firebase_title_web"/>
+                        </div>
+                        <div>
+                            <span class="o_form_label">Firebase body web</span>
+                        </div>
+                        <div>
+                            <field name="res_users_firebase_body_web"/>
+                        </div>
+                        <div>
+                            <span class="o_form_label">Firebase icon web</span>
+                        </div>
+                        <div>
+                            <field name="res_users_firebase_icon_web"/>
+                        </div>
+                        <div>
+                            <span class="o_form_label">Firebase image web</span>
+                        </div>
+                        <div>
+                            <field name="res_users_firebase_image_web"/>
+                        </div>
+                        <div>
+                            <span class="o_form_label">Firebase action web</span>
+                        </div>
+                        <div>
+                            <field name="res_users_firebase_action_web"/>
+                        </div>
+
+                    </block>
+                </app>
             </xpath>
         </field>
     </record>

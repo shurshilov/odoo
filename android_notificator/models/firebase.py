@@ -1,4 +1,4 @@
-# Copyright 2020-2023 Artem Shurshilov
+# Copyright 2020-2024 Artem Shurshilov
 # Odoo Proprietary License v1.0
 
 # This software and associated files (the "Software") may only be used (executed,
@@ -35,24 +35,22 @@ from odoo import api, fields, models
 class ImLivechatChannel(models.Model):
     _inherit = "im_livechat.channel"
 
+    # enable website livechat always
     def _get_available_users(self):
         self.ensure_one()
         return self.user_ids
 
 
-class Channel(models.Model):
-    _inherit = "mail.channel"
+class DiscussChannel(models.Model):
+    _inherit = "discuss.channel"
 
-    def _channel_message_notifications(self, message, message_format=False):
-        """Generate the bus notifications for the given message
-        :param message : the mail.message to sent
-        :returns list of bus notifications (tuple (bus_channe, message_content))
-        """
-        res = super()._channel_message_notifications(
-            message, message_format=message_format
+    def _notify_thread(self, message, msg_vals=False, **kwargs):
+        res = super()._notify_thread(
+            message, message_format=msg_vals, kwargs=kwargs
         )
 
         message_values = message.message_format()[0]
+        # message_format = message.message_format()[0]
         device_ids = []
         author_id = "Anonymus"
         if message_values.get("author_id"):
