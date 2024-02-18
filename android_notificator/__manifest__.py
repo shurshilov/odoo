@@ -1,4 +1,4 @@
-# Copyright (C) 2020-2023 Artem Shurshilov <shurshilov.a@yandex.ru>
+# Copyright (C) 2020-2024 Artem Shurshilov <shurshilov.a@yandex.ru>
 # License OPL-1.0
 {
     "name": "Android FREE push notificator",
@@ -12,13 +12,13 @@
     # Check https://github.com/odoo/odoo/blob/13.0/odoo/addons/base/data/ir_module_category_data.xml
     # for the full list
     "category": "Mail",
-    "version": "16.2.4",
+    "version": "17.0.0.2.4",
     "license": "OPL-1",
     "images": [
         "static/description/and.png",
     ],
     # any module necessary for this one to work correctly
-    "depends": ["base", "web", "mail"],
+    "depends": ["base", "web", "mail", "im_livechat"],
     # always loaded
     "data": [
         "security/ir.model.access.csv",

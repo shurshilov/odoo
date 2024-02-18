@@ -45,16 +45,14 @@ class DiscussChannel(models.Model):
     _inherit = "discuss.channel"
 
     def _notify_thread(self, message, msg_vals=False, **kwargs):
-        res = super()._notify_thread(
-            message, message_format=msg_vals, kwargs=kwargs
-        )
+        res = super()._notify_thread(message, msg_vals=msg_vals, **kwargs)
 
         message_values = message.message_format()[0]
         # message_format = message.message_format()[0]
         device_ids = []
         author_id = "Anonymus"
-        if message_values.get("author_id"):
-            author_id = message_values["author_id"][0]
+        if message_values.get("author"):
+            author_id = message_values["author"]["id"]
 
         for channel in self:
             for partner in channel.channel_partner_ids:
@@ -65,11 +63,14 @@ class DiscussChannel(models.Model):
                             "token"
                         )
 
-        self._prepare_firebase_notifications(message_values, device_ids)
+        if len(device_ids):
+            self._prepare_firebase_notifications(
+                message_values, device_ids, author_id
+            )
 
         return res
 
-    def _prepare_firebase_notifications(self, message, device_ids):
+    def _prepare_firebase_notifications(self, message, device_ids, author_id):
         """
         Prepare message before send
         {'id': 2323,
@@ -100,7 +101,7 @@ class DiscussChannel(models.Model):
         'module_icon': '/mail/static/description/icon.png'}
         """
         message_json = {
-            "author_id": message.get("author_id", "Anonymus"),
+            "author_id": author_id,
             # delete <p></p>
             "body": message["body"][3:-4],
             "body_html": message["body"],
