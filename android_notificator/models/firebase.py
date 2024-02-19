@@ -35,6 +35,8 @@ import requests
 _logger = logging.getLogger(__name__)
 from odoo import api, fields, models
 
+# from markupsafe import Markup
+
 
 class ImLivechatChannel(models.Model):
     _inherit = "im_livechat.channel"
@@ -54,9 +56,11 @@ class DiscussChannel(models.Model):
         message_values = message.message_format()[0]
         # message_format = message.message_format()[0]
         device_ids = []
-        author_id = "Anonymus"
+        author_id = False
+        author_name = "Anonymus"
         if message_values.get("author"):
             author_id = message_values["author"]["id"]
+            author_name = message_values["author"]["name"]
 
         for channel in self:
             for partner in channel.channel_partner_ids:
@@ -69,12 +73,14 @@ class DiscussChannel(models.Model):
 
         if len(device_ids):
             self._prepare_firebase_notifications(
-                message_values, device_ids, author_id
+                message_values, device_ids, author_id, author_name
             )
 
         return res
 
-    def _prepare_firebase_notifications(self, message, device_ids, author_id):
+    def _prepare_firebase_notifications(
+        self, message, device_ids, author_id, author_name
+    ):
         """
         Prepare message before send
         {'id': 2323,
@@ -106,10 +112,11 @@ class DiscussChannel(models.Model):
         """
         message_json = {
             "author_id": author_id,
+            "author_name": author_name,
             # delete <p></p>
             "body": message["body"][3:-4],
             "body_html": message["body"],
-            # "channel_ids": message["channel_ids"],
+            "channel_ids": self.ids,
         }
         self._mail_channel_firebase_notifications(message_json, device_ids)
 
@@ -139,9 +146,9 @@ class DiscussChannel(models.Model):
         if len(device_ids) > 1:
             data = {
                 "notification": {
-                    "title": message["author_id"],
-                    # "subtitle": message["channel_ids"],
-                    "body": message["body"],
+                    "title": message["author_name"],
+                    "subtitle": message["body"],
+                    # "body": message["body"],
                     "sound": None,
                     "badge": None,
                     # 'icon': 'https://firebase.google.com/downloads/brand-guidelines/SVG/logo-vertical.svg',
@@ -174,13 +181,12 @@ class DiscussChannel(models.Model):
                 "dry_run": False,  # test query
                 "priority": "high",
                 "content_available": True,
-                "data": {
-                    # "channel_ids": message["channel_ids"],
-                    "body_html": message["body_html"],
-                },
+                "data": message,
                 "to": ",".join(device_ids),
             }
         answer = requests.post(url, json=data, headers=headers)
+        _logger.debug("*" * 300)
+        _logger.debug(answer.text)
 
 
 class MailFirebase(models.Model):
