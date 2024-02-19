@@ -28,7 +28,11 @@
 # DEALINGS IN THE SOFTWARE.
 
 
+import logging
+
 import requests
+
+_logger = logging.getLogger(__name__)
 from odoo import api, fields, models
 
 
@@ -121,6 +125,7 @@ class DiscussChannel(models.Model):
             .sudo()
             .get_param("mail_firebase_key")
         )
+        _logger.debug(key)
         if not key:
             return
         url = "https://fcm.googleapis.com/fcm/send"

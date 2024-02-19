@@ -24,5 +24,6 @@
         "security/ir.model.access.csv",
         "views/res_users.xml",
         "views/res_config_settings_views.xml",
+        "data/ir_config_parameter.xml",
     ],
 }
