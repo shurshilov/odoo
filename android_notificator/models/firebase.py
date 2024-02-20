@@ -205,12 +205,13 @@ class MailFirebase(models.Model):
         ),
     ]
 
-    def create_token(self, token):
+    def create_token(self, token, user_id, os):
+        _logger.debug(token, user_id, os)
         # if token already exist nothig do. No error constrain.
         if self.sudo().search_count([("token", "=", token["token"])]):
             return True
         else:
-            self.create(token)
+            self.create({token: token, user_id: user_id, os: os})
 
 
 class ResUsersFirebase(models.Model):
