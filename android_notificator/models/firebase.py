@@ -205,14 +205,12 @@ class MailFirebase(models.Model):
         ),
     ]
 
-    @api.model_create_multi
-    def create(self, vals_list):
+    def create_token(self, token):
         # if token already exist nothig do. No error constrain.
-        for rec in vals_list:
-            if self.search_count([("token", "=", rec["token"])]):
-                return True
-        res = super().create(vals_list)
-        return res
+        if self.sudo().search_count([("token", "=", token["token"])]):
+            return True
+        else:
+            self.create(token)
 
 
 class ResUsersFirebase(models.Model):
