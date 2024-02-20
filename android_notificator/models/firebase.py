@@ -205,6 +205,7 @@ class MailFirebase(models.Model):
         ),
     ]
 
+    @api.model
     def create_token(self, token, user_id, os):
         _logger.debug(token, user_id, os)
         # if token already exist nothig do. No error constrain.
