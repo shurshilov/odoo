@@ -126,7 +126,6 @@ class DiscussChannel(models.Model):
         """
         if len(device_ids) == 0:
             return
-        # key = "AAAAmsbwHC4:APA91bHOpTMKFkbZ5qhAVFsb0Qgk2Hsgh3H_oYh_8xxYleJzGm0LHcljtcUYBP-KWmB5hITRrLFEHLJOphWSwLUr9Qtr4md3VdTKu8_tHl7k69RmfIaAiCj88fJisRmWVJACyChGKJYf"
         key = (
             self.env["ir.config_parameter"]
             .sudo()
@@ -159,19 +158,16 @@ class DiscussChannel(models.Model):
                 "dry_run": False,  # test query
                 "priority": "high",
                 "content_available": True,
-                "data": {
-                    # "channel_ids": message["channel_ids"],
-                    "body_html": message["body_html"],
-                },
+                "data": message,
                 "registration_ids": device_ids,
             }
         else:
             data = {
                 "notification": {
-                    "title": message["author_id"],
-                    # "subtitle": message["channel_ids"],
+                    "title": message["author_name"],
+                    "subtitle": message["body"],
                     # "data": message["channel_ids"],
-                    "body": message["body"],
+                    # "body": message["body"],
                     "sound": None,
                     "badge": None,
                     # 'icon': 'https://firebase.google.com/downloads/brand-guidelines/SVG/logo-vertical.svg',
@@ -208,6 +204,15 @@ class MailFirebase(models.Model):
             "Token must be not null!",
         ),
     ]
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        # if token already exist nothig do. No error constrain.
+        for rec in vals_list:
+            if self.search_count([("token", "=", rec["token"])]):
+                return
+        res = super().create(vals_list)
+        return res
 
 
 class ResUsersFirebase(models.Model):
