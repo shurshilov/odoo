@@ -210,7 +210,7 @@ class MailFirebase(models.Model):
         # if token already exist nothig do. No error constrain.
         for rec in vals_list:
             if self.search_count([("token", "=", rec["token"])]):
-                return
+                return True
         res = super().create(vals_list)
         return res
 
