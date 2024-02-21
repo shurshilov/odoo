@@ -212,7 +212,7 @@ class MailFirebase(models.Model):
         if self.sudo().search_count([("token", "=", token)]):
             return True
         else:
-            self.create({token: token, user_id: user_id, os: os})
+            self.create({"token": token, "user_id": user_id, "os": os})
 
 
 class ResUsersFirebase(models.Model):
