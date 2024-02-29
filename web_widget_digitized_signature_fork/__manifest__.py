@@ -7,34 +7,28 @@
 
 {
     "name": "Web Widget Digitized Signature",
-    "version": "13.0.1",
+    "summary": "Res users Digitized Signature",
     "author": "Serpent Consulting Services Pvt. Ltd., "
     "Agile Business Group, "
     "Tecnativa, "
     "Odoo Community Association (OCA)"
     "Shurshilov Artem",
-    "website": "www.eurodoo.com",
+    "maintainer": "EURO ODOO",
+    "website": "https://eurodoo.com",
+    "live_test_url": "https://eurodoo.com",
+    # Categories can be used to filter modules in modules listing
+    # Check https://github.com/odoo/odoo/blob/13.0/odoo/addons/base/data/ir_module_category_data.xml
+    # for the full list
+    "category": "Document Management",
+    "version": "17.0.0.0.0",
     "license": "AGPL-3",
-    "category": "Web",
-    "depends": [
-        "web",
-        "mail",
-    ],
-    "price": 19,
+    "price": 19.0,
     "currency": "EUR",
+    "images": ["static/description/sign.png"],
+    # any module necessary for this one to work correctly
+    "depends": ["base", "web", "mail"],
+    # always loaded
     "data": [
-        "views/web_digital_sign_view.xml",
         "views/res_users_view.xml",
     ],
-    "images": [
-        "static/description/sign.png",
-        "static/description/sign.png",
-        "static/description/sign.png",
-    ],
-    "qweb": [
-        "static/src/xml/digital_sign.xml",
-    ],
-    "installable": True,
-    "development_status": "Production/Stable",
-    "maintainers": ["mgosai"],
 }

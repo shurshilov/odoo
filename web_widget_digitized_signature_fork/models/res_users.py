@@ -1,10 +1,7 @@
-# Copyright 2004-2010 OpenERP SA (<http://www.openerp.com>)
-# Copyright 2011-2015 Serpent Consulting Services Pvt. Ltd.
-# Copyright 2017 Tecnativa - Vicent Cubells
-# Copyright 2020 Shurshilov Artem <shurshilov.a@yandex.ru>
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+# Copyright (C) 2021-2024 Artem Shurshilov <shurshilov.a@yandex.ru>
+# License OPL-1.0
 
-from odoo import api, fields, models
+from odoo import fields, models
 
 
 class ResUsers(models.Model):
@@ -12,16 +9,16 @@ class ResUsers(models.Model):
     _inherit = ["res.users", "mail.thread"]
 
     digital_signature = fields.Binary(
-        string="Digital Signature", oldname="signature_image", attachment=True
+        string="Digital Signature", attachment=True
     )
 
-    @api.model
-    def create(self, vals):
-        res = super().create(vals)
-        res._track_signature(vals, "digital_signature")
-        return res
+    # @api.model_create_multi
+    # def create(self, vals):
+    #     res = super().create(vals)
+    #     res._track_signature(vals, "digital_signature")
+    #     return res
 
-    # @api.multi
-    def write(self, vals):
-        self._track_signature(vals, "digital_signature")
-        return super().write(vals)
+    # # @api.multi
+    # def write(self, vals):
+    #     self._track_signature(vals, "digital_signature")
+    #     return super().write(vals)

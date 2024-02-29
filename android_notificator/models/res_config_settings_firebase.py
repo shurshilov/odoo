@@ -56,7 +56,7 @@ class ResConfigSettingsIapFirebase(models.TransientModel):
     def set_values(self):
         res = super().set_values()
         config_parameters = self.env["ir.config_parameter"]
-        config_parameters.set_param("mail_firebase_key")
+        config_parameters.set_param("mail_firebase_key", self.mail_firebase_key)
         config_parameters.set_param(
             "res_users_firebase_title_web", self.res_users_firebase_title_web
         )
