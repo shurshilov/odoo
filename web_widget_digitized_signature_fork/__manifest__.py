@@ -22,8 +22,8 @@
     "category": "Document Management",
     "version": "17.0.0.0.0",
     "license": "AGPL-3",
-    "price": 19.0,
-    "currency": "EUR",
+    # "price": 19.0,
+    # "currency": "EUR",
     "images": ["static/description/sign.png"],
     # any module necessary for this one to work correctly
     "depends": ["base", "web", "mail"],
