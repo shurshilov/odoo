@@ -1,12 +1,14 @@
 /** @odoo-module */
 
-import { DiscussContainer } from "@mail/components/discuss_container/discuss_container";
+// import { DiscussContainer } from "@mail/components/discuss_container/discuss_container";
+import { Discuss } from "@mail/core/common/discuss";
 import { patch } from "@web/core/utils/patch";
 import { useService } from "@web/core/utils/hooks";
 
-patch(DiscussContainer.prototype, "firebase_discuss", {
+patch(Discuss.prototype, {
   setup() {
-    this._super(...arguments);
+    // this._super(...arguments);
+    super.setup();
     this.rpc = useService("rpc");
     console.log("WORK");
     // браузер поддерживает уведомления

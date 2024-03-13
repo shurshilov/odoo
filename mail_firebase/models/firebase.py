@@ -1,4 +1,4 @@
-# Copyright 2020 Artem Shurshilov
+# Copyright 2020-2024 Artem Shurshilov
 # Odoo Proprietary License v1.0
 
 # This software and associated files (the "Software") may only be used (executed,
@@ -28,27 +28,28 @@
 # DEALINGS IN THE SOFTWARE.
 
 
+import logging
+
 import requests
-from odoo import fields, models
+from odoo import api, fields, models
+
+_logger = logging.getLogger(__name__)
 
 
-class Channel(models.Model):
-    _inherit = "mail.channel"
+class DiscussChannel(models.Model):
+    _inherit = "discuss.channel"
 
-    def _channel_message_notifications(self, message, message_format=False):
-        """Generate the bus notifications for the given message
-        :param message : the mail.message to sent
-        :returns list of bus notifications (tuple (bus_channe, message_content))
-        """
-        res = super()._channel_message_notifications(
-            message, message_format=message_format
-        )
+    def _notify_thread(self, message, msg_vals=False, **kwargs):
+        res = super()._notify_thread(message, msg_vals=msg_vals, **kwargs)
 
         message_values = message.message_format()[0]
+        # message_format = message.message_format()[0]
         device_ids = []
-        author_id = "Anonymus"
-        if message_values.get("author_id"):
-            author_id = message_values["author_id"][0]
+        author_id = False
+        author_name = "Anonymus"
+        if message_values.get("author"):
+            author_id = message_values["author"]["id"]
+            author_name = message_values["author"]["name"]
 
         for channel in self:
             for partner in channel.channel_partner_ids:
@@ -59,11 +60,16 @@ class Channel(models.Model):
                             "token"
                         )
 
-        self._prepare_firebase_notifications(message_values, device_ids)
+        if len(device_ids):
+            self._prepare_firebase_notifications(
+                message_values, device_ids, author_id, author_name
+            )
 
         return res
 
-    def _prepare_firebase_notifications(self, message, device_ids):
+    def _prepare_firebase_notifications(
+        self, message, device_ids, author_id, author_name
+    ):
         """
         Prepare message before send
         {'id': 2323,
@@ -94,10 +100,12 @@ class Channel(models.Model):
         'module_icon': '/mail/static/description/icon.png'}
         """
         message_json = {
-            "author_id": message.get("author_id", "Anonymus"),
+            "author_id": author_id,
+            "author_name": author_name,
             # delete <p></p>
             "body": message["body"][3:-4],
             "body_html": message["body"],
+            "channel_ids": self.ids,
         }
         self._mail_channel_firebase_notifications(message_json, device_ids)
 
@@ -112,6 +120,7 @@ class Channel(models.Model):
             .sudo()
             .get_param("mail_firebase_key")
         )
+        _logger.debug(key)
         if not key:
             return
         url = "https://fcm.googleapis.com/fcm/send"
@@ -125,52 +134,44 @@ class Channel(models.Model):
         if len(device_ids) > 1:
             data = {
                 "notification": {
-                    "title": message["author_id"],
-                    # "subtitle": message["channel_ids"],
-                    "body": message["body"],
-                    # "sound": None,
-                    # "badge": None,
+                    "title": message["author_name"],
+                    "subtitle": message["body"],
+                    # "body": message["body"],
+                    "sound": None,
+                    "badge": None,
                     # 'icon': 'https://firebase.google.com/downloads/brand-guidelines/SVG/logo-vertical.svg',
                     "icon": "https://firebase.google.com/downloads/brand-guidelines/PNG/logo-vertical.png",
                     # 'image': 'https://firebase.google.com/downloads/brand-guidelines/SVG/logo-vertical.svg',
                     # 'click_action':
                 },
-                # "dry_run": False,  # test query
-                # "priority": "high",
-                # "content_available": True,
-                # "data": {
-                # "channel_ids": message["channel_ids"],
-                # "body_html": message["body_html"],
-                # },
+                "dry_run": False,  # test query
+                "priority": "high",
+                "content_available": True,
+                "data": message,
                 "registration_ids": device_ids,
             }
         else:
             data = {
                 "notification": {
-                    "title": message["author_id"],
-                    # "subtitle": message["channel_ids"],
+                    "title": message["author_name"],
+                    "subtitle": message["body"],
                     # "data": message["channel_ids"],
                     # "body": message["body"],
-                    "body": "test",
-                    # "sound": None,
-                    # "badge": None,
+                    "sound": None,
+                    "badge": None,
                     # 'icon': 'https://firebase.google.com/downloads/brand-guidelines/SVG/logo-vertical.svg',
                     "icon": "https://firebase.google.com/downloads/brand-guidelines/PNG/logo-vertical.png",
                     # 'image': 'https://firebase.google.com/downloads/brand-guidelines/SVG/logo-vertical.svg',
                 },
-                # "dry_run": False,  # test query
-                # "priority": "high",
-                # "content_available": True,
-                # "data": {
-                # "channel_ids": message["channel_ids"],
-                # "body_html": message["body_html"],
-                # "body_html": "test",
-                # },
-                "to": device_ids[0],
+                "dry_run": False,  # test query
+                "priority": "high",
+                "content_available": True,
+                "data": message,
+                "to": ",".join(device_ids),
             }
-        print(headers, data)
         answer = requests.post(url, json=data, headers=headers)
-        print(answer.text)
+        _logger.debug("*" * 300)
+        _logger.debug(answer.text)
 
 
 class MailFirebase(models.Model):
@@ -186,12 +187,26 @@ class MailFirebase(models.Model):
             "unique(token, os, user_id)",
             "Token must be unique per user!",
         ),
+        (
+            "token_not_false",
+            "CHECK (token IS NOT NULL)",
+            "Token must be not null!",
+        ),
     ]
+
+    @api.model
+    def create_token(self, token, user_id, os):
+        _logger.debug(token, user_id, os)
+        # if token already exist nothig do. No error constrain.
+        if self.sudo().search_count([("token", "=", token)]):
+            return True
+        else:
+            self.create({"token": token, "user_id": user_id, "os": os})
 
 
 class ResUsersFirebase(models.Model):
     _inherit = "res.users"
 
     mail_firebase_tokens = fields.One2many(
-        "mail.firebase", "user_id", string="Mail Firebase tokens", readonly=True
+        "mail.firebase", "user_id", string="Android device(tokens)"
     )
