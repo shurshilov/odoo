@@ -107,9 +107,11 @@ class IrAttachment(models.Model):
             attachment = {
                 "name": path.split("/")[-1],
                 "type": "binary",
-                "datas": base64.b64encode(open(path_file, "rb").read())
-                if path_file
-                else False,
+                "datas": (
+                    base64.b64encode(open(path_file, "rb").read())
+                    if path_file
+                    else False
+                ),
                 "res_id": res_id,
                 "res_model": res_model,
                 "description": "synology",
@@ -160,6 +162,9 @@ class IrAttachment(models.Model):
             or not cp.synology_pass
         ):
             UserError("Please check user synology settings")
+        # if (
+        #     datetime.now() - cp.write_date
+        # ).seconds > 60 * 60 * 24 * 7 or not cp.synology_session:
         fl = filestation.FileStation(
             cp.synology_ip,
             cp.synology_port,
@@ -167,6 +172,7 @@ class IrAttachment(models.Model):
             cp.synology_pass,
             cp.synology_https,
         )
+        cp.synology_session = fl._sid
         # get_file(self, path=None, mode=None, dest_path=".", chunkSize=8192):
         method_to_call = getattr(fl, funcAPI)
         if params_list:

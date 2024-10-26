@@ -1,4 +1,4 @@
-# Copyright (C) 2020-2023 Artem Shurshilov <shurshilov.a@yandex.ru>
+# Copyright (C) 2020-2024 Artem Shurshilov <shurshilov.a@yandex.ru>
 # License OPL-1.0 or later (http://www.gnu.org/licenses/agpl).
 {
     "name": "Synology Drive Picker upload attachments",
@@ -8,7 +8,7 @@
     "live_test_url": "https://eurodoo.com/login_employee?login=demo1&amp;password=demo777",
     # Categories can be used to filter modules in modules listing
     "category": "Extra Tools",
-    "version": "16.3.0",
+    "version": "17.0.3.0.0",
     # any module necessary for this one to work correctly
     "depends": ["web", "mail"],
     "license": "OPL-1",
