@@ -20,7 +20,7 @@
     # Check https://github.com/odoo/odoo/blob/13.0/odoo/addons/base/data/ir_module_category_data.xml
     # for the full list
     "category": "Document Management",
-    "version": "17.0.0.0.0",
+    "version": "18.0.0.0.0",
     "license": "AGPL-3",
     # "price": 19.0,
     # "currency": "EUR",
