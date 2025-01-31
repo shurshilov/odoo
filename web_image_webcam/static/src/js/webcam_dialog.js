@@ -12,7 +12,7 @@ class WebcamDialog extends Component {
     this.video = useRef("video");
     this.saveButton = useRef("saveButton");
     this.selectCamera = useRef("selectCamera");
-    onMounted(() => this._mounted());
+    onMounted(async () => await this._mounted());
   }
 
   async _mounted() {
@@ -91,13 +91,25 @@ class WebcamDialog extends Component {
   async startVideo(device = null) {
     try {
       let config = {
-        width: { ideal: session.am_webcam_width || 1280 },
-        height: { ideal: session.am_webcam_height || 720 },
+        // advanced: [
+        //   { width: { exact: 2560 } },
+        //   { width: { exact: 1920 } },
+        //   { width: { exact: 1280 } },
+        //   { width: { exact: 1024 } },
+        //   { width: { exact: 900 } },
+        //   { width: { exact: 800 } },
+        //   { width: { exact: 640 } },
+        //   { width: { exact: 320 } },
+        // ],
+        // width: { ideal: 1280 },
+        // height: { ideal: 1024 },
+        // facingMode: "environment",
         // facingMode: this.props.mode ? 'user' : 'environment',
       };
       if (device) config.deviceId = { exact: device };
 
       const videoStream = await navigator.mediaDevices.getUserMedia({
+        audio: false,
         video: config,
       });
       await this.handleStream(videoStream);
