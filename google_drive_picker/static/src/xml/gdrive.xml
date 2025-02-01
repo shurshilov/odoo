@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template>
+
+    <t t-name="mail.AttachmentBoxCustom"
+       t-inherit="mail.AttachmentBox"
+       t-inherit-mode="extension"
+       owl="1">
+        <xpath expr="//button[@class='o_AttachmentBox_buttonAdd btn btn-link']" position="after">
+                <!-- <article t-if="!_openAttachmentManager">
+                    <div id="drive" t-on-click="_onGoogleDrivePicker" 
+                        style="width:50px;height:50px;background-image: url(/google_drive_picker/static/description/gdrive.svg); background-repeat: no-repeat;">
+                    </div>
+                    <footer>
+                      <h5>Open Google Drive</h5>
+                    </footer>
+                </article> -->
+                <t t-if="!_openAttachmentManager">
+                    <div class="o_AttachmentBox_buttonAdd btn btn-link" >
+                        <button class="o_AttachmentBox_buttonAdd btn btn-link" type="button" t-on-click="_onGoogleDrivePicker" >
+                            <div t-on-click="_onGoogleDrivePicker" class="o_AttachmentBox_buttonAdd btn btn-link"
+                                style="width:15px;height:15px;margin:0;padding:0;background-image: url(/google_drive_picker/static/description/gdrive.svg); background-repeat: no-repeat;">
+                            </div>
+                            Add from Gdrive
+                        </button>
+                    </div>
+                </t>
+        </xpath>
+    </t>
+
+<!--     <div t-extend="mail.chatter.AttachmentBox">
+        <t t-jquery="#icons_menu" t-operation="prepend">
+        <article>
+            <div id="drive" class="google_drive_picker" 
+                style="width:50px;height:50px;background-image: url(/google_drive_picker/static/description/gdrive.svg); background-repeat: no-repeat;">
+            </div>
+            <footer>
+              <h5>Open Google Drive</h5>
+            </footer>
+          </article>
+        </t>
+    </div>
+
+
+        
+    <t t-extend="mail.Composer">
+        <t t-jquery=".o_composer_button_add_attachment" t-operation="after">
+            <div class="btn google_drive_picker" 
+            style="background-image: url(/google_drive_picker/static/description/gdrive.svg);
+            background-repeat: no-repeat;
+            padding-bottom: 8px;
+            padding-top: 8px;">
+            </div>
+        </t>
+    </t> -->
+</template>
