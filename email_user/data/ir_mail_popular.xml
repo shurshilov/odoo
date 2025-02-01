@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="yandex_ir_mail_popular" model="ir.mail_popular">
+            <field name="name">Yandex</field>
+            <field name="smtp_host">smtp.yandex.ru</field>
+            <field name="smtp_port">465</field>
+            <field name="smtp_debug">False</field>
+            <field name="smtp_encryption">ssl</field>
+            <field name="imap_host">imap.yandex.ru</field>
+            <field name="imap_port">993</field>
+            <field name="imap_encryption">True</field>
+        </record>
+
+        <record id="google_ir_mail_popular" model="ir.mail_popular">
+            <field name="name">Gmail</field>
+            <field name="smtp_host">smtp.gmail.com</field>
+            <field name="smtp_port">465</field>
+            <field name="smtp_debug">False</field>
+            <field name="smtp_encryption">ssl</field>
+            <field name="imap_host">imap.gmail.com</field>
+            <field name="imap_port">993</field>
+            <field name="imap_encryption">True</field>
+        </record>
+
+        <record id="office365_ir_mail_popular" model="ir.mail_popular">
+            <field name="name">Microsoft Office365</field>
+            <field name="smtp_host">smtp-mail.outlook.com</field>
+            <field name="smtp_port">587</field>
+            <field name="smtp_debug">False</field>
+            <field name="smtp_encryption">starttls</field>
+            <field name="imap_host">outlook.office365.com</field>
+            <field name="imap_port">993</field>
+            <field name="imap_encryption">True</field>
+        </record>
+    </data>
+</odoo>

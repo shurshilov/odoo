@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="mail.Chatter.googleDrivePicker"
+       t-inherit="mail.Chatter"
+       t-inherit-mode="extension"
+       owl="1">
+
+        <xpath expr="//Dropdown" position="before">
+                <button
+                t-on-click="(ev) => this._onGoogleDrivePicker(ev)"
+                class="btn btn-link text-action"
+                title="Toogle chatter" type="button">
+                
+                        <div class="o_AttachmentBox_buttonAdd btn btn-link"
+                            style="width:15px;height:15px;margin:0;padding:0;background-image: url(/google_drive_picker/static/description/gdrive.svg); background-repeat: no-repeat;">
+                        </div>
+                </button>
+        </xpath>
+    </t>
+
+</templates>

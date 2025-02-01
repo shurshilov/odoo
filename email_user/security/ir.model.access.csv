@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ir_mail_popular_admin,email_user_ir_mail_popular_admin,model_ir_mail_popular,base.group_system,1,1,1,1
+access_ir_mail_popular_user,email_user_ir_mail_popular_user,model_ir_mail_popular,,1,1,1,0
