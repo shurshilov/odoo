@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+        <record model="ir.ui.view" id="ir_mail_popular_form">
+            <field name="model">ir.mail_popular</field>
+            <field name="arch" type="xml">
+                <form string="Popular Mail Servers">
+                  <sheet>
+                    <group col="4">
+                        <field name="name"/>
+                        <field name="sequence"/>
+                        <field name="active" widget="boolean_toggle"/>
+                    </group>
+                    <group col="4" string="Outgoing server">
+                        <field name="smtp_host"/>
+                        <field name="smtp_port" options="{'format': false}"/>
+                        <field name="smtp_debug" groups="base.group_no_one"/>
+                        <field name="smtp_encryption"/>
+                     </group>
+                     <group col="4" string="Incoming server">
+                        <field name="imap_host"/>
+                        <field name="imap_port"/>
+                        <field name="imap_encryption"/>
+                    </group>
+                  </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="ir_mail_popular_list">
+            <field name="model">ir.mail_popular</field>
+            <field name="arch" type="xml">
+                <tree string="Popular Mail Servers">
+                    <field name="sequence"/>
+                    <field name="name"/>
+                    <field name="smtp_host"/>
+                    <field name="smtp_port"/>
+                    <field name="smtp_encryption"/>
+                    <field name="smtp_debug"/>
+                    <field name="imap_host"/>
+                    <field name="imap_port"/>
+                    <field name="imap_encryption"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_ir_mail_popular">
+            <field name="name">Popular Mail Servers</field>
+            <field name="res_model">ir.mail_popular</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="ir_mail_popular_list" />
+        </record>
+
+        <menuitem id="menu_ir_mail_popular_servers"
+        parent="base.menu_email"
+        action="action_ir_mail_popular"
+        sequence="4"
+        groups="base.group_no_one"/>
+</odoo>

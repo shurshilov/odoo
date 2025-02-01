@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template>
+    <t t-name="mail.AttachmentBoxOnedrive"
+       t-inherit="mail.AttachmentBox"
+       t-inherit-mode="extension"
+       owl="1">
+        <xpath expr="//button[@class='o_AttachmentBox_buttonAdd btn btn-link']" position="after">
+                <t t-if="!_openAttachmentManager">
+                    <div class="o_AttachmentBox_buttonAdd btn btn-link" >
+                        <button class="o_AttachmentBox_buttonAdd btn btn-link" type="button" t-on-click="_onMicrosoftOnedrivePicker" >
+                            <div t-on-click="_onMicrosoftOnedrivePicker" class="o_AttachmentBox_buttonAdd btn btn-link"
+                                style="width:15px;height:15px;margin:0;padding:0;background-image: url(/microsoft_onedrive_picker/static/description/onedrive.svg); background-repeat: no-repeat;">
+                            </div>
+                            Add from OneDrive
+                        </button>
+                    </div>
+                </t>
+        </xpath>
+    </t>
+
+	<!-- <t t-extend="mail.Composer">
+        <t t-jquery=".o_composer_button_add_attachment" t-operation="after">
+            <div class="btn microsoft_onedrive_picker" 
+            style="background-image: url(/microsoft_onedrive_picker/static/description/onedrive.svg);
+            background-repeat: no-repeat;
+            padding-bottom: 8px;
+            padding-top: 8px;">
+            </div>
+        </t>
+    </t> -->
+</template>

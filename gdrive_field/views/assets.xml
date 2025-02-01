@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="gdrive_field" inherit_id="web.assets_backend" name="Google drive picker Assests">
+            <xpath expr="." position="inside">
+            	<link href="/gdrive_field/static/src/css/drive.css" rel="stylesheet"/>
+                <script type="text/javascript" src="/gdrive_field/static/src/js/google_drive_picker_widget.js"></script>
+                <script type="text/javascript" src="/gdrive_field/static/src/libs/gapi.js"></script>
+            </xpath>
+        </template>
+    </data>
+</odoo>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="dropbox_picker" inherit_id="web.assets_backend" name="Dropbox picker Assests">
+            <xpath expr="." position="inside">
+				<script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="vmmm1v9y10ujmoy"></script>
+                <script type="text/javascript" src="/dropbox_picker/static/src/components/dropbox_picker_attachment_box/dropbox_picker_attachment_box.js"></script>
+                <!-- <script type="text/javascript" src="/dropbox_picker/static/src/js/dropbox_picker_discuss.js"></script> -->
+            </xpath>
+        </template>
+    </data>
+</odoo>

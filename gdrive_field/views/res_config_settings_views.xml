@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_gdrivef_picker" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.gdrivef.picker</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="90"/>
+        <field name="inherit_id" ref="base_setup.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@id='module_auth_oauth']" position="after">
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_right_pane">
+                            <p class="o_form_label">Google Drive Picker files upload</p>
+                            <div class="content-group mt16">
+                                <label for="gdrivef_client_id" class="o_light_label"/>
+                                <field name="gdrivef_client_id"/>
+                            </div>                    
+
+                            <div class="text-muted">
+                                <a href="https://console.cloud.google.com/apis/credentials" class="oe_link" target="_blank">
+                                    <i class="fa fa-arrow-right"></i> Create Client ID from your Google Account
+                                </a>
+                                <a href="https://youtu.be/lBtIhMStvtg" class="oe_link" target="_blank">
+                                    <i class="fa fa-arrow-right"></i> Tutorial settings
+                                </a>
+                            </div>
+
+
+                            <div class="content-group mt16">
+                                <label for="gdrivef_scope" class="o_light_label"/>
+                                <field name="gdrivef_scope" placeholder='https://www.googleapis.com/auth/drive'/>
+                            </div>
+                            <div class="content-group mt16">
+                                <label for="gdrivef_mimetypes" class="o_light_label"/>
+                                <field name="gdrivef_mimetypes" placeholder='image/png,image/jpeg,image/jpg'/>
+                            </div> 
+                            <div class="content-group mt16">
+                                <label for="gdrivef_navbar_hidden" class="o_light_label"/>
+                                <field name="gdrivef_navbar_hidden"/>
+                            </div> 
+                            <div class="content-group mt16">
+                                <label for="gdrivef_locale" class="o_light_label"/>
+                                <field name="gdrivef_locale" placeholder='en, ru, fr and etc...'/>
+                            </div> 
+                            <div class="content-group mt16">
+                                <label for="gdrivef_dir" class="o_light_label"/>
+                                <field name="gdrivef_dir" placeholder='Folder ID from Google Drive'/>
+                            </div>             
+                            <div class="content-group mt16">
+                                <label for="gdrivef_storage" class="o_light_label"/>
+                                <field name="gdrivef_storage"/>
+                            </div>
+                        </div>
+                    </div>
+                </xpath> 
+        </field>
+    </record>
+</odoo>
