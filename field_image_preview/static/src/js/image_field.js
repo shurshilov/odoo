@@ -34,7 +34,10 @@ patch(ImageField.prototype, {
       name_field == "image_512" ||
       name_field == "image_128"
     )
-      name_field = "image_1920";
+      if ("image_1920" in this.props.record.fields)
+        // check that image_1920 exist
+        // because not inherit from ImageMixin
+        name_field = "image_1920";
 
     this.dialogService.add(ImageDialog, {
       tittle: this.props.name,
