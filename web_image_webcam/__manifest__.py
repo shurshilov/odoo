@@ -1,4 +1,4 @@
-# Copyright 2022 Shurshilov Artem<shurshilov.a@yandex.ru>
+# Copyright 2022-2025 Shurshilov Artem<shurshilov.a@yandex.ru>
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 {
     "name": "Web Widget - Image WebCam",
@@ -6,7 +6,7 @@
     [TAGS] web camera web foto web photo web images camera
     image snapshot web snapshot webcam snapshot picture web contact
     image web product image online mobile web image produt mobile""",
-    "version": "16.1.3",
+    "version": "18.0.0.1.4",
     "category": "web",
     "website": "https://www.eurodoo.com",
     "live_test_url": "https://eurodoo.com/login_employee?login=demo1&password=demo777",
