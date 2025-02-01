@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<section class="oe_container oe_dark">
+  <div class="col-md-12">
+    <h2 class="oe_slogan" style="font-size: 35px; color: #875a7b">
+      <b>Easy email. Email extended features. Email per user.</b>
+    </h2>
+  </div>
+</section>
+
+<section class="s_text_image pt80 pb88 o_cc o_cc3 o_colored_level">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="pt16 pb16 col-lg-5 o_colored_level">
+        <h2 style="color: #34b885">Easy email</h2>
+        <p style="color: #212529">
+          Each user can use their own email client and odoo to work with mail at
+          the same time
+        </p>
+        <p>
+          <a
+            href="https://youtu.be/Rm2uUEe5vao"
+            class="btn btn-primary mb-2"
+            target="_blank"
+            >Youtube</a
+          >
+        </p>
+      </div>
+      <div class="col-lg-6 pt16 pb16 offset-lg-1 o_colored_level">
+        <img
+          src="preview.png"
+          class="img img-fluid mx-auto shadow"
+          loading="lazy"
+          data-resize-width="256"
+        />
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="oe_container col-md-4 col-lg-4">
+  <div class="oe_row">
+    <h3
+      class="oe_slogan"
+      style="
+        color: #875a7b;
+        text-align: left;
+        font-size: 30px;
+        opacity: 1;
+        margin: 20px 0px;
+      "
+    >
+      Odoo Support
+    </h3>
+    <div
+      class="oe_span12 list_attr"
+      style="font-size: large; margin: 0px; padding: 0px"
+    >
+      <ul style="margin: 0px; padding: 0px; list-style: none">
+        <li>
+          <i class="fa fa-check" style="color: #cd2d47; font-size: 15px"></i>
+          <span>Odoo Community.</span>
+        </li>
+        <li>
+          <i class="fa fa-check" style="color: #cd2d47; font-size: 15px"></i>
+          <span>Odoo Enterprise.</span>
+        </li>
+        <li>
+          <i class="fa fa-check" style="color: #cd2d47; font-size: 15px"></i>
+          <span>Odoo.sh.</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div
+  class="col-lg-9 s_table_of_content_main oe_structure oe_empty o_colored_level"
+>
+  <section class="pb16 o_colored_level">
+    <h1 data-anchor="true" id="table_of_content_heading_1636804023384_180">
+      What does this module solve?
+    </h1>
+
+    <h4>Default behavior</h4>
+    <p>
+      By default, working with email in odoo is based on the configuration of
+      campaign mailboxes. Which are not tied to a specific user. For example
+      sales@mycompany.com , projects@mycompany.com. And the address that we see
+      in the letter "from" is look like individual, but in fact it's just text
+      for display, the letter will actually be sent to the campaign's email
+      mailbox.
+    </p>
+    <p>
+      Next, odoo's internal routing distributes incoming emails inside odoo.
+      This means working with email inside odoo, without individual mailboxes
+      and even email clients.
+    </p>
+
+    <h4>Behavior after install</h4>
+    <p>
+      Incoming and outgoing mail servers inside odoo are linked to a specific
+      user. For example mike@mycompany.com and the emails are sent from this
+      individual server, and the email address of this user
+      (res.user->partner_id->email) is also indicated in the "from" header. And
+      in "from" we see real email address. And the letter will actually be sent
+      to this email address.
+    </p>
+    <p>
+      Thus, the letter is also created in the "sent" in the mailbox and can be
+      seen by any mail client. And the customer, making a reply, also responds
+      to a specific user and the letter is attached to the desired record, for
+      example, an sale order.
+    </p>
+    <p>
+      And it also appears in the incoming message as not read (by default, odoo
+      makes all emails read). Meanwhile, the employee of your campaign can fully
+      work both in an email client such as Google, or also work inside odoo.
+      This scheme is simpler and more understandable for working with email
+    </p>
+    <p>
+      In this scheme, employees have the opportunity to use all the functions
+      and capabilities of any email clients. At the same time, it also remains
+      possible to correspond and save history inside odoo.
+    </p>
+  </section>
+</div>
+
+<section class="s_features_grid pt48 o_colored_level pb0">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6 s_col_no_bgcolor pb24">
+        <div class="row">
+          <div class="col-lg-12 pb24 o_colored_level">
+            <h2>Main features</h2>
+          </div>
+          <div class="col-lg-12 pt16 pb16 o_colored_level">
+            <i
+              class="fa fa-2x rounded-circle bg-primary s_features_grid_icon fa-cloud"
+            />
+            <div class="s_features_grid_content">
+              <h4>Work in any convenient email client</h4>
+              <p>
+                Google Email, Microsoft Outlook, TouchMail, Mailbird, eM Client,
+                Claws Mail, The Bat!,Thunderbird
+              </p>
+            </div>
+          </div>
+          <div class="col-lg-12 pt16 pb16 o_colored_level">
+            <i
+              class="fa fa-2x rounded-circle bg-primary s_features_grid_icon fa-photo"
+            />
+            <div class="s_features_grid_content">
+              <h4>Email per user</h4>
+              <p>Each user sends and receives emails on their own behalf</p>
+            </div>
+          </div>
+          <div class="col-lg-12 pt16 pb16 o_colored_level">
+            <i
+              class="fa fa-2x rounded-circle bg-primary s_features_grid_icon fa-camera"
+            />
+            <div class="s_features_grid_content">
+              <h4>Incoming emails are not seen</h4>
+              <p>Incoming emails are marked as unread</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 s_col_no_bgcolor pb24">
+        <div class="row">
+          <div class="col-lg-12 pt16 pb16 o_colored_level">
+            <i
+              class="fa fa-2x rounded bg-secondary s_features_grid_icon fa-archive"
+            />
+            <div class="s_features_grid_content">
+              <h4>Ability to start only with new emails</h4>
+              <p>
+                Ability to start only with new emails, old emails will be
+                ignored
+              </p>
+            </div>
+          </div>
+          <div class="col-lg-12 pt16 pb16 o_colored_level">
+            <i
+              class="fa fa-2x rounded bg-secondary s_features_grid_icon fa-search"
+            />
+            <div class="s_features_grid_content">
+              <h4>Automatic channel creation</h4>
+              <p>
+                If incoming emails came directly, without reply-to, then it is
+                possible that they fall into the named user channel
+              </p>
+            </div>
+          </div>
+          <div class="col-lg-12 pt16 pb16 o_colored_level">
+            <i
+              class="fa fa-2x rounded bg-secondary s_features_grid_icon fa-globe"
+            />
+            <div class="s_features_grid_content">
+              <h4>Automatic search and matching of the current user's email</h4>
+              <p>
+                Automatic search and matching of the current user's email with
+                the configured email server. You don't need to configure alias,
+                it works out of the box
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="oe_container">
+  <h3 class="oe_slogan">Auto link by reply from user email</h3>
+  <img
+    style="
+      width: 100%;
+      border: 1px solid #bdbdbd;
+      margin-bottom: 16px;
+      margin-top: 16px;
+    "
+    src="preview.png"
+  />
+</section>
+
+<section class="oe_container">
+  <h3 class="oe_slogan">Incoming email marked as unread</h3>
+  <img
+    style="
+      width: 100%;
+      border: 1px solid #bdbdbd;
+      margin-bottom: 16px;
+      margin-top: 16px;
+    "
+    src="incoming.png"
+  />
+</section>
+
+<section class="oe_container">
+  <h3 class="oe_slogan">Outgoing email sent from user email</h3>
+  <img
+    style="
+      width: 100%;
+      border: 1px solid #bdbdbd;
+      margin-bottom: 16px;
+      margin-top: 16px;
+    "
+    src="outgoing.png"
+  />
+</section>
+
+<h3 class="oe_slogan" style="text-align: center">HR attendance full control</h3>
+<section
+  class="o_gallery s_image_gallery o_fake_not_editable o_masonry o_spc-medium"
+  style="background-color: #875a7b !important; color: white"
+  data-columns="3"
+  style="overflow: hidden"
+  data-name="Image Gallery"
+>
+  <div class="container">
+    <div class="row">
+      <div class="col o_snippet_not_selectable col-lg-6">
+        <h3 style="text-align: center; font-size: 1.425rem; color: #f1f1f1">
+          HR attendance FACE recognition control
+        </h3>
+        <a
+          href="https://apps.odoo.com/apps/modules/13.0/hr_attendance_face_recognition/"
+          target="_blank"
+        >
+          <img
+            class="img img-fluid d-block img-thumbnail"
+            src="//apps.odoocdn.com/apps/assets/13.0/hr_attendance_face_recognition/preview.gif"
+            alt="Slide image"
+            data-index="0"
+          />
+        </a>
+      </div>
+      <div class="col o_snippet_not_selectable col-lg-6">
+        <h3 style="text-align: center; font-size: 1.425rem; color: #f1f1f1">
+          HR attendance Geospatial access control
+        </h3>
+        <a
+          href="https://apps.odoo.com/apps/modules/12.0/hr_attendance_geospatial/"
+          target="_blank"
+        >
+          <img
+            class="img img-fluid d-block img-thumbnail"
+            src="//apps.odoocdn.com/apps/assets/12.0/hr_attendance_geospatial/preview.gif"
+            alt="Slide image"
+            data-index="0"
+          />
+        </a>
+      </div>
+      <div class="col o_snippet_not_selectable col-lg-4">
+        <h3 style="text-align: center; font-size: 1.425rem; color: #f1f1f1">
+          HR attendance IP-address access control
+        </h3>
+        <a
+          href="https://apps.odoo.com/apps/modules/13.0/hr_attendance_ip/"
+          target="_blank"
+        >
+          <img
+            class="img img-fluid d-block img-thumbnail"
+            src="//apps.odoocdn.com/apps/assets/13.0/hr_attendance_ip/min_info.png"
+            alt="Slide image"
+            data-index="0"
+          />
+        </a>
+      </div>
+      <div class="col o_snippet_not_selectable col-lg-4">
+        <h3 style="text-align: center; font-size: 1.425rem; color: #f1f1f1">
+          HR attendance Token-device access control
+        </h3>
+        <a
+          href="https://apps.odoo.com/apps/modules/13.0/hr_attendance_token/"
+          target="_blank"
+        >
+          <img
+            class="img img-fluid d-block img-thumbnail"
+            src="//apps.odoocdn.com/apps/assets/13.0/hr_attendance_token/form.png"
+            alt="Slide image"
+            data-index="0"
+          />
+        </a>
+      </div>
+      <div class="col o_snippet_not_selectable col-lg-4">
+        <h3 style="text-align: center; font-size: 1.425rem; color: #f1f1f1">
+          HR attendance Geolocation-device access control
+        </h3>
+        <a
+          href="https://apps.odoo.com/apps/modules/13.0/hr_attendance_geo_html/"
+          target="_blank"
+        >
+          <img
+            class="img img-fluid d-block img-thumbnail"
+            src="//apps.odoocdn.com/apps/assets/13.0/hr_attendance_geo_html/all_info.png"
+            alt="Slide image"
+            data-index="0"
+          />
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<h3 class="oe_slogan" style="text-align: center">Our best-selling modules</h3>
+<section
+  class="o_gallery s_image_gallery o_fake_not_editable o_masonry o_spc-medium"
+  style="background-color: #875a7b !important; color: white"
+  data-columns="3"
+  style="overflow: hidden"
+  data-name="Image Gallery"
+>
+  <div class="container">
+    <div class="row">
+      <div class="col o_snippet_not_selectable col-lg-4">
+        <h3 style="text-align: center; font-size: 1.425rem; color: #f1f1f1">
+          Professional attachment manager
+        </h3>
+        <a
+          href="https://apps.odoo.com/apps/modules/13.0/attachments_manager/"
+          target="_blank"
+        >
+          <img
+            class="img img-fluid d-block img-thumbnail"
+            src="//apps.odoocdn.com/apps/assets/13.0/attachments_manager/preview.png"
+            alt="Slide image"
+            data-index="1"
+          />
+        </a>
+      </div>
+      <div class="col o_snippet_not_selectable col-lg-4">
+        <h3 style="text-align: center; font-size: 1.425rem; color: #f1f1f1">
+          Professional image editor for Odoo images
+        </h3>
+        <a
+          href="https://apps.odoo.com/apps/modules/13.0/field_image_editor/"
+          target="_blank"
+        >
+          <img
+            class="img img-fluid d-block img-thumbnail"
+            src="//apps.odoocdn.com/apps/assets/13.0/field_image_editor/img1.png"
+            alt="Slide image"
+            data-index="0"
+          />
+        </a>
+      </div>
+      <div class="col o_snippet_not_selectable col-lg-4">
+        <h3 style="text-align: center; font-size: 1.425rem; color: #f1f1f1">
+          Professional Docx-Odoo templating
+        </h3>
+        <a
+          href="https://apps.odoo.com/apps/modules/13.0/docx_report/"
+          target="_blank"
+        >
+          <img
+            class="img img-fluid d-block img-thumbnail"
+            src="//apps.odoocdn.com/apps/assets/13.0/docx_report/template.png"
+            alt="Slide image"
+            data-index="0"
+          />
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="oe_container">
+  <div class="oe_row oe_spaced">
+    <div class="oe_span12">
+      <h2>Need our service?</h2>
+      <p class="oe_mt32">
+        Contact us by <a href="mailto:shurshilov.a@yandex.ru">email </a>
+      </p>
+      <ul>
+        <li>
+          <a href="mailto:shurshilov.a@yandex.ru"
+            >shurshilov.a@yandex.ru <i class="fa fa-envelope-o"></i
+          ></a>
+        </li>
+      </ul>
+      <h2>Official OCA contributor</h2>
+      <img class="s_tooltip_tabs_tooltip_image" src="logo.png" />
+    </div>
+  </div>
+</section>

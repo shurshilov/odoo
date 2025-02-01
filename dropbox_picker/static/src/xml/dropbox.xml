@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template>
+    <t t-name="mail.AttachmentBoxDropbox"
+       t-inherit="mail.AttachmentBox"
+       t-inherit-mode="extension"
+       owl="1">
+        <xpath expr="//button[@class='o_AttachmentBox_buttonAdd btn btn-link']" position="after">
+                <t t-if="!_openAttachmentManager">
+                    <div class="o_AttachmentBox_buttonAdd btn btn-link" >
+                        <button class="o_AttachmentBox_buttonAdd btn btn-link" type="button" t-on-click="_onDropboxPicker" >
+                            <div t-on-click="_onDropboxPicker" class="o_AttachmentBox_buttonAdd btn btn-link"
+                                style="width:15px;height:15px;margin:0;padding:0;background-image: url(/dropbox_picker/static/description/dropbox.svg); background-repeat: no-repeat;">
+                            </div>
+                            Add from Dropbox
+                        </button>
+                    </div>
+                </t>
+        </xpath>
+    </t>
+
+	<!-- <t t-extend="mail.Composer">
+        <t t-jquery=".o_composer_button_add_attachment" t-operation="after">
+            <div class="btn dropbox_picker" 
+            style="background-image: url(/dropbox_picker/static/description/dropbox.svg);
+            background-repeat: no-repeat;
+            padding-bottom: 8px;
+            padding-top: 8px;">
+            </div>
+        </t>
+    </t> -->
+
+</template>

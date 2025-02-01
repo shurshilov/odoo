@@ -1,0 +1,163 @@
+{
+  "id": "548f08c6-f6e7-4b1e-87be-c32b1ecff38d",
+  "acceptMappedClaims": null,
+  "accessTokenAcceptedVersion": 2,
+  "addIns": [],
+  "allowPublicClient": true,
+  "appId": "4142f85a-63bb-4c67-a612-d55198f353c0",
+  "appRoles": [],
+  "oauth2AllowUrlPathMatching": false,
+  "createdDateTime": "2023-11-22T12:20:16Z",
+  "description": null,
+  "certification": null,
+  "disabledByMicrosoftStatus": null,
+  "groupMembershipClaims": null,
+  "identifierUris": [],
+  "informationalUrls": {
+    "termsOfService": null,
+    "support": null,
+    "privacy": null,
+    "marketing": null
+  },
+  "keyCredentials": [],
+  "knownClientApplications": [],
+  "logoUrl": null,
+  "logoutUrl": null,
+  "name": "odoo picker ondrive test",
+  "notes": null,
+  "oauth2AllowIdTokenImplicitFlow": true,
+  "oauth2AllowImplicitFlow": true,
+  "oauth2Permissions": [],
+  "oauth2RequirePostResponse": false,
+  "optionalClaims": null,
+  "orgRestrictions": [],
+  "parentalControlSettings": {
+    "countriesBlockedForMinors": [],
+    "legalAgeGroupRule": "Allow"
+  },
+  "passwordCredentials": [
+    {
+      "customKeyIdentifier": null,
+      "endDate": "2025-11-21T12:37:14.039Z",
+      "keyId": "797e7947-e6a9-4993-b432-c010c6eff4bd",
+      "startDate": "2023-11-22T12:37:14.039Z",
+      "value": null,
+      "createdOn": "2023-11-22T12:37:29.116304Z",
+      "hint": "G-K",
+      "displayName": "TEST"
+    }
+  ],
+  "preAuthorizedApplications": [],
+  "publisherDomain": null,
+  "replyUrlsWithType": [
+    {
+      "url": "http://localhost:8069",
+      "type": "Web"
+    },
+    {
+      "url": "http://localhost:8069/web",
+      "type": "Web"
+    }
+  ],
+  "requiredResourceAccess": [
+    {
+      "resourceAppId": "00000003-0000-0000-c000-000000000000",
+      "resourceAccess": [
+        {
+          "id": "10465720-29dd-4523-a11a-6a75c743c9d9",
+          "type": "Scope"
+        },
+        {
+          "id": "df85f4d6-205c-4ac5-a5ea-6bf408dba283",
+          "type": "Scope"
+        },
+        {
+          "id": "5447fe39-cb82-4c1a-b977-520e67e724eb",
+          "type": "Scope"
+        },
+        {
+          "id": "5c28f0bf-8a70-41f1-8ab2-9032436ddb65",
+          "type": "Scope"
+        },
+        {
+          "id": "863451e7-0667-486c-a5d6-d135439485f0",
+          "type": "Scope"
+        },
+        {
+          "id": "8019c312-3263-48e6-825e-2b833497195b",
+          "type": "Scope"
+        },
+        {
+          "id": "17dde5bd-8c17-420f-a486-969730c1b827",
+          "type": "Scope"
+        },
+        {
+          "id": "f534bf13-55d4-45a9-8f3c-c92fe64d6131",
+          "type": "Scope"
+        },
+        {
+          "id": "205e70e5-aba6-4c52-a976-6d2d46c48043",
+          "type": "Scope"
+        },
+        {
+          "id": "89fe6a52-be36-487e-b7d8-d061c450a026",
+          "type": "Scope"
+        },
+        {
+          "id": "e1fe6dd8-ba31-4d61-89e7-88639da4683d",
+          "type": "Scope"
+        },
+        {
+          "id": "a154be20-db9c-4678-8ab7-66f6cc099a59",
+          "type": "Scope"
+        },
+        {
+          "id": "b340eb25-3456-403f-be2f-af7a0d370277",
+          "type": "Scope"
+        },
+        {
+          "id": "b4e74841-8e56-480b-be8b-910348b18b4c",
+          "type": "Scope"
+        }
+      ]
+    },
+    {
+      "resourceAppId": "00000003-0000-0ff1-ce00-000000000000",
+      "resourceAccess": [
+        {
+          "id": "4e0d77b0-96ba-4398-af14-3baa780278f4",
+          "type": "Scope"
+        },
+        {
+          "id": "640ddd16-e5b7-4d71-9690-3f4022699ee7",
+          "type": "Scope"
+        },
+        {
+          "id": "dd2c8d78-58e1-46d7-82dd-34d411282686",
+          "type": "Scope"
+        },
+        {
+          "id": "2cfdc887-d7b4-4798-9b33-3d98d6b95dd2",
+          "type": "Scope"
+        },
+        {
+          "id": "1002502a-9a71-4426-8551-69ab83452fab",
+          "type": "Scope"
+        },
+        {
+          "id": "a468ea40-458c-4cc2-80c4-51781af71e41",
+          "type": "Scope"
+        },
+        {
+          "id": "0cea5a30-f6f8-42b5-87a0-84cc26822e02",
+          "type": "Scope"
+        }
+      ]
+    }
+  ],
+  "samlMetadataUrl": null,
+  "signInUrl": null,
+  "signInAudience": "AzureADandPersonalMicrosoftAccount",
+  "tags": [],
+  "tokenEncryptionKeyId": null
+}

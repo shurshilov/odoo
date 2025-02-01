@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="google_drive_picker" inherit_id="web.assets_backend" name="Google drive picker Assests">
+            <xpath expr="." position="inside">
+            	<link href="/google_drive_picker/static/src/css/drive.css" rel="stylesheet"/>
+            	<!-- <script type="text/javascript" src="/google_drive_picker/static/src/js/google_drive_picker_discuss.js"></script> -->
+                <script type="text/javascript" src="/google_drive_picker/static/src/components/attachment_custom/attachment_custom.js"></script>
+                <script type="text/javascript" src="/google_drive_picker/static/src/components/google_drive_picker/google_drive_picker.js"></script>
+                <!-- <script type="text/javascript" src="/google_drive_picker/static/src/libs/gapi.js"></script> -->
+                <script type="text/javascript" src="https://apis.google.com/js/api.js?onload=onApiLoad"></script>
+            </xpath>
+        </template>
+    </data>
+</odoo>

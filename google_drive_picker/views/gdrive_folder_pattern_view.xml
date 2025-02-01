@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="gdrive_folder_pattern_tree_view" model="ir.ui.view">
+        <field name="name">gdrive.folder.pattern.tree</field>
+        <field name="model">gdrive.folder.pattern</field>
+        <field name="arch" type="xml">
+            <tree editable="top">
+                <field name="model_id" required="1"
+                       options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
+                <field name="pattern" required="1"/>
+            </tree>
+        </field>
+    </record>
+</odoo>

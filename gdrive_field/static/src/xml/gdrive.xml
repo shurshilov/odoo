@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template>
+
+    <!-- add template with button for open picker widget-->
+    <t t-name="FieldGdrive" owl="1">
+        <div style="display: flex;flex-direction: row;">
+            <t t-if="props.value">
+                <a target="_blank" t-att-href="props.value">File link</a>
+            </t>
+            <t t-else="">
+                <span>Please upload file first</span>
+            </t>
+            <div t-on-click="_onGoogleDrivePicker"
+                style="width:25px;height:25px;margin-left: 25px;cursor: pointer;background-image: url(/gdrive_field/static/description/gdrive.svg); background-repeat: no-repeat;">
+            </div>
+        </div>
+
+    </t>
+
+</template>
