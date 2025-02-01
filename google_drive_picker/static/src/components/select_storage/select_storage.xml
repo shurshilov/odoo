@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="google_drive_picker.SelectStorage" owl="1">
+        <Dialog size="'xl'">
+
+            <div style="display: flex; justify-content: center; align-content: space-between;  align-items: center;flex-direction: column;">
+                <p>Please, select file (files) storage:</p>
+            </div>
+
+            <t t-set-slot="footer">
+                <button class="btn btn-primary" t-on-click="_onConfirmUrl">
+                    <i class="fa fa-camera mr8"/>
+                    <t>Save as url</t>
+                </button>
+                <button class="btn btn-primary" t-on-click="_onConfirmBinary">
+                    <i class="fa fa-save mr8"/>
+                    <t>Save as binary</t>
+                </button>
+                <button class="btn btn-secondary" t-on-click="_onClickCancel">
+                    <t>Cancel</t>
+                </button>
+            </t>
+        </Dialog>
+    </t>
+</templates>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <!-- <template id="assets_backend_excel_report" name="excel_report assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/excel_report/static/src/js/excel_report.js"></script>
+        </xpath>
+    </template> -->
+
+    <record id="act_report_xml_view_excel" model="ir.ui.view">
+            <field name="name">ir.actions.report.excel</field>
+            <field name="model">ir.actions.report</field>
+            <field name="priority" eval="80"/>
+            <field name="inherit_id" ref="base.act_report_xml_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='paperformat_id']" position="after">
+                    <field name="template_excel"
+                    attrs="{'invisible':[('report_type','not in',['excel'])]}"/>
+                    <field name="excel_out_report_type"
+                    attrs="{'invisible':[('report_type','not in',['excel'])]}"/>
+
+                    <field name="excel_path_source"
+                    attrs="{'invisible':['|',('report_type','not in',['excel']),('excel_out_report_type','in',['excel'])]}"/>
+                    <field name="excel_path_convert_folder"
+                    attrs="{'invisible':['|',('report_type','not in',['excel']),('excel_out_report_type','in',['excel'])]}"/>
+                    <field name="excel_path_libreoffice"
+                    attrs="{'invisible':['|',('report_type','not in',['excel']),('excel_out_report_type','in',['excel'])]}"/>
+                    <separator string="Help" colspan="4" attrs="{'invisible':[('excel_out_report_type','in',['excel'])]}"/>
+
+                    <div name="configuration_details" colspan="8" attrs="{'invisible':[('excel_out_report_type','in',['excel'])]}">
+                        If alfter install libreoffice you still get error with excel-pdf/odt formats
+                        <p>Change rights and give all users access + writing to /home directory</p>
+                        <p>Change rights and give all users access + writing to the directory you want the documents to be saved in: /tmp/backups</p>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+  </data>
+</odoo>

@@ -1,0 +1,92 @@
+# Copyright 2019-2022 Artem Shurshilov
+# Odoo Proprietary License v1.0
+
+# This software and associated files (the "Software") may only be used (executed,
+# modified, executed after modifications) if you have purchased a valid license
+# from the authors, typically via Odoo Apps, or if you have received a written
+# agreement from the authors of the Software (see the COPYRIGHT file).
+
+# You may develop Odoo modules that use the Software as a library (typically
+# by depending on it, importing it and using its resources), but without copying
+# any source code or material from the Software. You may distribute those
+# modules under the license of your choice, provided that this license is
+# compatible with the terms of the Odoo Proprietary License (For example:
+# LGPL, MIT, or proprietary licenses similar to this one).
+
+# It is forbidden to publish, distribute, sublicense, or sell copies of the Software
+# or modified copies of the Software.
+
+# The above copyright notice and this permission notice must be included in all
+# copies or substantial portions of the Software.
+
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+# IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+# DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+# ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+# DEALINGS IN THE SOFTWARE.
+
+import base64
+import io
+
+from odoo import api, fields, models
+
+from . import mailmerge
+
+
+class IrActionsReport(models.Model):
+    _inherit = "ir.actions.report"
+
+    report_type = fields.Selection(
+        selection_add=[("docx", "DOCX")], ondelete={"docx": "cascade"}
+    )
+    template_docx = fields.Binary(string="Docx template", attachment=True)
+
+    # def get_orm_from_string(self, record, string):
+    #     list_field = string.split('.')
+    #     res = record
+    #     for myfield in list_field:
+    #         res = res[myfield]
+    #     return res
+
+    def _render_docx(self, report_ref, res_ids, data=None):
+        return self.render_docx(report_ref, res_ids, data)
+
+    @api.model
+    def render_docx(self, report_ref, docids, data=None):
+        if not data:
+            data = {}
+        data.setdefault("report_type", "docx")
+        report = self._get_report(report_ref)
+        data = self._get_rendering_context(report, docids, data)
+        # READ DATA
+        content = base64.b64decode(self.template_docx)
+        document_1 = mailmerge.MailMerge(io.BytesIO(content))
+
+        # MERGE DATA
+        docx_list_text = document_1.get_merge_fields_text()
+        docx_dict = {}
+        for key in docx_list_text:
+            for doc in data["docs"]:
+                if key["text"][0] == '"':
+                    try:
+                        docx_dict.update(
+                            {key["text_origin"]: str(eval(eval(key["text"])))}
+                        )
+                    except:
+                        docx_dict.update(
+                            {key["text_origin"]: str(eval(key["text"]))}
+                        )
+                else:
+                    docx_dict.update(
+                        {key["text_origin"]: str(eval(key["text"]))}
+                    )
+        document_1.merge(**docx_dict)
+
+        # WRITE DATA
+        myio = io.BytesIO()
+        document_1.write(myio)
+        myio.getvalue()
+
+        return myio.getvalue(), "docx"

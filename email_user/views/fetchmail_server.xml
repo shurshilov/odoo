@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="fetchmail_server_email_user" model="ir.ui.view">
+        <field name="name">fetchmail.server.email.user</field>
+        <field name="model">fetchmail.server</field>
+        <field name="priority">20</field>
+        <field name="inherit_id" ref="fetchmail.view_email_server_form"/>
+        <field name="arch" type="xml">
+        <data>
+            <xpath expr="//notebook" position="inside">
+                <page name="Email per user" string="Email per user">
+                <group>
+                    <field name="per_user"/>
+                    <field name="per_user_only_new"/>
+                    <field name="per_user_auto_generate_channel"/>
+                    <field name="last_uid"/>
+                    <field name="ir_mail_popular_id"/>
+                        <div class="text-muted" colspan="12">
+                            <i class="fa fa-info-circle"></i>
+If use gmail
+Create and use app passwords
+Important: To create an app password, you need 2-Step Verification on your Google Account.
+
+If you use 2-Step-Verification and get a "password incorrect" error when you sign in, you can try to use an app password.
+
+Go to your Google Account.
+Select Security.
+Under "Signing in to Google," select 2-Step Verification.
+At the bottom of the page, select App passwords.
+Enter a name that helps you remember where you’ll use the app password.
+Select Generate.
+To enter the app password, follow the instructions on your screen. The app password is the 16-character code that generates on your device.
+Select Done.
+</div>
+                </group>
+
+                <button name="button_get_last_uid" type="object" string="Start from last uid"/>
+                <button name="button_create_channel_no_reply_messages" type="object" string="Generate channel for non-relply messages"/>
+                </page>
+            </xpath>
+        </data>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+
+    <record id="ir_mail_server_email_user" model="ir.ui.view">
+        <field name="name">ir.mail_server.email.user</field>
+        <field name="model">ir.mail_server</field>
+        <field name="inherit_id" ref="base.ir_mail_server_form"/>
+        <field name="arch" type="xml">
+             <field name="smtp_debug" position="after">
+                <field name="ir_mail_popular_id"/>
+                <div class="text-muted" colspan="12">
+                            <i class="fa fa-info-circle"></i>
+If use gmail
+Create and use app passwords
+Important: To create an app password, you need 2-Step Verification on your Google Account.
+
+If you use 2-Step-Verification and get a "password incorrect" error when you sign in, you can try to use an app password.
+
+Go to your Google Account.
+Select Security.
+Under "Signing in to Google," select 2-Step Verification.
+At the bottom of the page, select App passwords.
+Enter a name that helps you remember where you’ll use the app password.
+Select Generate.
+To enter the app password, follow the instructions on your screen. The app password is the 16-character code that generates on your device.
+Select Done.
+</div>
+                <field name="user_ids">
+                  <tree>
+                      <field name="name" />
+                      <field name="partner_id" />
+                  </tree>
+                </field>
+            </field>
+        </field>
+    </record>
+
+  </data>
+</odoo>

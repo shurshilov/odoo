@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_onedrive_picker" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.onedrive.picker</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="90"/>
+        <field name="inherit_id" ref="base_setup.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@id='module_auth_oauth']" position="after">
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_right_pane">
+                            <p class="o_form_label">Microsoft Onedrive Picker files upload</p>
+                            <div class="content-group mt16">
+                                <label for="onedrive_client_id" class="o_light_label"/>
+                                <field name="onedrive_client_id"/>
+                            </div>                    
+
+                            <div class="text-muted">
+                                <a href="https://portal.azure.com/#blade/Microsoft_AAD_RegisteredApps/ApplicationsListBlade" class="oe_link" target="_blank">
+                                    <i class="fa fa-arrow-right"></i> Create Client ID from your Microsoft Azure Account
+                                </a>
+                                <a href="https://youtu.be/zqVUhQfbi_s" class="oe_link" target="_blank">
+                                    <i class="fa fa-arrow-right"></i> Youtube Tutorial
+                                </a>
+                            </div>
+
+
+                            <div class="content-group mt16">
+                                <label for="onedrive_viewType" class="o_light_label"/>
+                                <field name="onedrive_viewType" placeholder='all, folders, files...'/>
+                            </div>
+                            <div class="content-group mt16">
+                                <label for="onedrive_storage" class="o_light_label"/>
+                                <field name="onedrive_storage"/>
+                            </div> 
+<!--                             <div class="content-group mt16">
+                                <label for="gdrive_navbar_hidden" class="o_light_label"/>
+                                <field name="gdrive_navbar_hidden"/>
+                            </div> 
+                            <div class="content-group mt16">
+                                <label for="gdrive_locale" class="o_light_label"/>
+                                <field name="gdrive_locale" placeholder='en, ru, fr and etc...'/>
+                            </div> 
+                            <div class="content-group mt16">
+                                <label for="gdrive_dir" class="o_light_label"/>
+                                <field name="gdrive_dir" placeholder='Folder ID from Google Drive'/>
+                            </div>    -->            
+                        </div>
+                    </div>
+                </xpath> 
+        </field>
+    </record>
+</odoo>

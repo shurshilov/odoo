@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_auto_backup_pro" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.auto.backup.pro</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="80"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[hasclass('settings')]" position="inside">
+                    <div class="app_settings_block" data-string="Auto backup PRO" string="Auto backup PRO" data-key="auto_backup_pro">
+                    <div class="row mt16 o_settings_container" name="auto_backup_pro_setting_container">
+
+                        <div class="col-12 col-lg-12 o_setting_box" title="Setup gdrive access token">
+                            <div>
+
+
+
+                                <div>
+                                    <span class="o_form_label">Upload from client secrets file</span>
+                                </div>
+                                <field name="abp_json_secret_file"/>
+
+                                <div>
+                                    <span class="o_form_label">Credentials and access token</span>
+                                </div>
+                                <div attrs="{'invisible': ['|','|',('abp_json_secret_file', '=', False),('abp_credentials', '=', False),('abp_token', '=', False)]}">
+                                    <field name="abp_credentials"/>
+                                    <field name="abp_token"/>
+                                    <i class="text-success fa fa-check"></i> &amp;nbsp; Credentials set
+                                </div>
+
+                                <button
+                                attrs="{'invisible': ['|',('abp_credentials', '!=', False),('abp_token', '!=', False)]}"
+                                type="object"
+                                name="get_credentials"
+                                string="Generate access token and refresh token"
+                                class="oe_link" />
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_attachments_search_settings" model="ir.actions.act_window">
+        <field name="name">Settings</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+        <field name="context">{'module' : 'attachments_search', 'bin_size': False}</field>
+    </record>
+
+    <menuitem
+        id="cat_menu_dms_attachments_settings_search_indexing"
+        name="Settings search indexing"
+        action="action_attachments_search_settings"
+        groups="attachments_center.group_dms_manager"
+        parent="attachments_center.main_menu_dms"
+        sequence="49"
+    />
+</odoo>
