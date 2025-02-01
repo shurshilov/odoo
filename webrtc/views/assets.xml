@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="webrtc_assets" inherit_id="web.assets_backend" name="Webrtc Assets">
+            <xpath expr="." position="inside">
+                <link type="text/css" href="/webrtc/static/src/css/webrtc.css" rel="stylesheet"/>
+                <script type="text/javascript" src="/webrtc/static/src/libs/request.min.js"></script>
+                <script type="text/javascript" src="/webrtc/static/src/libs/adapter.min.js"></script>
+                <script type="text/javascript" src="/webrtc/static/src/libs/webrtcstreamer.js"></script>
+                <script type="text/javascript" src="/webrtc/static/src/js/webrtc.js"></script>
+            </xpath>
+        </template>
+    </data>
+</odoo>

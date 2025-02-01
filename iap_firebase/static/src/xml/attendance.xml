@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template xml:space="preserve">
+    <t t-extend="HrAttendanceMyMainMenu">
+        <t t-jquery="h3:first" t-operation="after">
+            <t t-if="widget.ip_enable">
+                <t t-if="widget.ip_access">
+                    <span class="round-tab" style="border: 2px solid green;">
+                        <i class="fa fa-check" style="color:green"></i>
+                    </span>
+                    <h3 style="color:green"> IP-access <t t-esc="widget.ip_name"/>
+                        <i id="ip-icon" class="fa fa-angle-double-down fa-2x hr-attendance-base-down-icon"></i></h3>
+                    <div style="display:none" id="ip-info">
+                        <h5>Your ip-address: 
+                            <t t-esc="widget.ip"/>
+                        </h5>
+                        <h5 class="mt8 mb24">
+                            <t t-if="widget.ip_name">Location found by IP: 
+                                <t t-esc="widget.ip_name"/></t>
+                        </h5>
+                    </div>
+                </t>
+                <t t-else="">
+                    <span class="round-tab" style="border: 2px solid #f27474;">
+                        <i class="fa fa-times hr-attendance-base-denied"></i>
+                    </span>
+                    <h3 class="hr-attendance-base-denied"> IP-access <t t-esc="widget.ip_name"/>
+                        <i id="ip-icon" class="fa fa-angle-double-down fa-2x hr-attendance-base-down-icon"></i></h3>
+                    <div style="display:none" id="ip-info">
+                        <h5>Your ip-address: 
+                            <t t-esc="widget.ip"/>
+                        </h5>
+                        <h5 class="mt8 mb24">
+                            <t t-if="widget.ip_name">Location found by IP: 
+                                <t t-esc="widget.ip_name"/></t>
+                        </h5>
+                    </div>
+                </t>
+            </t>
+            <t t-else="">
+                <t t-if="widget.ip_access">
+                    <span class="round-tab" style="border: 2px solid #555555;">
+                        <i class="fa fa-check"></i>
+                    </span>
+                </t>
+                <t t-else="">
+                    <span class="round-tab" style="border: 2px solid #555555;">
+                        <i class="fa fa-times"></i>
+                    </span>
+                </t>
+                <h3> IP-access (disable)
+                    <i id="ip-icon" class="fa fa-angle-double-down fa-2x hr-attendance-base-down-icon"></i></h3>
+                <div style="display:none" id="ip-info">
+                    <t t-if="widget.ip">
+                        <h5>Your ip-address: 
+                            <t t-esc="widget.ip"/>
+                        </h5>
+                    </t>
+                    <t t-else="">
+                        <h5>Ip-address is missing. Try config your web server to HTTP_X_REAL_IP param
+                            <t t-esc="widget.ip"/>
+                        </h5>
+                    </t>
+                    <t t-if="widget.ip_name">
+                        <h5 class="mt8 mb24">
+                            Location found by IP: 
+                            <t t-esc="widget.ip_name"/>
+                        </h5>
+                    </t>
+                </div>
+            </t>
+            <hr align="center" width="100%" size="1" color="#adb5bd" />
+        </t>
+    </t>
+</template>

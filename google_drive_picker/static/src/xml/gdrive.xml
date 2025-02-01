@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template>
+
+<!-- add template with button for open picker widget-->
+    <div t-name="FieldCloudGdrive">
+            <article>
+                <div id="drive" class="google_drive_picker" 
+                    style="width:50px;height:50px;background-image: url(/google_drive_picker/static/description/gdrive.svg); background-repeat: no-repeat;">
+                </div>
+                <footer>
+                  <h5>Open Google Drive</h5>
+                </footer>
+          </article>
+    </div>
+<!-- with Attachments manager -->
+    <div t-extend="mail.chatter.AttachmentBox">
+        <t t-jquery="#icons_menu" t-operation="prepend">
+            <article>
+                <div id="drive" class="google_drive_picker" 
+                    style="width:50px;height:50px;background-image: url(/google_drive_picker/static/description/gdrive.svg); background-repeat: no-repeat;">
+                </div>
+                <footer>
+                  <h5>Open Google Drive</h5>
+                </footer>
+          </article>
+        </t>
+    </div>
+<!-- without Attachments manager-->
+
+    <div t-extend="mail.chatter.AttachmentBox">
+        <t t-jquery=".o_chatter_attachment_form" t-operation="after">
+                <article t-if="!widget._openAttachmentManager">
+                    <div id="drive" class="google_drive_picker" 
+                        style="width:50px;height:50px;background-image: url(/google_drive_picker/static/description/gdrive.svg); background-repeat: no-repeat;">
+                    </div>
+                    <footer>
+                      <h5>Open Google Drive</h5>
+                    </footer>
+                </article>
+        </t>
+    </div>
+        
+    <t t-extend="mail.Composer">
+        <t t-jquery=".o_composer_button_add_attachment" t-operation="after">
+            <div class="btn google_drive_picker" 
+            style="background-image: url(/google_drive_picker/static/description/gdrive.svg);
+            background-repeat: no-repeat;
+            padding-bottom: 8px;
+            padding-top: 8px;">
+            </div>
+        </t>
+    </t>
+</template>

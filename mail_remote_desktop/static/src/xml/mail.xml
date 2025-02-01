@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template xml:space="preserve">
+    <t t-name="JitsiDialog">
+            <div >
+                <div class="container-fluid">
+                    <div class="col-md-12">
+                            <div id="jitsi" style="height:70vh"/>
+                    </div>
+                </div>
+            </div>
+    </t>
+    <t t-extend="mail.Composer">
+        <t t-jquery=".o_composer_button_add_attachment" t-operation="after">
+                  <button
+                      class="btn btn-secondary remote-desktop"
+                      type="button">
+                      <span class="fa fa-1x fa-video-camera"></span>
+                  </button>
+                </t>
+    </t>
+<!--     <t t-extend="mail.widget.Thread.Message">
+        <t t-jquery=".o_thread_message_core" t-operation="after">
+                <t t-if="message.getAuthorImStatus()">
+                  <button
+                      class="btn btn-secondary remote-desktop"
+                      type="button">
+                      <span class="fa fa-1x fa-desktop"></span>
+                  </button>
+                </t>
+            </t>
+    </t> -->
+
+</template>

@@ -1,0 +1,99 @@
+<odoo>
+<!--     <template id="assets_frontend" name="open_vk" inherit_id="web.assets_frontend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/open_vk/static/src/js/open_vk.js"/>
+            </xpath>
+    </template> -->
+    <!-- explicit list view definition -->
+         <record id="view_users_form_vk" model="ir.ui.view">
+            <field name="name">res.users.form.inherit.vk</field>
+            <field name="model">res.users</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="base.view_users_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='oauth_access_token']" position="after">
+                        <group string="Oauth VK">
+                            <field name="oauth_uid_vk"/>
+                            <field name="oauth_access_token_vk"/>
+                            <field name="code"/>
+                            <field name="expires_in"/>
+                            <field name="user_email_vk"/>
+                            <field name="date_bithday"/>
+                        </group>
+                </xpath>
+            </field>
+        </record>
+
+    <record model="ir.ui.view" id="open_vk.list">
+      <field name="name">open_vk list</field>
+      <field name="model">open_vk.open_vk</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="sequence" widget="handle"/>
+          <field name="client_id"/>
+          <field name="link"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="open_vk.form">
+      <field name="name">open_vk form</field>
+      <field name="model">open_vk.open_vk</field>
+      <field name="arch" type="xml">
+        <form>
+          <group string="Данные для авторизации">
+            <field name="client_id" help="Идентификатор Вашего приложения"/>
+
+            <field name="client_secret" help="Защищенный ключ Вашего приложения
+             (указан в настройках приложения) " password="True"/>
+
+            <field name="provider_vk_id" help="Провайдер для информации"/>
+
+            <field name="auth_endpoint" help="Необходимо перенаправить
+                                              браузер пользователя по адресу"/>
+
+            <field name="validation_endpoint" help="Для получения access_token 
+              необходимо выполнить запрос с Вашего сервера на"/>
+
+            <field name="redirect_uri" help="Адрес, на который будет передан code
+              (домен указанного адреса должен соответствовать основному домену в
+              настройках приложения и перечисленным значениям в списке доверенных
+              redirect uri — адреса сравниваются вплоть до path-части)"/>
+
+            <field name="display" help="Указывает тип отображения страницы 
+              авторизации. Поддерживаются следующие варианты: page, popup, mobile"/>
+
+            <field name="scope" help="Битовая маска настроек доступа приложения, 
+              которые необходимо проверить при авторизации пользователя и запросить отсутствующие."/>
+
+            <field name="response_type" help="Тип ответа, который Вы хотите получить. Укажите code."/>
+            <field name="version" help="Версия API, которую Вы используете, параметр обязательный. 
+              Актуальная версия: 5.80. "/>
+            <field name="link" help="Создается автоматически"/>
+          </group>
+
+          <group string="Данные от Вконтакте">            
+            <!-- <field name="code" help="Временный код, полученный после прохождения авторизации." invisible='True'/> -->
+<!--             <field name="access_token" help="Токен доступа полученный для пользователя от вк" invisible='True'/>
+            <field name="expires_in" help="Время истечения токена доступа" invisible='True'/>
+            <field name="user_id_vk" help="ID пользователя Вконтакте" invisible='True'/>
+            <field name="user_email_vk" help="Email пользователя Вконтакте" invisible='True'/> -->
+            <field name="log"/>
+          </group>
+
+        </form>
+      </field>
+    </record>
+
+    <!-- actions opening views on models -->
+    
+    <record model="ir.actions.act_window" id="open_vk.action_window">
+      <field name="name">open_vk window</field>
+      <field name="res_model">open_vk.open_vk</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+  
+    <menuitem name="Вконтакте" id="open_vk.menu_1" parent="base.menu_users"
+              action="open_vk.action_window"/>
+    
+</odoo>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+
+    <record id="iap_firebase_tree_view" model="ir.ui.view">
+            <field name="name">iap.firebase.tree.view</field>
+            <field name="model">iap.firebase</field>
+            <field name="arch" type="xml">
+                <tree string="Tokens">
+                    <field name="token"/>
+                    <field name="os"/>
+                </tree>
+            </field>
+    </record>
+
+  </data>
+</odoo>

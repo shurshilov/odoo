@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <template id="assets_backend_docx_report" name="docx_report assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/docx_report/static/src/js/docx_report.js"></script>
+        </xpath>
+    </template>
+
+    <record id="act_report_xml_view_docx" model="ir.ui.view">
+            <field name="name">ir.actions.report.docx</field>
+            <field name="model">ir.actions.report</field>
+            <field name="priority" eval="80"/>
+            <field name="inherit_id" ref="base.act_report_xml_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='paperformat_id']" position="after">
+                    <field name="template_docx"
+                    attrs="{'invisible':[('report_type','not in',['docx'])]}"/>
+                </xpath>
+            </field>
+        </record>
+  </data>
+</odoo>

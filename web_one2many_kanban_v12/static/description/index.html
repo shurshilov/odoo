@@ -1,0 +1,90 @@
+<section class="oe_container oe_dark">
+    <div class="oe_row">
+        <h2 class="oe_slogan" style="color:#875A7B;font-family:times new roman;margin-top:10px;margin-bottom:10px;">Web One2many Kanban</h2>
+        <h3 class="oe_slogan" style="font-family:times new roman;margin-top:10px;margin-bottom:20px;">"Display One2many records in kanban view"</h3>
+        <div class="text-center" style="font-size:18px;font-family:times new roman;margin-left:65px;margin-right:60px;">
+
+            <h4 class="oe_slogan" style="margin-top:20px;margin-bottom:20px;font-family:times new roman;">
+                <span class="label" style="background:#875A7B;">
+                    <span class="fa fa-star fa-spin"/>
+                    Functionality
+                </span>
+            </h4>
+            <p>This module is developed to extend the functionality of kanban view.</p>
+            <p>It fill the gaps at certain extent by allowing to display one2many records in kanban view.</p>
+        </div>
+        <hr width="100%" style="border-top-width:2px"/>
+        <div style="background:#dcdcdc;font-size:18px;font-family:times new roman;padding-bottom:2px;">
+            <div class="text-justify" style="margin-left:65px;margin-right:60px;padding-top:10px">
+                <table>
+                    <tbody>
+                    <tr>
+                        <td>
+                            <span class="fa fa-circle-o" style="color:#875A7B;padding-right:5px;"/>
+                        </td>
+                        <td>
+                            This is the one2many records which is displayed in form view.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="fa fa-circle-o" style="color:#875A7B;padding-bottom:30px"/>
+                        </td>
+                        <td>
+                            You need to define one2many field in kanban view definition and use
+                            for loop(same way we use in qweb) to display fields in kanban view.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+
+                        </td>
+                        <td>
+                            Example:<br/>
+                            <span>&lt;</span><span>t</span>
+                            <span>t-foreach="record.one2manyfield.raw_value" t-as="o"><br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span>&lt;</span><span>t</span>
+                                t-esc="o.name"/><br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span>&lt;</span><span>t</span>
+                                t-esc="o.many2onefield[1]"/>
+                            </span><br/>
+                            <span>&lt;</span><span>/t></span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <img class="oe_picture oe_screenshot" src="sale.png">
+            </div>
+            <div class="text-justify" style="font-size:18px;font-family:times new roman;margin-left:65px;margin-right:60px">
+                <table>
+                    <tbody>
+                    <tr>
+                        <td>
+                            <span class="fa fa-circle-o" style="color:#875A7B;padding-right:5px;"/>
+                        </td>
+                        <td>
+                            After installing this module kanban view one2many record will be display like.
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <img class="oe_picture oe_screenshot" src="screen_shot_2.png">
+            </div>
+        </div>
+    </div>
+</section>
+<section class="oe_container">
+    <div class="oe_row oe_spaced">
+        <div class="oe_span12">
+            <h2>Need our service?</h2>
+            <p class="oe_mt32">Contact us by <a href="mailto:shurshilov.a@yandex.ru">email</a> </a></p>
+            <ul>
+                <li><a href="mailto:shurshilov.a@yandex.ru">shurshilov.a@yandex.ru <i class="fa fa-envelope-o"></i></a></li>
+            </ul>
+        </div>
+    </div>
+</section>

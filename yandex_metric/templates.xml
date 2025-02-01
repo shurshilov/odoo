@@ -1,0 +1,9 @@
+<odoo>
+    <data>
+      <template id="assets_editor_yandex" inherit_id="web.layout" name="Yandex Assests">
+          <xpath expr="." position="inside">
+              <t t-raw="request.params.get('yandex_metrica', '')"/>
+          </xpath>
+      </template>
+    </data>
+</odoo>
