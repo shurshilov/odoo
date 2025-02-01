@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+
+    <record id="res_users_form_view_mail_firebase" model="ir.ui.view">
+            <field name="name">res.users.form.view.mail.firebase</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_form"/>
+            <field name="priority" eval="99"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page name="Mail Firebase" string="Mail Firebase">
+                        <group string="Mail Firebase tokens">
+                            <field name="mail_firebase_tokens" readonly="0"/>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+    </record>
+
+  </data>
+</odoo>

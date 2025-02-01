@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template>
+<!-- with Attachments manager -->
+    <div t-extend="mail.chatter.AttachmentBox">
+        <t t-jquery="#icons_menu" t-operation="prepend">
+            <article>
+                <div id="drive" class="synology_drive_picker" 
+                    style="width:50px;height:50px;background-image: url(/synology_drive_picker/static/description/synology.svg); background-repeat: round;">
+                </div>
+                <footer>
+                  <h5>Open Synology Drive</h5>
+                </footer>
+          </article>
+        </t>
+    </div>
+
+    <div t-name="SynologyTree" id="SynologyTree">
+        <div class="col-xs-12 col-12 o_form_view ">
+                <t t-if="back">
+                    <div>
+                        <button class='btn btn-link btn-sm oe_button_back' title="Back" type="button">
+                            <i class="fa fa-backward"/> Back
+                        </button>
+                    </div>
+                </t>
+            <t t-foreach="files" t-as="file">
+                <t t-if="file.isdir">
+                    <label class="col-md-2 o_form_label">
+                        Folder
+                    </label>
+                    <div t-attf-data-path="{{file.path}}" class="col-xs-12 folder" style="margin-left: 30px;border-left: 1px solid #bbbbbb;padding-left: 10px;">
+                        <t t-esc="file.name"/>
+                    </div>
+                </t>
+                <t t-else="">
+                    <div t-attf-data-path="{{file.path}}" class="col-xs-12 file" style="margin-left: 30px;border-left: 1px solid #bbbbbb;padding-left: 10px;">
+                        <t t-esc="file.name"/>
+                        <button t-attf-data-path="{{file.path}}" class='btn btn-link btn-sm oe_button_download_from_synology' title="Download to device" type="button">
+                            <i class="fa fa-download"/> Download
+                        </button>
+                        <button t-attf-data-path="{{file.path}}" class='btn btn-link btn-sm oe_button_import_from_synology' title="Download to Odoo" type="button">
+                            <i class="fa fa-cloud-download"/> Import Odoo
+                        </button>
+                    </div>
+                </t>
+
+            </t>
+        </div>
+    </div>
+<!-- without Attachments manager-->
+
+    <div t-extend="mail.chatter.AttachmentBox">
+        <t t-jquery=".o_chatter_attachment_form" t-operation="after">
+            <article>
+                <div id="drive" class="synology_drive_picker" 
+                    style="width:50px;height:50px;background-image: url(/synology_drive_picker/static/description/synology.svg); background-repeat: round;">
+                </div>
+                <footer>
+                  <h5>Open Synology Drive</h5>
+                </footer>
+          </article>
+        </t>
+    </div>
+
+
+
+<!--     <t t-extend="mail.Composer">
+        <t t-jquery=".o_composer_button_add_attachment" t-operation="after">
+            <div class="btn google_drive_picker" 
+            style="background-image: url(/google_drive_picker/static/description/gdrive.svg);
+            background-repeat: no-repeat;
+            padding-bottom: 8px;
+            padding-top: 8px;">
+            </div>
+        </t>
+    </t> -->
+</template>

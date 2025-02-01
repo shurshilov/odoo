@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="microsoft_onedrive_picker" inherit_id="web.assets_backend" name="Microsoft onedrive picker Assests">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="https://js.live.net/v7.2/OneDrive.js"></script>
+                <!-- <script type="text/javascript" src="https://js.live.net/v7.2/OneDrive.debug.js"></script> -->
+                <script type="text/javascript" src="/microsoft_onedrive_picker/static/src/js/microsoft_onedrive_picker_widget.js"></script>
+                <script type="text/javascript" src="/microsoft_onedrive_picker/static/src/js/microsoft_onedrive_picker_attachment_box.js"></script>
+                <script type="text/javascript" src="/microsoft_onedrive_picker/static/src/js/microsoft_onedrive_picker_discuss.js"></script>
+            </xpath>
+        </template>
+    </data>
+</odoo>

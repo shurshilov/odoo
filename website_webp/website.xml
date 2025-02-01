@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2021 Shurshilov Artem <shurshilov.a@yandex.ru> -->
+<odoo>
+    <data>
+        <record id="website_webp" model="ir.ui.view">
+            <field name="name">website.form.webp</field>
+            <field name="model">website</field>
+            <field name="inherit_id" ref="website.view_website_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='domain']" position="after">
+                    <field name="webp_enable"/>
+                    <field name="webp_quality" attrs="{'invisible':[('webp_enable','=',False)]}"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

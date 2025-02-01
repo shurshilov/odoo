@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <record id="act_report_xml_view_portal_multi_reports" model="ir.ui.view">
+            <field name="name">ir.actions.report.portal.multi.reports</field>
+            <field name="model">ir.actions.report</field>
+            <field name="priority" eval="99"/>
+            <field name="inherit_id" ref="base.act_report_xml_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='paperformat_id']" position="after">
+                    <field name="portal_bisible"/>
+                </xpath>
+            </field>
+        </record>
+  </data>
+</odoo>
