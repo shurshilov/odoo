@@ -1,4 +1,7 @@
 from odoo import models, fields, api
+import logging
+
+_logger = logging.getLogger(__name__)
 
 
 class GeoMixin(models.AbstractModel):
@@ -33,6 +36,11 @@ class GeoMixin(models.AbstractModel):
     geo_address = fields.Text(
         string="Адрес", help="Адрес соответствующий геокоординатам"
     )
+
+    # geo_sync = fields.Text(
+    #     string="Синхронизация адреса и координат",
+    #     help="Адрес и координаты соответствуют друг другу",
+    # )
 
     @api.depends("geo_latitude", "geo_longitude")
     def _compute_geo_coordinates(self):
@@ -81,5 +89,66 @@ class GeoMixin(models.AbstractModel):
         Возвращает центр карты по умолчанию
         Можно переопределить в наследующих моделях
         """
-        # Координаты Ташкента по умолчанию
-        return {"latitude": 41.2995, "longitude": 69.2401, "zoom": 10}
+        # Координаты Москвы по умолчанию
+        return {"latitude": 55.75222, "longitude": 37.61556, "zoom": 10}
+
+    @api.model
+    def get_yandex_api_key(self):
+        """Получение API ключа Yandex из системных параметров"""
+        return (
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("yandex_geo_widget.api_key", "")
+        )
+
+    # def search_addresses(self, query, limit=10):
+    #     """Поиск адресов через Yandex Geocoder API"""
+    #     api_key = self.get_yandex_api_key()
+    #     if not api_key:
+    #         return []
+
+    #     try:
+    #         import requests
+
+    #         url = "https://geocode-maps.yandex.ru/1.x/"
+    #         params = {
+    #             "apikey": api_key,
+    #             "geocode": query,
+    #             "format": "json",
+    #             "results": limit,
+    #             "lang": "ru_RU",
+    #         }
+
+    #         response = requests.get(url, params=params, timeout=10)
+    #         response.raise_for_status()
+
+    #         data = response.json()
+    #         suggestions = []
+
+    #         if "response" in data and "GeoObjectCollection" in data["response"]:
+    #             geo_objects = data["response"]["GeoObjectCollection"]["featureMember"]
+
+    #             for obj in geo_objects:
+    #                 geo_object = obj["GeoObject"]
+    #                 point = geo_object["Point"]["pos"].split()
+
+    #                 suggestion = {
+    #                     "text": geo_object["metaDataProperty"]["GeocoderMetaData"][
+    #                         "text"
+    #                     ],
+    #                     "longitude": float(point[0]),
+    #                     "latitude": float(point[1]),
+    #                     "data": geo_object,
+    #                 }
+    #                 suggestions.append(suggestion)
+
+    #         return suggestions
+
+    #     except Exception as e:
+    #         _logger.error(f"Ошибка при поиске адресов Yandex: {e}")
+    #         return []
+
+    # @api.model
+    # def yandex_search_addresses(self, query):
+    #     """API метод для поиска адресов (вызывается из JS)"""
+    #     return self.search_addresses(query)

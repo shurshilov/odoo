@@ -5,27 +5,40 @@
         <t t-call="web.FloatField"/>
         <div class="yandex_maps_widget" style="display:flex;flex-direction:column;">
             <div class="yandex_maps_controls mb-3">
+                <!-- <t t-if="!geo_coords_is_set || !geo_address_is_set">
+                    <div class="text-warning">
+                        <i class="fa fa-warning"></i> Адрес и координаты не соответствуют друг другу
+                    </div>
+                </t> -->
                 <div class="btn-group" role="group">
                     <button 
                         type="button" 
                         class="btn btn-primary btn-sm"
                         t-on-click="saveCoordinates"
-                        t-att-disabled="!state.isMapLoaded">
+                        t-att-disabled="!state.isMapLoaded || (!geo_coords_changed and !geo_address_changed)">
                         <i class="fa fa-hand-o-up me-1"></i>
-                        Сохранить координаты из карты
+                        Сохранить данные из карты
                     </button>
                     <button 
                         type="button" 
                         class="btn btn-secondary btn-sm"
                         t-on-click="resetToSavedLocation"
-                        t-att-disabled="!state.isMapLoaded">
+                        t-att-disabled="!state.isMapLoaded || !geo_coords_changed">
                         <i class="fa fa-hand-o-down me-1"></i>
                         Установить координаты на карте
                     </button>
                     <button 
                         type="button" 
                         class="btn btn-secondary btn-sm"
-                        t-on-click="resetToCurrentLocation"
+                        t-on-click="setAddressLocation"
+                        t-att-disabled="!state.isMapLoaded || !geo_address_changed">
+                        <i class="fa fa-hand-o-down me-1"></i>
+                        Установить адрес на карте
+                    </button>
+                    <button 
+                        type="button" 
+                        class="btn btn-secondary btn-sm"
+                        t-on-click="resetToMyLocation"
                         t-att-disabled="!state.isMapLoaded">
                         <i class="fa fa-location-arrow me-1"></i>
                         Моё местоположение
