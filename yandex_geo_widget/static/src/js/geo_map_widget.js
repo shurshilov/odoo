@@ -138,12 +138,6 @@ export class YandexMapsWidget extends FloatField {
   }
 
   get geo_coords_changed() {
-    console.log(this.state.currentLat);
-    console.log(this.props.record.data.geo_latitude);
-    console.log(this.state.currentLng);
-    console.log(this.props.record.data.geo_longitude);
-    console.log(this.state.currentLat != this.props.record.data.geo_latitude);
-    console.log(this.state.currentLng != this.props.record.data.geo_longitude);
     return (
       this.state.currentLat != this.props.record.data.geo_latitude ||
       this.state.currentLng != this.props.record.data.geo_longitude
@@ -186,20 +180,10 @@ export class YandexMapsWidget extends FloatField {
         // }
       }
 
-      // this.resetToCurrentLocation();
-      // values["_sync"] = !this.geo_coords_changed && !this.geo_address_changed;
       await this.props.record.update(values);
       this.state.currentAddress = values["geo_address"];
       this.state.currentLat = values["geo_latitude"];
       this.state.currentLng = values["geo_longitude"];
-      console.log(values["geo_longitude"]);
-      console.log(values["geo_latitude"]);
-      console.log(values["geo_address"]);
-      console.log(this.props.record.data.geo_latitude);
-      console.log(this.props.record.data.geo_longitude);
-      console.log(this.props.record.data.geo_address);
-      // this.state.currentLat = this.props.record.data.geo_latitude;
-      // this.state.currentLng = this.props.record.data.geo_longitude;
       // await this.props.record.save();
       // this.notification.add("Координаты успешно сохранены", {
       //   type: "success",
