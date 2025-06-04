@@ -102,16 +102,16 @@ export class YandexMapsWidget extends FloatField {
       // Обработчик перетаскивания метки
       this.placemark.events.add("dragend", (e) => {
         const coords = e.get("target").geometry.getCoordinates();
-        this.state.currentLat = coords[0];
-        this.state.currentLng = coords[1];
+        this.state.currentLat = parseFloat(coords[0].toFixed(12));
+        this.state.currentLng = parseFloat(coords[1].toFixed(12));
         this.updatePlacemarkBalloon();
       });
 
       // Обработчик клика по карте
       this.map.events.add("click", (e) => {
         const coords = e.get("coords");
-        this.state.currentLat = coords[0];
-        this.state.currentLng = coords[1];
+        this.state.currentLat = parseFloat(coords[0].toFixed(12));
+        this.state.currentLng = parseFloat(coords[1].toFixed(12));
         this.placemark.geometry.setCoordinates(coords);
         this.updatePlacemarkBalloon();
       });
@@ -138,6 +138,12 @@ export class YandexMapsWidget extends FloatField {
   }
 
   get geo_coords_changed() {
+    console.log(this.state.currentLat);
+    console.log(this.props.record.data.geo_latitude);
+    console.log(this.state.currentLng);
+    console.log(this.props.record.data.geo_longitude);
+    console.log(this.state.currentLat != this.props.record.data.geo_latitude);
+    console.log(this.state.currentLng != this.props.record.data.geo_longitude);
     return (
       this.state.currentLat != this.props.record.data.geo_latitude ||
       this.state.currentLng != this.props.record.data.geo_longitude
@@ -153,6 +159,7 @@ export class YandexMapsWidget extends FloatField {
       const values = {
         geo_latitude: this.state.currentLat,
         geo_longitude: this.state.currentLng,
+        geo_address: "",
       };
 
       if (!this.api_key)
@@ -174,19 +181,25 @@ export class YandexMapsWidget extends FloatField {
         const firstGeoObject = response.geoObjects.get(0);
         if (firstGeoObject) {
           const address = firstGeoObject.getAddressLine();
-          if (address) {
-            values["geo_address"] = address;
-            this.state.currentAddress = address;
-          } else {
-            values["geo_address"] = "";
-          }
-        } else {
-          values["geo_address"] = "";
+          if (address) values["geo_address"] = address;
         }
         // }
       }
-      values["_sync"] = !this.geo_coords_changed && !this.geo_address_changed;
+
+      // this.resetToCurrentLocation();
+      // values["_sync"] = !this.geo_coords_changed && !this.geo_address_changed;
       await this.props.record.update(values);
+      this.state.currentAddress = values["geo_address"];
+      this.state.currentLat = values["geo_latitude"];
+      this.state.currentLng = values["geo_longitude"];
+      console.log(values["geo_longitude"]);
+      console.log(values["geo_latitude"]);
+      console.log(values["geo_address"]);
+      console.log(this.props.record.data.geo_latitude);
+      console.log(this.props.record.data.geo_longitude);
+      console.log(this.props.record.data.geo_address);
+      // this.state.currentLat = this.props.record.data.geo_latitude;
+      // this.state.currentLng = this.props.record.data.geo_longitude;
       // await this.props.record.save();
       // this.notification.add("Координаты успешно сохранены", {
       //   type: "success",
@@ -219,14 +232,14 @@ export class YandexMapsWidget extends FloatField {
       const firstGeoObject = response.geoObjects.get(0);
       if (firstGeoObject) {
         const coords = firstGeoObject.geometry.getCoordinates();
-        this.state.currentLat = coords[0];
-        this.state.currentLng = coords[1];
+        this.state.currentLat = parseFloat(coords[0].toFixed(12));
+        this.state.currentLng = parseFloat(coords[1].toFixed(12));
         this.state.currentAddress = this.props.record.data.geo_address;
         const values = {
           geo_latitude: this.state.currentLat,
           geo_longitude: this.state.currentLng,
         };
-        values["_sync"] = !this.geo_coords_changed && !this.geo_address_changed;
+        // values["_sync"] = !this.geo_coords_changed && !this.geo_address_changed;
         await this.props.record.update(values);
         this.resetToCurrentLocation();
       }
@@ -276,7 +289,7 @@ export class YandexMapsWidget extends FloatField {
         } else {
           this.state.currentAddress = "";
         }
-        values["_sync"] = !this.geo_coords_changed && !this.geo_address_changed;
+        // values["_sync"] = !this.geo_coords_changed && !this.geo_address_changed;
         await this.props.record.update({
           geo_address: this.state.currentAddress,
         });
