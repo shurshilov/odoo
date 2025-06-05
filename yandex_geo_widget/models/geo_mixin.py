@@ -15,12 +15,12 @@ class GeoMixin(models.AbstractModel):
     # Поля для хранения координат
     geo_latitude = fields.Float(
         string="Широта",
-        digits=(17, 12),
+        digits=(15, 12),
         help="Географическая широта в десятичных градусах",
     )
     geo_longitude = fields.Float(
         string="Долгота",
-        digits=(17, 12),
+        digits=(15, 12),
         help="Географическая долгота в десятичных градусах",
     )
 
@@ -32,10 +32,18 @@ class GeoMixin(models.AbstractModel):
         help='Географические координаты в формате "широта, долгота"',
     )
 
+    # geo_coordinates_last_updated = fields.Datetime(
+    #     string="Координаты последний раз обновлено",
+    # )
+
     # Поле для адреса (опционально)
     geo_address = fields.Text(
         string="Адрес", help="Адрес соответствующий геокоординатам"
     )
+
+    # geo_address_last_updated = fields.Datetime(
+    #     string="Адрес последний раз обновлено",
+    # )
 
     geo_cadastr = fields.Char(
         string="Кадастровый номер",

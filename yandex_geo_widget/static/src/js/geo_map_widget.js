@@ -15,9 +15,9 @@ export class YandexMapsWidget extends FloatField {
     this.state = useState({
       isMapLoaded: false,
       isApiLoaded: false,
-      currentLat: this.props.record.data.geo_latitude || 55.75222,
-      currentLng: this.props.record.data.geo_longitude || 37.61556,
-      currentAddress: this.props.record.data.geo_address,
+      currentLat: this.latitude,
+      currentLng: this.longitude,
+      currentAddress: this.address,
     });
 
     this.map = null;
@@ -35,6 +35,29 @@ export class YandexMapsWidget extends FloatField {
     });
   }
 
+  get latitude() {
+    return this.props.record.data[this.props.fieldNameLat] || 55.75222;
+  }
+
+  get longitude() {
+    return this.props.record.data[this.props.fieldNameLng] || 37.61556;
+  }
+
+  get address() {
+    return this.props.record.data[this.props.fieldNameAddress] || "";
+  }
+
+  get geo_coords_changed() {
+    return (
+      this.state.currentLat != this.latitude ||
+      this.state.currentLng != this.longitude
+    );
+  }
+
+  get geo_address_changed() {
+    return this.state.currentAddress != this.address;
+  }
+
   async loadYandexMapsAPI() {
     if (window.ymaps) {
       this.initializeMap();
@@ -48,7 +71,6 @@ export class YandexMapsWidget extends FloatField {
         kwargs: {},
         args: [],
       });
-      // console.log("this.api_key", this.api_key);
       // Загружаем API Yandex Maps
       const script = document.createElement("script");
       script.type = "text/javascript";
@@ -90,8 +112,8 @@ export class YandexMapsWidget extends FloatField {
         {
           hintContent: "Перетащите метку для изменения координат",
           balloonContent: `Координаты: ${this.state.currentLat.toFixed(
-            6,
-          )}, ${this.state.currentLng.toFixed(6)}`,
+            12,
+          )}, ${this.state.currentLng.toFixed(12)}`,
         },
         {
           preset: "islands#redDotIcon",
@@ -132,20 +154,9 @@ export class YandexMapsWidget extends FloatField {
         "balloonContent",
         `Координаты: ${this.state.currentLat.toFixed(
           6,
-        )}, ${this.state.currentLng.toFixed(6)}`,
+        )}, ${this.state.currentLng.toFixed(12)}`,
       );
     }
-  }
-
-  get geo_coords_changed() {
-    return (
-      this.state.currentLat != this.props.record.data.geo_latitude ||
-      this.state.currentLng != this.props.record.data.geo_longitude
-    );
-  }
-
-  get geo_address_changed() {
-    return this.state.currentAddress != this.props.record.data.geo_address;
   }
 
   async saveCoordinates() {
@@ -184,6 +195,7 @@ export class YandexMapsWidget extends FloatField {
       this.state.currentAddress = values["geo_address"];
       this.state.currentLat = values["geo_latitude"];
       this.state.currentLng = values["geo_longitude"];
+      console.log(values);
       // await this.props.record.save();
       // this.notification.add("Координаты успешно сохранены", {
       //   type: "success",
@@ -206,12 +218,9 @@ export class YandexMapsWidget extends FloatField {
       );
     else {
       // if (this.geo_address_changed) {
-      const response = await window.ymaps.geocode(
-        this.props.record.data.geo_address,
-        {
-          results: 1,
-        },
-      );
+      const response = await window.ymaps.geocode(this.address, {
+        results: 1,
+      });
 
       const firstGeoObject = response.geoObjects.get(0);
       if (firstGeoObject) {
@@ -219,12 +228,11 @@ export class YandexMapsWidget extends FloatField {
         console.log(coords);
         this.state.currentLat = parseFloat(coords[0].toFixed(12));
         this.state.currentLng = parseFloat(coords[1].toFixed(12));
-        this.state.currentAddress = this.props.record.data.geo_address;
+        this.state.currentAddress = this.address;
         const values = {
           geo_latitude: this.state.currentLat,
           geo_longitude: this.state.currentLng,
         };
-        // values["_sync"] = !this.geo_coords_changed && !this.geo_address_changed;
         await this.props.record.update(values);
         this.resetToCurrentLocation();
       }
@@ -258,10 +266,7 @@ export class YandexMapsWidget extends FloatField {
     } else {
       // if (this.geo_address_changed) {
       const response = await window.ymaps.geocode(
-        [
-          this.props.record.data.geo_latitude,
-          this.props.record.data.geo_longitude,
-        ],
+        [this.latitude, this.longitude],
         {
           results: 1,
         },
@@ -274,15 +279,14 @@ export class YandexMapsWidget extends FloatField {
         } else {
           this.state.currentAddress = "";
         }
-        // values["_sync"] = !this.geo_coords_changed && !this.geo_address_changed;
         await this.props.record.update({
           geo_address: this.state.currentAddress,
         });
       }
     }
 
-    this.state.currentLat = this.props.record.data.geo_latitude;
-    this.state.currentLng = this.props.record.data.geo_longitude;
+    this.state.currentLat = this.latitude;
+    this.state.currentLng = this.longitude;
     this.resetToCurrentLocation();
   }
 
@@ -319,41 +323,26 @@ export class YandexMapsWidget extends FloatField {
   get mapHeight() {
     return this.props.height || "400px";
   }
-
-  // _onAddressInput(e) {
-  //   var self = this;
-  //   var query = e.target.value;
-
-  //   clearTimeout(this.searchTimeout);
-
-  //   if (query.length < 3) {
-  //     this.$(".o_yandex_suggestions").empty();
-  //     return;
-  //   }
-
-  //   this.searchTimeout = setTimeout(function () {
-  //     self._searchAddresses(query);
-  //   }, 300);
-  // }
-
-  // _searchAddresses(query) {
-  //   var self = this;
-
-  //   this._rpc({
-  //     model: this.model,
-  //     method: "yandex_search_addresses",
-  //     args: [query],
-  //   }).then(function (suggestions) {
-  //     self._renderSuggestions(suggestions);
-  //   });
-  // }
 }
 
 YandexMapsWidget.template = "yandex_maps_widget.YandexMapsWidget";
-// YandexMapsWidget.props = {
-//   ...Component.props,
-//   record: Object,
-//   height: { type: String, optional: true },
-// };
+YandexMapsWidget.props = {
+  ...FloatField.props,
+  fieldNameLat: { type: String, optional: true },
+  fieldNameLng: { type: String, optional: true },
+  fieldNameAddress: { type: String, optional: true },
+  height: { type: String, optional: true },
+};
+YandexMapsWidget.extractProps = ({ attrs, field }) => ({
+  // по умолчанию предполагается что испльзуется geo_mixin
+  ...FloatField.extractProps({ attrs, field }),
+  fieldNameLat: attrs.options.field_name_lat || "geo_latitude",
+  fieldNameLng: attrs.options.field_name_lng || "geo_longitude",
+  fieldNameAddress: attrs.options.field_name_address || "geo_address",
+  // coordinatesLastUpdated:
+  //   attrs.options.coordinates_last_updated || "geo_coordinates_last_updated",
+  // addressLastUpdated:
+  //   attrs.options.address_last_updated || "geo_address_last_updated",
+});
 
 registry.category("fields").add("geo_yandex_map", YandexMapsWidget);
