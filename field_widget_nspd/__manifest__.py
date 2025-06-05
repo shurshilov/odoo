@@ -9,8 +9,8 @@
     "description": "Cadastr number - to address and geocoords",
     "assets": {
         "web.assets_backend": [
-            "field_widget_fias/static/src/js/field_widget_nspd.js",
-            "field_widget_fias/static/src/scss/field_widget_nspd.scss",
+            "field_widget_nspd/static/src/js/field_widget_nspd.js",
+            "field_widget_nspd/static/src/scss/field_widget_nspd.scss",
         ]
     },
     "installable": True,
