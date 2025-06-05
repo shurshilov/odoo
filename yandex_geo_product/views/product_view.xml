@@ -10,7 +10,7 @@
                 <page name="inventory" position="after">
                     <page string="Yandex map" name="yandex_map">
                         <group>
-                        <field name="geo_address"/>
+                        <field name="geo_address" widget="field_text_fias"/>
                         <field name="geo_latitude"/>
                         <field name="geo_longitude" widget="geo_yandex_map"/>
                         </group>

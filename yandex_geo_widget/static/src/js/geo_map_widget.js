@@ -216,6 +216,7 @@ export class YandexMapsWidget extends FloatField {
       const firstGeoObject = response.geoObjects.get(0);
       if (firstGeoObject) {
         const coords = firstGeoObject.geometry.getCoordinates();
+        console.log(coords);
         this.state.currentLat = parseFloat(coords[0].toFixed(12));
         this.state.currentLng = parseFloat(coords[1].toFixed(12));
         this.state.currentAddress = this.props.record.data.geo_address;
