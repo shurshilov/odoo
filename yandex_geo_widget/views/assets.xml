@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<odoo>
-    <template id="assets_backend" name="geo map widget assets" inherit_id="web.assets_backend">
-        <xpath expr="." position="inside">
-            <script type="text/javascript" src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" />
-            <script type="text/javascript" src="/yandex_geo_widget/static/src/js/geo_map_widget.js"/>
-        </xpath>
-    </template>
-</odoo>
