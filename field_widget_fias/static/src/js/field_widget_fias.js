@@ -8,7 +8,7 @@ import { TextField } from "@web/views/fields/text/text_field";
 import { useService } from "@web/core/utils/hooks";
 const { onWillStart, useState } = owl;
 
-export class FieldCharFias extends CharField {
+class FieldCharFias extends CharField {
   static template = xml`
         <t t-call="web.CharField"/>
         <ul t-if="state.suggestions.length">
@@ -23,10 +23,21 @@ export class FieldCharFias extends CharField {
     this.state = useState({
       suggestions: [],
     });
-    this.onInput = debounce(this.fetchSuggestions.bind(this), 800);
+    // this.onInput = debounce(this.fetchSuggestions.bind(this), 800);
     this.rpc = useService("rpc");
     this.notification = useService("notification");
     onWillStart(this.willStart);
+  }
+
+  // вместо this.onInput в чар поле
+  async inputListener(ev) {
+    if (ev.target === this.input.el) {
+      const debounce_fetch = debounce(this.fetchSuggestions.bind(this), 800);
+      await debounce_fetch(ev);
+    }
+  }
+  onMounted() {
+    this.input.el.addEventListener("input", this.inputListener.bind(this));
   }
 
   // Lifecycle
@@ -43,7 +54,7 @@ export class FieldCharFias extends CharField {
 
   async fetchSuggestions(ev) {
     this.props.update(ev.target.value);
-    if (ev.target.value) {
+    if (ev.target.value && window.fias_api_key) {
       try {
         const url = `https://fias-public-service.nalog.ru/api/spas/v2.0/GetAddressHint?search_string=${ev.target.value}&address_type=2`;
         const response = await fetch(url, {
@@ -113,8 +124,9 @@ export class FiasTextField extends TextField {
   }
 
   async fetchSuggestions(ev) {
+    // запрос подсказок из сервиса ФИАС
     this.props.update(ev.target.value);
-    if (ev.target.value) {
+    if (ev.target.value && window.fias_api_key) {
       try {
         const url = `https://fias-public-service.nalog.ru/api/spas/v2.0/GetAddressHint?search_string=${ev.target.value}&address_type=2`;
         const response = await fetch(url, {
@@ -127,9 +139,11 @@ export class FiasTextField extends TextField {
           );
         } else {
           console.error("Ошибка при получении адресов...");
+          this.state.suggestions = [];
         }
       } catch (error) {
         console.error("Ошибка при получении адресов:", error);
+        this.state.suggestions = [];
         this.notification.add(
           "Ошибка при получении адресов ФИАС, попробуйте снова",
           {

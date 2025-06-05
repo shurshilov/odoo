@@ -6,157 +6,243 @@ import { debounce } from "@web/core/utils/timing";
 import { CharField } from "@web/views/fields/char/char_field";
 import { TextField } from "@web/views/fields/text/text_field";
 import { useService } from "@web/core/utils/hooks";
-const { onWillStart, useState } = owl;
+const { onWillStart, onMounted, useState } = owl;
 
-// export class FieldCharFias extends CharField {
-//   //         <input type="text" t-model="address" t-on-input="onInput" placeholder="Введите адрес"/>
-//   static template = xml`
+export class FieldCharNspd extends CharField {
+  static template = xml`
+        <t t-call="web.CharField"/>
+        <div class="btn-group" role="group">
+            <button 
+                type="button" 
+                class="btn btn-primary btn-sm"
+                t-on-click="fetchSuggestions"
+                t-att-disabled="!props.value || this.state.cadastr == this.props.value">
+                <i class="fa fa-hand-o-up me-1"></i>
+                Получить адрес и координаты из НСПД
+            </button>
+        </div>
+        <ul t-if="state.suggestions.length">
+            <li class="fias-address-item" t-foreach="state.suggestions" t-as="suggestion" t-key="suggestion" t-on-click="selectSuggestion">
+                <span class="fias-address-item__text" t-esc="suggestion" />
+            </li>
+        </ul>
+    `;
 
-//         <div>
-//               <t t-if="props.readonly">
-//                 <span t-esc="formattedValue" />
-//             </t>
-//             <t t-else="">
-//                 <input
-//                     class="o_input"
-//                     t-att-class="{'o_field_translate': props.isTranslatable}"
-//                     t-att-id="props.id"
-//                     t-att-type="props.isPassword ? 'password' : 'text'"
-//                     t-att-autocomplete="props.autocomplete or (props.isPassword ? 'new-password' : 'off')"
-//                     t-att-maxlength="props.maxLength > 0 and props.maxLength"
-//                     t-att-placeholder="props.placeholder"
-//                     t-ref="input"
-//                     t-on-input="onInput"
-//                 />
-//             <ul t-if="suggestions.length">
-//                 <li t-foreach="suggestions" t-as="suggestion" t-key="suggestion" t-on-click="selectSuggestion">
-//                     <span t-esc="suggestion" />
-//                 </li>
-//             </ul>
-//                 <t t-if="props.isTranslatable">
-//                     <TranslationButton
-//                         fieldName="props.name"
-//                         record="props.record"
-//                     />
-//                 </t>
-//             </t>
-
-//         </div>
-//     `;
-
-//   setup() {
-//     this.address = "";
-//     this.suggestions = [];
-//     this.onInput = debounce(this.fetchSuggestions, 300);
-//   }
-
-//   async fetchSuggestions() {
-//     if (this.address) {
-//       const url = `https://fias.nalog.ru/WebAPI/Address.svc/GetSuggestions?Address=${this.address}`;
-//       const response = await fetch(url);
-//       if (response.ok) {
-//         const data = await response.json();
-//         this.suggestions = data.map((item) => item.FullAddress); // Или другой нужный вам атрибут
-//         this.render();
-//       } else {
-//         console.error("Ошибка при получении адресов");
-//       }
-//     } else {
-//       this.suggestions = [];
-//       this.render();
-//     }
-//   }
-
-//   selectSuggestion(event) {
-//     this.address = event.target.innerText;
-//     this.suggestions = [];
-//     this.render();
-//   }
-// }
-
-// registry.category("fields").add("field_char_fias", FieldCharFias);
-
-export class NspdTextField extends TextField {
   setup() {
     super.setup();
     this.state = useState({
       suggestions: [],
+      cadastr: this.props.value || "",
     });
-    this.onInput = debounce(this.fetchSuggestions.bind(this), 300);
     this.rpc = useService("rpc");
-    // onWillStart(this.willStart);
+    this.notification = useService("notification");
+    onMounted(this.onMounted);
   }
 
-  // Lifecycle
-  // async willStart() {
-  //   if (!window.fias_api_key) {
-  //     window.fias_api_key = await this.rpc("/web/dataset/call_kw", {
-  //       model: "fias.settings",
-  //       method: "get_api_key",
-  //       kwargs: {},
-  //       args: [],
-  //     });
+  // async inputListener(ev) {
+  //   if (ev.target === this.input.el) {
+  //     const debounce_fetch = debounce(this.fetchSuggestions.bind(this), 800);
+  //     await debounce_fetch(ev);
   //   }
   // }
+  // onMounted() {
+  //   this.input.el.addEventListener("input", this.inputListener.bind(this));
+  // }
 
+  coordEPSG3857ToWGS84(coord) {
+    const x = coord[0];
+    const y = coord[1];
+    const R = 6378137; // Радиус Земли в метрах
+    const lon = (x / R) * (180 / Math.PI);
+    const lat =
+      (2 * Math.atan(Math.exp(y / R)) - Math.PI / 2) * (180 / Math.PI);
+    return [lat, lon];
+  }
+  // coord3857To4326(coord) {
+  //   const e_value = 2.7182818284;
+  //   const X = 20037508.34;
+
+  //   const lat3857 = coord[0];
+  //   const long3857 = coord[1];
+
+  //   //converting the longitute from epsg 3857 to 4326
+  //   const long4326 = (long3857 * 180) / X;
+
+  //   //converting the latitude from epsg 3857 to 4326 split in multiple lines for readability
+  //   let lat4326 = lat3857 / (X / 180);
+  //   const exponent = (Math.PI / 180) * lat4326;
+
+  //   lat4326 = Math.atan(Math.pow(e_value, exponent));
+  //   lat4326 = lat4326 / (Math.PI / 360); // Here is the fixed line
+  //   lat4326 = lat4326 - 90;
+
+  //   return [lat4326, long4326];
+  // }
   async fetchSuggestions(ev) {
-    this.props.update(ev.target.value);
-    console.log(this);
-    console.log(ev.target.value);
-    if (ev.target.value) {
-      // {
-      //     "title": "Земельные участки из ЕГРН",
-      //     "layerTreeId": 72,
-      //     "layerId": 36048,
-      //     "layerType": "wms",
-      //     "geometryType": "POLYGON",
-      //     "layerName": "Росреестр: Земельные участки ЕГРН",
-      //     "layerVisibleByDefault": False,
-      //     "categoryId": 36368,
-      // }
-      // base_url = (
-      //     "https://nspd.gov.ru" if not self._dns_resolve else "https://2.63.246.76"
-      // )
-      // return Client(
-      //     base_url=base_url,
-      //     timeout=self._timeout,
-      //     headers={
-      //         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:133.0) Gecko/20100101 Firefox/133.0",
-      //         "Referer": "https://nspd.gov.ru",
-      //         "Host": "nspd.gov.ru",
-      //     },
-      const params = {
-        query: ev.target.value,
-        layersId: 36048,
-      };
-      const url = "https://nspd.gov.ru/api/geoportal/v2/search/geoportal";
-      const response = await fetch(url, {
-        params: params,
-        headers: {
-          "User-Agent":
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:133.0) Gecko/20100101 Firefox/133.0",
-          Referer: "https://nspd.gov.ru",
-          Host: "nspd.gov.ru",
-        },
-      });
-      if (response.ok) {
-        const data = await response.json();
-        console.log(data);
-        // this.state.suggestions = data["hints"].map((item) => item["full_name"]); // Или другой нужный вам атрибут
-        // this.render();
-      } else {
-        console.error("Ошибка при получении адресов");
+    if (this.props.value) {
+      try {
+        this.state.cadastr = this.props.value;
+        const params = {
+          query: this.props.value,
+          // "Сооружения" 36328
+          // "Здания" 36049
+          layersId: 36049,
+          // "Земельные участки из ЕГРН" 36048
+          // layersId: 36048,
+        };
+        const urlParams = new URLSearchParams(params).toString();
+        const url = "https://nspd.gov.ru/api/geoportal/v2/search/geoportal?";
+        const response = await fetch(url + urlParams, {
+          headers: {
+            "User-Agent":
+              "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:133.0) Gecko/20100101 Firefox/133.0",
+            Referer: "https://nspd.gov.ru",
+            Host: "nspd.gov.ru",
+          },
+        });
+        if (response.ok) {
+          const data = await response.json();
+          console.log(data);
+          const address =
+            data["data"]["features"][0]["properties"]["options"][
+              "readable_address"
+            ];
+          // console.log(address);
+          // EPSG:3857
+          const coords = this.coordEPSG3857ToWGS84(
+            data["data"]["features"][0]["geometry"]["coordinates"][0][0],
+          );
+          // console.log(coords);
+          await this.props.record.update({
+            geo_address: address,
+            geo_latitude: coords[0],
+            geo_longitude: coords[1],
+          });
+        } else {
+          console.error("Ошибка при получении адресов");
+        }
+      } catch (error) {
+        console.error("Ошибка при получении адресов:", error);
+        this.notification.add(
+          "Ошибка при получении адресов ФИАС, попробуйте снова",
+          {
+            type: "danger",
+          },
+        );
       }
     } else {
       this.state.suggestions = [];
-      // this.render();
     }
   }
 
   selectSuggestion(event) {
     this.props.update(event.target.innerText);
     this.state.suggestions = [];
-    // this.render();
+  }
+}
+
+registry.category("fields").add("field_char_nspd", FieldCharNspd);
+
+export class NspdTextField extends TextField {
+  static template = xml`
+        <t t-call="web.TextField"/>
+        <div class="btn-group" role="group">
+            <button 
+                type="button" 
+                class="btn btn-primary btn-sm"
+                t-on-click="fetchSuggestions"
+                t-att-disabled="!props.value || this.state.cadastr == this.props.value">
+                <i class="fa fa-hand-o-up me-1"></i>
+                Получить адрес и координаты из НСПД
+            </button>
+        </div>
+        <ul t-if="state.suggestions.length">
+            <li class="fias-address-item" t-foreach="state.suggestions" t-as="suggestion" t-key="suggestion" t-on-click="selectSuggestion">
+                <span class="fias-address-item__text" t-esc="suggestion" />
+            </li>
+        </ul>
+    `;
+
+  setup() {
+    super.setup();
+    this.state = useState({
+      suggestions: [],
+    });
+    // this.onInput = debounce(this.fetchSuggestions.bind(this), 300);
+    this.rpc = useService("rpc");
+    this.notification = useService("notification");
+  }
+
+  coordEPSG3857ToWGS84(coord) {
+    const x = coord[0];
+    const y = coord[1];
+    const R = 6378137; // Радиус Земли в метрах
+    const lon = (x / R) * (180 / Math.PI);
+    const lat =
+      (2 * Math.atan(Math.exp(y / R)) - Math.PI / 2) * (180 / Math.PI);
+    return [lat, lon];
+  }
+
+  async fetchSuggestions(ev) {
+    if (this.props.value) {
+      try {
+        this.state.cadastr = this.props.value;
+        const params = {
+          query: this.props.value,
+          // "Сооружения" 36328
+          // "Здания" 36049
+          layersId: 36049,
+          // "Земельные участки из ЕГРН" 36048
+          // layersId: 36048,
+        };
+        const urlParams = new URLSearchParams(params).toString();
+        const url = "https://nspd.gov.ru/api/geoportal/v2/search/geoportal?";
+        const response = await fetch(url + urlParams, {
+          headers: {
+            "User-Agent":
+              "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:133.0) Gecko/20100101 Firefox/133.0",
+            Referer: "https://nspd.gov.ru",
+            Host: "nspd.gov.ru",
+          },
+        });
+        if (response.ok) {
+          const data = await response.json();
+          console.log(data);
+          const address =
+            data["data"]["features"][0]["properties"]["options"][
+              "readable_address"
+            ];
+          // console.log(address);
+          // EPSG:3857
+          const coords = this.coordEPSG3857ToWGS84(
+            data["data"]["features"][0]["geometry"]["coordinates"][0][0],
+          );
+          // console.log(coords);
+          await this.props.record.update({
+            geo_address: address,
+            geo_latitude: coords[0],
+            geo_longitude: coords[1],
+          });
+        } else {
+          console.error("Ошибка при получении адресов");
+        }
+      } catch (error) {
+        console.error("Ошибка при получении адресов:", error);
+        this.notification.add(
+          "Ошибка при получении адресов ФИАС, попробуйте снова",
+          {
+            type: "danger",
+          },
+        );
+      }
+    } else {
+      this.state.suggestions = [];
+    }
+  }
+
+  selectSuggestion(event) {
+    this.props.update(event.target.innerText);
+    this.state.suggestions = [];
   }
 }
 

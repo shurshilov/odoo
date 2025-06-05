@@ -37,10 +37,10 @@ class GeoMixin(models.AbstractModel):
         string="Адрес", help="Адрес соответствующий геокоординатам"
     )
 
-    # geo_sync = fields.Text(
-    #     string="Синхронизация адреса и координат",
-    #     help="Адрес и координаты соответствуют друг другу",
-    # )
+    geo_cadastr = fields.Char(
+        string="Кадастровый номер",
+        help="Пример 77:05:0006004:117",
+    )
 
     @api.depends("geo_latitude", "geo_longitude")
     def _compute_geo_coordinates(self):
