@@ -22,7 +22,7 @@ export class YandexMapsWidget extends FloatField {
 
     this.map = null;
     this.placemark = null;
-    this.api_key = "";
+    // this.api_key = "";
 
     onMounted(() => {
       this.loadYandexMapsAPI();
@@ -65,7 +65,7 @@ export class YandexMapsWidget extends FloatField {
     }
 
     try {
-      this.api_key = await this.rpc("/web/dataset/call_kw", {
+      window.yandex_api_key = await this.rpc("/web/dataset/call_kw", {
         model: "yandex.settings",
         method: "get_api_key",
         kwargs: {},
@@ -74,7 +74,7 @@ export class YandexMapsWidget extends FloatField {
       // Загружаем API Yandex Maps
       const script = document.createElement("script");
       script.type = "text/javascript";
-      script.src = `https://api-maps.yandex.ru/2.1/?apikey=${this.api_key}&lang=ru_RU`;
+      script.src = `https://api-maps.yandex.ru/2.1/?apikey=${window.yandex_api_key}&lang=ru_RU`;
       script.onload = () => {
         window.ymaps.ready(() => {
           this.state.isApiLoaded = true;
@@ -167,7 +167,7 @@ export class YandexMapsWidget extends FloatField {
         geo_address: "",
       };
 
-      if (!this.api_key)
+      if (!window.yandex_api_key)
         this.notification.add(
           "У вас не установлен api key Yandex Maps API, работа с адресом не доступна",
           {
@@ -209,7 +209,7 @@ export class YandexMapsWidget extends FloatField {
   }
 
   async setAddressLocation() {
-    if (!this.api_key)
+    if (!window.yandex_api_key)
       this.notification.add(
         "У вас не установлен api key Yandex Maps API, работа с адресом не доступна",
         {
@@ -256,7 +256,7 @@ export class YandexMapsWidget extends FloatField {
   }
 
   async resetToSavedLocation() {
-    if (!this.api_key) {
+    if (!window.yandex_api_key) {
       this.notification.add(
         "У вас не установлен api key Yandex Maps API, работа с адресом не доступна",
         {
