@@ -2,11 +2,10 @@
 
 import { registry } from "@web/core/registry";
 import { xml } from "@odoo/owl";
-import { debounce } from "@web/core/utils/timing";
 import { CharField } from "@web/views/fields/char/char_field";
 import { TextField } from "@web/views/fields/text/text_field";
 import { useService } from "@web/core/utils/hooks";
-const { onWillStart, onMounted, useState } = owl;
+const { onMounted, useState } = owl;
 
 export class FieldCharNspd extends CharField {
   static template = xml`
@@ -58,26 +57,7 @@ export class FieldCharNspd extends CharField {
       (2 * Math.atan(Math.exp(y / R)) - Math.PI / 2) * (180 / Math.PI);
     return [lat, lon];
   }
-  // coord3857To4326(coord) {
-  //   const e_value = 2.7182818284;
-  //   const X = 20037508.34;
 
-  //   const lat3857 = coord[0];
-  //   const long3857 = coord[1];
-
-  //   //converting the longitute from epsg 3857 to 4326
-  //   const long4326 = (long3857 * 180) / X;
-
-  //   //converting the latitude from epsg 3857 to 4326 split in multiple lines for readability
-  //   let lat4326 = lat3857 / (X / 180);
-  //   const exponent = (Math.PI / 180) * lat4326;
-
-  //   lat4326 = Math.atan(Math.pow(e_value, exponent));
-  //   lat4326 = lat4326 / (Math.PI / 360); // Here is the fixed line
-  //   lat4326 = lat4326 - 90;
-
-  //   return [lat4326, long4326];
-  // }
   async fetchSuggestions(ev) {
     if (this.props.value) {
       try {
@@ -119,12 +99,12 @@ export class FieldCharNspd extends CharField {
             geo_longitude: coords[1],
           });
         } else {
-          console.error("Ошибка при получении адресов");
+          throw "Ошибка при получении адресов";
         }
       } catch (error) {
-        console.error("Ошибка при получении адресов:", error);
+        console.error("Ошибка при получении адреса НСПД:", error);
         this.notification.add(
-          "Ошибка при получении адресов ФИАС, попробуйте снова",
+          "Ошибка при получении адреса НСПД, попробуйте снова",
           {
             type: "danger",
           },
@@ -224,12 +204,12 @@ export class NspdTextField extends TextField {
             geo_longitude: coords[1],
           });
         } else {
-          console.error("Ошибка при получении адресов");
+          throw "Ошибка при получении адресов";
         }
       } catch (error) {
-        console.error("Ошибка при получении адресов:", error);
+        console.error("Ошибка при получении адреса НСПД:", error);
         this.notification.add(
-          "Ошибка при получении адресов ФИАС, попробуйте снова",
+          "Ошибка при получении адреса НСПД, попробуйте снова",
           {
             type: "danger",
           },

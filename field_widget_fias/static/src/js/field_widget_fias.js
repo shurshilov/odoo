@@ -130,7 +130,13 @@ export class FiasTextField extends TextField {
       try {
         const url = `https://fias-public-service.nalog.ru/api/spas/v2.0/GetAddressHint?search_string=${ev.target.value}&address_type=2`;
         const response = await fetch(url, {
-          headers: { "master-token": window.fias_api_key },
+          headers: {
+            "master-token": window.fias_api_key,
+            "User-Agent":
+              "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:133.0) Gecko/20100101 Firefox/133.0",
+            Referer: "https://fias-public-service.nalog.ru",
+            Host: "fias-public-service.nalog.ru",
+          },
         });
         if (response.ok) {
           const data = await response.json();

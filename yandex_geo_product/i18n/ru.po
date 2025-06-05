@@ -1,0 +1,76 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* yandex_geo_product
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0-20230815\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-06-05 12:12+0000\n"
+"PO-Revision-Date: 2025-06-05 12:12+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: yandex_geo_product
+#: model:ir.model,name:yandex_geo_product.model_product_template
+msgid "Product"
+msgstr "Продукт"
+
+#. module: yandex_geo_product
+#: model_terms:ir.ui.view,arch_db:yandex_geo_product.product_template_form_inherit
+msgid "Yandex map"
+msgstr "Яндекс Карты"
+
+#. module: yandex_geo_product
+#: model:ir.model.fields,field_description:yandex_geo_product.field_product_template__geo_address
+msgid "Адрес"
+msgstr ""
+
+#. module: yandex_geo_product
+#: model:ir.model.fields,help:yandex_geo_product.field_product_template__geo_address
+msgid "Адрес соответствующий геокоординатам"
+msgstr ""
+
+#. module: yandex_geo_product
+#: model:ir.model.fields,help:yandex_geo_product.field_product_template__geo_longitude
+msgid "Географическая долгота в десятичных градусах"
+msgstr ""
+
+#. module: yandex_geo_product
+#: model:ir.model.fields,help:yandex_geo_product.field_product_template__geo_latitude
+msgid "Географическая широта в десятичных градусах"
+msgstr ""
+
+#. module: yandex_geo_product
+#: model:ir.model.fields,help:yandex_geo_product.field_product_template__geo_coordinates
+msgid "Географические координаты в формате \"широта, долгота\""
+msgstr ""
+
+#. module: yandex_geo_product
+#: model:ir.model.fields,field_description:yandex_geo_product.field_product_template__geo_longitude
+msgid "Долгота"
+msgstr ""
+
+#. module: yandex_geo_product
+#: model:ir.model.fields,field_description:yandex_geo_product.field_product_template__geo_cadastr
+msgid "Кадастровый номер"
+msgstr ""
+
+#. module: yandex_geo_product
+#: model:ir.model.fields,field_description:yandex_geo_product.field_product_template__geo_coordinates
+msgid "Координаты"
+msgstr ""
+
+#. module: yandex_geo_product
+#: model:ir.model.fields,help:yandex_geo_product.field_product_template__geo_cadastr
+msgid "Пример 77:05:0006004:117"
+msgstr ""
+
+#. module: yandex_geo_product
+#: model:ir.model.fields,field_description:yandex_geo_product.field_product_template__geo_latitude
+msgid "Широта"
+msgstr ""

@@ -18,5 +18,8 @@ class FiasSettings(models.AbstractModel):
         return (
             self.env["ir.config_parameter"]
             .sudo()
-            .get_param("field_widget_fias.api_key", "")
+            .get_param(
+                "field_widget_fias.api_key",
+                "bfa2407b-1dc4-4714-9346-b678408eb099",
+            )
         )
