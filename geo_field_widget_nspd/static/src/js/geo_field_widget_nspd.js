@@ -1,11 +1,10 @@
 /** @odoo-module **/
 
 import { registry } from "@web/core/registry";
-import { xml } from "@odoo/owl";
-import { CharField } from "@web/views/fields/char/char_field";
-import { TextField } from "@web/views/fields/text/text_field";
+import { CharField, charField } from "@web/views/fields/char/char_field";
+import { TextField, textField } from "@web/views/fields/text/text_field";
 import { useService } from "@web/core/utils/hooks";
-const { onMounted, useState } = owl;
+const { onMounted, useState, xml } = owl;
 
 export class FieldCharNspd extends CharField {
   static template = xml`
@@ -15,7 +14,7 @@ export class FieldCharNspd extends CharField {
                 type="button" 
                 class="btn btn-primary btn-sm"
                 t-on-click="fetchSuggestions"
-                t-att-disabled="!props.value || this.state.cadastr == this.props.value">
+                t-att-disabled="!props.record.data[this.props.name] || this.state.cadastr == props.record.data[this.props.name]">
                 <i class="fa fa-hand-o-up me-1"></i>
                 Получить адрес и координаты из НСПД
             </button>
@@ -27,15 +26,22 @@ export class FieldCharNspd extends CharField {
         </ul>
     `;
 
+  static props = {
+    ...CharField.props,
+    fieldNameAddress: { type: String, optional: true },
+    fieldNameLat: { type: String, optional: true },
+    fieldNameLng: { type: String, optional: true },
+  };
+
   setup() {
     super.setup();
     this.state = useState({
       suggestions: [],
-      cadastr: this.props.value || "",
+      cadastr: this.props.record.data[this.props.name] || "",
     });
     this.rpc = useService("rpc");
     this.notification = useService("notification");
-    onMounted(this.onMounted);
+    // onMounted(this.onMounted);
   }
 
   // async inputListener(ev) {
@@ -59,11 +65,11 @@ export class FieldCharNspd extends CharField {
   }
 
   async fetchSuggestions(ev) {
-    if (this.props.value) {
+    if (this.props.record.data[this.props.name]) {
       try {
-        this.state.cadastr = this.props.value;
+        this.state.cadastr = this.props.record.data[this.props.name];
         const params = {
-          query: this.props.value,
+          query: this.props.record.data[this.props.name],
           // "Сооружения" 36328
           // "Здания" 36049
           layersId: 36049,
@@ -97,7 +103,7 @@ export class FieldCharNspd extends CharField {
           values[this.props.fieldNameLng] = coords[1];
           await this.props.record.update(values);
         } else {
-          throw "Ошибка при получении адресов";
+          throw "Ошибка при обработке ответа НСПД";
         }
       } catch (error) {
         console.error("Ошибка при получении адреса НСПД:", error);
@@ -114,24 +120,28 @@ export class FieldCharNspd extends CharField {
   }
 
   selectSuggestion(event) {
-    this.props.update(event.target.innerText);
+    // this.props.update(event.target.innerText);
+    this.props.record.update({
+      [this.props.name]: event.target.innerText,
+    });
     this.state.suggestions = [];
   }
 }
-// добавить возможность установить любое поле
-FieldCharNspd.props = {
-  ...CharField.props,
-  fieldNameAddress: { type: String, optional: true },
-  fieldNameLat: { type: String, optional: true },
-  fieldNameLng: { type: String, optional: true },
+
+export const nspdCharField = {
+  ...charField,
+  component: FieldCharNspd,
+  extractProps({ options }) {
+    // добавить возможность установить любое поле
+    const props = charField.extractProps(...arguments);
+    props.fieldNameLat = options.field_name_lat || "geo_latitude";
+    props.fieldNameLng = options.field_name_lng || "geo_longitude";
+    props.fieldNameAddress = options.field_name_address || "geo_address";
+    return props;
+  },
 };
-FieldCharNspd.extractProps = ({ attrs, field }) => ({
-  ...CharField.extractProps({ attrs, field }),
-  fieldNameLat: attrs.options.field_name_lat || "geo_latitude",
-  fieldNameLng: attrs.options.field_name_lng || "geo_longitude",
-  fieldNameAddress: attrs.options.field_name_address || "geo_address",
-});
-registry.category("fields").add("field_char_nspd", FieldCharNspd);
+
+registry.category("fields").add("field_char_nspd", nspdCharField);
 
 // export class NspdTextField extends TextField {
 //   static template = xml`
@@ -141,7 +151,7 @@ registry.category("fields").add("field_char_nspd", FieldCharNspd);
 //                 type="button"
 //                 class="btn btn-primary btn-sm"
 //                 t-on-click="fetchSuggestions"
-//                 t-att-disabled="!props.value || this.state.cadastr == this.props.value">
+//                 t-att-disabled="!props.record.data[this.props.name] || this.state.cadastr == props.record.data[this.props.name]">
 //                 <i class="fa fa-hand-o-up me-1"></i>
 //                 Получить адрес и координаты из НСПД
 //             </button>
@@ -174,11 +184,11 @@ registry.category("fields").add("field_char_nspd", FieldCharNspd);
 //   }
 
 //   async fetchSuggestions(ev) {
-//     if (this.props.value) {
+//     if (this.props.record.data[this.props.name]) {
 //       try {
-//         this.state.cadastr = this.props.value;
+//         this.state.cadastr = this.props.record.data[this.props.name];
 //         const params = {
-//           query: this.props.value,
+//           query: this.props.record.data[this.props.name],
 //           // "Сооружения" 36328
 //           // "Здания" 36049
 //           layersId: 36049,
@@ -231,7 +241,10 @@ registry.category("fields").add("field_char_nspd", FieldCharNspd);
 //   }
 
 //   selectSuggestion(event) {
-//     this.props.update(event.target.innerText);
+////     this.props.update(event.target.innerText);
+// this.props.record.update({
+//   [this.props.name]: event.target.innerText,
+// });
 //     this.state.suggestions = [];
 //   }
 // }

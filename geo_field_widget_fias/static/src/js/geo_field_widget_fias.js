@@ -1,12 +1,11 @@
 /** @odoo-module **/
 
 import { registry } from "@web/core/registry";
-import { xml } from "@odoo/owl";
 import { debounce } from "@web/core/utils/timing";
-import { CharField } from "@web/views/fields/char/char_field";
-import { TextField } from "@web/views/fields/text/text_field";
+import { CharField, charField } from "@web/views/fields/char/char_field";
+import { TextField, textField } from "@web/views/fields/text/text_field";
 import { useService } from "@web/core/utils/hooks";
-const { onWillStart, useState } = owl;
+import { onWillStart, onMounted, useState, xml } from "@odoo/owl";
 
 class FieldCharFias extends CharField {
   static template = xml`
@@ -23,10 +22,10 @@ class FieldCharFias extends CharField {
     this.state = useState({
       suggestions: [],
     });
-    // this.onInput = debounce(this.fetchSuggestions.bind(this), 800);
     this.rpc = useService("rpc");
     this.notification = useService("notification");
     onWillStart(this.willStart);
+    onMounted(this.onMounted);
   }
 
   // вместо this.onInput в чар поле
@@ -83,14 +82,20 @@ class FieldCharFias extends CharField {
   }
 
   selectSuggestion(event) {
-    this.props.update(event.target.innerText);
+    this.props.record.update({
+      [this.props.name]: event.target.innerText,
+    });
     this.state.suggestions = [];
   }
 }
 
-registry.category("fields").add("field_char_fias", FieldCharFias);
+export const fiasCharField = {
+  ...charField,
+  component: FieldCharFias,
+};
+registry.category("fields").add("field_char_fias", fiasCharField);
 
-export class FiasTextField extends TextField {
+class FiasTextField extends TextField {
   static template = xml`
         <t t-call="web.TextField"/>
         <ul t-if="state.suggestions.length">
@@ -105,10 +110,26 @@ export class FiasTextField extends TextField {
     this.state = useState({
       suggestions: [],
     });
-    this.onInput = debounce(this.fetchSuggestions.bind(this), 800);
+    // this.onInput = debounce(this.fetchSuggestions.bind(this), 800);
     this.rpc = useService("rpc");
     this.notification = useService("notification");
     onWillStart(this.willStart);
+    onMounted(this.onMounted);
+  }
+
+  // вместо this.onInput в чар поле
+  async inputListener(ev) {
+    if (ev.target === this.textareaRef.el) {
+      const debounce_fetch = debounce(this.fetchSuggestions.bind(this), 800);
+      await debounce_fetch(ev);
+    }
+  }
+
+  onMounted() {
+    this.textareaRef.el.addEventListener(
+      "input",
+      this.inputListener.bind(this),
+    );
   }
 
   // Lifecycle
@@ -122,10 +143,8 @@ export class FiasTextField extends TextField {
       });
     }
   }
-
   async fetchSuggestions(ev) {
     // запрос подсказок из сервиса ФИАС
-    this.props.update(ev.target.value);
     if (ev.target.value && window.fias_api_key) {
       try {
         const url = `https://fias-public-service.nalog.ru/api/spas/v2.0/GetAddressHint?search_string=${ev.target.value}&address_type=2`;
@@ -163,9 +182,15 @@ export class FiasTextField extends TextField {
   }
 
   selectSuggestion(event) {
-    this.props.update(event.target.innerText);
+    this.props.record.update({
+      [this.props.name]: event.target.innerText,
+    });
     this.state.suggestions = [];
   }
 }
 
-registry.category("fields").add("field_text_fias", FiasTextField);
+export const fiasTextField = {
+  ...textField,
+  component: FiasTextField,
+};
+registry.category("fields").add("field_text_fias", fiasTextField);

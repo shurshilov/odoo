@@ -3,9 +3,18 @@
 import { registry } from "@web/core/registry";
 import { onMounted, onWillUnmount, useRef, useState } from "@odoo/owl";
 import { useService } from "@web/core/utils/hooks";
-import { FloatField } from "@web/views/fields/float/float_field";
+import { FloatField, floatField } from "@web/views/fields/float/float_field";
 
 export class YandexMapsWidget extends FloatField {
+  static template = "yandex_maps_widget.YandexMapsWidget";
+  static props = {
+    ...FloatField.props,
+    fieldNameLat: { type: String, optional: true },
+    fieldNameLng: { type: String, optional: true },
+    fieldNameAddress: { type: String, optional: true },
+    height: { type: String, optional: true },
+  };
+
   setup() {
     super.setup();
     this.rpc = useService("rpc");
@@ -126,6 +135,7 @@ export class YandexMapsWidget extends FloatField {
         const coords = e.get("target").geometry.getCoordinates();
         this.state.currentLat = parseFloat(coords[0].toFixed(12));
         this.state.currentLng = parseFloat(coords[1].toFixed(12));
+        this.state.currentAddress = "";
         this.updatePlacemarkBalloon();
       });
 
@@ -134,6 +144,7 @@ export class YandexMapsWidget extends FloatField {
         const coords = e.get("coords");
         this.state.currentLat = parseFloat(coords[0].toFixed(12));
         this.state.currentLng = parseFloat(coords[1].toFixed(12));
+        this.state.currentAddress = "";
         this.placemark.geometry.setCoordinates(coords);
         this.updatePlacemarkBalloon();
       });
@@ -325,24 +336,17 @@ export class YandexMapsWidget extends FloatField {
   }
 }
 
-YandexMapsWidget.template = "yandex_maps_widget.YandexMapsWidget";
-YandexMapsWidget.props = {
-  ...FloatField.props,
-  fieldNameLat: { type: String, optional: true },
-  fieldNameLng: { type: String, optional: true },
-  fieldNameAddress: { type: String, optional: true },
-  height: { type: String, optional: true },
+export const yandexMapsWidget = {
+  ...floatField,
+  component: YandexMapsWidget,
+  extractProps({ options }) {
+    // добавить возможность установить любое поле
+    const props = floatField.extractProps(...arguments);
+    props.fieldNameLat = options.field_name_lat || "geo_latitude";
+    props.fieldNameLng = options.field_name_lng || "geo_longitude";
+    props.fieldNameAddress = options.field_name_address || "geo_address";
+    return props;
+  },
 };
-YandexMapsWidget.extractProps = ({ attrs, field }) => ({
-  // по умолчанию предполагается что испльзуется geo_mixin
-  ...FloatField.extractProps({ attrs, field }),
-  fieldNameLat: attrs.options.field_name_lat || "geo_latitude",
-  fieldNameLng: attrs.options.field_name_lng || "geo_longitude",
-  fieldNameAddress: attrs.options.field_name_address || "geo_address",
-  // coordinatesLastUpdated:
-  //   attrs.options.coordinates_last_updated || "geo_coordinates_last_updated",
-  // addressLastUpdated:
-  //   attrs.options.address_last_updated || "geo_address_last_updated",
-});
 
-registry.category("fields").add("field_float_yandex_map", YandexMapsWidget);
+registry.category("fields").add("field_float_yandex_map", yandexMapsWidget);
