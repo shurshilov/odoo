@@ -38,7 +38,7 @@ repos:
       - id: requirements-txt-fixer
       - id: check-symlinks
         name: Checks for symlinks which do not point to anything.
-      # - id: check-xml
+      - id: check-xml
       - id: end-of-file-fixer
         files: \.py$
       - id: trailing-whitespace

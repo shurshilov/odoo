@@ -126,6 +126,7 @@ export class YandexMapsWidget extends FloatField {
         const coords = e.get("target").geometry.getCoordinates();
         this.state.currentLat = parseFloat(coords[0].toFixed(12));
         this.state.currentLng = parseFloat(coords[1].toFixed(12));
+        this.state.currentAddress = "";
         this.updatePlacemarkBalloon();
       });
 
@@ -134,6 +135,7 @@ export class YandexMapsWidget extends FloatField {
         const coords = e.get("coords");
         this.state.currentLat = parseFloat(coords[0].toFixed(12));
         this.state.currentLng = parseFloat(coords[1].toFixed(12));
+        this.state.currentAddress = "";
         this.placemark.geometry.setCoordinates(coords);
         this.updatePlacemarkBalloon();
       });
