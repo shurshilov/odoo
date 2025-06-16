@@ -9,15 +9,19 @@ class GeoMixin(models.AbstractModel):
     _name = "geo.mixin"
     _description = "Геокоординаты Mixin"
 
+    # in_latitude = fields.Float(string="Latitude", digits=(10, 7), readonly=True, aggregator=None)
+    # in_longitude = fields.Float(string="Longitude", digits=(10, 7), readonly=True, aggregator=None)
     # Поля для хранения координат
     geo_latitude = fields.Float(
         string="Широта",
         digits=(15, 12),
+        aggregator=None,
         help="Географическая широта в десятичных градусах",
     )
     geo_longitude = fields.Float(
         string="Долгота",
         digits=(15, 12),
+        aggregator=None,
         help="Географическая долгота в десятичных градусах",
     )
 
