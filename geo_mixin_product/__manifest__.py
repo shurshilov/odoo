@@ -1,0 +1,21 @@
+{
+    "name": "Geo Coordinates Yandex, NSPD, FIAS Widget for product",
+    "version": "17.0.1.0.1",
+    "depends": [
+        "web",
+        "product",
+        "geo_mixin",
+        # "geo_field_widget_yandex",
+        "geo_field_widget_fias",
+        # "geo_field_widget_nspd",
+    ],
+    "author": "EURO ODOO, Shurshilov Artem",
+    "maintainer": "EURO ODOO",
+    "website": "https://eurodoo.com",
+    "category": "Tools",
+    "description": "Adds a Yandex Map, NSPD, FIAS widget to select and save geo coordinates",
+    "data": ["views/product_view.xml"],
+    "installable": True,
+    "application": False,
+    "auto_install": False,
+}

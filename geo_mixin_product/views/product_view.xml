@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="product_template_form_inherit" model="ir.ui.view">
+            <field name="name">product.template.view.form</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <page name="inventory" position="after">
+                    <page string="Yandex map" name="yandex_map">
+                        <group>
+                        <field name="geo_cadastr" widget="field_char_nspd"/>
+                        <field name="geo_address" widget="field_text_fias"/>
+                        <field name="geo_latitude"/>
+                        <field name="geo_longitude" widget="field_float_yandex_map"/>
+                        </group>
+                    </page>
+                </page>
+            </field>
+        </record>
+
+    </data>
+</odoo>

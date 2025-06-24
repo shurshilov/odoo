@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates xml:space="preserve">
+    <t t-name="yandex_maps_widget.YandexMapsWidget" owl="1">
+        <t t-call="web.FloatField"/>
+        <div class="yandex_maps_widget" style="display:flex;flex-direction:column;">
+            <div class="yandex_maps_controls mb-3">
+                <!-- <t t-if="!geo_coords_is_set || !geo_address_is_set">
+                    <div class="text-warning">
+                        <i class="fa fa-warning"></i> Адрес и координаты не соответствуют друг другу
+                    </div>
+                </t> -->
+                <div class="btn-group" role="group">
+                    <button 
+                        type="button" 
+                        class="btn btn-primary btn-sm"
+                        t-on-click="saveCoordinates"
+                        t-att-disabled="!state.isMapLoaded || (!geo_coords_changed and !geo_address_changed)">
+                        <i class="fa fa-hand-o-up me-1"></i>
+                        Сохранить данные из карты
+                    </button>
+                    <button 
+                        type="button" 
+                        class="btn btn-secondary btn-sm"
+                        t-on-click="resetToSavedLocation"
+                        t-att-disabled="!state.isMapLoaded || !geo_coords_changed">
+                        <i class="fa fa-hand-o-down me-1"></i>
+                        Установить координаты на карте
+                    </button>
+                    <button 
+                        type="button" 
+                        class="btn btn-secondary btn-sm"
+                        t-on-click="setAddressLocation"
+                        t-att-disabled="!state.isMapLoaded || !geo_address_changed">
+                        <i class="fa fa-hand-o-down me-1"></i>
+                        Установить адрес на карте
+                    </button>
+                    <button 
+                        type="button" 
+                        class="btn btn-secondary btn-sm"
+                        t-on-click="resetToMyLocation"
+                        t-att-disabled="!state.isMapLoaded">
+                        <i class="fa fa-location-arrow me-1"></i>
+                        Моё местоположение
+                    </button>
+                </div>
+                <!-- <div class="coordinates_display ms-3">
+                    <small class="text-muted">
+                        <strong>Текущие координаты:</strong>
+                        <span t-esc="state.currentLat.toFixed(6)"></span>, 
+                        <span t-esc="state.currentLng.toFixed(6)"></span>
+                    </small>
+                </div> -->
+            </div>
+            
+            <div class="yandex_maps_container">
+                <div 
+                    t-ref="mapContainer" 
+                    class="yandex_map"
+                    t-att-style="'height: ' + mapHeight + '; width: 100%;'">
+                </div>
+                
+                <div t-if="!state.isMapLoaded" class="yandex_maps_loading">
+                    <div class="d-flex justify-content-center align-items-center h-100">
+                        <div class="text-center">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Загрузка карты...</span>
+                            </div>
+                            <p class="mt-2 text-muted">Загрузка карты...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="yandex_maps_help mt-2">
+                <small class="text-muted">
+                    <i class="fa fa-info-circle me-1"></i>
+                    Кликните по карте или перетащите метку для изменения координат. 
+                    Не забудьте сохранить изменения.
+                </small>
+            </div>
+        </div>
+    </t>
+</templates>
