@@ -74,7 +74,7 @@ class mta_partner_contract(models.Model):
                 "order_line": [line.read()[0] for line in self.lines],
                 # CUSTOMER
                 "partner_name": self.partner_id.name,
-                "partner_inn": self.partner_id.inn,
+                "partner_inn": self.partner_id.vat,
                 "partner_kpp": self.partner_id.kpp,
                 "partner_ogrn": self.partner_id.ogrn,
                 "partner_okpo": self.partner_id.okpo,
@@ -98,14 +98,18 @@ class mta_partner_contract(models.Model):
                 # COMPANY
                 "contract_company_name": self.company_id.partner_id.name,
                 "contract_name": self.name,
-                "c_inn": self.company_id.partner_id.inn,
+                "c_inn": self.company_id.partner_id.vat,
                 "c_kpp": self.company_id.partner_id.kpp or "",
-                "c_ogrn": self.company_id.partner_id.ogrn
-                if self.company_id.partner_id.ogrn
-                else "",
-                "c_okpo": self.company_id.partner_id.okpo
-                if self.company_id.partner_id.okpo
-                else "",
+                "c_ogrn": (
+                    self.company_id.partner_id.ogrn
+                    if self.company_id.partner_id.ogrn
+                    else ""
+                ),
+                "c_okpo": (
+                    self.company_id.partner_id.okpo
+                    if self.company_id.partner_id.okpo
+                    else ""
+                ),
                 "c_address": self.format_partner(self.company_id.partner_id),
                 "c_bank_bic": company_bank.bank_bic or "",
                 "c_acc_number": company_bank.acc_number or "",
@@ -125,17 +129,19 @@ class mta_partner_contract(models.Model):
                 )[0].name,
                 # IMAGES
                 # 1.jpg, 2.jpg, 3.jpg, 4.jpg, 5.jpg, 6.jpg, 7.jpg. 1,2.jpg = печать. 3,4,5,6,7.jpg = подпись. Печать и подпись берутся динамически из полей.
-                "images": [
-                    self.company_id.stamp,
-                    self.company_id.stamp,
-                    self.company_id.chief_id.facsimile,
-                    self.company_id.chief_id.facsimile,
-                    self.company_id.chief_id.facsimile,
-                    self.company_id.chief_id.facsimile,
-                    self.company_id.chief_id.facsimile,
-                ]
-                if self.stamp
-                else [False, False, False, False, False, False, False],
+                "images": (
+                    [
+                        self.company_id.stamp,
+                        self.company_id.stamp,
+                        self.company_id.chief_id.facsimile,
+                        self.company_id.chief_id.facsimile,
+                        self.company_id.chief_id.facsimile,
+                        self.company_id.chief_id.facsimile,
+                        self.company_id.chief_id.facsimile,
+                    ]
+                    if self.stamp
+                    else [False, False, False, False, False, False, False]
+                ),
             }
         except Exception as e:
             raise exceptions.UserError(str(e))

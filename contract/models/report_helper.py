@@ -67,8 +67,8 @@ class Helper:
         repr = []
         if partner.name:
             repr.append(partner.name)
-        if partner.inn:
-            repr.append("ИНН " + partner.inn)
+        if partner.vat:
+            repr.append("ИНН " + partner.vat)
         if partner.kpp:
             repr.append("КПП " + partner.kpp)
         repr.append(self.address(partner))
