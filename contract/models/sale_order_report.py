@@ -76,7 +76,7 @@ class SaleOrder(models.Model):
             and self.company_id.partner_id.bank_ids[0].acc_number
             or "",
             # ИНН
-            "inn": self.company_id.inn or "",
+            "inn": self.company_id.vat or "",
             # RRGG
             "kpp": self.company_id.kpp or "",
             # К/ Счёт №
@@ -197,7 +197,7 @@ class SaleOrder(models.Model):
             ),
             # CUSTOMER
             "partner_name": self.mt_contractid.partner_id.name,
-            "partner_inn": self.mt_contractid.partner_id.inn,
+            "partner_inn": self.mt_contractid.partner_id.vat,
             "partner_kpp": self.mt_contractid.partner_id.kpp,
             "partner_ogrn": self.mt_contractid.partner_id.ogrn,
             "partner_okpo": self.mt_contractid.partner_id.okpo,
@@ -222,15 +222,19 @@ class SaleOrder(models.Model):
             # COMPANY
             "contract_company_name": self.mt_contractid.company_id.partner_id.name,
             "c_name": self.mt_contractid.company_id.partner_id.name,
-            "c_inn": self.mt_contractid.company_id.partner_id.inn,
+            "c_inn": self.mt_contractid.company_id.partner_id.vat,
             "c_kpp": self.mt_contractid.company_id.partner_id.kpp or "",
             # не печатаем False для ИП, так как у ИП нет ОГРН и ОКПО
-            "c_ogrn": self.mt_contractid.company_id.partner_id.ogrn
-            if self.mt_contractid.company_id.partner_id.ogrn
-            else "",
-            "c_okpo": self.mt_contractid.company_id.partner_id.okpo
-            if self.mt_contractid.company_id.partner_id.okpo
-            else "",
+            "c_ogrn": (
+                self.mt_contractid.company_id.partner_id.ogrn
+                if self.mt_contractid.company_id.partner_id.ogrn
+                else ""
+            ),
+            "c_okpo": (
+                self.mt_contractid.company_id.partner_id.okpo
+                if self.mt_contractid.company_id.partner_id.okpo
+                else ""
+            ),
             "c_address": self.format_partner(
                 self.mt_contractid.company_id.partner_id
             ),
@@ -251,15 +255,17 @@ class SaleOrder(models.Model):
             )[0].name,
             # IMAGES
             # 1.jpg, 2.jpg, 3.jpg, 4.jpg, 5.jpg, 6.jpg, 7.jpg. 1,2.jpg = печать. 3,4,5,6,7.jpg = подпись. Печать и подпись берутся динамически из полей.
-            "images": [
-                self.mt_contractid.company_id.stamp,
-                self.mt_contractid.company_id.stamp,
-                self.mt_contractid.company_id.chief_id.facsimile,
-                self.mt_contractid.company_id.chief_id.facsimile,
-                self.mt_contractid.company_id.chief_id.facsimile,
-                self.mt_contractid.company_id.chief_id.facsimile,
-                self.mt_contractid.company_id.chief_id.facsimile,
-            ]
-            if self.mt_contractid.stamp
-            else [False, False, False, False, False, False, False],
+            "images": (
+                [
+                    self.mt_contractid.company_id.stamp,
+                    self.mt_contractid.company_id.stamp,
+                    self.mt_contractid.company_id.chief_id.facsimile,
+                    self.mt_contractid.company_id.chief_id.facsimile,
+                    self.mt_contractid.company_id.chief_id.facsimile,
+                    self.mt_contractid.company_id.chief_id.facsimile,
+                    self.mt_contractid.company_id.chief_id.facsimile,
+                ]
+                if self.mt_contractid.stamp
+                else [False, False, False, False, False, False, False]
+            ),
         }

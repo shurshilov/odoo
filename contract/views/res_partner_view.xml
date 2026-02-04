@@ -7,17 +7,17 @@
             <field name="inherit_id" ref="base.view_partner_form"/>
             <field name="arch" type="xml">
                 <field name="function" position="after">
-                    <field name="inn"
-                invisible="is_company == False"/>
+                    <!-- <field name="inn"
+                invisible="is_company == False"/> -->
                     <field name="kpp"
                 invisible="is_company == False"/>
                     <field name="okpo"
                 invisible="is_company == False"/>
             </field>
                 <!-- скрыть инн из ядра оду он называется vat -->
-                <xpath expr="//field[@name='vat']" position="attributes">
+                <!-- <xpath expr="//field[@name='vat']" position="attributes">
                     <attribute name="invisible">1</attribute>
-                </xpath>
+                </xpath> -->
                 <xpath expr="//field[@name='website']" position="before">
                     <field name="ogrn"
                 invisible="company_type == 'person'"/>

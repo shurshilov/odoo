@@ -4,6 +4,7 @@ from odoo import fields, models
 class ResPartner(models.Model):
     _inherit = "res.partner"
 
+    # TODO: убрать использовать vat из ядра оду
     inn = fields.Char("INN", size=12)
     kpp = fields.Char("KPP", size=9)
     okpo = fields.Char("OKPO", size=14)
